@@ -1,19 +1,43 @@
-node_modules/
-dist/
-tmp/
-out-tsc/
-coverage/
-.angular/
-.nx/
-*.log
-npm-debug.log*
+# Angular CLI
+/dist
+/tmp
+/out-tsc
+/bazel-out
+/.angular/cache
+.sass-cache/
+
+# Node
+/node_modules
+npm-debug.log
+yarn-error.log
+
+# Test and scan output
+/coverage
+/karma-results
+/audit-report.json
+/e2e/reports
+/.scannerwork
+/checkmarx-results
+
+# IDEs and editors
+.idea/
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
+!.history/manifest.json
+
+# Local runtime config. env.json is the committed local default; env.local.json is per-developer.
+/src/assets/config/env.local.json
+
+# System files
 .DS_Store
 Thumbs.db
-.idea/
-.vscode/*
-!.vscode/extensions.json
-.env
-.env.*
-!.env.example
-.cx-reports/
-.scannerwork/
