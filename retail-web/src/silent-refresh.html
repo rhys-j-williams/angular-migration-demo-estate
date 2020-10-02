@@ -1,0 +1,15 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Meridian Online - session refresh</title>
+</head>
+<body>
+  <!--
+    angular-oauth2-oidc silent refresh target. Keystone posts the new tokens back to the parent
+    window through this frame. Do not add anything else to this file; Keystone's frame-ancestors
+    policy only allows it because it is empty (KEY-1188).
+  -->
+  <script src="assets/vendor/silent-refresh.js"></script>
+</body>
+</html>
