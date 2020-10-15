@@ -1,0 +1,20 @@
+{
+  "/api": {
+    "target": "http://localhost:4500",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "warn"
+  },
+  "/flags": {
+    "target": "http://localhost:4608",
+    "secure": false,
+    "pathRewrite": { "^/flags": "/api/v1" },
+    "logLevel": "warn"
+  },
+  "/telemetry": {
+    "target": "http://localhost:4606",
+    "secure": false,
+    "pathRewrite": { "^/telemetry": "/services/collector" },
+    "logLevel": "warn"
+  }
+}
