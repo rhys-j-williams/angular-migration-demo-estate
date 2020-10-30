@@ -1,0 +1,12 @@
+<cn-card title="Your accounts" i18n-title="@@dashboard.accountsSummary.title" [padded]="true" class="mol-widget">
+  <a cnCardAction *ngIf="link" [routerLink]="link" class="mol-widget__link" i18n="@@dashboard.accountsSummary.viewAll">All accounts</a>
+  <ng-container *ngIf="loading$ | async; else content">
+    <mol-loading-panel [rows]="3"></mol-loading-panel>
+  </ng-container>
+  <ng-template #content>
+    <cn-list *ngIf="(items$ | async)?.length; else empty" [items]="(items$ | async) ?? []" [dense]="true" [interactive]="!!link" (itemSelect)="open($event)"></cn-list>
+  </ng-template>
+  <ng-template #empty>
+    <mol-empty-state [icon]="null" title="No accounts to show" i18n-title="@@dashboard.accountsSummary.empty"></mol-empty-state>
+  </ng-template>
+</cn-card>
