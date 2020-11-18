@@ -1,0 +1,15 @@
+<ng-container *ngIf="pending$ | async as rows">
+  <mol-page-section *ngIf="rows.length" title="Pending" i18n-title="@@accounts.pending.title" [lede]="'Holds and authorisations that have not posted yet. ' + (total(rows) | minorAmount:'USD':true) + ' in total.'">
+    <ul class="mol-pending">
+      <li *ngFor="let t of visible(rows)" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="12px">
+        <span fxFlex>{{ t.merchantName || t.description }}</span>
+        <span class="mol-muted">{{ t.postedAt | relativeDate }}</span>
+        <span>{{ t.amountMinor | minorAmount:'USD':true }}</span>
+      </li>
+    </ul>
+    <cn-button *ngIf="rows.length > 3" variant="tertiary" size="small" (pressed)="showAll = !showAll">
+      <ng-container *ngIf="showAll; else more" i18n="@@accounts.pending.less">Show fewer</ng-container>
+      <ng-template #more><span i18n="@@accounts.pending.more">Show all {{ rows.length }}</span></ng-template>
+    </cn-button>
+  </mol-page-section>
+</ng-container>
