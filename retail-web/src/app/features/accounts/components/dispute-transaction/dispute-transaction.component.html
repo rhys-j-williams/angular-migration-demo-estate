@@ -1,0 +1,22 @@
+<cn-page-header title="Dispute a transaction" i18n-title="@@accounts.disputeTransaction.title" lede="We will credit your account while we investigate, usually within 2 business days." i18n-lede="@@accounts.disputeTransaction.lede" [backLink]="'/accounts'"></cn-page-header>
+
+<form class="mol-page mol-form" [formGroup]="form" (ngSubmit)="submit()" novalidate fxLayout="column" fxLayoutGap="16px">
+  <cn-error-summary [form]="form" *ngIf="submitted && form.invalid"></cn-error-summary>
+  <mol-error-banner [error]="error" [showRetry]="false"></mol-error-banner>
+
+  <cn-card [padded]="true">
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="16px">
+      <cn-select formControlName="reason" i18n-label="@@accounts.dispute.reason" label="Reason" [options]="reasonOptions" [required]="true" fxFlex></cn-select>
+      <mat-form-field appearance="outline" fxFlex="100">
+        <mat-label i18n="@@accounts.dispute.detail">Tell us what happened</mat-label>
+        <textarea matInput formControlName="detail" rows="4" maxlength="1000"></textarea>
+        <mat-hint align="end">{{ form.get('detail')?.value?.length || 0 }}/1000</mat-hint>
+      </mat-form-field>
+    </div>
+  </cn-card>
+
+  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="8px" fxLayoutAlign="end">
+    <cn-button variant="tertiary" type="button" (pressed)="cancel()" i18n="@@action.cancel">Cancel</cn-button>
+    <cn-button variant="primary" type="submit" [loading]="saving" i18n="@@accounts.disputeTransaction.submit">Submit dispute</cn-button>
+  </div>
+</form>
