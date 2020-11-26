@@ -1,0 +1,8 @@
+<cn-dialog-shell title="Download transactions" i18n-title="@@accounts.exportTransactions.title" [busy]="busy" [destructive]="false">
+  <p i18n="@@accounts.exportTransactions.body">Downloads the transactions matching your current filters as a CSV file. Files open in most spreadsheet software.</p>
+  <mol-error-banner [error]="error" [showRetry]="false"></mol-error-banner>
+  <div cnDialogActions fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="end">
+    <cn-button variant="tertiary" (pressed)="ref.close(false)" i18n="@@action.cancel">Cancel</cn-button>
+    <cn-button variant="primary" [loading]="busy" (pressed)="confirm()" i18n="@@accounts.exportTransactions.confirm">Download CSV</cn-button>
+  </div>
+</cn-dialog-shell>
