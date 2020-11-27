@@ -1,0 +1,19 @@
+<cn-page-header title="Accounts" i18n-title="@@accounts.accountList.title" lede="Balances refresh each time you open this page." i18n-lede="@@accounts.accountList.lede"></cn-page-header>
+
+<div class="mol-page" fxLayout="column" fxLayoutGap="16px">
+  <mol-error-banner [error]="error$ | async" (retry)="reload()"></mol-error-banner>
+
+  <mol-page-section title="Deposit and credit accounts" i18n-title="@@accounts.accountList.section">
+    <ng-container *ngIf="loading$ | async; else table">
+      <mol-loading-panel [rows]="6"></mol-loading-panel>
+    </ng-container>
+    <ng-template #table>
+      <cn-data-table *ngIf="(rows$ | async)?.length; else empty" [columns]="columns" [rows]="(rows$ | async) ?? []"
+        caption="Accounts" i18n-caption="@@accounts.accountList.caption" [pageSize]="25" [showPaginator]="true" (rowClick)="open($event)"></cn-data-table>
+    </ng-template>
+    <ng-template #empty>
+      <mol-empty-state icon="account_balance" title="You have no accounts with us yet" i18n-title="@@accounts.accountList.empty"
+        body="" i18n-body="@@accounts.accountList.emptyBody"></mol-empty-state>
+    </ng-template>
+  </mol-page-section>
+</div>
