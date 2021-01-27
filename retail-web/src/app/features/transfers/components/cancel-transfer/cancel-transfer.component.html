@@ -1,0 +1,8 @@
+<cn-dialog-shell title="Cancel this transfer?" i18n-title="@@transfers.cancelTransfer.title" [busy]="busy" [destructive]="true">
+  <p i18n="@@transfers.cancelTransfer.body">The transfer will not be sent. If it is part of a recurring series, only this occurrence is cancelled.</p>
+  <mol-error-banner [error]="error" [showRetry]="false"></mol-error-banner>
+  <div cnDialogActions fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="end">
+    <cn-button variant="tertiary" (pressed)="ref.close(false)" i18n="@@action.cancel">Cancel</cn-button>
+    <cn-button variant="destructive" [loading]="busy" (pressed)="confirm()" i18n="@@transfers.cancelTransfer.confirm">Cancel transfer</cn-button>
+  </div>
+</cn-dialog-shell>
