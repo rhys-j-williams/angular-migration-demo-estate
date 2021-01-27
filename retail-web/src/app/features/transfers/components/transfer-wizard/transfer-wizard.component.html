@@ -1,0 +1,12 @@
+<cn-page-header title="New transfer" i18n-title="@@transfers.wizard.title" backLink="/transfers" backLabel="Transfers" i18n-backLabel="@@transfers.back"></cn-page-header>
+
+<div class="mol-page mol-wizard">
+  <cn-stepper-shell [linear]="true" continueLabel="Continue" backLabel="Back" finishLabel="Review" (stepChange)="onStepChange($event)" (completed)="review()" (cancelled)="cancel()">
+    <ng-template cnStep label="Details" i18n-label="@@transfers.wizard.step1" [control]="details?.form ?? null">
+      <mol-transfer-details-step [accounts]="accounts" [limits]="limits"></mol-transfer-details-step>
+    </ng-template>
+    <ng-template cnStep label="Schedule" i18n-label="@@transfers.wizard.step2" [control]="schedule?.form ?? null">
+      <mol-transfer-schedule-step [limits]="limits"></mol-transfer-schedule-step>
+    </ng-template>
+  </cn-stepper-shell>
+</div>
