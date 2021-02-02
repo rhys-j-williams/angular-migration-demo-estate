@@ -1,0 +1,28 @@
+<cn-page-header title="External accounts and people" i18n-title="@@transfers.payees.title" lede="Accounts at other banks and PayLink contacts you can send money to." i18n-lede="@@transfers.payees.lede" backLink="/transfers" backLabel="Transfers"></cn-page-header>
+
+<div class="mol-page" fxLayout="column" fxLayoutGap="16px">
+  <mol-error-banner [error]="error" [showRetry]="false"></mol-error-banner>
+  <div fxLayout="row" fxLayoutAlign="end">
+    <cn-button variant="primary" icon="add" routerLink="new" i18n="@@transfers.payees.add">Add an external account</cn-button>
+  </div>
+
+  <ng-container *ngIf="payees$ | async as payees; else loading">
+    <ul class="mol-payees" *ngIf="payees.length; else empty">
+      <li *ngFor="let p of payees; trackBy: trackById" fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="space-between center" fxLayoutAlign.lt-md="start stretch" fxLayoutGap="12px">
+        <div fxFlex fxLayout="column">
+          <strong>{{ p.nickname || p.name }}</strong>
+          <span class="mol-muted">{{ typeLabel(p.type) }} &middot; {{ p.name }} &middot; <mol-masked-number [last4]="p.accountNumberLastFour"></mol-masked-number></span>
+        </div>
+        <cn-badge [tone]="p.verified ? 'success' : 'caution'">{{ p.verified ? 'Verified' : 'Verification pending' }}</cn-badge>
+        <div fxLayout="row" fxLayoutGap="4px">
+          <cn-button *ngIf="!p.verified" variant="secondary" size="small" (pressed)="verify(p)" i18n="@@transfers.payees.verify">Enter deposits</cn-button>
+          <cn-icon-button icon="delete" ariaLabel="Remove" (pressed)="remove(p)"></cn-icon-button>
+        </div>
+      </li>
+    </ul>
+  </ng-container>
+  <ng-template #loading><mol-loading-panel [rows]="3"></mol-loading-panel></ng-template>
+  <ng-template #empty>
+    <mol-empty-state icon="people_outline" title="No external accounts yet" i18n-title="@@transfers.payees.empty" body="Add an account at another bank to move money in or out. Verification takes one to two business days." i18n-body="@@transfers.payees.emptyBody"></mol-empty-state>
+  </ng-template>
+</div>
