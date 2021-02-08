@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Sign in - Meridian Trust Bank</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!--
+    CSP is set by the edge (nginx.conf, helm/values.yaml) in every real environment. This meta copy
+    exists so `ng serve` and the Cypress runs get the same policy and nobody ships an inline handler
+    that only fails in UAT (KEY-1733, GIS-1802). Keep the two in sync; scripts/check-csp.js diffs them.
+    No 'unsafe-inline' anywhere. Material and Canopy styles are extracted to styles.css so style-src
+    'self' is enough. If something needs a nonce, talk to GIS AppSec first.
+  -->
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self' http://localhost:4400 http://localhost:4515; frame-ancestors 'none'; form-action 'self' http://localhost:4400; base-uri 'self'; object-src 'none'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/svg+xml" href="assets/img/keystone-mark.svg">
+</head>
+<body class="ks-body mat-typography">
+  <ks-root>
+    <noscript>Sign in needs JavaScript enabled. Call the number on the back of your card if you cannot enable it.</noscript>
+  </ks-root>
+</body>
+</html>
