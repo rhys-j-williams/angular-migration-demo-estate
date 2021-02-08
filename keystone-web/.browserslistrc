@@ -1,0 +1,9 @@
+# Keystone supports what the bank's device analytics say customers actually use (KEY-1602, refreshed
+# quarterly by the digital analytics team). IE11 dropped in 2022 with the Angular 13 upgrade.
+last 2 Chrome versions
+last 2 Firefox versions
+last 2 Edge major versions
+last 2 Safari major versions
+last 2 iOS major versions
+Firefox ESR
+not dead
