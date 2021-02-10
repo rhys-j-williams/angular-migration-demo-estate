@@ -1,0 +1,19 @@
+<cn-page-header title="Scheduled" i18n-title="@@transfers.scheduledTransfers.title"></cn-page-header>
+
+<div class="mol-page" fxLayout="column" fxLayoutGap="16px">
+  <mol-error-banner [error]="error$ | async" (retry)="reload()"></mol-error-banner>
+
+  <mol-page-section title="Scheduled and recurring" i18n-title="@@transfers.scheduledTransfers.section">
+    <ng-container *ngIf="loading$ | async; else table">
+      <mol-loading-panel [rows]="6"></mol-loading-panel>
+    </ng-container>
+    <ng-template #table>
+      <cn-data-table *ngIf="(rows$ | async)?.length; else empty" [columns]="columns" [rows]="(rows$ | async) ?? []"
+        caption="Scheduled" i18n-caption="@@transfers.scheduledTransfers.caption" [pageSize]="25" [showPaginator]="true" (rowClick)="open($event)"></cn-data-table>
+    </ng-template>
+    <ng-template #empty>
+      <mol-empty-state icon="event" title="Nothing scheduled" i18n-title="@@transfers.scheduledTransfers.empty"
+        body="Recurring transfers you set up will appear here." i18n-body="@@transfers.scheduledTransfers.emptyBody"></mol-empty-state>
+    </ng-template>
+  </mol-page-section>
+</div>
