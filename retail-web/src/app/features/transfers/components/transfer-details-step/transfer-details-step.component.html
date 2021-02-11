@@ -1,0 +1,35 @@
+<form [formGroup]="form" novalidate fxLayout="column" fxLayoutGap="12px" class="mol-step">
+  <cn-radio-group formControlName="type" legend="What kind of transfer?" i18n-legend="@@transfers.details.type" [options]="typeOptions" [required]="true"></cn-radio-group>
+
+  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="16px">
+    <cn-select fxFlex formControlName="fromAccountId" label="From" i18n-label="@@transfer.from" [options]="fromOptions" [required]="true"
+      [errorText]="form.controls.fromAccountId.touched && form.controls.fromAccountId.invalid ? 'Choose the account to take the money from' : null"></cn-select>
+
+    <cn-select *ngIf="form.controls.type.value === 'internal'" fxFlex formControlName="toAccountId" label="To" i18n-label="@@transfer.to" [options]="toOptions" [required]="true"
+      [errorText]="form.touched && form.errors?.['sameAccount'] ? 'From and to must be different accounts' : form.touched && form.errors?.['destinationRequired'] ? 'Choose where the money is going' : null"></cn-select>
+
+    <cn-select *ngIf="form.controls.type.value !== 'internal'" fxFlex formControlName="payeeId" label="To" i18n-label="@@transfer.to" [options]="(payees$ | async) ?? []" [required]="true"
+      hint="Only verified accounts can receive transfers" i18n-hint="@@transfers.details.payeeHint"
+      [errorText]="form.touched && form.errors?.['payeeRequired'] ? 'Choose a recipient' : null"></cn-select>
+  </div>
+
+  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="16px" fxLayoutAlign="start start">
+    <mat-form-field appearance="outline" fxFlex="0 0 260px" fxFlex.lt-md="1 1 auto">
+      <mat-label i18n="@@transfer.amount">Amount</mat-label>
+      <cn-currency-input formControlName="amount" [min]="0.01" [max]="perTransactionMaxMinor / 100" [allowNegative]="false"></cn-currency-input>
+      <mat-hint *ngIf="!overLimit && insufficient === null" i18n="@@transfers.details.limitHint">Up to {{ perTransactionMaxMinor | minorAmount }} per transfer</mat-hint>
+      <mat-hint *ngIf="insufficient !== null" class="mol-warn" i18n="@@transfers.details.insufficient">Only {{ insufficient | minorAmount }} is available in that account</mat-hint>
+      <mat-hint *ngIf="overLimit && insufficient === null" class="mol-warn" i18n="@@transfers.details.overLimit">That is above your limit. {{ remainingDailyMinor | minorAmount }} remains today for external transfers.</mat-hint>
+      <mat-error *ngIf="form.controls.amount.hasError('required')" i18n="@@transfers.details.amountRequired">Enter an amount</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" fxFlex>
+      <mat-label i18n="@@transfers.details.memo">Memo (optional)</mat-label>
+      <input matInput formControlName="memo" maxlength="60" molTrimOnBlur autocomplete="off" />
+      <mat-hint align="end">{{ form.controls.memo.value.length }}/60</mat-hint>
+      <mat-error *ngIf="form.controls.memo.hasError('pattern')" i18n="@@transfers.details.memoPattern">Letters, numbers and basic punctuation only</mat-error>
+    </mat-form-field>
+  </div>
+
+  <p *ngIf="form.controls.type.value === 'wire'" class="mol-note" i18n="@@transfers.details.wireNote">Domestic wires cost $25 and cannot be recalled once sent. Requests after 4:00 PM Eastern go the next business day.</p>
+</form>
