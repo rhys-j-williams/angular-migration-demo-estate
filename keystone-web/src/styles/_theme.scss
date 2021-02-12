@@ -1,0 +1,95 @@
+@use '@angular/material' as mat;
+@use 'sass:map';
+@use 'tokens' as t;
+
+// Keystone Material theme. Palettes from brand (KEY-0471); do not adjust without sign-off.
+
+$ks-primary-palette: (
+  50: #e3ecf2,
+  100: #b9cfdd,
+  200: #8cb0c7,
+  300: #5f90b0,
+  400: #3d789f,
+  500: t.$ks-navy,
+  600: #0a3753,
+  700: #082f48,
+  800: #06273e,
+  900: #03192b,
+  A100: #6fb6ff,
+  A200: #3c9dff,
+  A400: #0984ff,
+  A700: #0077ef,
+  contrast: (
+    50: rgba(black, 0.87),
+    100: rgba(black, 0.87),
+    200: rgba(black, 0.87),
+    300: white,
+    400: white,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A100: rgba(black, 0.87),
+    A200: white,
+    A400: white,
+    A700: white,
+  )
+);
+
+$ks-accent-palette: (
+  50: #fcf7e9,
+  100: #f8ecc8,
+  200: #f3e0a4,
+  300: #eed380,
+  400: #ebcb75,
+  500: t.$ks-gold,
+  600: #d9b25a,
+  700: #c9a04a,
+  800: #b98f3a,
+  900: #9e7222,
+  A100: #ffffff,
+  A200: #fff5dd,
+  A400: #ffe6aa,
+  A700: #ffde90,
+  contrast: (
+    50: rgba(black, 0.87),
+    100: rgba(black, 0.87),
+    200: rgba(black, 0.87),
+    300: rgba(black, 0.87),
+    400: rgba(black, 0.87),
+    500: rgba(black, 0.87),
+    600: rgba(black, 0.87),
+    700: rgba(black, 0.87),
+    800: white,
+    900: white,
+    A100: rgba(black, 0.87),
+    A200: rgba(black, 0.87),
+    A400: rgba(black, 0.87),
+    A700: rgba(black, 0.87),
+  )
+);
+
+$ks-primary: mat.define-palette($ks-primary-palette, 500, 300, 700);
+$ks-accent: mat.define-palette($ks-accent-palette, 500, 300, 700);
+$ks-warn: mat.define-palette(mat.$red-palette, 700);
+
+$ks-typography: mat.define-typography-config(
+  $font-family: '"Source Sans 3", "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+  $button: mat.define-typography-level(15px, 36px, 600),
+  $input: mat.define-typography-level(16px, 1.125, 400)
+);
+
+$ks-theme: mat.define-light-theme((
+  color: (
+    primary: $ks-primary,
+    accent: $ks-accent,
+    warn: $ks-warn,
+  ),
+  typography: $ks-typography,
+  density: 0,
+));
+
+@include mat.core();
+
+@include mat.all-component-themes($ks-theme);
