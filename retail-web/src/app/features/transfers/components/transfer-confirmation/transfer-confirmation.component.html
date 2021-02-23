@@ -1,0 +1,31 @@
+<ng-container *ngIf="transfer$ | async as t; else loading">
+  <div class="mol-page mol-confirmation" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="16px">
+    <mat-icon class="mol-confirmation__icon" [class.mol-confirmation__icon--failed]="t.status === 'failed'" aria-hidden="true">{{ t.status === 'failed' ? 'error_outline' : 'check_circle' }}</mat-icon>
+    <h1 class="mol-confirmation__title">{{ headline(t) }}</h1>
+    <p class="mol-amount">{{ t.amountMinor | minorAmount }}</p>
+
+    <cn-card [padded]="true" class="mol-confirmation__card">
+      <dl class="mol-dl">
+        <dt i18n="@@transfers.confirm.number">Confirmation number</dt>
+        <dd><code>{{ t.confirmationNumber }}</code></dd>
+        <dt i18n="@@transfers.confirm.arrival">Expected arrival</dt>
+        <dd>{{ t.estimatedArrival | date:'EEEE d MMMM' }}</dd>
+        <dt *ngIf="t.feeMinor" i18n="@@transfers.review.fee">Fee</dt>
+        <dd *ngIf="t.feeMinor">{{ t.feeMinor | minorAmount }}</dd>
+        <dt *ngIf="t.frequency !== 'once'" i18n="@@transfers.confirm.repeats">Repeats</dt>
+        <dd *ngIf="t.frequency !== 'once'">{{ t.frequency }}</dd>
+        <dt *ngIf="t.failureCode" i18n="@@transfers.confirm.reason">Reason</dt>
+        <dd *ngIf="t.failureCode">{{ 'errors.' + t.failureCode | translate }}</dd>
+      </dl>
+    </cn-card>
+
+    <p class="mol-muted mol-small" *ngIf="t.status !== 'failed'" i18n="@@transfers.confirm.note">We have sent a confirmation to your alert channels. Scheduled transfers can be cancelled up to 5:00 PM Eastern the business day before.</p>
+
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="8px">
+      <cn-button variant="primary" routerLink="/dashboard" i18n="@@action.done">Done</cn-button>
+      <cn-button variant="secondary" routerLink="/transfers/new" i18n="@@transfers.confirm.another">Make another transfer</cn-button>
+      <cn-button variant="tertiary" icon="print" (pressed)="print()" i18n="@@action.print">Print</cn-button>
+    </div>
+  </div>
+</ng-container>
+<ng-template #loading><mol-loading-panel [rows]="4"></mol-loading-panel></ng-template>
