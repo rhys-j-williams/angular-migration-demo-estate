@@ -1,0 +1,15 @@
+@use 'tokens' as t;
+
+.ks-otp-challenge {
+  position: relative;
+}
+
+.ks-otp-challenge__trust {
+  display: block;
+  margin: t.$ks-space-4 0 0;
+}
+
+.ks-otp-challenge__resent {
+  color: t.$ks-success;
+  margin: 0 0 t.$ks-space-3;
+}
