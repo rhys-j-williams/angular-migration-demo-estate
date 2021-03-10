@@ -1,0 +1,9 @@
+// Canopy theming entry point.
+//
+//   @use '@meridian/canopy-ui/themes' as canopy;
+//   @include canopy.theme();
+//
+// or pull in one of the prebuilt CSS files under themes/prebuilt if you cannot run Sass.
+@forward 'palettes';
+@forward 'typography';
+@forward 'theme';
