@@ -1,0 +1,67 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+@use 'palettes' as p;
+@use 'typography' as ty;
+@use '../tokens/css-vars' as vars;
+@use 'component-overrides' as overrides;
+
+$cn-light-theme: mat.define-light-theme((
+  color: (
+    primary: p.$cn-primary,
+    accent: p.$cn-accent,
+    warn: p.$cn-warn
+  ),
+  typography: ty.$cn-typography,
+  density: 0
+));
+
+// High contrast reuses the light palette structure with black primaries; the token layer does the
+// heavy lifting because most of what changes is borders and focus, which Material does not theme.
+$cn-high-contrast-theme: mat.define-light-theme((
+  color: (
+    primary: mat.define-palette(mat.$grey-palette, 900, 700, 900),
+    accent: mat.define-palette(mat.$indigo-palette, 900),
+    warn: mat.define-palette(mat.$red-palette, 900)
+  ),
+  typography: ty.$cn-typography,
+  density: 0
+));
+
+/// The one mixin consumers include. Emits Material core styles, the light theme on :root and the
+/// high contrast variant behind html.cn-theme-high-contrast so CnThemeService can switch at
+/// runtime without a rebuild. Dark mode is CNPY-1740, not before 3.6.
+///
+///   @use '@meridian/canopy-ui/themes' as canopy;
+///   @include canopy.theme();
+@mixin theme($include-high-contrast: true) {
+  @include mat.core(ty.$cn-typography);
+  @include mat.all-component-themes($cn-light-theme);
+  @include overrides.component-overrides($cn-light-theme);
+
+  :root,
+  html.cn-theme-light {
+    @include vars.emit-light;
+    color-scheme: light;
+  }
+
+  @if $include-high-contrast {
+    html.cn-theme-high-contrast {
+      @include mat.all-component-colors($cn-high-contrast-theme);
+      @include overrides.component-colors($cn-high-contrast-theme);
+      @include vars.emit-high-contrast;
+
+      // Windows High Contrast and our own forced mode both want visible outlines everywhere.
+      * :focus-visible {
+        outline: var(--cn-focus-ring);
+        outline-offset: 2px;
+      }
+    }
+  }
+
+  body {
+    margin: 0;
+    font-family: var(--cn-font-family);
+    color: var(--cn-color-text);
+    background: var(--cn-color-surface-alt);
+  }
+}
