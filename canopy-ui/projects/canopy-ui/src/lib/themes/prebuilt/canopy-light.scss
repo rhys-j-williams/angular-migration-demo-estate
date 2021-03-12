@@ -1,0 +1,3 @@
+// Prebuilt light only theme for consumers without a Sass pipeline (the Iris widget host page).
+@use '../theme' as canopy;
+@include canopy.theme($include-high-contrast: false);
