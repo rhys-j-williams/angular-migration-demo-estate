@@ -1,0 +1,13 @@
+apiVersion: v2
+name: keystone-web
+description: Keystone login front end. Sandbox cluster chart; platform-tooling/helm/keystone-web is the one the pipeline deploys.
+type: application
+version: 0.9.4
+appVersion: "2024.11.1"
+deprecated: true
+maintainers:
+  - name: identity-platform
+    email: identity-platform@example.com
+annotations:
+  meridian.bank/ticket-key: KEY
+  meridian.bank/superseded-by: platform-tooling/helm/keystone-web
