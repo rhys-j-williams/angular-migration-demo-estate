@@ -1,0 +1,40 @@
+@use '../../tokens/spacing' as s;
+
+.cn-divider {
+  display: block;
+
+  &[data-cn-spacing='sm'] { margin: s.$cn-space-2 0; }
+  &[data-cn-spacing='md'] { margin: s.$cn-space-4 0; }
+  &[data-cn-spacing='lg'] { margin: s.$cn-space-8 0; }
+
+  &--vertical {
+    display: inline-block;
+    align-self: stretch;
+    margin: 0 s.$cn-space-3;
+  }
+
+  .mat-divider {
+    border-top-color: var(--cn-color-border);
+    border-right-color: var(--cn-color-border);
+  }
+
+  &__labelled {
+    display: flex;
+    align-items: center;
+    gap: s.$cn-space-3;
+  }
+
+  &__line {
+    flex: 1 1 auto;
+    height: 1px;
+    background: var(--cn-color-border);
+  }
+
+  &__label {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--cn-color-text-muted);
+  }
+}
