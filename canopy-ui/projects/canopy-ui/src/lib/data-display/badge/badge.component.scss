@@ -1,0 +1,41 @@
+@use '../../tokens/spacing' as s;
+
+.cn-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: s.$cn-space-1;
+  padding: 2px s.$cn-space-2;
+  border-radius: var(--cn-radius-sm, #{s.$cn-radius-sm});
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 18px;
+  white-space: nowrap;
+  --cn-badge-bg: var(--cn-color-surface-alt);
+  --cn-badge-fg: var(--cn-color-text-muted);
+  background: var(--cn-badge-bg);
+  color: var(--cn-badge-fg);
+
+  &[data-cn-tone='info'] { --cn-badge-bg: rgba(47, 123, 209, 0.14); --cn-badge-fg: var(--cn-color-info); }
+  &[data-cn-tone='success'] { --cn-badge-bg: rgba(31, 122, 76, 0.14); --cn-badge-fg: var(--cn-color-success); }
+  &[data-cn-tone='caution'] { --cn-badge-bg: rgba(196, 130, 0, 0.16); --cn-badge-fg: #7a5200; }
+  &[data-cn-tone='warn'] { --cn-badge-bg: rgba(178, 44, 44, 0.14); --cn-badge-fg: var(--cn-color-warn); }
+  &[data-cn-tone='brand'] { --cn-badge-bg: var(--cn-color-primary); --cn-badge-fg: var(--cn-color-primary-contrast); }
+
+  &--outline {
+    background: transparent;
+    box-shadow: inset 0 0 0 1px var(--cn-badge-fg);
+  }
+
+  &--small {
+    font-size: 11px;
+    line-height: 16px;
+    padding: 0 6px;
+  }
+
+  &__dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+}
