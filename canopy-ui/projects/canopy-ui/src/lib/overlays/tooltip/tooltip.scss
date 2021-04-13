@@ -1,0 +1,14 @@
+@use '../../tokens/spacing' as s;
+
+// Global: the tooltip is rendered in the overlay container.
+.mat-tooltip.cn-tooltip {
+  font-family: var(--cn-font-family);
+  font-size: 12px;
+  line-height: 1.4;
+  padding: s.$cn-space-2 s.$cn-space-3;
+  border-radius: var(--cn-radius-sm, #{s.$cn-radius-sm});
+  background: #1f2a33;
+  color: #ffffff;
+  max-width: 280px;
+  box-shadow: var(--cn-shadow-2);
+}
