@@ -1,0 +1,59 @@
+@use '../../tokens/spacing' as s;
+
+// The snackbar container lives in the overlay, outside any component host.
+.mat-snack-bar-container.cn-toast {
+  padding: s.$cn-space-2 s.$cn-space-3 s.$cn-space-2 s.$cn-space-4;
+  min-width: 320px;
+  max-width: 560px;
+  border-radius: var(--cn-radius-md, #{s.$cn-radius-md});
+  box-shadow: var(--cn-shadow-3);
+  background: #1f2a33;
+  color: #ffffff;
+  border-left: 4px solid var(--cn-color-info);
+
+  &.cn-toast--success { border-left-color: var(--cn-color-success); }
+  &.cn-toast--caution { border-left-color: var(--cn-color-caution); }
+  &.cn-toast--error { border-left-color: var(--cn-color-warn); }
+
+  // Plain text fallback (simple: true) still gets the brand font and action colour.
+  .mat-simple-snackbar {
+    font-family: var(--cn-font-family);
+    font-size: 14px;
+  }
+
+  .mat-simple-snackbar-action {
+    color: var(--cn-color-accent);
+  }
+}
+
+.cn-toast__body {
+  display: flex;
+  align-items: center;
+  gap: s.$cn-space-3;
+  font-family: var(--cn-font-family);
+  font-size: 14px;
+
+  .cn-toast__icon {
+    flex: none;
+    width: 20px;
+    height: 20px;
+    font-size: 20px;
+  }
+
+  &[data-cn-tone='success'] .cn-toast__icon { color: var(--cn-color-success); }
+  &[data-cn-tone='caution'] .cn-toast__icon { color: var(--cn-color-caution); }
+  &[data-cn-tone='error'] .cn-toast__icon { color: var(--cn-color-warn); }
+
+  .cn-toast__message {
+    flex: 1 1 auto;
+  }
+
+  .cn-toast__action.mat-button {
+    color: var(--cn-color-accent);
+    font-weight: 600;
+  }
+
+  .cn-toast__dismiss {
+    color: rgba(255, 255, 255, 0.7);
+  }
+}
