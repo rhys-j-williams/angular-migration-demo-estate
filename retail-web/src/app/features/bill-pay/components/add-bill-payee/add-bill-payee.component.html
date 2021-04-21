@@ -1,0 +1,38 @@
+<cn-page-header title="Add a payee" i18n-title="@@billPay.addBillPayee.title" lede="Search our directory first; payees found there receive electronic payments, usually within 2 business days." i18n-lede="@@billPay.addBillPayee.lede" [backLink]="'/bill-pay'"></cn-page-header>
+
+<form class="mol-page mol-form" [formGroup]="form" (ngSubmit)="submit()" novalidate fxLayout="column" fxLayoutGap="16px">
+  <cn-error-summary [form]="form" *ngIf="submitted && form.invalid"></cn-error-summary>
+  <mol-error-banner [error]="error" [showRetry]="false"></mol-error-banner>
+
+  <cn-card [padded]="true">
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="16px">
+      <mat-form-field appearance="outline" fxFlex>
+        <mat-label i18n="@@billPay.addPayee.name">Payee name</mat-label>
+        <input matInput formControlName="name" molTrimOnBlur maxlength="80" >
+        <mat-error *ngIf="form.get('name')?.hasError('required')" i18n="@@validation.required">This field is required</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline" fxFlex>
+        <mat-label i18n="@@billPay.addPayee.account">Your account number with the payee</mat-label>
+        <input matInput formControlName="accountNumber" molTrimOnBlur maxlength="32" >
+        <mat-error *ngIf="form.get('accountNumber')?.hasError('required')" i18n="@@validation.required">This field is required</mat-error>
+      </mat-form-field>
+    </div>
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="16px">
+      <mat-form-field appearance="outline" fxFlex>
+        <mat-label i18n="@@billPay.addPayee.nickname">Nickname</mat-label>
+        <input matInput formControlName="nickname" molTrimOnBlur maxlength="40" >
+        <mat-error *ngIf="form.get('nickname')?.hasError('required')" i18n="@@validation.required">This field is required</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline" fxFlex>
+        <mat-label i18n="@@billPay.addPayee.zip">Payee ZIP code</mat-label>
+        <input matInput formControlName="postalCode" molTrimOnBlur maxlength="10" >
+        <mat-error *ngIf="form.get('postalCode')?.hasError('required')" i18n="@@validation.required">This field is required</mat-error>
+      </mat-form-field>
+    </div>
+  </cn-card>
+
+  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="8px" fxLayoutAlign="end">
+    <cn-button variant="tertiary" type="button" (pressed)="cancel()" i18n="@@action.cancel">Cancel</cn-button>
+    <cn-button variant="primary" type="submit" [loading]="saving" i18n="@@billPay.addBillPayee.submit">Add payee</cn-button>
+  </div>
+</form>
