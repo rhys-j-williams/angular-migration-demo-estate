@@ -1,0 +1,36 @@
+{
+  "name": "@meridian/canopy-ui",
+  "version": "3.5.0",
+  "description": "Canopy, the Meridian Trust Bank design system. Angular Material wrapped in the bank's tokens, components and accessibility behaviours.",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "https://git.meridian.internal/cswt/canopy-ui.git"
+  },
+  "publishConfig": {
+    "registry": "http://localhost:4873",
+    "access": "restricted"
+  },
+  "schematics": "./schematics/collection.json",
+  "ng-add": {
+    "save": "dependencies"
+  },
+  "peerDependencies": {
+    "@angular/animations": "^14.0.0",
+    "@angular/cdk": "^14.0.0",
+    "@angular/common": "^14.0.0",
+    "@angular/core": "^14.0.0",
+    "@angular/flex-layout": "^14.0.0-beta.41",
+    "@angular/forms": "^14.0.0",
+    "@angular/material": "^14.0.0",
+    "@angular/material-moment-adapter": "^14.0.0",
+    "@angular/router": "^14.0.0",
+    "moment": "^2.29.0",
+    "ngx-mask": "^14.0.0",
+    "rxjs": "^7.5.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "sideEffects": false
+}
