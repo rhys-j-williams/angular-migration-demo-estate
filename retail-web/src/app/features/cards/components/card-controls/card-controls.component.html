@@ -1,0 +1,39 @@
+<cn-page-header title="Card controls" i18n-title="@@cards.controls.title" lede="Decide where and how this card can be used. Changes take effect on the next authorisation." i18n-lede="@@cards.controls.lede" [backLink]="['/cards', cardId]" backLabel="Card"></cn-page-header>
+
+<div class="mol-page mol-narrow" fxLayout="column" fxLayoutGap="16px">
+  <mol-error-banner [error]="error" [showRetry]="false"></mol-error-banner>
+  <mol-loading-panel *ngIf="loading" [rows]="6"></mol-loading-panel>
+
+  <form *ngIf="!loading" [formGroup]="form" (ngSubmit)="save()" novalidate fxLayout="column" fxLayoutGap="16px">
+    <mol-page-section title="Where the card works" i18n-title="@@cards.controls.where">
+      <div fxLayout="column" fxLayoutGap="8px">
+        <cn-toggle formControlName="internationalEnabled" hint="Purchases and ATM withdrawals outside the United States" i18n-hint="@@cards.controls.intlHint">International</cn-toggle>
+        <cn-toggle formControlName="onlineEnabled" hint="Web, app and phone purchases where the card is not present" i18n-hint="@@cards.controls.onlineHint">Online and phone</cn-toggle>
+        <cn-toggle formControlName="atmEnabled" hint="Cash withdrawals at any ATM" i18n-hint="@@cards.controls.atmHint">ATM withdrawals</cn-toggle>
+        <cn-toggle formControlName="contactlessEnabled" hint="Tap to pay in stores, including from a digital wallet" i18n-hint="@@cards.controls.tapHint">Contactless</cn-toggle>
+      </div>
+      <p *ngIf="allOff" class="mol-warn mol-small" i18n="@@cards.controls.allOff">With every purchase type off the card will only work for chip-and-PIN in person. If you want to stop it completely, lock the card instead.</p>
+    </mol-page-section>
+
+    <mol-page-section title="Daily spend limit" i18n-title="@@cards.controls.limit">
+      <div fxLayout="column" fxLayoutGap="8px">
+        <cn-toggle formControlName="limitEnabled" i18n="@@cards.controls.limitToggle">Set a daily limit</cn-toggle>
+        <mat-form-field *ngIf="form.controls.limitEnabled.value" appearance="outline">
+          <mat-label i18n="@@cards.controls.limitLabel">Limit per calendar day</mat-label>
+          <cn-currency-input formControlName="dailySpendLimit" [min]="20" [max]="10000" [allowNegative]="false"></cn-currency-input>
+          <mat-hint i18n="@@cards.controls.limitHint">Between $20 and $10,000. Recurring payments do not count.</mat-hint>
+          <mat-error *ngIf="form.controls.dailySpendLimit.invalid" i18n="@@cards.controls.limitError">Enter an amount between $20 and $10,000</mat-error>
+        </mat-form-field>
+      </div>
+    </mol-page-section>
+
+    <mol-page-section title="Blocked merchant types" i18n-title="@@cards.controls.blocked" lede="Purchases at these merchant types are declined. Some merchants are categorised differently by the network; we cannot guarantee every case." i18n-lede="@@cards.controls.blockedLede">
+      <cn-filter-chips formControlName="blockedMerchantCategories" [chips]="categories" [multiple]="true" ariaLabel="Blocked merchant types"></cn-filter-chips>
+    </mol-page-section>
+
+    <div fxLayout="row" fxLayoutAlign="end" fxLayoutGap="8px">
+      <cn-button variant="tertiary" [routerLink]="['/cards', cardId]" i18n="@@action.cancel">Cancel</cn-button>
+      <cn-button type="submit" variant="primary" [loading]="saving" [disabled]="form.pristine || form.invalid" i18n="@@action.save">Save</cn-button>
+    </div>
+  </form>
+</div>
