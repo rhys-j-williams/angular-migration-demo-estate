@@ -1,0 +1,30 @@
+<section class="ks-card ks-push" aria-labelledby="ks-push-title" *ngIf="txn">
+  <ng-container [ngSwitch]="state">
+    <ng-container *ngSwitchCase="'waiting'">
+      <h1 id="ks-push-title" class="ks-card__title">Approve in the Meridian app</h1>
+      <p class="ks-card__lede">We sent a notification to your phone. Open it and choose the number below.</p>
+      <div class="ks-push__match" aria-live="polite">{{ matchNumber }}</div>
+      <div class="ks-push__spinner">
+        <mat-spinner diameter="28" strokeWidth="3"></mat-spinner>
+        <span>Waiting for approval ({{ secondsLeft }}s)</span>
+      </div>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'denied'">
+      <h1 id="ks-push-title" class="ks-card__title">Sign in was declined</h1>
+      <p class="ks-card__lede">
+        The request was declined in the app. If that was not you, call us on the number on the back of your card.
+      </p>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'timeout'">
+      <h1 id="ks-push-title" class="ks-card__title">We did not hear back</h1>
+      <p class="ks-card__lede">The request timed out. You can try another way to verify.</p>
+    </ng-container>
+  </ng-container>
+
+  <div class="ks-actions">
+    <button mat-stroked-button type="button" (click)="useCodeInstead()">Use a code instead</button>
+    <button mat-button type="button" (click)="startOver()">Start over</button>
+  </div>
+</section>
