@@ -1,0 +1,21 @@
+<section class="ks-card" aria-labelledby="ks-stepup-title" style="position: relative">
+  <ks-busy-overlay [busy]="busy" label="Taking you to verify"></ks-busy-overlay>
+
+  <ng-container *ngIf="!bad; else badReturn">
+    <h1 id="ks-stepup-title" class="ks-card__title">Let's confirm it's you</h1>
+    <ks-step-up-reason [reason]="reason"></ks-step-up-reason>
+    <p>You will be asked for a code, then returned to what you were doing.</p>
+    <div class="ks-actions">
+      <button mat-raised-button color="primary" type="button" (click)="proceed()" [disabled]="busy">Continue</button>
+      <button mat-button type="button" (click)="cancel()" [disabled]="busy">Cancel</button>
+    </div>
+  </ng-container>
+
+  <ng-template #badReturn>
+    <h1 id="ks-stepup-title" class="ks-card__title">Something is not right</h1>
+    <p class="ks-card__lede">This link came from somewhere we do not recognise. Go back to the application and try again.</p>
+    <div class="ks-actions">
+      <a mat-button routerLink="/">Back to sign in</a>
+    </div>
+  </ng-template>
+</section>
