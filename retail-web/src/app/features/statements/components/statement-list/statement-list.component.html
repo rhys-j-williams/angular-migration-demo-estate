@@ -1,0 +1,44 @@
+<cn-page-header title="Statements and documents" i18n-title="@@statements.list.title" lede="Monthly and annual statements are kept for seven years. Notices are kept for two." i18n-lede="@@statements.list.lede"></cn-page-header>
+
+<div class="mol-page" fxLayout="column" fxLayoutGap="16px">
+  <nav fxLayout="row" fxLayoutGap="16px" class="mol-subnav">
+    <a routerLink="tax" i18n="@@statements.list.tax">Tax documents</a>
+    <a routerLink="paperless" i18n="@@statements.list.paperless">Paperless settings</a>
+  </nav>
+
+  <form [formGroup]="form" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="16px">
+    <cn-select fxFlex="1 1 0" label="Account" i18n-label="@@statements.list.account" [options]="(accountOptions$ | async) || []" formControlName="accountId"></cn-select>
+    <cn-select fxFlex="0 0 160px" fxFlex.lt-md="auto" label="Year" i18n-label="@@statements.list.year" [options]="years" formControlName="year"></cn-select>
+  </form>
+
+  <mol-error-banner [error]="error$ | async" (retry)="retry()"></mol-error-banner>
+
+  <ng-container *ngIf="statements$ | async as statements">
+    <mol-loading-panel *ngIf="(loading$ | async) && !statements.length" [rows]="6"></mol-loading-panel>
+    <table class="mol-table" *ngIf="statements.length">
+      <caption class="cdk-visually-hidden" i18n="@@statements.list.caption">Statements</caption>
+      <thead>
+        <tr>
+          <th scope="col" i18n="@@statements.list.period">Period</th>
+          <th scope="col" i18n="@@statements.list.type">Type</th>
+          <th scope="col" i18n="@@statements.list.accountCol">Account</th>
+          <th scope="col" class="mol-num" i18n="@@statements.list.pages">Pages</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let s of statements; trackBy: trackById">
+          <td><a [routerLink]="[s.statementId]">{{ s.periodStart | date:'MMM d' }} – {{ s.periodEnd | date:'MMM d, y' }}</a></td>
+          <td>{{ s.type | titlecase }}</td>
+          <td>{{ s.accountId | accountLabel }}</td>
+          <td class="mol-num">{{ s.pages }}</td>
+          <td class="mol-num">
+            <cn-icon-button *ngIf="s.available" icon="download" ariaLabel="Download PDF" [disabled]="downloading.has(s.statementId)" (pressed)="download(s)"></cn-icon-button>
+            <span *ngIf="!s.available" class="mol-muted mol-small" i18n="@@statements.list.processing">Processing</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <mol-empty-state *ngIf="!statements.length && (loading$ | async) === false" icon="description" title="No statements for that year" i18n-title="@@statements.list.empty" body="Try another year or account. Statements are produced on the last business day of each cycle." i18n-body="@@statements.list.emptyBody"></mol-empty-state>
+  </ng-container>
+</div>
