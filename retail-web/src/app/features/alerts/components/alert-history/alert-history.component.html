@@ -1,0 +1,28 @@
+<cn-page-header title="Alert history" i18n-title="@@alerts.history.title" lede="Everything we have sent you in the last 90 days, across every channel." i18n-lede="@@alerts.history.lede" backLink="/alerts" backLabel="Alerts"></cn-page-header>
+
+<div class="mol-page" fxLayout="column" fxLayoutGap="16px">
+  <ng-container *ngIf="items$ | async as items; else loading">
+    <ng-container *ngIf="items.length; else empty">
+      <section *ngFor="let group of byDay(items)" class="mol-history-day">
+        <h2 class="mol-history-day__title">{{ group.day | date:'fullDate' }}</h2>
+        <ul>
+          <li *ngFor="let a of group.items" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="12px" [class.mol-unread]="!a.read">
+            <div fxFlex fxLayout="column">
+              <span>{{ a.summary }}</span>
+              <span class="mol-muted mol-small">{{ a.sentAt | date:'shortTime' }} &middot; {{ a.channel }}<ng-container *ngIf="a.accountId"> &middot; <a [routerLink]="['/accounts', a.accountId]" i18n="@@alerts.history.viewAccount">View account</a></ng-container></span>
+            </div>
+            <cn-badge *ngIf="!a.read" tone="brand" [dot]="true" size="small">New</cn-badge>
+          </li>
+        </ul>
+      </section>
+      <div fxLayout="row" fxLayoutAlign="center">
+        <cn-button *ngIf="!exhausted" variant="secondary" (pressed)="more()" i18n="@@action.showMore">Show more</cn-button>
+        <span *ngIf="exhausted" class="mol-muted mol-small" i18n="@@alerts.history.end">That is everything from the last 90 days.</span>
+      </div>
+    </ng-container>
+  </ng-container>
+  <ng-template #loading><mol-loading-panel [rows]="8"></mol-loading-panel></ng-template>
+  <ng-template #empty>
+    <mol-empty-state icon="notifications_none" title="No alerts sent yet" i18n-title="@@alerts.history.empty" body="Once an alert is triggered it will be listed here for 90 days." i18n-body="@@alerts.history.emptyBody"></mol-empty-state>
+  </ng-template>
+</div>
