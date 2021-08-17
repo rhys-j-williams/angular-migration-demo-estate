@@ -1,0 +1,35 @@
+{
+  "root": true,
+  "ignorePatterns": ["dist/**/*", "coverage/**/*", "reports/**/*", "scripts/**/*"],
+  "overrides": [
+    {
+      "files": ["*.ts"],
+      "parserOptions": {
+        "project": ["tsconfig.json"],
+        "createDefaultProgram": true
+      },
+      "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@angular-eslint/recommended",
+        "plugin:@angular-eslint/template/process-inline-templates"
+      ],
+      "rules": {
+        "@angular-eslint/directive-selector": ["error", { "type": "attribute", "prefix": "ks", "style": "camelCase" }],
+        "@angular-eslint/component-selector": ["error", { "type": "element", "prefix": "ks", "style": "kebab-case" }],
+        "@typescript-eslint/no-non-null-assertion": "off",
+        "@typescript-eslint/no-inferrable-types": "off",
+        "@typescript-eslint/explicit-module-boundary-types": "off",
+        "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+        "no-console": ["error", { "allow": ["warn", "error"] }]
+      }
+    },
+    {
+      "files": ["*.html"],
+      "extends": ["plugin:@angular-eslint/template/recommended"],
+      "rules": {
+        "@angular-eslint/template/no-autofocus": "off"
+      }
+    }
+  ]
+}
