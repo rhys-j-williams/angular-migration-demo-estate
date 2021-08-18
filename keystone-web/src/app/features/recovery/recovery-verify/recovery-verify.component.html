@@ -1,0 +1,12 @@
+<section class="ks-card" aria-labelledby="ks-recv-title">
+  <h1 id="ks-recv-title" class="ks-card__title">Check your email</h1>
+  <p class="ks-card__lede">If we found a matching profile, we sent a 6 digit code to {{ maskedEmail }}. Enter it below.</p>
+  <p *ngIf="error" class="ks-error-text" role="alert">{{ error }}</p>
+
+  <ks-otp-input [formControl]="code" [invalid]="!!error" ariaLabel="Recovery code" (completed)="submit($event)"></ks-otp-input>
+
+  <div class="ks-actions">
+    <button mat-flat-button color="primary" type="button" (click)="submit()" [disabled]="busy">Continue</button>
+    <a mat-button routerLink="/recovery">Start again</a>
+  </div>
+</section>
