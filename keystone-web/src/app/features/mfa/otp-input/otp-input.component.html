@@ -1,0 +1,21 @@
+<div class="ks-otp" role="group" [attr.aria-label]="ariaLabel" [class.ks-otp--invalid]="invalid">
+  <mat-form-field *ngFor="let i of indices" appearance="outline" class="ks-otp__field" subscriptSizing="dynamic">
+    <input
+      #box
+      matInput
+      class="ks-otp__box"
+      type="text"
+      inputmode="numeric"
+      pattern="[0-9]*"
+      maxlength="2"
+      [attr.autocomplete]="i === 0 ? 'one-time-code' : 'off'"
+      [attr.aria-label]="'Digit ' + (i + 1) + ' of ' + length"
+      [attr.aria-invalid]="invalid"
+      [disabled]="disabled"
+      [value]="digits[i]"
+      (input)="onInput(i, $event)"
+      (keydown)="onKeydown(i, $event)"
+      (paste)="onPaste(i, $event)"
+      (blur)="onBlur()" />
+  </mat-form-field>
+</div>
