@@ -1,0 +1,26 @@
+<cn-page-header title="Contact details" i18n-title="@@profile.contactDetails.title" lede="We use these for alerts and to verify it is you. Changing your mobile number re-verifies SMS alerts." i18n-lede="@@profile.contactDetails.lede" [backLink]="'/profile'"></cn-page-header>
+
+<form class="mol-page mol-form" [formGroup]="form" (ngSubmit)="submit()" novalidate fxLayout="column" fxLayoutGap="16px">
+  <cn-error-summary [form]="form" *ngIf="submitted && form.invalid"></cn-error-summary>
+  <mol-error-banner [error]="error" [showRetry]="false"></mol-error-banner>
+
+  <cn-card [padded]="true">
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="16px">
+      <mat-form-field appearance="outline" fxFlex>
+        <mat-label i18n="@@profile.contact.email">Email</mat-label>
+        <input matInput formControlName="email" molTrimOnBlur maxlength="120" autocomplete="email">
+        <mat-error *ngIf="form.get('email')?.hasError('required')" i18n="@@validation.required">This field is required</mat-error>
+      </mat-form-field>
+      <cn-masked-input formControlName="mobile" i18n-label="@@profile.contact.mobile" label="Mobile number" preset="phone" [required]="true" fxFlex></cn-masked-input>
+    </div>
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="16px">
+      <cn-select formControlName="preferredLanguage" i18n-label="@@profile.contact.language" label="Preferred language" [options]="preferredLanguageOptions" [required]="false" fxFlex></cn-select>
+      <cn-toggle formControlName="paperless" ><span i18n="@@profile.contact.paperless">Paperless statements and notices</span></cn-toggle>
+    </div>
+  </cn-card>
+
+  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="8px" fxLayoutAlign="end">
+    <cn-button variant="tertiary" type="button" (pressed)="cancel()" i18n="@@action.cancel">Cancel</cn-button>
+    <cn-button variant="primary" type="submit" [loading]="saving" i18n="@@profile.contactDetails.submit">Save contact details</cn-button>
+  </div>
+</form>
