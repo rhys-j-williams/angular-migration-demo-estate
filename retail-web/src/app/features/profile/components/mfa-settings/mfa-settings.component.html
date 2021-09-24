@@ -1,0 +1,14 @@
+<cn-page-header title="Two-step verification" i18n-title="@@profile.mfa.title" lede="We ask for a second step when you sign in from a new device and before large transfers." i18n-lede="@@profile.mfa.lede" backLink="/profile/security" backLabel="Security"></cn-page-header>
+
+<div class="mol-page mol-narrow" fxLayout="column" fxLayoutGap="16px">
+  <mol-error-banner [error]="error" [showRetry]="false"></mol-error-banner>
+  <ng-container *ngIf="current; else loading">
+    <cn-radio-group legend="How should we verify you?" i18n-legend="@@profile.mfa.legend" [options]="options" [(ngModel)]="selected" [disabled]="busy"></cn-radio-group>
+    <p class="mol-muted mol-small" *ngIf="enrolledAt" i18n="@@profile.mfa.enrolled">Current method set up {{ enrolledAt | date:'mediumDate' }}.</p>
+    <p class="mol-note" *ngIf="changed" i18n="@@profile.mfa.stepUpNote">We will ask you to verify with your current method before switching.</p>
+    <div fxLayout="row" fxLayoutAlign="end">
+      <cn-button variant="primary" [loading]="busy" [disabled]="!changed" (pressed)="save()" i18n="@@action.save">Save</cn-button>
+    </div>
+  </ng-container>
+  <ng-template #loading><mol-loading-panel [rows]="3"></mol-loading-panel></ng-template>
+</div>
