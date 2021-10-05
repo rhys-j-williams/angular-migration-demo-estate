@@ -1,0 +1,35 @@
+@use '../../tokens/spacing' as s;
+
+.cn-date-range {
+  display: block;
+
+  &__presets {
+    display: flex;
+    flex-wrap: wrap;
+    gap: s.$cn-space-2;
+    margin-bottom: s.$cn-space-3;
+  }
+
+  &__preset.mat-stroked-button {
+    min-height: 32px;
+    line-height: 32px;
+    padding: 0 s.$cn-space-3;
+    border-radius: var(--cn-radius-lg, #{s.$cn-radius-lg});
+    font-size: 13px;
+    border-color: var(--cn-color-border);
+  }
+
+  &__preset--active.mat-stroked-button {
+    background: var(--cn-color-primary);
+    color: var(--cn-color-primary-contrast);
+    border-color: var(--cn-color-primary);
+  }
+
+  &__field {
+    width: 100%;
+  }
+
+  .mat-date-range-input-inner {
+    font-variant-numeric: tabular-nums;
+  }
+}
