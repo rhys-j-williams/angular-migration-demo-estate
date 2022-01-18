@@ -1,0 +1,29 @@
+<cn-page-header title="New message" i18n-title="@@messages.composeMessage.title" lede="Do not include your full card number or password. We will never ask for them here." i18n-lede="@@messages.composeMessage.lede" [backLink]="'/messages'"></cn-page-header>
+
+<form class="mol-page mol-form" [formGroup]="form" (ngSubmit)="submit()" novalidate fxLayout="column" fxLayoutGap="16px">
+  <cn-error-summary [form]="form" *ngIf="submitted && form.invalid"></cn-error-summary>
+  <mol-error-banner [error]="error" [showRetry]="false"></mol-error-banner>
+
+  <cn-card [padded]="true">
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="16px">
+      <cn-select formControlName="topic" i18n-label="@@messages.compose.topic" label="Topic" [options]="topicOptions" [required]="true" fxFlex></cn-select>
+      <mat-form-field appearance="outline" fxFlex>
+        <mat-label i18n="@@messages.compose.subject">Subject</mat-label>
+        <input matInput formControlName="subject" molTrimOnBlur maxlength="120" >
+        <mat-error *ngIf="form.get('subject')?.hasError('required')" i18n="@@validation.required">This field is required</mat-error>
+      </mat-form-field>
+    </div>
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="16px">
+      <mat-form-field appearance="outline" fxFlex="100">
+        <mat-label i18n="@@messages.compose.body">Message</mat-label>
+        <textarea matInput formControlName="body" rows="4" maxlength="4000"></textarea>
+        <mat-hint align="end">{{ form.get('body')?.value?.length || 0 }}/4000</mat-hint>
+      </mat-form-field>
+    </div>
+  </cn-card>
+
+  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="8px" fxLayoutAlign="end">
+    <cn-button variant="tertiary" type="button" (pressed)="cancel()" i18n="@@action.cancel">Cancel</cn-button>
+    <cn-button variant="primary" type="submit" [loading]="saving" i18n="@@messages.composeMessage.submit">Send message</cn-button>
+  </div>
+</form>
