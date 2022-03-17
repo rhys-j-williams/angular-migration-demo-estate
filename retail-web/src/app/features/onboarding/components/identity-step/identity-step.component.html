@@ -1,0 +1,33 @@
+<cn-page-header title="About you" i18n-title="@@onboarding.identityStep.title" lede="Enter your name exactly as it appears on your ID." i18n-lede="@@onboarding.identityStep.lede" [backLink]="'/open-account'"></cn-page-header>
+
+<form class="mol-page mol-form" [formGroup]="form" (ngSubmit)="submit()" novalidate fxLayout="column" fxLayoutGap="16px">
+  <cn-error-summary [form]="form" *ngIf="submitted && form.invalid"></cn-error-summary>
+  <mol-error-banner [error]="error" [showRetry]="false"></mol-error-banner>
+
+  <cn-card [padded]="true">
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="16px">
+      <mat-form-field appearance="outline" fxFlex>
+        <mat-label i18n="@@onboarding.identity.firstName">First name</mat-label>
+        <input matInput formControlName="firstName" molTrimOnBlur maxlength="60" autocomplete="given-name">
+        <mat-error *ngIf="form.get('firstName')?.hasError('required')" i18n="@@validation.required">This field is required</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline" fxFlex>
+        <mat-label i18n="@@onboarding.identity.lastName">Last name</mat-label>
+        <input matInput formControlName="lastName" molTrimOnBlur maxlength="60" autocomplete="family-name">
+        <mat-error *ngIf="form.get('lastName')?.hasError('required')" i18n="@@validation.required">This field is required</mat-error>
+      </mat-form-field>
+    </div>
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="16px">
+      <mat-form-field appearance="outline" fxFlex>
+        <mat-label i18n="@@onboarding.identity.dob">Date of birth</mat-label>
+        <input matInput formControlName="dateOfBirth" type="date" [min]="today">
+      </mat-form-field>
+      <cn-masked-input formControlName="ssn" i18n-label="@@onboarding.identity.ssn" label="Social Security number" preset="ssn" [required]="true" fxFlex></cn-masked-input>
+    </div>
+  </cn-card>
+
+  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="8px" fxLayoutAlign="end">
+    <cn-button variant="tertiary" type="button" (pressed)="cancel()" i18n="@@action.cancel">Cancel</cn-button>
+    <cn-button variant="primary" type="submit" [loading]="saving" i18n="@@onboarding.identityStep.submit">Continue</cn-button>
+  </div>
+</form>
