@@ -1,0 +1,8 @@
+<cn-page-header title="Open an account" i18n-title="@@onboarding.onboardingStart.title" lede="Takes about 10 minutes. You will need a government ID and your Social Security number." i18n-lede="@@onboarding.onboardingStart.lede"></cn-page-header>
+
+<div class="mol-page mol-prose" fxLayout="column" fxLayoutGap="12px">
+  <p i18n="@@onboarding.onboardingStart.p1">Choose a checking or savings account to get started. You can add more accounts once you are a customer.</p>
+  <p i18n="@@onboarding.onboardingStart.p2">Applications are subject to identity verification. We may ask for additional documents.</p>
+  <cn-disclosure key="account-opening" tone="boxed" [collapsible]="true"></cn-disclosure>
+  <cn-button variant="primary" routerLink="/open-account/identity" i18n="@@onboarding.onboardingStart.start">Start application</cn-button>
+</div>
