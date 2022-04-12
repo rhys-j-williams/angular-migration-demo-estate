@@ -1,0 +1,12 @@
+<div class="cn-amount-slider__header">
+  <span class="cn-amount-slider__label" id="cn-amount-slider-label">{{ label }}</span>
+  <output class="cn-amount-slider__value" aria-live="polite">{{ format(value) }}</output>
+</div>
+<mat-slider class="cn-amount-slider__slider" color="primary" thumbLabel [displayWith]="formatLabel"
+            [tickInterval]="tickInterval" [min]="min" [max]="max" [step]="step" [value]="value" [disabled]="disabled"
+            aria-labelledby="cn-amount-slider-label" (input)="onInput($event)" (change)="onInput($event)" (blur)="onBlur()">
+</mat-slider>
+<div class="cn-amount-slider__bounds" aria-hidden="true">
+  <span>{{ format(min) }}</span>
+  <span>{{ format(max) }}</span>
+</div>
