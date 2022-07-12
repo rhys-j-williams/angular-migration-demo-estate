@@ -1,0 +1,4 @@
+<div class="iris-root" [class.iris-root--open]="isOpen">
+  <iris-chat-panel *ngIf="isOpen" (closed)="toggle(false)"></iris-chat-panel>
+  <iris-launcher [open]="isOpen" (pressed)="toggle()"></iris-launcher>
+</div>

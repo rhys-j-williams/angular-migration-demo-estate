@@ -1,0 +1,38 @@
+@use '@meridian/canopy-ui/tokens/css-vars' as canopy-vars;
+@use 'tokens' as iris;
+
+// Every Canopy custom property is emitted on .iris-root, not :root, because we do not own :root.
+// The host page may have its own Canopy at a different version with different token values
+// (retail-web is on 3.5.0 at the time of writing) and we want ours, not theirs.
+.iris-root {
+  @include canopy-vars.emit-light;
+
+  position: fixed;
+  right: iris.$edge-offset;
+  bottom: iris.$edge-offset;
+  z-index: iris.$z-widget;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--cn-space-3);
+  font-family: var(--cn-font-family, system-ui, sans-serif);
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--cn-color-text);
+  text-align: left;
+
+  // Reset the handful of host rules that have bitten us. Do not grow this into a CSS reset.
+  * {
+    box-sizing: border-box;
+  }
+  button {
+    font: inherit;
+  }
+}
+
+@media (max-width: iris.$mobile-breakpoint) {
+  .iris-root--open {
+    right: 0;
+    bottom: 0;
+  }
+}
