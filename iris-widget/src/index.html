@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>iris-widget dev shell</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!--
+    Development shell only. This page is NOT what ships; retail-web's index.html is the real host.
+    It exists so `ng serve` on 4205 has something to render. Compare with scripts/harness/index.html,
+    which is the plain-HTML proof that the built bundle mounts without the CLI.
+  -->
+  <link rel="stylesheet" href="assets/dev-shell.css">
+  <!-- The host normally provides Zone (it has Angular). The dev shell has to fake that. -->
+  <script src="assets/vendor/zone.umd.min.js"></script>
+</head>
+<body>
+  <main class="dev-shell">
+    <h1>Meridian Trust Bank &mdash; Help (dev shell)</h1>
+    <p>Fake host page. The launcher bubble bottom-right is the widget.</p>
+    <!-- bearer-token: an unsigned JWT the orchestrator accepts under MERIDIAN_AUTH_MODE=insecure-local.
+         Payload is {"sub":"cust-0001","scope":"iris:chat"}. Dev shell only; retail-web sets a real one. -->
+    <meridian-iris-widget
+      orchestrator-url="http://localhost:4517"
+      channel="dev-shell"
+      bearer-token="eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJzdWIiOiJjdXN0LTAwMDEiLCJzY29wZSI6ImlyaXM6Y2hhdCJ9."></meridian-iris-widget>
+  </main>
+</body>
+</html>
