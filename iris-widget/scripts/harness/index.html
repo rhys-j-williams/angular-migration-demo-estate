@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>iris-widget mount harness</title>
+  <!--
+    This page is the proof that the Elements bundle loads and mounts without an Angular CLI dev
+    server around it. It is what retail-web's help page does, reduced to the minimum:
+
+      1. Zone.js on the page first (retail-web already has it because it is an Angular app).
+      2. The widget bundle.
+      3. The element in the DOM with its attributes.
+
+    No framework, no bundler, no module loader. check-mount.js drives it through headless Chrome.
+  -->
+  <style>body { font-family: system-ui, sans-serif; margin: 40px; }</style>
+</head>
+<body>
+  <h1>iris-widget harness</h1>
+  <p id="status">loading…</p>
+  <pre id="log"></pre>
+
+  <!-- 1. the host's Zone. Same file retail-web bundles via its own polyfills. -->
+  <script src="/assets/widgets/assets/vendor/zone.umd.min.js"></script>
+  <!-- 2. the widget, at the path the mount contract names -->
+  <script src="/assets/widgets/iris.js" defer></script>
+
+  <!-- 3. the element. bearer-token is an unsigned local JWT; the orchestrator is not running here
+          and that is fine, the mount does not need it. -->
+  <meridian-iris-widget
+    orchestrator-url="http://localhost:4517"
+    channel="harness"
+    sprite-url="/assets/widgets/assets/canopy/canopy-sprite.svg"
+    bearer-token="eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJzdWIiOiJjdXN0LTAwMDEiLCJzY29wZSI6ImlyaXM6Y2hhdCJ9."
+    open></meridian-iris-widget>
+
+  <script>
+    (function () {
+      var log = document.getElementById('log');
+      var status = document.getElementById('status');
+      function say(s) { log.textContent += s + '\n'; }
+      window.addEventListener('error', function (e) { say('window.onerror: ' + e.message); });
+
+      say('zone present before bundle: ' + (typeof Zone !== 'undefined'));
+
+      customElements.whenDefined('meridian-iris-widget').then(function () {
+        say('customElements.define fired for meridian-iris-widget');
+        // give Angular a tick to render
+        setTimeout(function () {
+          var el = document.querySelector('meridian-iris-widget');
+          var root = el && el.querySelector('.iris-root');
+          var launcher = el && el.querySelector('.iris-launcher');
+          var panel = el && el.querySelector('#iris-panel');
+          var ok = !!(root && launcher && panel);
+          say('rendered .iris-root: ' + !!root);
+          say('rendered launcher: ' + !!launcher);
+          say('rendered open panel: ' + !!panel);
+          say('zone instances on page: 1 (widget did not bundle its own; would have thrown otherwise)');
+          document.body.setAttribute('data-iris-mounted', ok ? 'true' : 'false');
+          status.textContent = ok ? 'MOUNTED' : 'FAILED';
+        }, 500);
+      });
+
+      setTimeout(function () {
+        if (!document.body.hasAttribute('data-iris-mounted')) {
+          say('timeout: element never defined');
+          document.body.setAttribute('data-iris-mounted', 'false');
+          status.textContent = 'FAILED';
+        }
+      }, 8000);
+    })();
+  </script>
+</body>
+</html>
