@@ -1,0 +1,682 @@
+unsaved.body	Hay cambios en esta página que no se han guardado. Si sale ahora, se perderán.
+unsaved.title	¿Salir sin guardar?
+unsaved.leave	Salir de la página
+unsaved.stay	Quedarme
+err.network	No pudimos conectar con Meridian Online. Compruebe su conexión e inténtelo de nuevo.
+err.401	Su sesión ha terminado. Inicie sesión de nuevo.
+err.403	No tiene acceso a esta función.
+err.404	No pudimos encontrar lo que buscaba.
+err.409	Esto ya se hizo. Actualice la página para ver lo más reciente.
+err.423	Esta cuenta está restringida. Llámenos al número que aparece al dorso de su tarjeta.
+err.429	Demasiadas solicitudes. Espere un momento e inténtelo de nuevo.
+err.5xx	Algo salió mal de nuestro lado. No se ha cambiado nada en sus cuentas.
+err.generic	Algo salió mal. Inténtelo de nuevo.
+accounts.actions.trigger	Acciones de la cuenta
+accounts.back	Cuentas
+accounts.detail.detailsTitle	Detalles
+accounts.detail.paymentDue	Pago pendiente
+accounts.detail.minimumPayment	Pago mínimo
+accounts.detail.rate	Tasa
+accounts.detail.opened	Abierta
+accounts.detail.statementCycle	Ciclo del estado de cuenta
+accounts.detail.statementCycleValue	Día {0} de cada mes
+accounts.detail.paperless	Estados de cuenta
+accounts.detail.paperlessOn	Sin papel
+accounts.detail.paperlessOff	Por correo
+accounts.detail.goPaperless	Pasar a sin papel
+accounts.detail.tabTransactions	Transacciones
+accounts.detail.tabStatements	Estados de cuenta
+accounts.detail.viewStatements	Ver los estados de cuenta de esta cuenta
+accounts.detail.tabInterest	Intereses
+accounts.accountList.title	Cuentas
+accounts.accountList.lede	Los saldos se actualizan cada vez que abre esta página.
+accounts.accountList.section	Cuentas de depósito y de crédito
+accounts.accountList.caption	Cuentas
+accounts.accountList.empty	Todavía no tiene cuentas con nosotros
+accounts.accountList.col.nickname	Cuenta
+accounts.accountList.col.type	Tipo
+accounts.accountList.col.availableBalanceMinor	Disponible
+accounts.accountList.col.currentBalanceMinor	Actual
+accounts.disputeTransaction.title	Disputar una transacción
+accounts.disputeTransaction.lede	Abonaremos el importe a su cuenta mientras investigamos, normalmente en 2 días hábiles.
+accounts.dispute.reason	Motivo
+accounts.dispute.detail	Cuéntenos qué pasó
+action.cancel	Cancelar
+accounts.disputeTransaction.submit	Enviar disputa
+accounts.disputeTransaction.reason.unauthorised	Yo no hice esta compra
+accounts.disputeTransaction.reason.duplicate	Me cobraron dos veces
+accounts.disputeTransaction.reason.amount	El importe es incorrecto
+accounts.disputeTransaction.reason.not-received	No recibí lo que pagué
+accounts.disputeTransaction.saved	Disputa enviada. Le enviaremos una referencia por correo electrónico en 24 horas.
+accounts.exportTransactions.title	Descargar transacciones
+accounts.exportTransactions.body	Descarga las transacciones que coinciden con sus filtros actuales en un archivo CSV. Los archivos se abren en la mayoría de las hojas de cálculo.
+accounts.exportTransactions.confirm	Descargar CSV
+accounts.interestSummary.title	Intereses
+accounts.interestSummary.p1	Los intereses se calculan a diario y se pagan el último día hábil de cada mes. Las cifras del año hasta la fecha aparecen en su estado de cuenta y en su 1099-INT en enero.
+accounts.pending.title	Pendientes
+accounts.pending.less	Mostrar menos
+accounts.pending.more	Mostrar todas ({0})
+accounts.renameAccount.title	Renombrar cuenta
+accounts.renameAccount.body	Los apodos solo se muestran en Meridian Online y en la aplicación móvil. Los estados de cuenta conservan el nombre del producto.
+accounts.renameAccount.confirm	Guardar nombre
+accounts.routing.title	Números de cuenta y de ruta
+accounts.routing.description	Para depósito directo y pagos automáticos
+accounts.routing.routingLabel	Número de ruta (ACH y transferencias)
+accounts.routing.copyRouting	Copiar número de ruta
+accounts.routing.accountLabel	Número de cuenta
+accounts.routing.copyAccount	Copiar número de cuenta
+accounts.routing.note	Use el número de ruta anterior tanto para transferencias electrónicas como para giros. Meridian Trust Bank no usa un número de ruta distinto para giros.
+accounts.routing.copiedRouting	Número de ruta copiado
+accounts.routing.copiedAccount	Número de cuenta copiado
+accounts.txn.back	Volver a la cuenta
+accounts.txn.status	Estado
+accounts.txn.posted	Contabilizada
+accounts.txn.settled	Liquidada
+accounts.txn.description	Descripción
+accounts.txn.category	Categoría
+accounts.txn.mcc	Código de categoría del comercio
+accounts.txn.balanceAfter	Saldo posterior
+accounts.txn.reference	Referencia
+accounts.txn.helpTitle	¿Algo no cuadra?
+accounts.txn.disputeOpen	Ya hay una disputa abierta para esta transacción. Referencia {0}.
+accounts.txn.disputeMessage	Preguntar sobre esta disputa
+accounts.txn.disputeIntro	Si no reconoce este cargo o el importe es incorrecto, puede disputarlo. Normalmente abonamos el importe en dos días hábiles mientras investigamos.
+accounts.txn.noDispute	Esta transacción no se puede disputar en línea. Llámenos al número que aparece al dorso de su tarjeta.
+accounts.txn.dispute	Disputar esta transacción
+accounts.filters.search	Buscar por descripción o comercio
+accounts.filters.dates	Fechas
+accounts.filters.more	Filtros
+accounts.filters.clear	Borrar
+accounts.transactions.title	Transacciones
+accounts.transactions.export	Descargar
+txn.status.disputed	En disputa
+txn.status.reversed	Revertida
+alerts.history.title	Historial de alertas
+alerts.history.lede	Todo lo que le hemos enviado en los últimos 90 días, por todos los canales.
+alerts.history.viewAccount	Ver cuenta
+action.showMore	Mostrar más
+alerts.history.end	Eso es todo de los últimos 90 días.
+alerts.history.empty	Aún no se han enviado alertas
+alerts.history.emptyBody	Cuando se active una alerta, aparecerá aquí durante 90 días.
+alerts.row.required	Obligatoria
+alerts.row.threshold	Cuando supere {0}
+action.change	Cambiar
+alerts.row.amount	Importe
+action.save	Guardar
+alerts.prefs.footnote	Las alertas por mensaje de texto se envían al número móvil de su perfil. Pueden aplicarse tarifas de mensajes y datos. Responda STOP a cualquier alerta de texto para desactivar los SMS de todas las alertas opcionales.
+alerts.prefs.regulatory	Esta alerta es obligatoria y no se puede desactivar.
+alerts.home.title	Alertas
+alerts.home.lede	Elija de qué le avisamos y cómo. Algunas alertas son obligatorias por ley y no se pueden desactivar.
+alerts.home.tabPreferences	Preferencias
+alerts.home.tabQuiet	Horas de silencio
+alerts.home.history	Ver las alertas enviadas en los últimos 90 días
+alerts.quiet.title	Horas de silencio
+alerts.quiet.lede	Retenga las alertas opcionales durante la noche y recíbalas por la mañana. Las alertas de seguridad y regulatorias se envían siempre de inmediato.
+alerts.quiet.from	Desde
+alerts.quiet.until	Hasta
+alerts.quiet.nextDay	Día siguiente
+alerts.quiet.tz	Las horas son del Este. Las alertas retenidas durante la noche se entregan juntas cuando terminan las horas de silencio.
+alerts.quiet.saved	Horas de silencio guardadas
+alerts.quiet.cleared	Horas de silencio desactivadas
+alerts.quiet.failed	No pudimos guardar las horas de silencio. Inténtelo de nuevo en un momento.
+alerts.testAlert.title	Enviar una alerta de prueba
+alerts.testAlert.body	Enviaremos un mensaje de prueba al canal seleccionado para que compruebe que llega. Puede tardar un minuto.
+alerts.testAlert.confirm	Enviar prueba
+billPay.addBillPayee.title	Agregar un beneficiario
+billPay.addBillPayee.lede	Busque primero en nuestro directorio; los beneficiarios que aparecen allí reciben pagos electrónicos, normalmente en 2 días hábiles.
+billPay.addPayee.name	Nombre del beneficiario
+validation.required	Este campo es obligatorio
+billPay.addPayee.account	Su número de cuenta con el beneficiario
+billPay.addPayee.nickname	Apodo
+billPay.addPayee.zip	Código postal del beneficiario
+billPay.addBillPayee.submit	Agregar beneficiario
+billPay.addBillPayee.saved	Beneficiario agregado.
+billPay.autopaySettings.title	Pago automático
+billPay.autopaySettings.lede	Pagamos el importe adeudado en la fecha de vencimiento. Puede cancelar un pago automático programado hasta el día hábil anterior.
+billPay.autopay.enabled	Pagar esta factura automáticamente
+billPay.autopay.from	Pagar desde
+billPay.autopaySettings.submit	Guardar pago automático
+billPay.autopaySettings.fromAccountId.primary	Cuenta corriente principal
+billPay.autopaySettings.saved	Pago automático actualizado.
+billPay.billDetail.title	Factura
+billPay.billDetail.payee	Beneficiario
+billPay.billDetail.amount	Importe adeudado
+billPay.billDetail.due	Fecha de vencimiento
+billPay.billDetail.status	Estado
+billPay.billDetail.ebill	Factura electrónica
+billPay.billDetail.autopay	Pago automático
+billPay.billPayHome.title	Pago de facturas
+billPay.billPayHome.lede	Facturas que vencen en los próximos 30 días. Las facturas electrónicas se actualizan automáticamente.
+billPay.billPayHome.section	Vencen pronto
+billPay.billPayHome.caption	Pago de facturas
+billPay.billPayHome.empty	No hay facturas pendientes
+billPay.billPayHome.emptyBody	Agregue un beneficiario para empezar a pagar facturas desde Meridian Online.
+billPay.billPayHome.col.payeeName	Beneficiario
+billPay.billPayHome.col.dueAt	Vence
+billPay.billPayHome.col.amountDueMinor	Importe adeudado
+billPay.billPayHome.col.status	Estado
+billPay.cancelPayment.title	¿Cancelar este pago?
+billPay.cancelPayment.body	El beneficiario no recibirá este pago. Cualquier cargo por demora es entre usted y el beneficiario.
+billPay.cancelPayment.confirm	Cancelar pago
+billPay.payBill.title	Pagar una factura
+billPay.payBill.lede	Los pagos enviados antes de las 5:00 PM (hora del Este) se procesan el mismo día hábil.
+billPay.pay.from	Pagar desde
+billPay.pay.amount	Importe
+validation.amountRequired	Ingrese un importe
+billPay.pay.sendOn	Enviar el
+billPay.pay.memo	Nota (aparece en su estado de cuenta)
+billPay.payBill.submit	Programar pago
+billPay.payBill.fromAccountId.primary	Cuenta corriente principal
+billPay.payBill.saved	Pago programado.
+billPay.paymentHistory.title	Historial de pagos
+billPay.paymentHistory.section	Historial de pagos
+billPay.paymentHistory.caption	Historial de pagos
+billPay.paymentHistory.empty	Aún no hay pagos
+billPay.paymentHistory.col.payeeName	Beneficiario
+billPay.paymentHistory.col.lastPaidAt	Pagado
+billPay.paymentHistory.col.amountDueMinor	Importe
+billPay.paymentHistory.col.status	Estado
+billPay.scheduledPayments.title	Pagos programados
+billPay.scheduledPayments.section	Pagos programados
+billPay.scheduledPayments.caption	Pagos programados
+billPay.scheduledPayments.empty	No hay pagos programados
+billPay.scheduledPayments.col.payeeName	Beneficiario
+billPay.scheduledPayments.col.dueAt	Enviar el
+billPay.scheduledPayments.col.amountDueMinor	Importe
+cards.activate.title	Active su tarjeta
+cards.activate.lede	Ingrese los últimos cuatro dígitos y la fecha de vencimiento impresos en la tarjeta nueva.
+cards.activate.lockedOut	Demasiados intentos. Llame al número de la etiqueta de su tarjeta para activarla con un agente.
+cards.activate.last4	Últimos cuatro dígitos
+cards.activate.last4Error	Ingrese los cuatro dígitos del frente de la tarjeta
+cards.activate.expiry	Vencimiento (MM/AA)
+cards.activate.expiryError	Use el formato MM/AA que aparece en la tarjeta
+cards.activate.submit	Activar tarjeta
+cards.activate.done	Su tarjeta está activa. Destruya la anterior.
+cards.controls.title	Controles de la tarjeta
+cards.controls.lede	Decida dónde y cómo se puede usar esta tarjeta. Los cambios se aplican en la próxima autorización.
+cards.controls.where	Dónde funciona la tarjeta
+cards.controls.intlHint	Compras y retiros en cajeros fuera de los Estados Unidos
+cards.controls.onlineHint	Compras por internet, aplicación y teléfono sin la tarjeta presente
+cards.controls.atmHint	Retiros de efectivo en cualquier cajero automático
+cards.controls.tapHint	Pago sin contacto en tiendas, incluso desde una billetera digital
+cards.controls.allOff	Con todos los tipos de compra desactivados, la tarjeta solo funcionará con chip y PIN en persona. Si quiere detenerla por completo, bloquee la tarjeta.
+cards.controls.limit	Límite de gasto diario
+cards.controls.limitToggle	Establecer un límite diario
+cards.controls.limitLabel	Límite por día calendario
+cards.controls.limitHint	Entre $20 y $10,000. Los pagos recurrentes no cuentan.
+cards.controls.limitError	Ingrese un importe entre $20 y $10,000
+cards.controls.blocked	Tipos de comercio bloqueados
+cards.controls.blockedLede	Las compras en estos tipos de comercio se rechazan. Algunos comercios están clasificados de otra forma por la red; no podemos garantizar todos los casos.
+cards.controls.saved	Controles de la tarjeta guardados. Los cambios se aplican en la próxima compra.
+cards.detail.reveal	Mostrar número de tarjeta
+cards.detail.revealHint	Requiere un código de verificación reciente
+cards.detail.hide	Ocultar
+cards.detail.hidesIn	Se oculta en {0} s
+cards.detail.wallets	Billeteras digitales
+cards.detail.walletHint	Agregue esta tarjeta desde la aplicación de billetera de su teléfono. Bloquear la tarjeta también pausa los pagos con billetera.
+cards.detail.linked	Vinculada a la cuenta {0}ver cuenta{1}.
+cards.detail.intl	internacional
+cards.detail.online	en línea
+cards.detail.atm	cajero
+cards.detail.contactless	sin contacto
+cards.detail.off	Desactivado: {0}
+cards.detail.allOn	Se permiten todos los tipos de compra
+cards.list.title	Tarjetas
+cards.list.lede	Bloquee una tarjeta con un toque si no la encuentra. Las tarjetas bloqueadas siguen permitiendo los pagos recurrentes que ya configuró.
+cards.list.expires	Vence {0}/{1}
+cards.list.travel	Aviso de viaje hasta {0}
+cards.list.manage	Administrar
+cards.list.unlock	Desbloquear
+cards.list.lock	Bloquear
+cards.list.empty	No hay tarjetas en este perfil
+cards.list.locked	Tarjeta bloqueada
+cards.list.unlocked	Tarjeta desbloqueada
+cards.lockCard.title	¿Bloquear esta tarjeta?
+cards.lockCard.body	Las tarjetas bloqueadas rechazan compras nuevas y retiros en cajeros. Los pagos recurrentes que ya configuró siguen pasando. Desbloquee cuando quiera.
+cards.lockCard.confirm	Bloquear tarjeta
+cards.reportCard.title	Reportar pérdida, robo o daño
+cards.reportCard.lede	Cancelamos la tarjeta de inmediato y enviamos un reemplazo a su dirección registrada en 5 a 7 días hábiles.
+cards.report.reason	¿Qué pasó?
+cards.report.lastSeen	¿Cuándo la tuvo por última vez?
+cards.reportCard.submit	Cancelar y reemplazar tarjeta
+cards.reportCard.reason.lost	Perdida
+cards.reportCard.reason.stolen	Robada
+cards.reportCard.reason.damaged	Dañada
+cards.reportCard.saved	Tarjeta cancelada. Su reemplazo está en camino.
+cards.travelNotice.title	Aviso de viaje
+cards.travelNotice.lede	Díganos a dónde va para que las compras en el extranjero no se marquen como inusuales.
+cards.travel.from	Salida el
+cards.travel.until	Regreso el
+cards.travel.destinations	Países (separados por comas)
+cards.travelNotice.submit	Guardar aviso de viaje
+cards.travelNotice.saved	Aviso de viaje guardado. Buen viaje.
+dashboard.accountsSummary.title	Sus cuentas
+dashboard.accountsSummary.viewAll	Todas las cuentas
+dashboard.accountsSummary.empty	No hay cuentas para mostrar
+dashboard.alerts.title	Alertas
+dashboard.alerts.dismiss	Descartar alerta
+dashboard.alerts.all	Todas las alertas
+dashboard.alerts.empty	Está al día
+dashboard.lede	Así están las cosas hoy.
+dashboard.greeting.morning	Buenos días
+dashboard.greeting.afternoon	Buenas tardes
+dashboard.greeting.evening	Buenas noches
+dashboard.promoBanner.headline	Gane 4.10% APY con Meridian Reserve Savings
+dashboard.promoBanner.p1	Tasa vigente hoy y sujeta a cambios. Consulte las divulgaciones para más detalles.
+dashboard.promoBanner.learnMore	Más información
+dashboard.promoBanner.dismiss	Descartar oferta
+dashboard.quickTransfer.title	Transferencia rápida
+dashboard.quickTransfer.subtitle	Entre sus propias cuentas, hoy
+transfer.from	Desde
+transfer.to	Hacia
+transfer.amount	Importe
+transfer.insufficient	Eso supera el saldo disponible.
+dashboard.quickTransfer.overCap	Las transferencias mayores continúan en el flujo completo de transferencias.
+dashboard.quickTransfer.more	Más opciones
+action.continue	Continuar
+action.transfer	Transferir
+dashboard.quickTransfer.done	Transferencia de {0} enviada
+dashboard.quickTransfer.available	Disponible {0}
+dashboard.recentActivity.title	Actividad reciente
+txn.status.pending	Pendiente
+dashboard.recentActivity.empty	Aún no hay actividad
+dashboard.recentActivity.emptyBody	Las transacciones aparecen aquí en cuanto se contabilizan en una cuenta corriente o de ahorros.
+dashboard.spending.title	Gastos de este mes
+dashboard.spending.empty	Todavía no hay nada que graficar
+dashboard.spending.emptyBody	Los pagos con tarjeta y de facturas desde su cuenta corriente aparecerán aquí a lo largo del mes.
+dashboard.upcoming.title	Próximamente
+dashboard.upcoming.subtitle	Próximos 14 días
+dashboard.upcoming.total	Total que sale de sus cuentas
+dashboard.upcoming.empty	Nada programado
+dashboard.upcoming.emptyBody	No hay transferencias ni pagos de facturas que venzan en las próximas dos semanas.
+disclosures.disclosureList.title	Divulgaciones y acuerdos
+disclosures.disclosureList.p1	Versiones vigentes de los acuerdos que rigen sus cuentas. Las versiones anteriores están disponibles a petición en Atención al Cliente.
+disclosures.disclosureList.privacy	Aviso de privacidad
+disclosures.disclosureList.deposit	Acuerdo de cuenta de depósito
+disclosures.disclosureList.ecc	Consentimiento de comunicaciones electrónicas
+disclosures.disclosureViewer.title	Divulgación
+errors.forbidden.title	No tiene acceso a esto
+errors.forbidden.p1	Esta función no está disponible en sus cuentas. Si cree que debería estarlo, envíenos un mensaje seguro y lo revisaremos.
+errors.forbidden.home	Ir al panel
+errors.genericError.title	Algo salió mal
+errors.genericError.p1	Tuvimos un problema al cargar esta página. No ha cambiado nada en sus cuentas. Inténtelo de nuevo en un momento; si sigue ocurriendo, llámenos e indique la referencia de esta página.
+errors.genericError.retry	Intentar de nuevo
+errors.notFound.title	No pudimos encontrar esa página
+errors.notFound.p1	Puede que el enlace esté desactualizado o que la página se haya movido. Compruebe la dirección o empiece de nuevo desde su panel.
+errors.notFound.home	Ir al panel
+help.contactUs.title	Contáctenos
+help.contactUs.p1	Atención al cliente: 1-800-555-0100, de 7 a. m. a 10 p. m. (hora del Este), todos los días.
+help.contactUs.p2	Tarjetas perdidas o robadas: 1-800-555-0199, 24 horas.
+help.contactUs.p3	Personas con discapacidad auditiva o del habla: marque 711 y luego el número indicado.
+help.contactUs.message	Enviar un mensaje seguro
+help.faq.title	Preguntas frecuentes
+help.faq.p1	¿Cuánto tardan las transferencias? Las transferencias entre sus cuentas Meridian son inmediatas. Las externas tardan de 1 a 3 días hábiles según el banco receptor.
+help.faq.p2	¿Por qué se cerró mi sesión? Por su seguridad cerramos las sesiones tras 10 minutos sin actividad. Su trabajo no se guarda cuando esto ocurre.
+help.faq.p3	¿Cómo disputo un cargo? Abra la transacción y elija Disputar. Tiene 60 días desde la fecha del estado de cuenta.
+help.helpHome.title	Ayuda
+help.helpHome.lede	Respuestas a preguntas comunes. ¿Sigue atascado? Envíenos un mensaje seguro o llámenos.
+help.helpHome.p1	Explore por tema o busque. El equipo de Soporte Digital actualiza los artículos; si algo está mal o falta, use el enlace de comentarios al final de cualquier artículo.
+help.helpHome.contact	Contáctenos
+help.helpHome.faq	Preguntas frecuentes
+messages.composeMessage.title	Nuevo mensaje
+messages.composeMessage.lede	No incluya el número completo de su tarjeta ni su contraseña. Nunca se los pediremos aquí.
+messages.compose.topic	Tema
+messages.compose.subject	Asunto
+messages.compose.body	Mensaje
+messages.composeMessage.submit	Enviar mensaje
+messages.composeMessage.topic.accounts	Cuentas y saldos
+messages.composeMessage.topic.cards	Tarjetas
+messages.composeMessage.topic.payments	Transferencias y pagos
+messages.composeMessage.topic.fraud	Sospecha de fraude
+messages.composeMessage.topic.other	Otro asunto
+messages.composeMessage.saved	Mensaje enviado. Responderemos en 1 día hábil.
+messages.messageBubble.title	Mensaje
+messages.threadList.title	Mensajes seguros
+messages.threadList.lede	Respondemos en 1 día hábil. Para asuntos urgentes, llame al número al dorso de su tarjeta.
+messages.threadList.section	Conversaciones
+messages.threadList.caption	Mensajes seguros
+messages.threadList.empty	No hay mensajes
+messages.threadList.emptyBody	Inicie una conversación y le responderemos en un día hábil.
+messages.threadList.col.subject	Asunto
+messages.threadList.col.topic	Tema
+messages.threadList.col.updatedAt	Actualizado
+messages.threadList.col.status	Estado
+messages.threadView.title	Conversación
+onboarding.contactStep.title	Cómo contactarle
+onboarding.contact.email	Correo electrónico
+onboarding.contact.mobile	Número de móvil
+onboarding.contact.line1	Dirección
+onboarding.contact.city	Ciudad
+onboarding.contact.state	Estado
+onboarding.contact.zip	Código postal
+onboarding.contactStep.submit	Continuar
+onboarding.contactStep.saved	Guardado
+onboarding.fundingStep.title	Deposite fondos en su cuenta
+onboarding.fundingStep.lede	El depósito mínimo de apertura es de $25. Puede depositar desde otra cuenta bancaria u omitir este paso y hacerlo más tarde.
+onboarding.funding.amount	Depósito inicial
+onboarding.funding.routing	Número de ruta
+onboarding.funding.account	Número de cuenta
+onboarding.fundingStep.submit	Continuar a la revisión
+onboarding.fundingStep.saved	Guardado
+onboarding.identityStep.title	Sobre usted
+onboarding.identityStep.lede	Ingrese su nombre exactamente como aparece en su identificación.
+onboarding.identity.firstName	Nombre
+onboarding.identity.lastName	Apellido
+onboarding.identity.dob	Fecha de nacimiento
+onboarding.identity.ssn	Número de Seguro Social
+onboarding.identityStep.submit	Continuar
+onboarding.identityStep.saved	Guardado
+onboarding.onboardingStart.title	Abrir una cuenta
+onboarding.onboardingStart.lede	Toma unos 10 minutos. Necesitará una identificación oficial y su número de Seguro Social.
+onboarding.onboardingStart.p1	Elija una cuenta corriente o de ahorros para empezar. Podrá agregar más cuentas una vez que sea cliente.
+onboarding.onboardingStart.p2	Las solicitudes están sujetas a verificación de identidad. Podemos pedirle documentos adicionales.
+onboarding.onboardingStart.start	Iniciar solicitud
+onboarding.productStep.title	Elija su cuenta
+onboarding.product.code	Cuenta
+onboarding.product.debitCard	Envíenme una tarjeta de débito
+onboarding.product.paperless	Sin papel
+onboarding.productStep.submit	Continuar
+onboarding.productStep.productCode.CHK-EVERYDAY	Everyday Checking - sin cargo mensual con depósito directo
+onboarding.productStep.productCode.SAV-RESERVE	Reserve Savings - 4.10% APY
+onboarding.productStep.productCode.CHK-PREMIER	Premier Checking - genera intereses, cargo mensual de $25 exonerable
+onboarding.productStep.saved	Guardado
+onboarding.reviewStep.title	Revisar y enviar
+onboarding.reviewStep.p1	Revise todo lo siguiente. Al enviar, acepta el Acuerdo de Cuenta de Depósito, el Consentimiento de Comunicaciones Electrónicas y nuestro Aviso de Privacidad.
+onboarding.reviewStep.p2	Le enviaremos una decisión por correo electrónico, normalmente en unos minutos. Algunas solicitudes requieren revisión manual, que puede tardar hasta 2 días hábiles.
+onboarding.reviewStep.submit	Enviar solicitud
+profile.addressForm.title	Dirección postal
+profile.addressForm.lede	Las tarjetas y los estados de cuenta en papel se envían aquí. Una dirección nueva entra en vigor después de verificarla, normalmente en 1 día hábil.
+profile.address.line1	Dirección línea 1
+profile.address.line2	Dirección línea 2
+profile.address.city	Ciudad
+profile.address.state	Estado
+profile.address.zip	Código postal
+profile.addressForm.submit	Guardar dirección
+profile.addressForm.saved	Dirección actualizada.
+profile.password.title	Cambiar contraseña
+profile.password.current	Contraseña actual
+profile.password.incorrect	Esa no es su contraseña actual
+profile.password.currentRequired	Ingrese su contraseña actual
+profile.password.next	Nueva contraseña
+profile.password.reused	Ha usado esa contraseña recientemente. Elija otra distinta.
+profile.password.sameAsCurrent	La nueva contraseña debe ser distinta de la actual
+profile.password.confirm	Confirmar nueva contraseña
+profile.password.mismatch	Las contraseñas no coinciden
+profile.password.submit	Cambiar contraseña
+profile.password.saved	Contraseña cambiada. La necesitará la próxima vez que inicie sesión.
+profile.changeUsername.title	Cambiar nombre de usuario
+profile.changeUsername.lede	Los nombres de usuario tienen de 8 a 30 caracteres, solo letras y números, y se pueden cambiar una vez cada 90 días.
+profile.username.new	Nuevo nombre de usuario
+profile.changeUsername.submit	Cambiar nombre de usuario
+profile.changeUsername.saved	Nombre de usuario cambiado. Úselo la próxima vez que inicie sesión.
+profile.contactDetails.title	Datos de contacto
+profile.contactDetails.lede	Los usamos para alertas y para verificar que es usted. Cambiar su número de móvil vuelve a verificar las alertas por SMS.
+profile.contact.email	Correo electrónico
+profile.contact.mobile	Número de móvil
+profile.contact.language	Idioma preferido
+profile.contact.paperless	Estados de cuenta y avisos sin papel
+profile.contactDetails.submit	Guardar datos de contacto
+profile.contactDetails.preferredLanguage.en	English
+profile.contactDetails.preferredLanguage.es	Español
+profile.contactDetails.saved	Datos de contacto actualizados.
+profile.activity.title	Actividad de inicio de sesión
+profile.activity.lede	Los últimos 30 días de inicios de sesión en Meridian Online y la aplicación móvil.
+profile.activity.caption	Historial de inicios de sesión
+profile.activity.when	Cuándo
+profile.activity.outcome	Resultado
+profile.activity.where	Dónde
+profile.activity.device	Dispositivo
+profile.activity.empty	No hay inicios de sesión registrados
+profile.activity.success	Sesión iniciada
+profile.activity.failed	Intento fallido
+profile.activity.stepUp	Identidad verificada
+profile.mfa.title	Verificación en dos pasos
+profile.mfa.lede	Pedimos un segundo paso cuando inicia sesión desde un dispositivo nuevo y antes de transferencias grandes.
+profile.mfa.legend	¿Cómo debemos verificarle?
+profile.mfa.enrolled	Método actual configurado {0}.
+profile.mfa.stepUpNote	Le pediremos verificarse con su método actual antes de cambiar.
+profile.mfa.saved	Verificación en dos pasos actualizada
+profile.home.title	Perfil y seguridad
+profile.home.contact	Datos de contacto
+profile.home.name	Nombre
+profile.home.email	Correo electrónico
+profile.home.mobile	Móvil
+profile.home.address	Dirección
+profile.home.language	Idioma
+profile.home.since	Cliente desde
+profile.home.editContact	Editar correo y móvil
+profile.home.editAddress	Cambiar dirección
+profile.home.security	Seguridad
+profile.home.postureBlurb	{0} de 3 comprobaciones superadas
+profile.home.mfaOk	La verificación en dos pasos usa {0}
+profile.home.mfaSms	La verificación en dos pasos usa mensajes de texto. Una aplicación de autenticación es más segura.
+profile.home.passwordAge	Contraseña cambiada hace {0} días
+profile.home.failures	{0} intentos de inicio de sesión fallidos recientes, {1} dispositivos de confianza
+profile.home.manageSecurity	Administrar la configuración de seguridad
+profile.posture.strong	Sólida
+profile.posture.fair	Podría mejorar
+profile.posture.weak	Requiere atención
+profile.security.title	Seguridad
+profile.security.signOutTitle	Cerrar sesión en todos lados
+profile.security.signOutBody	Termina todas las sesiones de Meridian Online y móviles, incluida esta. Los dispositivos de confianza siguen siéndolo; elimínelos por separado si cree que alguno está comprometido.
+profile.security.signOut	Cerrar sesión en todos los dispositivos
+profile.security.footnote	Si cree que otra persona tiene acceso a su cuenta, llame al número al dorso de su tarjeta. Nuestra línea de fraude está abierta 24 horas.
+profile.security.mfaSms	Código por mensaje de texto
+profile.security.mfaApp	Aplicación de autenticación
+profile.security.mfaPush	Notificación push a la aplicación Meridian
+profile.devices.title	Dispositivos de confianza
+profile.devices.lede	Estos dispositivos omiten la verificación en dos pasos durante 90 días. Elimine cualquiera que no reconozca.
+profile.devices.thisDevice	Este dispositivo
+profile.devices.lastSeen	Último uso {0}
+action.remove	Eliminar
+profile.devices.empty	No hay dispositivos de confianza
+profile.devices.emptyBody	Se le pedirá un código de verificación cada vez que inicie sesión.
+profile.devices.removeTitle	¿Eliminar {0}?
+profile.devices.removeCurrent	Este es el dispositivo que está usando ahora. Se le pedirá un código de verificación la próxima vez que inicie sesión aquí.
+profile.devices.removeOther	Ese dispositivo necesitará un código de verificación la próxima vez que inicie sesión.
+profile.devices.removed	Dispositivo eliminado
+rewards.redeemPoints.title	Canjear puntos
+rewards.redeemPoints.lede	Los créditos al estado de cuenta se aplican en 2 días hábiles. Los depósitos a una cuenta Meridian son el mismo día.
+rewards.redeem.option	Canjear por
+rewards.redeem.points	Puntos a canjear
+rewards.redeemPoints.submit	Canjear
+rewards.redeemPoints.optionId.statement-credit	Crédito al estado de cuenta
+rewards.redeemPoints.optionId.deposit	Depósito en cuenta corriente o de ahorros
+rewards.redeemPoints.optionId.gift-card	Tarjeta de regalo
+rewards.redeemPoints.saved	Canje enviado.
+rewards.rewardsActivity.title	Actividad de puntos
+rewards.rewardsActivity.section	Ganados y canjeados
+rewards.rewardsActivity.caption	Actividad de puntos
+rewards.rewardsActivity.empty	Aún no hay actividad de puntos
+rewards.rewardsActivity.col.at	Fecha
+rewards.rewardsActivity.col.description	Descripción
+rewards.rewardsActivity.col.points	Puntos
+rewards.rewardsSummary.title	Recompensas
+statements.documentSearch.title	Buscar un documento
+statements.documentSearch.p1	Busque por cuenta, año o tipo de documento. Los avisos, como cambios de tasa y actualizaciones de la política de privacidad, se conservan 7 años.
+statements.documentSearch.tax	Documentos fiscales
+statements.documentSearch.paperless	Configuración sin papel
+statements.paperless.title	Sin papel
+statements.paperless.lede	Elija sin papel por cuenta. Los estados de cuenta y avisos siguen disponibles aquí durante siete años de todos modos.
+statements.paperless.esign	Leer el consentimiento de entrega electrónica
+statements.paperless.all	Pasar todas las cuentas a sin papel
+statements.paperless.mailNote	Los estados de cuenta en papel se envían a la dirección de su perfil. Puede aplicarse un cargo mensual en algunas cuentas.
+statements.list.title	Estados de cuenta y documentos
+statements.list.lede	Los estados de cuenta mensuales y anuales se conservan siete años. Los avisos, dos.
+statements.list.tax	Documentos fiscales
+statements.list.paperless	Configuración sin papel
+statements.list.account	Cuenta
+statements.list.year	Año
+statements.list.caption	Estados de cuenta
+statements.list.period	Período
+statements.list.type	Tipo
+statements.list.accountCol	Cuenta
+statements.list.pages	Páginas
+statements.list.processing	En proceso
+statements.list.empty	No hay estados de cuenta para ese año
+statements.list.emptyBody	Pruebe otro año u otra cuenta. Los estados de cuenta se generan el último día hábil de cada ciclo.
+statements.list.downloadFailed	No pudimos obtener ese estado de cuenta. Inténtelo de nuevo en un momento.
+statements.viewer.title	Estado de cuenta
+action.print	Imprimir
+action.download	Descargar PDF
+statements.viewer.frame	PDF del estado de cuenta
+statements.tax.title	Documentos fiscales
+statements.tax.lede	Los formularios están disponibles aquí antes del 31 de enero y también se envían por correo salvo que use sin papel.
+statements.tax.pending	Los formularios de {0} se están preparando y aparecerán aquí antes del 31 de enero.
+statements.tax.pages	páginas
+statements.tax.empty	No hay formularios fiscales para este año
+statements.tax.emptyBody	Solo emitimos un 1099-INT cuando los intereses pagados fueron de $10 o más, y un 1098 para cuentas hipotecarias.
+statements.tax.disclaimer	Meridian Trust Bank no ofrece asesoramiento fiscal. Consulte a un profesional de impuestos sobre cómo usar estos formularios.
+statements.tax.f1098	Formulario 1098 intereses hipotecarios
+statements.tax.f1099	Formulario 1099-INT ingresos por intereses
+statements.tax.failed	No pudimos obtener ese formulario en este momento.
+transfers.addPayee.title	Agregar una cuenta externa
+transfers.addPayee.lede	Enviaremos dos pequeños depósitos para verificar la cuenta. Normalmente tarda de 1 a 2 días hábiles.
+transfers.addPayee.nickname	Apodo
+transfers.addPayee.name	Nombre en la cuenta
+transfers.addPayee.routing	Número de ruta
+transfers.addPayee.account	Número de cuenta
+transfers.addPayee.type	Tipo de cuenta
+transfers.addPayee.submit	Agregar cuenta
+transfers.addPayee.accountType.checking	Corriente
+transfers.addPayee.accountType.savings	Ahorros
+transfers.addPayee.saved	Cuenta agregada. Esté atento a dos pequeños depósitos para verificarla.
+transfers.cancelTransfer.title	¿Cancelar esta transferencia?
+transfers.cancelTransfer.body	La transferencia no se enviará. Si forma parte de una serie recurrente, solo se cancela esta ocurrencia.
+transfers.cancelTransfer.confirm	Cancelar transferencia
+transfers.payees.title	Cuentas externas y personas
+transfers.payees.lede	Cuentas en otros bancos y contactos de PayLink a los que puede enviar dinero.
+transfers.payees.add	Agregar una cuenta externa
+transfers.payees.verify	Ingresar depósitos
+transfers.payees.empty	Aún no hay cuentas externas
+transfers.payees.emptyBody	Agregue una cuenta en otro banco para mover dinero hacia o desde ella. La verificación tarda de uno a dos días hábiles.
+transfers.payees.removeTitle	¿Eliminar {0}?
+transfers.payees.removeBody	Las transferencias programadas a esta cuenta se cancelarán. Puede agregarla de nuevo más adelante, pero habrá que verificarla otra vez.
+transfers.payees.removed	Cuenta eliminada
+transfers.scheduledTransfers.title	Programadas
+transfers.scheduledTransfers.section	Programadas y recurrentes
+transfers.scheduledTransfers.caption	Programadas
+transfers.scheduledTransfers.empty	Nada programado
+transfers.scheduledTransfers.emptyBody	Las transferencias recurrentes que configure aparecerán aquí.
+transfers.scheduledTransfers.col.scheduledFor	Fecha
+transfers.scheduledTransfers.col.type	Tipo
+transfers.scheduledTransfers.col.amountMinor	Importe
+transfers.scheduledTransfers.col.status	Estado
+transfers.confirm.number	Número de confirmación
+transfers.confirm.arrival	Llegada prevista
+transfers.review.fee	Comisión
+transfers.confirm.repeats	Se repite
+transfers.confirm.reason	Motivo
+transfers.confirm.note	Hemos enviado una confirmación a sus canales de alerta. Las transferencias programadas se pueden cancelar hasta las 5:00 PM (hora del Este) del día hábil anterior.
+action.done	Listo
+transfers.confirm.another	Hacer otra transferencia
+transfers.confirm.completed	Transferencia completada
+transfers.confirm.scheduled	Transferencia programada
+transfers.confirm.failed	No pudimos enviar esta transferencia
+transfers.confirm.pending	Transferencia enviada
+transfers.transferDetail.title	Transferencia
+transfers.transferDetail.confirmation	Número de confirmación
+transfers.transferDetail.amount	Importe
+transfers.transferDetail.status	Estado
+transfers.transferDetail.scheduledFor	Programada para
+transfers.transferDetail.arrival	Llegada prevista
+transfers.transferDetail.frequency	Frecuencia
+transfers.transferDetail.memo	Nota
+transfers.details.type	¿Qué tipo de transferencia?
+transfers.details.payeeHint	Solo las cuentas verificadas pueden recibir transferencias
+transfers.details.limitHint	Hasta {0} por transferencia
+transfers.details.insufficient	Solo hay {0} disponible en esa cuenta
+transfers.details.overLimit	Eso supera su límite. Le quedan {0} hoy para transferencias externas.
+transfers.details.amountRequired	Ingrese un importe
+transfers.details.memo	Nota (opcional)
+transfers.details.memoPattern	Solo letras, números y puntuación básica
+transfers.details.wireNote	Los giros nacionales cuestan $25 y no se pueden revocar una vez enviados. Las solicitudes después de las 4:00 PM (hora del Este) salen el siguiente día hábil.
+transfers.transferHistory.title	Historial de transferencias
+transfers.transferHistory.lede	Hasta 24 meses de transferencias. La actividad anterior está en sus estados de cuenta.
+transfers.transferHistory.section	Historial de transferencias
+transfers.transferHistory.caption	Historial de transferencias
+transfers.transferHistory.empty	Aún no hay transferencias
+transfers.transferHistory.col.createdAt	Fecha
+transfers.transferHistory.col.confirmationNumber	Confirmación
+transfers.transferHistory.col.amountMinor	Importe
+transfers.transferHistory.col.status	Estado
+transfers.transferLimitsPanel.title	Sus límites
+transfers.transferLimitsPanel.p1	Las transferencias externas están limitadas por día y por transacción. Los límites se restablecen a medianoche (hora del Este). Las transferencias enviadas después del corte de las 5:00 PM ET se procesan el siguiente día hábil.
+transfers.review.title	Revise su transferencia
+action.edit	Editar
+transfers.review.when	Cuándo
+transfers.review.today	Hoy
+transfers.review.stepUpDone	Verificó su identidad hace {0} segundos. Las transferencias grandes requieren una verificación reciente.
+transfers.review.ack	He comprobado los datos del destinatario. Las transferencias a una cuenta equivocada pueden no ser recuperables.
+transfers.review.confirm	Confirmar transferencia
+transfers.schedule.when	¿Cuándo debe salir?
+transfers.schedule.date	Enviar el
+transfers.schedule.pastDate	Elija hoy o una fecha posterior
+transfers.schedule.cutoff	Ya pasó el corte de hoy para transferencias externas, así que esta se enviará el {0}. Las transferencias entre sus propias cuentas siguen haciéndose hoy.
+transfers.schedule.frequency	¿Con qué frecuencia?
+transfers.schedule.endAfter	Detener después de (número de transferencias)
+transfers.schedule.endAfterHint	Déjelo en blanco para continuar hasta que cancele
+transfers.schedule.endAfterRange	Entre 2 y 60
+transfers.wizard.title	Nueva transferencia
+transfers.back	Transferencias
+transfers.wizard.step1	Detalles
+transfers.wizard.step2	Programación
+transfers.home.title	Transferencias
+transfers.home.lede	Mueva dinero entre sus cuentas, a otras personas o a cuentas que tenga en otros bancos.
+transfers.home.internal	Entre mis cuentas
+transfers.home.internalBody	Inmediata. Sin más límite que su saldo disponible.
+transfers.home.start	Empezar
+transfers.home.external	A una cuenta externa
+transfers.home.externalBody	ACH, de 1 a 3 días hábiles. Se aplican límites diarios y las cuentas nuevas deben verificarse primero.
+transfers.home.payees	Administrar cuentas
+transfers.home.paylink	Enviar con PayLink
+transfers.home.paylinkBody	A una persona por número de móvil o correo electrónico. Normalmente llega en minutos.
+transfers.home.wire	Giro
+transfers.home.wireBody	El mismo día si se solicita antes de las 4:00 PM (hora del Este). Se aplica una comisión; consulte la tabla de comisiones.
+transfers.home.tabScheduled	Programadas
+transfers.home.tabLimits	Límites
+transfers.home.history	Historial de transferencias
+transfers.verifyPayee.title	Verificar cuenta externa
+transfers.verifyPayee.lede	Ingrese los dos importes de depósito que aparecieron en la otra cuenta. Tiene tres intentos.
+transfers.verifyPayee.first	Primer depósito
+transfers.verifyPayee.second	Segundo depósito
+transfers.verifyPayee.submit	Verificar
+transfers.verifyPayee.saved	Cuenta verificada. Ya puede transferir a ella.
+error.reference	Referencia {0}
+action.tryAgain	Intentar de nuevo
+masked.show	Mostrar número completo
+masked.hide	Ocultar número completo
+masked.full	Número completo visible
+masked.ending	Número que termina en {0}
+date.today	Hoy
+date.yesterday	Ayer
+auth.signingIn	Iniciando su sesión en Meridian Online…
+idle.body	Por su seguridad cerramos la sesión tras 10 minutos sin actividad.
+idle.countdown	Se cerrará su sesión en {0} segundos.
+idle.signOut	Cerrar sesión ahora
+idle.stay	Sigo aquí
+idle.title	¿Sigue ahí?
+loggedOut.idleHint	No ha cambiado nada en sus cuentas. Ninguna transferencia que no hubiera confirmado se envió.
+loggedOut.signIn	Iniciar sesión de nuevo
+loggedOut.help	Ayuda
+loggedOut.idle.title	Se cerró su sesión
+loggedOut.expired.title	Su sesión terminó
+loggedOut.stepUp.title	La verificación no se completó
+loggedOut.user.title	Ha cerrado sesión
+loggedOut.idle.body	Cerramos su sesión tras 10 minutos sin actividad para mantener sus cuentas seguras.
+loggedOut.expired.body	Su inicio de sesión expiró. Inicie sesión de nuevo para continuar donde lo dejó.
+loggedOut.stepUp.body	No pudimos verificar que era usted, así que la transferencia no se realizó. Inicie sesión de nuevo para intentarlo otra vez.
+loggedOut.user.body	Gracias por operar con Meridian. Cierre esta ventana cuando termine.
+nav.dashboard	Panel
+nav.accounts	Cuentas
+nav.transfers	Transferencias
+nav.billPay	Pago de facturas
+nav.cards	Tarjetas
+nav.statements	Estados de cuenta
+nav.messages	Mensajes
+nav.rewards	Recompensas
+nav.alerts	Alertas
+nav.profile	Perfil y seguridad
+sw.ready	Hay una nueva versión de Meridian Online disponible.
+sw.reload	Actualizar ahora
+sw.later	Más tarde
