@@ -1,0 +1,14 @@
+# Sandbox values. Environment specific values live with the deployable chart in platform-tooling.
+replicaCount: 1
+image:
+  repository: artifactory.meridian.internal/docker-cswt-local/iris-widget
+  tag: ""
+  pullPolicy: IfNotPresent
+service:
+  port: 8080
+route:
+  enabled: true
+  host: iris-widget-sandbox.apps.ocp-dev.meridian.internal
+resources:
+  requests: { cpu: 25m, memory: 32Mi }
+  limits: { cpu: 100m, memory: 64Mi }

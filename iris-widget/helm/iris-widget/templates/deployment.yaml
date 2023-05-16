@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "iris-widget.name" . }}
+  labels: {{- include "iris-widget.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "iris-widget.name" . }}
+  template:
+    metadata:
+      labels: {{- include "iris-widget.labels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: nginx
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            httpGet: { path: /assets/widgets/iris.manifest.json, port: 8080 }
+          resources: {{- toYaml .Values.resources | nindent 12 }}
