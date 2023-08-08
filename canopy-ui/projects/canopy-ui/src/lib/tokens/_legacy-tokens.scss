@@ -1,0 +1,18 @@
+// Pre-3.0 token names kept for business-web, which still references them from its global
+// styles.scss. Remove when MBZ-2210 lands. Values are frozen at their 2.x definitions on purpose;
+// do not point them at the new scale.
+@use 'colors' as c;
+
+$canopy-primary:        c.$cn-green-500;
+$canopy-primary-dark:   c.$cn-green-700;
+$canopy-accent:         c.$cn-blue-500;
+$canopy-warn:           c.$cn-red-500;
+$canopy-grey-1:         #f5f5f5;   
+$canopy-grey-2:         #e0e0e0;
+$canopy-grey-3:         #9e9e9e;
+$canopy-grey-4:         #616161;  
+$canopy-text:           #212121;
+$canopy-gutter:         16px;
+$canopy-gutter-half:    8px;
+$canopy-radius:         4px;
+$canopy-toolbar-height: 64px;
