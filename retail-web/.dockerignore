@@ -1,0 +1,9 @@
+node_modules
+dist
+coverage
+karma-results
+.angular
+e2e
+docs
+backlog
+.git
