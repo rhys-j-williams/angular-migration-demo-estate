@@ -2,7 +2,10 @@
 @use 'sass:map';
 @use 'tokens' as t;
 
-// Keystone Material theme. Palettes from brand (KEY-0471); do not adjust without sign-off.
+// ---------------------------------------------------------------------------------------------
+// Keystone Material theme. Angular 15 (KEY-2172): ng update moved every component to the
+// legacy entry points, so this is the legacy theme only. MDC migration is KEY-2210, Q1.
+// ---------------------------------------------------------------------------------------------
 
 $ks-primary-palette: (
   50: #e3ecf2,
@@ -74,10 +77,19 @@ $ks-primary: mat.define-palette($ks-primary-palette, 500, 300, 700);
 $ks-accent: mat.define-palette($ks-accent-palette, 500, 300, 700);
 $ks-warn: mat.define-palette(mat.$red-palette, 700);
 
-$ks-typography: mat.define-typography-config(
+// Typography: the legacy config and the MDC one take different level names, so we define both.
+// The visible difference is button letter spacing (legacy 0.089em vs MDC 0.0892857143em, which is
+// the same thing, and line height on form field labels, which is not).
+$ks-legacy-typography: mat.define-legacy-typography-config(
   $font-family: '"Source Sans 3", "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
   $button: mat.define-typography-level(15px, 36px, 600),
   $input: mat.define-typography-level(16px, 1.125, 400)
+);
+
+$ks-typography: mat.define-typography-config(
+  $font-family: '"Source Sans 3", "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+  $button: mat.define-typography-level(15px, 36px, 600),
+  $body-1: mat.define-typography-level(16px, 24px, 400)
 );
 
 $ks-theme: mat.define-light-theme((
@@ -90,6 +102,11 @@ $ks-theme: mat.define-light-theme((
   density: 0,
 ));
 
-@include mat.core();
+// The legacy components read typography from the legacy config, the MDC ones from the new one.
+// Passing the wrong one produces a wall of "typography level not found" warnings at build time
+// (KEY-2251), hence two theme maps built from the same palettes.
+$ks-legacy-theme: map.merge($ks-theme, (typography: $ks-legacy-typography));
 
-@include mat.all-component-themes($ks-theme);
+@include mat.legacy-core();
+
+@include mat.all-legacy-component-themes($ks-legacy-theme);
