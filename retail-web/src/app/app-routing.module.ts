@@ -107,18 +107,15 @@ const routes: Routes = [
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, {
-      // Block bootstrap until the first navigation resolves: avoids the dashboard flashing before
-      // AuthGuard has had its say, and is required for the SSR experiment (MOL-3610, shelved).
-      initialNavigation: 'enabledBlocking',
-      preloadingStrategy: SelectivePreloadingStrategy,
-      scrollPositionRestoration: 'enabled',
-      anchorScrolling: 'enabled',
-      paramsInheritanceStrategy: 'always',
-      // Kept on legacy since the Angular 11 upgrade. The transfer wizard's relative links
-      // (`../review`) resolve differently under 'corrected' and MOL-2288 never got finished.
-      relativeLinkResolution: 'legacy',
-      onSameUrlNavigation: 'reload'
-    })
+    // Block bootstrap until the first navigation resolves: avoids the dashboard flashing before
+    // AuthGuard has had its say, and is required for the SSR experiment (MOL-3610, shelved).
+    initialNavigation: 'enabledBlocking',
+    preloadingStrategy: SelectivePreloadingStrategy,
+    scrollPositionRestoration: 'enabled',
+    anchorScrolling: 'enabled',
+    paramsInheritanceStrategy: 'always',
+    onSameUrlNavigation: 'reload'
+})
   ],
   exports: [RouterModule]
 })
