@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 
 import { RateLimitBannerComponent } from '../../shared/components/rate-limit-banner/rate-limit-banner.component';
+import { MaterialModule } from '../../shared/material.module';
 import { SharedLegacyModule } from '../../shared/shared-legacy.module';
 import { mfaTransactionGuard } from './mfa-transaction.guard';
 import { AuthenticatorAppComponent } from './authenticator-app/authenticator-app.component';
@@ -24,8 +25,10 @@ const routes: Routes = [
  * standalone MDC component for the accessibility remediation in KEY-2105 and dragged the MDC
  * modules into this bundle with it. The rest is waiting on KEY-2210.
  */
+// KEY-2210: MDC form field + input for otp-challenge / channel picker. SharedLegacyModule stays for
+// the legacy buttons until the button pass. Yes, both. Temporary.
 @NgModule({
   declarations: [OtpChallengeComponent, ChannelPickerComponent, PushApprovalComponent, AuthenticatorAppComponent],
-  imports: [CommonModule, ReactiveFormsModule, RouterModule.forChild(routes), SharedLegacyModule, RateLimitBannerComponent, OtpInputComponent],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule.forChild(routes), SharedLegacyModule, MaterialModule, RateLimitBannerComponent, OtpInputComponent],
 })
 export class MfaModule {}
