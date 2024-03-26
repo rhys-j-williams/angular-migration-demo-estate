@@ -109,4 +109,5 @@ $ks-legacy-theme: map.merge($ks-theme, (typography: $ks-legacy-typography));
 
 @include mat.legacy-core();
 
+// KEY-2210: still needed for buttons/checkbox/spinner on the login and step-up screens.
 @include mat.all-legacy-component-themes($ks-legacy-theme);

@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { MatLegacyButtonModule } from '@angular/material/legacy-button';
 import { MatLegacyCheckboxModule } from '@angular/material/legacy-checkbox';
-import { MatLegacyFormFieldModule } from '@angular/material/legacy-form-field';
-import { MatLegacyInputModule } from '@angular/material/legacy-input';
 import { MatLegacyProgressSpinnerModule } from '@angular/material/legacy-progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
 
@@ -11,14 +9,13 @@ import { MatIconModule } from '@angular/material/icon';
  * (KEY-2210). New screens must NOT import this; use MaterialModule. When this file has no
  * importers left, delete it and the legacy half of _theme.scss.
  *
- * Still on legacy as of 2024-03: credential form, login page, locked out, otp challenge, channel
- * picker, push approval, authenticator app, step-up interstitial, busy overlay.
+ * KEY-2210 2024-03-26: legacy form-field and input removed here so nothing new can reach for them.
+ * MFA is on MaterialModule for those. Login page next, once the outline appearance is sorted with
+ * the brand team (the MDC outline is 4px taller and the login screenshot is in the brand book).
  */
 const LEGACY = [
   MatLegacyButtonModule,
   MatLegacyCheckboxModule,
-  MatLegacyFormFieldModule,
-  MatLegacyInputModule,
   MatLegacyProgressSpinnerModule,
   MatIconModule,
 ];
