@@ -6,11 +6,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
-/** Material re-exports. Add here, not in feature modules (KEY-0388). */
-const MATERIAL = [MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatIconModule, MatInputModule, MatProgressSpinnerModule];
+/** MDC Material. The migrated half. */
+const MDC = [MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatIconModule, MatInputModule, MatProgressSpinnerModule];
 
 @NgModule({
-  imports: MATERIAL,
-  exports: MATERIAL,
+  imports: MDC,
+  exports: MDC,
 })
 export class MaterialModule {}
