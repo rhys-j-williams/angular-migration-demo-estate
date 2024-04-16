@@ -3,8 +3,25 @@
 @use 'tokens' as t;
 
 // ---------------------------------------------------------------------------------------------
-// Keystone Material theme. Angular 15 (KEY-2172): ng update moved every component to the
-// legacy entry points, so this is the legacy theme only. MDC migration is KEY-2210, Q1.
+// Keystone Material theme
+//
+// STATE OF PLAY (KEY-2210, updated 2024-03): we are half way through the MDC migration. The
+// simple screens (recovery, device trust, step-up complete, banners) are on the MDC components.
+// The credential form, OTP challenge, push approval and the busy overlay are still on the legacy
+// components because they carry ~90% of the traffic and the MDC form field renders 4px taller,
+// which shifted the "Forgot username" link under the fold on the 360px breakpoint in UAT
+// (KEY-2233). Brand and accessibility both need to sign off on the new layout and neither has had
+// time.
+//
+// So: BOTH theme mixins are included. Yes this doubles the emitted theme CSS (~110kb before
+// compression, see the budget bump in angular.json). Yes there are visual regressions where a
+// legacy button sits next to an MDC checkbox (the ripple colours differ, the focus ring is a
+// different width, and the disabled grey is off by a few shades). I ran out of runway before the
+// 2024.03 train and this is what got us through it. Finish it or revert it, but do not leave it
+// like this for another year.
+//
+// If you are reading this because the build broke on an Angular upgrade: the legacy mixins were
+// removed upstream in v17. There is no shim. Every component in the legacy half has to move first.
 // ---------------------------------------------------------------------------------------------
 
 $ks-primary-palette: (
@@ -108,5 +125,22 @@ $ks-theme: mat.define-light-theme((
 $ks-legacy-theme: map.merge($ks-theme, (typography: $ks-legacy-typography));
 
 @include mat.legacy-core();
+@include mat.core();
 
+// Legacy half: credential form, otp challenge, channel picker, push approval, authenticator app,
+// locked out, step-up interstitial, busy overlay.
 @include mat.all-legacy-component-themes($ks-legacy-theme);
+
+// MDC half: everything else.
+@include mat.all-component-themes($ks-theme);
+
+// TODO(KEY-2210): once the last legacy component is gone, drop the block above, drop
+// legacy-core(), and remove the 900kb budget override. Then delete this comment and pretend it
+// was always like that.
+
+// Emitted twice on purpose is still emitted twice. Undo the legacy typography hierarchy where it
+// leaks into the MDC screens; MDC sets its own on .mat-typography.
+.ks-mdc-screen .mat-h1,
+.ks-mdc-screen .mat-h2 {
+  margin-bottom: t.$ks-space-4;
+}
