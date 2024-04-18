@@ -8,6 +8,25 @@ Entries reference CNPY tickets. Entries raised by other teams carry their own ke
 
 ## [Unreleased]
 
+## [3.6.1] - 2024-04-18
+
+### Fixed
+- `cn-toast`: action button not reachable by keyboard when a dialog is open (CNPY-1902).
+- `cn-filter-chips`: `selectionChange` fired for programmatic writes (CNPY-1899).
+- `cn-stepper-shell`: back button was rendered on the first step (CNPY-1887).
+
+## [3.6.0] - 2024-03-07
+
+### Added
+- `cn-bottom-sheet` (CNPY-1794), for the mobile web card controls in Meridian Online.
+- `cn-disclosure`: `cn-disclosure[disclosureId]` renders regulatory copy from the content
+  service. Content is bank authored so the HTML is rendered as is (CNPY-1801). Reviewed with GIS.
+- High contrast theme under `.cn-theme-hc` (CNPY-1753, DAS-2.1 finding).
+- `cnSkipLink` directive (CNPY-1760).
+
+### Changed
+- Tokens: spacing scale gains `--cn-space-0-5` and `--cn-space-1-5`. Additive (CNPY-1782).
+
 ## [3.5.0] - 2023-10-19
 
 ### Added
@@ -125,7 +144,9 @@ are in the 3.0 migration guide on the wiki.
 ### Removed
 - Everything from 2.x. See the migration guide.
 
-[Unreleased]: https://git.meridian.internal/cswt/canopy-ui/compare/canopy-ui/v3.5.0...develop
+[Unreleased]: https://git.meridian.internal/cswt/canopy-ui/compare/canopy-ui/v3.6.1...develop
+[3.6.1]: https://git.meridian.internal/cswt/canopy-ui/compare/canopy-ui/v3.6.0...canopy-ui/v3.6.1
+[3.6.0]: https://git.meridian.internal/cswt/canopy-ui/compare/canopy-ui/v3.5.0...canopy-ui/v3.6.0
 [3.5.0]: https://git.meridian.internal/cswt/canopy-ui/compare/canopy-ui/v3.4.2...canopy-ui/v3.5.0
 [3.4.2]: https://git.meridian.internal/cswt/canopy-ui/compare/canopy-ui/v3.4.1...canopy-ui/v3.4.2
 [3.4.1]: https://git.meridian.internal/cswt/canopy-ui/compare/canopy-ui/v3.4.0...canopy-ui/v3.4.1
