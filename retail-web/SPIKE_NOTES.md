@@ -85,3 +85,5 @@ regression, then the framework. That is a quarter of the team, probably two. Wro
 architecture review; see ADR 0014 when it lands.
 
 Branch left as-is. Last commit on it is the one where I gave up. Do not rebase it onto anything.
+
+2024-06: ADR 0014 accepted, deferred to 2025. Epic MOL-4471.
