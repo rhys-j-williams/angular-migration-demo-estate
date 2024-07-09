@@ -74,3 +74,6 @@ $cn-accent: mat.define-palette($cn-blue-palette, 500, 300, 700);
 $cn-warn: mat.define-palette(mat.$red-palette, 700);
 
 // Dark surfaces need the lighter hues as "default" or text on buttons drops below 4.5:1.
+$cn-primary-dark: mat.define-palette($cn-green-palette, 300, 200, 500);
+$cn-accent-dark: mat.define-palette($cn-blue-palette, 300, 200, 500);
+$cn-warn-dark: mat.define-palette(mat.$red-palette, 300);

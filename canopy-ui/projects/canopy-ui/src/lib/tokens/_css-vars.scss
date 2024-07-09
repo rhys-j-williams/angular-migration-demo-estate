@@ -43,6 +43,28 @@
   --cn-font-family-mono: #{t.$cn-font-family-mono};
 }
 
+@mixin emit-dark {
+  --cn-color-primary: #{c.$cn-green-300};
+  --cn-color-primary-contrast: #{c.$cn-grey-900};
+  --cn-color-accent: #{c.$cn-blue-300};
+  --cn-color-accent-contrast: #{c.$cn-grey-900};
+  --cn-color-warn: #ef6b6b;
+  --cn-color-success: #{c.$cn-green-300};
+  --cn-color-caution: #e6b45a;
+  --cn-color-info: #{c.$cn-blue-300};
+  --cn-color-text: #{c.$cn-grey-50};
+  --cn-color-text-muted: #{c.$cn-grey-400};
+  --cn-color-text-inverse: #{c.$cn-grey-900};
+  --cn-color-surface: #{c.$cn-grey-800};
+  --cn-color-surface-alt: #{c.$cn-grey-900};
+  --cn-color-border: #{c.$cn-grey-700};
+  --cn-color-border-strong: #{c.$cn-grey-500};
+  --cn-color-focus: #{c.$cn-blue-300};
+  --cn-shadow-1: none;
+  --cn-shadow-2: 0 0 0 1px #{c.$cn-grey-700};
+  --cn-shadow-3: 0 0 0 1px #{c.$cn-grey-600};
+}
+
 @mixin emit-high-contrast {
   --cn-color-primary: #000000;
   --cn-color-primary-contrast: #ffffff;
