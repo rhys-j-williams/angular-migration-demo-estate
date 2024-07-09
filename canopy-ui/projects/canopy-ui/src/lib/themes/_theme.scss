@@ -15,6 +15,16 @@ $cn-light-theme: mat.define-light-theme((
   density: 0
 ));
 
+$cn-dark-theme: mat.define-dark-theme((
+  color: (
+    primary: p.$cn-primary-dark,
+    accent: p.$cn-accent-dark,
+    warn: p.$cn-warn-dark
+  ),
+  typography: ty.$cn-typography,
+  density: 0
+));
+
 // High contrast reuses the light palette structure with black primaries; the token layer does the
 // heavy lifting because most of what changes is borders and focus, which Material does not theme.
 $cn-high-contrast-theme: mat.define-light-theme((
@@ -28,12 +38,14 @@ $cn-high-contrast-theme: mat.define-light-theme((
 ));
 
 /// The one mixin consumers include. Emits Material core styles, the light theme on :root and the
-/// high contrast variant behind html.cn-theme-high-contrast so CnThemeService can switch at
-/// runtime without a rebuild. Dark mode is CNPY-1740, not before 3.6.
+/// dark and high contrast variants behind html.cn-theme-dark / html.cn-theme-high-contrast so
+/// CnThemeService can switch at runtime without a rebuild.
 ///
 ///   @use '@meridian/canopy-ui/themes' as canopy;
 ///   @include canopy.theme();
-@mixin theme($include-high-contrast: true) {
+///
+/// Pass $include-dark: false when an application has no dark mode (business-web) to save ~40kb.
+@mixin theme($include-dark: true, $include-high-contrast: true) {
   @include mat.core(ty.$cn-typography);
   @include mat.all-component-themes($cn-light-theme);
   @include overrides.component-overrides($cn-light-theme);
@@ -42,6 +54,15 @@ $cn-high-contrast-theme: mat.define-light-theme((
   html.cn-theme-light {
     @include vars.emit-light;
     color-scheme: light;
+  }
+
+  @if $include-dark {
+    html.cn-theme-dark {
+      @include mat.all-component-colors($cn-dark-theme);
+      @include overrides.component-colors($cn-dark-theme);
+      @include vars.emit-dark;
+      color-scheme: dark;
+    }
   }
 
   @if $include-high-contrast {
