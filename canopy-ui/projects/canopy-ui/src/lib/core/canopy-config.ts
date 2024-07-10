@@ -1,7 +1,7 @@
 import { InjectionToken } from '@angular/core';
 
 export type CnDensity = 'default' | 'compact';
-export type CnThemeName = 'light' | 'high-contrast';
+export type CnThemeName = 'light' | 'dark' | 'high-contrast';
 
 /**
  * Global Canopy configuration. Provided once by the consuming application through

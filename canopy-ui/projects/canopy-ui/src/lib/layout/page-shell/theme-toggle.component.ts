@@ -19,6 +19,7 @@ import { CnThemeName, CnThemeService } from '@meridian/canopy-ui/core';
 export class CnThemeToggleComponent {
   readonly themes: { value: CnThemeName; label: string }[] = [
     { value: 'light', label: 'Light' },
+    { value: 'dark', label: 'Dark' },
     { value: 'high-contrast', label: 'High contrast' }
   ];
   readonly theme$ = this.themeService.theme$;
