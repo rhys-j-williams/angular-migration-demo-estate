@@ -4,23 +4,25 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { CN_CONFIG, CnConfig, CnThemeName } from './canopy-config';
 
 const THEME_CLASS_PREFIX = 'cn-theme-';
-const ALL_THEMES: CnThemeName[] = ['light', 'high-contrast'];
+const ALL_THEMES: CnThemeName[] = ['light', 'dark', 'high-contrast'];
 
 /**
  * Switches the active Canopy theme by toggling `cn-theme-*` classes on `<html>`. The theme mixin
  * emits every variant, so no stylesheet is loaded at runtime.
  *
- * Respects `forced-colors` on first load when nothing is persisted.
+ * Respects `prefers-color-scheme` and `forced-colors` on first load when nothing is persisted.
  */
 @Injectable({ providedIn: 'root' })
 export class CnThemeService implements OnDestroy {
   private readonly current$ = new BehaviorSubject<CnThemeName>('light');
+  private readonly mediaDark: MediaQueryList | null;
   private readonly mediaForced: MediaQueryList | null;
   private readonly onSystemChange = () => this.applySystemPreference();
 
   constructor(@Inject(DOCUMENT) private readonly document: Document,
               @Optional() @Inject(CN_CONFIG) private readonly config: CnConfig) {
     const win = this.document.defaultView;
+    this.mediaDark = win && typeof win.matchMedia === 'function' ? win.matchMedia('(prefers-color-scheme: dark)') : null;
     this.mediaForced = win && typeof win.matchMedia === 'function' ? win.matchMedia('(forced-colors: active)') : null;
 
     const persisted = this.readPersisted();
@@ -29,6 +31,7 @@ export class CnThemeService implements OnDestroy {
     } else {
       this.applySystemPreference();
     }
+    this.mediaDark?.addEventListener?.('change', this.onSystemChange);
     this.mediaForced?.addEventListener?.('change', this.onSystemChange);
   }
 
@@ -50,7 +53,12 @@ export class CnThemeService implements OnDestroy {
     }
   }
 
+  toggleDark(): void {
+    this.setTheme(this.theme === 'dark' ? 'light' : 'dark');
+  }
+
   ngOnDestroy(): void {
+    this.mediaDark?.removeEventListener?.('change', this.onSystemChange);
     this.mediaForced?.removeEventListener?.('change', this.onSystemChange);
   }
 
@@ -60,6 +68,8 @@ export class CnThemeService implements OnDestroy {
     }
     if (this.mediaForced?.matches) {
       this.setTheme('high-contrast', false);
+    } else if (this.mediaDark?.matches) {
+      this.setTheme('dark', false);
     } else {
       this.setTheme(this.config?.defaultTheme ?? 'light', false);
     }
