@@ -9,9 +9,9 @@ import { CnButtonModule, CnIconButtonModule, CnMenuModule } from '@meridian/cano
 import { CnDisclosureModule } from '@meridian/canopy-ui/content';
 import {
   CnAccountCardModule, CnBadgeModule, CnCardModule, CnDataTableModule, CnDividerModule, CnExpansionModule,
-  CnFilterChipsModule, CnListModule, CnSkeletonModule
+  CnFilterChipsModule, CnListModule, CnSkeletonModule, CnVirtualListModule
 } from '@meridian/canopy-ui/data-display';
-import { CnProgressModule } from '@meridian/canopy-ui/feedback';
+import { CnErrorSummaryModule, CnProgressModule } from '@meridian/canopy-ui/feedback';
 import { CnFormsModule } from '@meridian/canopy-ui/forms';
 import { CnPageHeaderModule, CnPageShellModule } from '@meridian/canopy-ui/layout';
 import { CnStepperShellModule, CnTabsModule } from '@meridian/canopy-ui/navigation';
@@ -22,8 +22,8 @@ import { DemoSectionComponent } from './demo-section.component';
 const CANOPY = [
   CnA11yModule, CnButtonModule, CnIconButtonModule, CnMenuModule, CnDisclosureModule,
   CnAccountCardModule, CnBadgeModule, CnCardModule, CnDataTableModule, CnDividerModule, CnExpansionModule,
-  CnFilterChipsModule, CnListModule, CnSkeletonModule,
-  CnProgressModule, CnFormsModule, CnPageHeaderModule, CnPageShellModule,
+  CnFilterChipsModule, CnListModule, CnSkeletonModule, CnVirtualListModule,
+  CnErrorSummaryModule, CnProgressModule, CnFormsModule, CnPageHeaderModule, CnPageShellModule,
   CnStepperShellModule, CnTabsModule, CnBottomSheetModule, CnDialogShellModule, CnToastModule, CnTooltipModule
 ];
 
