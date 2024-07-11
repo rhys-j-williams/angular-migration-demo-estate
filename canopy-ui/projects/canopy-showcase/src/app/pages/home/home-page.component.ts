@@ -24,7 +24,7 @@ import {{ '{' }} CnCurrencyInputModule {{ '}' }} from '@meridian/canopy-ui/forms
       <cn-card title="Theme" subtitle="One mixin, three variants">
         <pre class="cs-code">@use '@meridian/canopy-ui/themes' as canopy;
 @include canopy.theme();</pre>
-        <p class="cs-muted">Light and high contrast are emitted together and switched by a class on html. Try the toggle in the top bar.</p>
+        <p class="cs-muted">Light, dark and high contrast are emitted together and switched by a class on html. Try the toggle in the top bar.</p>
       </cn-card>
     </div>
 
