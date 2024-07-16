@@ -13,7 +13,7 @@ export interface CnListItem<T = unknown> {
 /**
  * Short, non-virtualised list of items with primary/secondary text and a trailing meta column
  * (amount, date). Use for recent transactions on a dashboard, payees, alerts. Over ~100 items use
- * MatTable with pagination.
+ * cn-virtual-list.
  *
  *   <cn-list [items]="recent" interactive (itemSelect)="open($event)"></cn-list>
  */

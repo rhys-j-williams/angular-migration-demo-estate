@@ -47,7 +47,7 @@ export interface CnRowSelection<T> {
  *
  * Server side paging: set `serverSide`, `totalRows` and listen to `pageChange`/`sortChange`
  * instead of passing the whole array. Density follows CN_CONFIG unless overridden per table.
- * MatTable is not virtualised; paginate anything past a few thousand rows.
+ * For tens of thousands of rows use cn-virtual-list instead; MatTable is not virtualised.
  */
 @Component({
   selector: 'cn-data-table',
