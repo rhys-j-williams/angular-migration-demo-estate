@@ -3,6 +3,8 @@ export * from './account-card/account-card.module';
 export * from './data-table/column-def.directive';
 export * from './data-table/data-table.component';
 export * from './data-table/data-table.module';
+export * from './virtual-list/virtual-list.component';
+export * from './virtual-list/virtual-list.module';
 export * from './filter-chips/filter-chips.component';
 export * from './filter-chips/filter-chips.module';
 export * from './badge/badge.component';
