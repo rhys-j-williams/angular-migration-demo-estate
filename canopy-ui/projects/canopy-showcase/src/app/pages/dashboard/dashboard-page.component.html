@@ -66,6 +66,8 @@
 <ng-template #transferDialog>
   <cn-dialog-shell title="Move money" [subtitle]="'From ' + selected.nickname + ' · Available ' + (available | cnCurrency)" [busy]="transferBusy" size="md">
     <form [formGroup]="transferForm" class="cs-stack" (ngSubmit)="submitTransfer()" id="transfer-form">
+      <cn-error-summary *ngIf="transferSubmitted && transferForm.invalid" [form]="transferForm" idPrefix="transfer-"
+                        [messages]="{ to: 'Choose where the money is going', amount: { required: 'Enter an amount', min: 'Amount must be more than zero', insufficient: 'Amount is more than the available balance' } }"></cn-error-summary>
       <cn-select label="To" formControlName="to" [options]="payeeOptions" [required]="true" placeholder="Choose an account or payee" id="transfer-to"></cn-select>
       <mat-form-field appearance="outline" id="transfer-amount">
         <mat-label>Amount</mat-label>

@@ -13,6 +13,7 @@ import { DateRangePageComponent } from './date-range-page.component';
 import { AmountSliderPageComponent } from './amount-slider-page.component';
 import { AccountCardPageComponent } from './account-card-page.component';
 import { DataTablePageComponent } from './data-table-page.component';
+import { VirtualListPageComponent } from './virtual-list-page.component';
 import { FilterChipsPageComponent } from './filter-chips-page.component';
 import { BadgePageComponent } from './badge-page.component';
 import { SkeletonPageComponent } from './skeleton-page.component';
@@ -27,6 +28,7 @@ import { BottomSheetPageComponent } from './bottom-sheet-page.component';
 import { ToastPageComponent } from './toast-page.component';
 import { TooltipPageComponent } from './tooltip-page.component';
 import { ProgressPageComponent } from './progress-page.component';
+import { ErrorSummaryPageComponent } from './error-summary-page.component';
 import { PageHeaderPageComponent } from './page-header-page.component';
 import { PageShellPageComponent } from './page-shell-page.component';
 import { A11yAnnouncerPageComponent } from './a11y-announcer-page.component';
@@ -56,6 +58,7 @@ export const COMPONENT_PAGES: ComponentPage[] = [
   { slug: 'amount-slider', selector: 'cn-amount-slider', family: 'Forms', summary: 'Currency-formatted slider with thumb label and ticks.', component: AmountSliderPageComponent },
   { slug: 'account-card', selector: 'cn-account-card', family: 'Data display', summary: 'Account tile with masked number, balance hide toggle and status.', component: AccountCardPageComponent },
   { slug: 'data-table', selector: 'cn-data-table', family: 'Data display', summary: 'Sortable, pageable, selectable table over an in-memory array.', component: DataTablePageComponent },
+  { slug: 'virtual-list', selector: 'cn-virtual-list', family: 'Data display', summary: 'CDK virtual scroll with keyboard navigation over long transaction histories.', component: VirtualListPageComponent },
   { slug: 'filter-chips', selector: 'cn-filter-chips', family: 'Data display', summary: 'Selectable chip row for filtering, single or multiple.', component: FilterChipsPageComponent },
   { slug: 'badge', selector: 'cn-badge', family: 'Data display', summary: 'Status pill in five tones, outline and dot variants.', component: BadgePageComponent },
   { slug: 'skeleton', selector: 'cn-skeleton', family: 'Data display', summary: 'Loading placeholders in text, rect and circle shapes.', component: SkeletonPageComponent },
@@ -70,6 +73,7 @@ export const COMPONENT_PAGES: ComponentPage[] = [
   { slug: 'toast', selector: 'cn-toast', family: 'Overlays', summary: 'Snackbar wrapper with tones, actions and sticky errors.', component: ToastPageComponent },
   { slug: 'tooltip', selector: 'cn-tooltip', family: 'Overlays', summary: 'cnTooltip directive with brand styling and a 300ms delay.', component: TooltipPageComponent },
   { slug: 'progress', selector: 'cn-progress', family: 'Feedback', summary: 'Determinate and indeterminate progress bars and spinners with thresholds.', component: ProgressPageComponent },
+  { slug: 'error-summary', selector: 'cn-error-summary', family: 'Feedback', summary: 'Form-level error list that focuses on appearance and links to fields.', component: ErrorSummaryPageComponent },
   { slug: 'page-header', selector: 'cn-page-header', family: 'Layout', summary: 'Title block with eyebrow, lede, breadcrumbs, back link and actions.', component: PageHeaderPageComponent },
   { slug: 'page-shell', selector: 'cn-page-shell', family: 'Layout', summary: 'Application frame: toolbar, responsive nav drawer, skip link, theme toggle.', component: PageShellPageComponent },
   { slug: 'a11y-announcer', selector: 'cn-a11y-announcer', family: 'Accessibility', summary: 'Live region announcements, focus trap and skip link directives.', component: A11yAnnouncerPageComponent },
@@ -92,6 +96,7 @@ export const COMPONENT_PAGE_COMPONENTS = [
   AmountSliderPageComponent,
   AccountCardPageComponent,
   DataTablePageComponent,
+  VirtualListPageComponent,
   FilterChipsPageComponent,
   BadgePageComponent,
   SkeletonPageComponent,
@@ -106,6 +111,7 @@ export const COMPONENT_PAGE_COMPONENTS = [
   ToastPageComponent,
   TooltipPageComponent,
   ProgressPageComponent,
+  ErrorSummaryPageComponent,
   PageHeaderPageComponent,
   PageShellPageComponent,
   A11yAnnouncerPageComponent,
