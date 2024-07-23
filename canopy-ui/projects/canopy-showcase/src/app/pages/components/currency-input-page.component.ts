@@ -7,7 +7,7 @@ import { ShowcaseFixturesService } from '../../shared/fixtures.service';
   template: `
     <cs-demo-page title="cn-currency-input" selector="cn-currency-input" importFrom="forms" imports="CnCurrencyInputModule" lede="Money field that formats on blur and exposes a number to the form.">
 
-  <cs-demo-section title="Reactive form" note="Value is a number in major units. Min/max validation reports through the form group; the prefix aligns with the Material underline.">
+  <cs-demo-section title="Reactive form" note="Value is a number in major units. Min/max validation feeds cn-error-summary; the prefix aligns with the Material underline.">
     <form [formGroup]="form" class="cs-stack" style="max-width: 420px">
       <mat-form-field appearance="outline">
         <mat-label>Amount</mat-label>
