@@ -1,0 +1,23 @@
+replicaCount: 1
+
+image:
+  repository: registry.meridian.internal/cswt/canopy-showcase
+  tag: "3.7.2"
+  pullPolicy: IfNotPresent
+
+service:
+  port: 8080
+
+route:
+  host: canopy.apps.dev.ocp.meridian.internal
+  tls: edge
+
+resources:
+  requests:
+    cpu: 50m
+    memory: 64Mi
+  limits:
+    cpu: 200m
+    memory: 128Mi
+
+# No HPA and no PDB: it is a style guide. Platform's chart linter wants them; waived under PLAT-1877.
