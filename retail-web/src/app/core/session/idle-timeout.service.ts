@@ -1,7 +1,7 @@
 import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable, NgZone, OnDestroy } from '@angular/core';
 import { BehaviorSubject, EMPTY, Observable, Subscription, fromEvent, merge, timer } from 'rxjs';
-import { map, switchMap, takeWhile, throttleTime } from 'rxjs/operators';
+import { filter, map, switchMap, takeWhile, throttleTime } from 'rxjs/operators';
 
 import { AuthService } from '../auth/auth.service';
 import { ConfigService } from '../config/config.service';
@@ -22,7 +22,8 @@ export interface IdleSnapshot {
  *
  * Built from RxJS rather than ng-idle (MOL-1362, October 2021): ng-idle's interrupt sources kept
  * the session alive on a background tab because it counted the periodic balance refresh as
- * activity, and customers came back to a still-open session after lunch. The
+ * activity, and customers came back to a still-open session after lunch. Tightened again after
+ * INC-2024-0912 (MOL-4412), when Escape on the warning dialog turned out to reset the timer. The
  * rule now is simple. Activity is a real DOM event from the customer (pointer, key, touch, scroll,
  * visibility change to visible); nothing the application does by itself counts.
  *
@@ -74,7 +75,12 @@ export class IdleTimeoutService implements OnDestroy {
           switchMap(() => (this.document.visibilityState === 'visible' ? [null] : EMPTY))
         )
       )
-        .pipe(throttleTime(1000))
+        .pipe(
+          throttleTime(1000),
+          // Once the warning is up only an explicit extend() counts; a stray keypress on the dialog
+          // (Escape, Tab) must not keep the session alive. INC-2024-0912.
+          filter(() => this.state !== 'warning')
+        )
         .subscribe(() => this.activity$.next(Date.now()));
 
       this.subscription = this.activity$
