@@ -1,6 +1,6 @@
 {
   "name": "@meridian/iris-widget",
-  "version": "1.9.2",
+  "version": "1.9.3",
   "description": "Iris virtual assistant chat widget. Angular Elements custom element <meridian-iris-widget>, shipped as one bundle for host pages to load at runtime.",
   "private": true,
   "license": "UNLICENSED",
