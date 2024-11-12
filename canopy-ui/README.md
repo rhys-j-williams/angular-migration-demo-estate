@@ -40,7 +40,7 @@ projects/canopy-ui            the library. One secondary entry point per compone
   src/lib/layout              page header, page shell
   src/lib/content             disclosure
   src/lib/tokens              SCSS tokens and the CSS custom property sheet
-  src/lib/themes              light and high contrast. `canopy.theme()` is the consumer mixin.
+  src/lib/themes              light, dark, high contrast. `canopy.theme()` is the consumer mixin.
   src/styles                  consumer facing SCSS entry (`@use '@meridian/canopy-ui/styles'`)
   schematics/ng-add           installs the theme import and the sprite asset
 projects/canopy-showcase      living style guide, port 4204
@@ -103,7 +103,7 @@ Consumers include the theme once, in their root stylesheet:
 
 ```scss
 @use '@meridian/canopy-ui/styles' as canopy;
-@include canopy.theme();               // light, plus high contrast under a body class
+@include canopy.theme();               // light, plus dark and high contrast under body classes
 ```
 
 `ng add @meridian/canopy-ui` does this for a new application and copies the sprite into

@@ -1,6 +1,6 @@
 {
   "name": "@meridian/canopy-ui-workspace",
-  "version": "3.6.1",
+  "version": "3.7.2",
   "description": "Canopy design system workspace. The publishable library lives in projects/canopy-ui, the living style guide in projects/canopy-showcase.",
   "private": true,
   "license": "UNLICENSED",
