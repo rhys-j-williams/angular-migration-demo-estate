@@ -8,6 +8,57 @@ Entries reference CNPY tickets. Entries raised by other teams carry their own ke
 
 ## [Unreleased]
 
+### Changed
+- Coverage gate now counts every library source file, not only files a spec imports. The
+  reported figure dropped accordingly; nothing else changed (CNPY-1402, finally).
+- Lint moved from the deprecated TSLint builder to `@angular-eslint` 14 (CNPY-2102).
+
+## [3.7.2] - 2024-11-14
+
+### Fixed
+- `cn-select`: optgroup rendering tore down and rebuilt the options on every change detection
+  cycle when the options array was rebuilt by the consumer. Groups are now memoised on the array
+  reference (CNPY-2131, raised by treasury as LDG-3088).
+- `cn-masked-input`: provide the ngx-mask config from the module so the component works in a
+  lazy loaded route that does not import `CnFormsModule` at the root (CNPY-2127).
+- `cn-tabs`: `ExpressionChangedAfterItHasBeenChecked` when a projected `cnTab` badge changes
+  during the same tick as the parent (CNPY-2120).
+
+## [3.7.1] - 2024-10-03
+
+### Fixed
+- `cn-date-range`: Moment interop under the esbuild based test runner some consumers have
+  started using. Falls back to the namespace import when the default export is not a function
+  (CNPY-2098).
+- `cn-currency-input`: `writeValue(null)` cleared the display but left the internal value at the
+  previous number (CNPY-2091).
+
+### Security
+- `cn-disclosure`: content service responses are now fetched with `credentials: 'same-origin'`
+  only, and the disclosure id is validated against `^[a-z0-9-]+$` before being interpolated into
+  the URL (GIS-3317, finding from the Q3 application review).
+
+## [3.7.0] - 2024-08-22
+
+### Added
+- `cn-error-summary`: WCAG 2.2 style form error summary that focuses the first invalid control
+  and links each message to its field (CNPY-1994). Required by DAS-2.1 section 4.
+- `cn-virtual-list`: CDK virtual scroll wrapper with keyboard navigation, `aria-setsize` and
+  `aria-posinset`, for the transaction lists in Meridian Online and Ledgerline (CNPY-1960).
+- `cn-a11y-announcer`: thin `LiveAnnouncer` wrapper that queues messages so consecutive toasts
+  do not clobber each other (CNPY-2003).
+- Dark theme. `canopy.theme()` now emits `.cn-theme-dark` alongside the light theme using
+  `mat.all-component-colors`; `CnThemeService` toggles the body class and persists the choice
+  (CNPY-1810). Long standing request from the Iris team.
+- `cn-skeleton` for loading states (CNPY-2011).
+
+### Changed
+- `cn-data-table` density: `compact` now also tightens the header row (CNPY-1988).
+
+### Deprecated
+- `CnToastService.show(message, action)` positional signature. Use the options object. Removal
+  in 4.0.0.
+
 ## [3.6.1] - 2024-04-18
 
 ### Fixed
@@ -144,7 +195,10 @@ are in the 3.0 migration guide on the wiki.
 ### Removed
 - Everything from 2.x. See the migration guide.
 
-[Unreleased]: https://git.meridian.internal/cswt/canopy-ui/compare/canopy-ui/v3.6.1...develop
+[Unreleased]: https://git.meridian.internal/cswt/canopy-ui/compare/canopy-ui/v3.7.2...develop
+[3.7.2]: https://git.meridian.internal/cswt/canopy-ui/compare/canopy-ui/v3.7.1...canopy-ui/v3.7.2
+[3.7.1]: https://git.meridian.internal/cswt/canopy-ui/compare/canopy-ui/v3.7.0...canopy-ui/v3.7.1
+[3.7.0]: https://git.meridian.internal/cswt/canopy-ui/compare/canopy-ui/v3.6.1...canopy-ui/v3.7.0
 [3.6.1]: https://git.meridian.internal/cswt/canopy-ui/compare/canopy-ui/v3.6.0...canopy-ui/v3.6.1
 [3.6.0]: https://git.meridian.internal/cswt/canopy-ui/compare/canopy-ui/v3.5.0...canopy-ui/v3.6.0
 [3.5.0]: https://git.meridian.internal/cswt/canopy-ui/compare/canopy-ui/v3.4.2...canopy-ui/v3.5.0
