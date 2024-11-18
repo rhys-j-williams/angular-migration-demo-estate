@@ -67,3 +67,6 @@ Reference for whoever picks this up: the spike branch is intact, do not delete i
 `SPIKE_NOTES.md` first. The order of operations that came out of the discussion is Lantern first
 (it is the only one with an external dependency), then Canopy 4 alongside `business-web`, then
 flex-layout with visual regression, then the framework itself.
+
+2024-11 update: deferred again in the Q4 planning session, target moved to Q3 2025. Ledgerline
+cut-over consumed the capacity as expected. MOL-4471 remains open.
