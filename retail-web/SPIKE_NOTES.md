@@ -87,3 +87,4 @@ architecture review; see ADR 0014 when it lands.
 Branch left as-is. Last commit on it is the one where I gave up. Do not rebase it onto anything.
 
 2024-06: ADR 0014 accepted, deferred to 2025. Epic MOL-4471.
+2025-01: still deferred. Someone asked again. Read the above.
