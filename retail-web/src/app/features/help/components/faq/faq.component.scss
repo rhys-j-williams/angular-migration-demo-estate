@@ -1,0 +1,7 @@
+// MOL-4474: first template off flex-layout. fxLayout="column" fxLayoutGap="12px" becomes plain
+// flex + gap; gap is fine on every browser in .browserslistrc.
+.mol-faq {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
