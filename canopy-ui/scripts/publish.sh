@@ -12,8 +12,10 @@ cd "$(dirname "$0")/.."
 
 TAG="${1:-$(git describe --tags --exact-match --match 'canopy-ui/v*' 2>/dev/null || true)}"
 if [[ -z "${TAG}" ]]; then
-  echo "not on a canopy-ui/vX.Y.Z tag; pass one explicitly: scripts/publish.sh canopy-ui/v3.7.2" >&2
-  exit 1
+  # Not on a release tag and none given: this is the estate-up / publish-internal.sh path, which
+  # wants every version the consumers pin. Hand over to the multi version script.
+  echo "not on a canopy-ui/vX.Y.Z tag; publishing all consumer pinned versions instead" >&2
+  exec bash "$(dirname "$0")/publish-local-versions.sh"
 fi
 VERSION="${TAG#canopy-ui/v}"
 if ! [[ "${VERSION}" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?$ ]]; then
@@ -21,7 +23,7 @@ if ! [[ "${VERSION}" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?$ ]]; then
   exit 1
 fi
 
-REGISTRY="${NPM_REGISTRY:-http://localhost:4873}"
+REGISTRY="${NPM_REGISTRY:-${REGISTRY_URL:-http://localhost:4873}}"
 DIST=dist/canopy-ui
 
 echo "building ${TAG} -> ${VERSION}"
@@ -36,6 +38,7 @@ node -e "
 "
 
 # Verdaccio needs a login; Artifactory takes the CI token from ~/.npmrc written by the pipeline.
+# publish-internal.sh passes its own file through NPM_CONFIG_USERCONFIG, which npm honours as is.
 if [[ -n "${NPM_TOKEN:-}" ]]; then
   echo "//${REGISTRY#http://}/:_authToken=${NPM_TOKEN}" > "${DIST}/.npmrc"
 fi
