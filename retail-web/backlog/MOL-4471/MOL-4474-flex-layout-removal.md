@@ -19,3 +19,8 @@ The responsive ones are the risk. `fxLayout.lt-md="column"` on the dashboard and
 wizard are what makes the site usable on a phone, and mobile is 61% of sessions. Test on real
 devices, not just the Chrome emulator; the spike notes mention the breakpoints misbehaving under
 CDK 15 and we never worked out why.
+
+## Progress
+
+- 2026-08-26: help/faq converted as the pattern template. 46 to go. Visual regression baseline still
+  to be captured before touching anything with `fxLayout.lt-md`.
