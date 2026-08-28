@@ -19,3 +19,11 @@ Rules for this directory, agreed with Canopy in the 2024-02 design system sync:
 When Canopy 4 lands: delete the directory, replace `ldg-filter-chips` with `cn-filter-chips` in the
 dashboard, approvals and audit filters, import `CnFilterChipsModule`, run the Cypress a11y specs.
 The chips are in both axe scans so a regression will show.
+
+Removal checklist (LDG-1350, drafted against the Canopy 4.0.0-rc.2 API notes, not the release):
+
+1. `npm view @meridian/canopy-ui@4 peerDependencies` shows `@angular/core` `>=16`.
+2. `patches/@meridian+canopy-ui+3.7.2.patch` deleted, `legacy-peer-deps` dropped from `.npmrc`,
+   `npm ci` clean with no `patch-package` output.
+3. This directory deleted; grep for `ldg-filter-chips` returns nothing.
+4. `npx jest` and `npx cypress run` green. Coverage will dip by the compat spec; that is expected.
