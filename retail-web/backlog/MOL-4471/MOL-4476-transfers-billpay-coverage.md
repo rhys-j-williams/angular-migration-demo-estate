@@ -24,3 +24,8 @@ Use `TEST_CONFIG` from `src/testing/test-config.ts` for the runtime config, and 
 customers from `@meridian/domain-fixtures`, never hand-written accounts.
 
 Coverage will go up. That is a side effect, not the goal; do not chase the number.
+
+## Progress
+
+- 2026-08-28: bill-pay-home covered. Transfers wizard steps next; the MFA threshold fixture
+  (MOL-4188) needs sorting before quick-transfer can come off xit.
