@@ -1,4 +1,5 @@
 # patches/
+<!-- LDG-1350: removal steps live in src/app/canopy-compat/README.md, keep the two in step. -->
 
 `patch-package` patches applied in `postinstall`. One file per package, named by patch-package.
 Owner: @meridian/treasury-digital. Every patch here needs a ticket on our board *and* one on the
