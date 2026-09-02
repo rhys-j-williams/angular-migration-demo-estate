@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 
+// MBZ-2210: this placeholder goes when the check issue upload lands. See docs/backlog/MBZ-2210-*.md.
+// Keep the route; customer bookmarks point here.
+
 @Component({
   selector: 'mbz-positive-pay-placeholder',
   template: `
@@ -8,7 +11,7 @@ import { Component } from '@angular/core';
       <p>Positive Pay is handled by Treasury Operations for Meridian Business customers. Send check issue files to your
         relationship manager or call Business Support.</p>
       <p class="mbz-muted">Online check issue upload was scheduled for 2020 and descoped (MBZ-790). This page is kept so existing
-        bookmarks continue to work.</p>
+        bookmarks continue to work. Online check issue upload is planned again (MBZ-2210).</p>
     </cn-card>
   `
 })
