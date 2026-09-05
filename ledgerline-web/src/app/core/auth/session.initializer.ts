@@ -13,7 +13,8 @@ export function initialiseSession(): () => Promise<unknown> {
   const store = inject(SessionStore);
   return () => firstValueFrom(api.current().pipe(
     tap(session => store.set(session)),
-    catchError(() => {
+    catchError((err: unknown) => {
+      console.warn('[ledgerline] session bootstrap failed', err);
       store.markLoadFailed();
       return of(null);
     })

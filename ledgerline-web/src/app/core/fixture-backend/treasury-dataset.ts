@@ -65,7 +65,14 @@ function atLocalHour(base: Date, dayOffset: number, hourUtc: number): string {
   return copy.toISOString();
 }
 
-export function buildTreasuryDataset(seed: string, asOfIso = '2024-11-15T14:30:00.000Z'): TreasuryDataset {
+/** Mid business day, today. Cypress passes a fixed instant instead so cutoff labels are stable. */
+export function defaultAsOf(now = new Date()): string {
+  const d = new Date(now.getTime());
+  d.setUTCHours(14, 30, 0, 0);
+  return d.toISOString();
+}
+
+export function buildTreasuryDataset(seed: string, asOfIso = defaultAsOf()): TreasuryDataset {
   const asOf = new Date(asOfIso);
   const fixtures = generateFixtures({
     seed,

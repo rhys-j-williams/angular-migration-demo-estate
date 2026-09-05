@@ -17,7 +17,7 @@
 
 <ng-container *ngIf="!store.loading() && !store.error()">
   <ldg-approvals-table *ngIf="store.visible().length; else empty" [rows]="store.visible()" [decidingId]="store.deciding()"
-                       (open)="open($event)"></ldg-approvals-table>
+                       (openApproval)="open($event)"></ldg-approvals-table>
   <ng-template #empty>
     <ldg-empty-state title="Nothing matches these filters"
                      body="Either the queue is clear or the filters are too narrow. The badge in the navigation shows the live pending count.">

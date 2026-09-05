@@ -17,7 +17,7 @@ import { ApprovalRiskFlagsComponent } from './approval-risk-flags.component';
 export class ApprovalsTableComponent {
   @Input({ required: true }) rows: PaymentApproval[] = [];
   @Input() decidingId: string | null = null;
-  @Output() readonly open = new EventEmitter<PaymentApproval>();
+  @Output() readonly openApproval = new EventEmitter<PaymentApproval>();
 
   readonly columns: CnColumn<PaymentApproval>[] = [
     { key: 'beneficiaryName', header: 'Beneficiary', type: 'template', sortable: true },

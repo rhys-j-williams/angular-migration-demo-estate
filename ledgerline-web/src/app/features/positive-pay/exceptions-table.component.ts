@@ -14,7 +14,7 @@ import { TitleCaseTokenPipe } from '../../shared/pipes/title-case-token.pipe';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <cn-data-table [columns]="columns" [rows]="rows" caption="Positive pay exceptions" [trackBy]="trackById" [selectable]="selectable" [multiSelect]="selectable"
-                   [pageSize]="25" (rowClick)="open.emit($event)" (selectionChange)="onSelection($event)">
+                   [pageSize]="25" (rowClick)="openException.emit($event)" (selectionChange)="onSelection($event)">
       <ng-template cnColumnDef="checkSerial" let-row>
         <span class="ldg-num">#{{ row.checkSerial }}</span>
         <span class="ldg-muted ldg-exceptions__sub">{{ row.accountNickname }}</span>
@@ -45,7 +45,7 @@ import { TitleCaseTokenPipe } from '../../shared/pipes/title-case-token.pipe';
 export class ExceptionsTableComponent {
   @Input({ required: true }) rows: PositivePayException[] = [];
   @Input() selectable = false;
-  @Output() readonly open = new EventEmitter<PositivePayException>();
+  @Output() readonly openException = new EventEmitter<PositivePayException>();
   @Output() readonly selectionChange = new EventEmitter<PositivePayException[]>();
 
   readonly columns: CnColumn<PositivePayException>[] = [

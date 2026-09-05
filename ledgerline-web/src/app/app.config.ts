@@ -1,6 +1,7 @@
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { APP_INITIALIZER, ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { provideRouter, withComponentInputBinding, withInMemoryScrolling, withRouterConfig } from '@angular/router';
 import { CN_CONFIG, CN_DEFAULT_CONFIG, CnCoreModule } from '@meridian/canopy-ui/core';
 import { CnIconModule } from '@meridian/canopy-ui/icons';
@@ -36,7 +37,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withInterceptors(interceptors)),
     provideAnimations(),
     // Canopy still ships NgModules; importProvidersFrom is the bridge until 4.x exposes provideCanopy().
-    importProvidersFrom(CnCoreModule, CnIconModule),
+    importProvidersFrom(CnCoreModule, CnIconModule, MatSnackBarModule),
     { provide: CN_CONFIG, useValue: { ...CN_DEFAULT_CONFIG, currency: 'USD', locale: 'en-US', themeStorageKey: 'ldg.theme' } },
     { provide: APP_INITIALIZER, useFactory: initialiseSession, multi: true }
   ]

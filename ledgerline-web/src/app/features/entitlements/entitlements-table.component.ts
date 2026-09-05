@@ -13,7 +13,7 @@ import { PermissionListComponent } from './permission-list.component';
   imports: [NgIf, CnDataTableModule, StatusBadgeComponent, PermissionListComponent, MinorAmountPipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <cn-data-table [columns]="columns" [rows]="rows" caption="User entitlements" [trackBy]="trackById" [pageSize]="25" (rowClick)="open.emit($event)">
+    <cn-data-table [columns]="columns" [rows]="rows" caption="User entitlements" [trackBy]="trackById" [pageSize]="25" (rowClick)="openEntitlement.emit($event)">
       <ng-template cnColumnDef="role" let-row>
         <ldg-status-badge [status]="row.role" [label]="row.role" size="small"></ldg-status-badge>
       </ng-template>
@@ -35,7 +35,7 @@ import { PermissionListComponent } from './permission-list.component';
 })
 export class EntitlementsTableComponent {
   @Input({ required: true }) rows: Entitlement[] = [];
-  @Output() readonly open = new EventEmitter<Entitlement>();
+  @Output() readonly openEntitlement = new EventEmitter<Entitlement>();
 
   readonly columns: CnColumn<Entitlement>[] = [
     { key: 'userHandle', header: 'User', type: 'text', sortable: true },

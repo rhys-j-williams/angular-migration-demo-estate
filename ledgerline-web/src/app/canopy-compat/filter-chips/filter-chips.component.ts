@@ -1,6 +1,6 @@
 import { NgFor, NgIf } from '@angular/common';
 import {
-  ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, inject, Input, Output,
+  ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, HostBinding, inject, Input, Output,
   ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -41,10 +41,11 @@ export interface LdgFilterChip<T = string> {
   styleUrls: ['./filter-chips.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => LdgFilterChipsComponent), multi: true }],
-  host: { class: 'cn-filter-chips ldg-filter-chips' }
+  providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => LdgFilterChipsComponent), multi: true }]
 })
 export class LdgFilterChipsComponent<T = string> implements ControlValueAccessor {
+  // Same host classes as cn-filter-chips so existing Canopy theme overrides keep applying.
+  @HostBinding('class') readonly hostClass = 'cn-filter-chips ldg-filter-chips';
   @Input() chips: LdgFilterChip<T>[] = [];
   @Input() multiple = false;
   @Input() ariaLabel = 'Filters';

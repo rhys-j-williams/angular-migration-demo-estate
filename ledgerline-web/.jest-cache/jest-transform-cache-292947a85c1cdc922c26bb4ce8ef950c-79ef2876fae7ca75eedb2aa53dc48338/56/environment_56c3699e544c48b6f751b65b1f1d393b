@@ -1,0 +1,22 @@
+c3c1a972f61f0b05d8c01c66ae674b06
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.environment = void 0;
+// Laptop default. bff-business is rarely up locally (it is owned by platform-services and needs
+// the Bedrock stubs), so the fixture backend answers in its place. Flip fixtureBackend to false and
+// run `npm run start:mock-external` when you actually need the wire.
+exports.environment = {
+    name: 'local',
+    production: false,
+    bffBaseUrl: 'http://localhost:4501',
+    tickerHausBaseUrl: 'http://localhost:4602',
+    fixtureBackend: true,
+    fixtureSeed: 'ledgerline',
+    sessionIdleMinutes: 15,
+    featureFlags: {
+        positivePayBulkDecision: true,
+        auditExport: true,
+        fxStreaming: false
+    }
+};
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiL2hvbWUvdWJ1bnR1L2FuZ3VsYXItbWlncmF0aW9uLWRlbW8tZXN0YXRlL2xlZGdlcmxpbmUtd2ViL3NyYy9lbnZpcm9ubWVudHMvZW52aXJvbm1lbnQudHMiLCJtYXBwaW5ncyI6Ijs7O0FBRUEsZ0dBQWdHO0FBQ2hHLG9HQUFvRztBQUNwRyxxRUFBcUU7QUFDeEQsUUFBQSxXQUFXLEdBQW1CO0lBQ3pDLElBQUksRUFBRSxPQUFPO0lBQ2IsVUFBVSxFQUFFLEtBQUs7SUFDakIsVUFBVSxFQUFFLHVCQUF1QjtJQUNuQyxpQkFBaUIsRUFBRSx1QkFBdUI7SUFDMUMsY0FBYyxFQUFFLElBQUk7SUFDcEIsV0FBVyxFQUFFLFlBQVk7SUFDekIsa0JBQWtCLEVBQUUsRUFBRTtJQUN0QixZQUFZLEVBQUU7UUFDWix1QkFBdUIsRUFBRSxJQUFJO1FBQzdCLFdBQVcsRUFBRSxJQUFJO1FBQ2pCLFdBQVcsRUFBRSxLQUFLO0tBQ25CO0NBQ0YsQ0FBQyIsIm5hbWVzIjpbXSwic291cmNlcyI6WyIvaG9tZS91YnVudHUvYW5ndWxhci1taWdyYXRpb24tZGVtby1lc3RhdGUvbGVkZ2VybGluZS13ZWIvc3JjL2Vudmlyb25tZW50cy9lbnZpcm9ubWVudC50cyJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBMZGdFbnZpcm9ubWVudCB9IGZyb20gJy4vZW52aXJvbm1lbnQubW9kZWwnO1xuXG4vLyBMYXB0b3AgZGVmYXVsdC4gYmZmLWJ1c2luZXNzIGlzIHJhcmVseSB1cCBsb2NhbGx5IChpdCBpcyBvd25lZCBieSBwbGF0Zm9ybS1zZXJ2aWNlcyBhbmQgbmVlZHNcbi8vIHRoZSBCZWRyb2NrIHN0dWJzKSwgc28gdGhlIGZpeHR1cmUgYmFja2VuZCBhbnN3ZXJzIGluIGl0cyBwbGFjZS4gRmxpcCBmaXh0dXJlQmFja2VuZCB0byBmYWxzZSBhbmRcbi8vIHJ1biBgbnBtIHJ1biBzdGFydDptb2NrLWV4dGVybmFsYCB3aGVuIHlvdSBhY3R1YWxseSBuZWVkIHRoZSB3aXJlLlxuZXhwb3J0IGNvbnN0IGVudmlyb25tZW50OiBMZGdFbnZpcm9ubWVudCA9IHtcbiAgbmFtZTogJ2xvY2FsJyxcbiAgcHJvZHVjdGlvbjogZmFsc2UsXG4gIGJmZkJhc2VVcmw6ICdodHRwOi8vbG9jYWxob3N0OjQ1MDEnLFxuICB0aWNrZXJIYXVzQmFzZVVybDogJ2h0dHA6Ly9sb2NhbGhvc3Q6NDYwMicsXG4gIGZpeHR1cmVCYWNrZW5kOiB0cnVlLFxuICBmaXh0dXJlU2VlZDogJ2xlZGdlcmxpbmUnLFxuICBzZXNzaW9uSWRsZU1pbnV0ZXM6IDE1LFxuICBmZWF0dXJlRmxhZ3M6IHtcbiAgICBwb3NpdGl2ZVBheUJ1bGtEZWNpc2lvbjogdHJ1ZSxcbiAgICBhdWRpdEV4cG9ydDogdHJ1ZSxcbiAgICBmeFN0cmVhbWluZzogZmFsc2VcbiAgfVxufTtcbiJdLCJ2ZXJzaW9uIjozfQ==

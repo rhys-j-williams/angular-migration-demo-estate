@@ -15,7 +15,7 @@
 <ldg-error-state *ngIf="error() as err" [error]="err" (retry)="load()"></ldg-error-state>
 <ng-container *ngIf="!loading() && !error()">
   <ldg-exceptions-table *ngIf="visible().length; else empty" [rows]="visible()" [selectable]="canDecide() && bulkEnabled"
-                        (selectionChange)="selected.set($event)" (open)="detail($event)"></ldg-exceptions-table>
+                        (selectionChange)="selected.set($event)" (openException)="detail($event)"></ldg-exceptions-table>
   <ng-template #empty>
     <ldg-empty-state title="No exceptions" body="Every presented item matched the issue file, or the filters exclude the rest."></ldg-empty-state>
   </ng-template>

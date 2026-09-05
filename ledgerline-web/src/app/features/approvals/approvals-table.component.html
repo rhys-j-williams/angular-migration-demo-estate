@@ -1,5 +1,5 @@
 <cn-data-table [columns]="columns" [rows]="rows" caption="Payment approvals queue" [trackBy]="trackById" [rowClass]="rowClass"
-               [pageSize]="25" [pageSizeOptions]="[25, 50, 100]" emptyText="No approvals" (rowClick)="open.emit($event)">
+               [pageSize]="25" [pageSizeOptions]="[25, 50, 100]" emptyText="No approvals" (rowClick)="openApproval.emit($event)">
   <ng-template cnColumnDef="beneficiaryName" let-row>
     <div class="ldg-approvals__beneficiary">
       <span>{{ row.beneficiaryName }}</span>

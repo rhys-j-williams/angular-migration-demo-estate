@@ -20,7 +20,7 @@
 <ldg-loading-state *ngIf="loading()" [rows]="6"></ldg-loading-state>
 <ldg-error-state *ngIf="error() as err" [error]="err" (retry)="load()"></ldg-error-state>
 <ng-container *ngIf="!loading() && !error()">
-  <ldg-entitlements-table *ngIf="visible().length; else empty" [rows]="visible()" (open)="open($event)"></ldg-entitlements-table>
+  <ldg-entitlements-table *ngIf="visible().length; else empty" [rows]="visible()" (openEntitlement)="open($event)"></ldg-entitlements-table>
   <ng-template #empty>
     <ldg-empty-state title="No users match" body="Try a different role or clear the search." icon="cn:user"></ldg-empty-state>
   </ng-template>

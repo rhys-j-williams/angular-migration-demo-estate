@@ -13,7 +13,7 @@ import { StatusBadgeComponent } from '../../shared/components';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <cn-card [title]="event.action" [subtitle]="event.occurredAt | date:'medium'" class="ldg-audit-detail" role="region" aria-label="Event detail">
-      <cn-icon-button cnCardAction icon="cn:close" ariaLabel="Close detail" (pressed)="close.emit()"></cn-icon-button>
+      <cn-icon-button cnCardAction icon="cn:close" ariaLabel="Close detail" (pressed)="closed.emit()"></cn-icon-button>
       <dl class="ldg-dl">
         <dt>Outcome</dt><dd><ldg-status-badge [status]="event.outcome" [dot]="true"></ldg-status-badge></dd>
         <dt>Actor</dt><dd>{{ event.actor }} <span class="ldg-muted">({{ event.actorRole }})</span></dd>
@@ -33,5 +33,5 @@ import { StatusBadgeComponent } from '../../shared/components';
 })
 export class AuditEventDetailComponent {
   @Input({ required: true }) event!: AuditEvent;
-  @Output() readonly close = new EventEmitter<void>();
+  @Output() readonly closed = new EventEmitter<void>();
 }

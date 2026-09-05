@@ -10,7 +10,7 @@ import { FxQuote } from '../../core/models/fx';
   imports: [NgIf, DecimalPipe, MatIconModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <button type="button" class="ldg-fx-row" [class.ldg-fx-row--selected]="selected" [attr.aria-pressed]="selected" (click)="select.emit()">
+    <button type="button" class="ldg-fx-row" [class.ldg-fx-row--selected]="selected" [attr.aria-pressed]="selected" (click)="pairSelect.emit()">
       <span class="ldg-fx-row__pair">{{ quote.pair }}</span>
       <span class="ldg-fx-row__mid ldg-num">{{ quote.mid | number:digits }}</span>
       <span class="ldg-fx-row__move ldg-num" [class.ldg-positive]="direction === 'up'" [class.ldg-negative]="direction === 'down'">
@@ -36,7 +36,7 @@ export class FxRateRowComponent {
   @Input({ required: true }) quote!: FxQuote;
   @Input() previous: FxQuote | null = null;
   @Input() selected = false;
-  @Output() readonly select = new EventEmitter<void>();
+  @Output() readonly pairSelect = new EventEmitter<void>();
 
   get digits(): string {
     return this.quote.quote === 'JPY' ? '1.2-2' : '1.4-4';

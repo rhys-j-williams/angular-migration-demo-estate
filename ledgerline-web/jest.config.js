@@ -1,9 +1,10 @@
-import type { Config } from 'jest';
-
 // Jest replaced Karma in LDG-412 (Oct 2023). Coverage thresholds are the Sonar gate numbers
 // mirrored locally so a red build is caught before the push, not by the Jenkins Sonar stage.
 // Do not lower them to get a branch green; raise a ticket with treasury-digital instead.
-const config: Config = {
+//
+// Plain JS on purpose: a .ts config pulls ts-node into devDependencies for one file (LDG-1042).
+/** @type {import('jest').Config} */
+module.exports = {
   preset: 'jest-preset-angular',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   testEnvironment: 'jsdom',
@@ -28,5 +29,3 @@ const config: Config = {
   reporters: ['default'],
   cacheDirectory: '<rootDir>/.jest-cache'
 };
-
-export default config;

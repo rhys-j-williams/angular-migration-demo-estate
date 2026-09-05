@@ -15,7 +15,7 @@ import { TitleCaseTokenPipe } from '../../shared/pipes/title-case-token.pipe';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <cn-data-table [columns]="columns" [rows]="rows" caption="Audit events" [trackBy]="trackById" [showPaginator]="false" [serverSide]="true"
-                   [totalRows]="total" [loading]="loading" density="compact" [rowClass]="rowClass" (rowClick)="select.emit($event)">
+                   [totalRows]="total" [loading]="loading" density="compact" [rowClass]="rowClass" (rowClick)="rowSelect.emit($event)">
       <ng-template cnColumnDef="occurredAt" let-row>
         <span class="ldg-num">{{ row.occurredAt | date:'yyyy-MM-dd HH:mm:ss' }}</span>
       </ng-template>
@@ -52,7 +52,7 @@ export class AuditTableComponent {
   @Input() pageCount = 1;
   @Input() total = 0;
   @Input() pageSize = 50;
-  @Output() readonly select = new EventEmitter<AuditEvent>();
+  @Output() readonly rowSelect = new EventEmitter<AuditEvent>();
   @Output() readonly pageChange = new EventEmitter<number>();
 
   readonly columns: CnColumn<AuditEvent>[] = [

@@ -27,7 +27,7 @@ const WATCHED_PAIRS = ['EUR/USD', 'GBP/USD', 'USD/JPY', 'USD/CAD', 'USD/MXN'];
                        body="TickerHaus did not answer. Positions are unaffected; indicative rates come back when the feed does." (retry)="start()"></ldg-error-state>
       <ol class="ldg-fx__list" *ngIf="quotes().length" aria-label="Indicative FX rates">
         <li *ngFor="let quote of quotes(); trackBy: trackByPair">
-          <ldg-fx-rate-row [quote]="quote" [previous]="previousFor(quote.pair)" [selected]="selectedPair() === quote.pair" (select)="selectedPair.set(quote.pair)"></ldg-fx-rate-row>
+          <ldg-fx-rate-row [quote]="quote" [previous]="previousFor(quote.pair)" [selected]="selectedPair() === quote.pair" (pairSelect)="selectedPair.set(quote.pair)"></ldg-fx-rate-row>
         </li>
       </ol>
       <ldg-fx-converter *ngIf="selected() as q" [quote]="q"></ldg-fx-converter>

@@ -13,7 +13,7 @@ import { BalanceView } from './dashboard-filters.store';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="ldg-grid">
-      <ldg-kpi-tile [label]="view() === 'ledger' ? 'Total ledger' : 'Total available'" [value]="fmt(total())" [hint]="count() + ' accounts'"></ldg-kpi-tile>
+      <ldg-kpi-tile [label]="viewSignal() === 'ledger' ? 'Total ledger' : 'Total available'" [value]="fmt(total())" [hint]="count() + ' accounts'"></ldg-kpi-tile>
       <ldg-kpi-tile label="Intraday net" [value]="fmt(intraday(), 'signed')" [trend]="intraday() > 0 ? 'up' : intraday() < 0 ? 'down' : 'flat'" hint="Since opening ledger"></ldg-kpi-tile>
       <ldg-kpi-tile label="Below sweep target" [value]="belowTarget().toString()" [trend]="belowTarget() ? 'down' : 'flat'" hint="Concentration engine will move funds at 15:00 ET"></ldg-kpi-tile>
       <ldg-kpi-tile label="Largest position" [value]="largest()?.nickname ?? '—'" [hint]="largest() ? fmt(pick(largest()!)) : null"></ldg-kpi-tile>
@@ -23,13 +23,13 @@ import { BalanceView } from './dashboard-filters.store';
 export class PositionSummaryTilesComponent {
   private readonly amount = inject(MinorAmountPipe);
   private readonly rows = signal<LiquidityPosition[]>([]);
-  protected readonly view = signal<BalanceView>('available');
+  protected readonly viewSignal = signal<BalanceView>('available');
 
   @Input({ required: true }) set positions(value: LiquidityPosition[]) {
     this.rows.set(value);
   }
-  @Input({ alias: 'view' }) set balanceView(value: BalanceView) {
-    this.view.set(value);
+  @Input({ required: true }) set view(value: BalanceView) {
+    this.viewSignal.set(value);
   }
 
   readonly count = computed(() => this.rows().length);
@@ -41,7 +41,7 @@ export class PositionSummaryTilesComponent {
     this.rows().reduce<LiquidityPosition | null>((best, p) => !best || this.pick(p) > this.pick(best) ? p : best, null));
 
   pick(position: LiquidityPosition): number {
-    return this.view() === 'ledger' ? position.ledgerBalanceMinor : position.availableBalanceMinor;
+    return this.viewSignal() === 'ledger' ? position.ledgerBalanceMinor : position.availableBalanceMinor;
   }
 
   fmt(minor: number, style: 'plain' | 'signed' | 'compact' = 'compact'): string {
