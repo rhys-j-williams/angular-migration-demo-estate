@@ -126,6 +126,13 @@ publish_tag() {
     log "$tag: lockfile matches the checkout, reusing its node_modules"
     ln -s "$CANOPY_ROOT/node_modules" "$dir/node_modules"
   else
+    # The registry is re-seeded from source on every box, and a tarball packed by a different npm
+    # does not hash the same (PLAT-2718). Re-resolve our own @meridian packages against the live
+    # registry in the throwaway worktree before npm ci; the tag's lockfile is not touched.
+    log "$tag: refreshing @meridian lock entries against $REGISTRY_URL"
+    ( cd "$dir" && npm install --package-lock-only --userconfig "$NPMRC" --no-audit --no-fund --loglevel error \
+        $(node -p "Object.keys(require('./package-lock.json').packages||{}).filter(k=>k.startsWith('node_modules/@meridian/')).map(k=>k.slice('node_modules/'.length)+'@'+require('./package-lock.json').packages[k].version).join(' ')") ) \
+      || warn "$tag: could not refresh @meridian lock entries, trying npm ci as-is"
     log "$tag: npm ci (this is the slow part, a few minutes on a cold cache)"
     ( cd "$dir" && npm ci --userconfig "$NPMRC" --no-audit --no-fund --loglevel error ) \
       || { warn "$tag: npm ci failed"; FAILED=$((FAILED+1)); return 0; }
@@ -142,6 +149,9 @@ publish_tag() {
     const pkg = JSON.parse(fs.readFileSync(p, 'utf8'));
     pkg.version = '$version';
     pkg.gitHead = '$(git -C "$REPO_ROOT" rev-parse "refs/tags/$tag^{commit}")';
+    // stamp with the tag's commit time, not wall-clock: consumer lockfiles pin the tarball
+    // integrity, so a republish must produce byte-identical output (CNPY-2144)
+    pkg.buildDate = '$(git -C "$REPO_ROOT" log -1 --format=%cI "refs/tags/$tag^{commit}")';
     pkg.publishConfig = { registry: '$REGISTRY_URL' };
     fs.writeFileSync(p, JSON.stringify(pkg, null, 2) + '\n');
   "
