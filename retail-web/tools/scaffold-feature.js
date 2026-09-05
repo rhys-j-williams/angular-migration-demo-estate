@@ -459,6 +459,7 @@ function specTemplate(f, c) {
   const needsApi = kind === 'form' || kind === 'dialog';
   const needsDialog = kind === 'dialog';
   return `import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 ${needsStore ? "import { provideMockStore } from '@ngrx/store/testing';\n" : ''}${needsDialog ? "import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';\n" : ''}
@@ -471,7 +472,7 @@ describe('${pascal(c.name)}Component', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [${pascal(c.name)}Component],
-      imports: [SharedModule, RouterTestingModule, NoopAnimationsModule],
+      imports: [SharedModule, HttpClientTestingModule, RouterTestingModule, NoopAnimationsModule],
       providers: [
 ${needsStore ? `        provideMockStore({ initialState: { ${f.name}: { ids: [], entities: {}, loading: false, error: null, selectedId: null, loadedAt: null } } }),\n` : ''}${needsApi ? `        { provide: ${f.apiService}, useValue: {} },\n` : ''}${needsDialog ? `        { provide: MatDialogRef, useValue: { close: () => undefined } },\n        { provide: MAT_DIALOG_DATA, useValue: { id: 'TEST-1' } },\n` : ''}      ]
     }).compileComponents();

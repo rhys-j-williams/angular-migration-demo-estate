@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { provideMockStore } from '@ngrx/store/testing';
@@ -13,7 +14,7 @@ describe('ContactDetailsComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ContactDetailsComponent],
-      imports: [SharedModule, RouterTestingModule, NoopAnimationsModule],
+      imports: [SharedModule, HttpClientTestingModule, RouterTestingModule, NoopAnimationsModule],
       providers: [
         provideMockStore({ initialState: { profile: { ids: [], entities: {}, loading: false, error: null, selectedId: null, loadedAt: null } } }),
         { provide: ProfileApiService, useValue: {} },

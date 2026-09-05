@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -12,7 +13,7 @@ describe('IdentityStepComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [IdentityStepComponent],
-      imports: [SharedModule, RouterTestingModule, NoopAnimationsModule],
+      imports: [SharedModule, HttpClientTestingModule, RouterTestingModule, NoopAnimationsModule],
       providers: [
         { provide: ContentApiService, useValue: {} },
       ]
