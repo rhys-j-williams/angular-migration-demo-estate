@@ -18,7 +18,7 @@ SERVICES = [
     # name, stack, target, note
     ('bff-retail',                 'Node 18 / NestJS 9',      35, ''),
     ('bff-business',               'Node 18 / NestJS 9',      30, ''),
-    ('beacon-notifications',       'Java 11 / Boot 2.7.18',   25, 'no tests on `SequenceGate` (PLAT-1288)'),
+    ('beacon-notifications',       'Java 11 / Boot 2.7.18',   25, 'no tests on `SequenceCoordinator` (PLAT-1288)'),
     ('alerts-preferences-service', 'Java 11 / Boot 2.7.18',   40, ''),
     ('txn-posting-service',        'Java 11 / Boot 2.7.18',   15, 'no reversal or idempotency edge tests (PLAT-1201)'),
     ('pii-vault-service',          'Java 11 / Boot 2.7.18',    8, 'FPE known-answer test only (RA-2022-0341)'),

@@ -18,7 +18,9 @@ SHELL := /bin/bash
 
 JAVA11 ?= /usr/lib/jvm/java-11-openjdk-amd64
 JAVA17 ?= /usr/lib/jvm/java-17-openjdk-amd64
-MVN    ?= mvn -q -B
+# Phase 0 unpacked Maven 3.9.9 under /opt rather than apt's 3.6 (BUILD_LOG.md). Prefer PATH if set.
+MVN_BIN ?= $(shell command -v mvn 2>/dev/null || echo /opt/apache-maven-3.9.9/bin/mvn)
+MVN    ?= $(MVN_BIN) -q -B
 NODE_VERSION := 18.19.0
 NVM_SH := $(HOME)/.nvm/nvm.sh
 VENVS  ?= $(HOME)/.venvs

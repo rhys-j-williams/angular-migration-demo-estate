@@ -12,7 +12,7 @@ cannot be changed (it is Bedrock).
 ## Decision
 
 Every event carries a per-customer `sequenceNumber` assigned by the producer-side adapter. Beacon
-keeps a `SequenceGate` (in Oracle, `BEACON_SEQUENCE`) with the last dispatched sequence per
+keeps a `SequenceCoordinator` (in Oracle, `BEACON_SEQUENCE`) with the last dispatched sequence per
 customer. A message ahead of its turn is parked for up to `gap-timeout` then dispatched with a
 `gapDetected` flag. Single consumer thread per customer partition is not possible with the MQ
 client we have, so this is done in application code.

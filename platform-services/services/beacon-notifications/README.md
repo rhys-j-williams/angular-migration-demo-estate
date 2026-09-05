@@ -13,7 +13,7 @@ adapters (email, sms, push, in-app, console). Delivery attempts land in Oracle (
 The thing to understand before touching it: **per-customer ordering**. Events carry a
 `sequenceNumber` per customer and Beacon will not dispatch sequence N+1 before N has been
 dispatched or expired. This is what stopped "your balance is $500" arriving after "your balance
-is $20" (INC0084410, 2021, a Compliance finding). The gate lives in `SequenceGate` and it has
+is $20" (INC0084410, 2021, a Compliance finding). The gate lives in `SequenceCoordinator` and it has
 no unit tests. It has an integration test that was disabled in 2023 because it was flaky on the
 shared Jenkins agents (PLAT-1288). Nobody has re-enabled it.
 
