@@ -1,0 +1,101 @@
+// Global styles for keystone-web. Order matters: tokens, then the Material theme (both halves, see
+// _theme.scss for the sorry tale), then Canopy's base layer, then our own rules.
+@use 'tokens' as t;
+@use 'theme';
+
+// Canopy 3.6 tokens as CSS custom properties. We take the tokens only, not canopy.theme(): Canopy
+// 3.6 themes Material 14 and we are on 15, and including its theme on top of the two in _theme.scss
+// would be a third copy of the same CSS (KEY-2144). Keystone is on Canopy 3.6.1 while the rest of
+// the estate has moved to 3.7.x; 3.7 changed the focus ring width and the login page has a pixel
+// test on it (KEY-2402). Bump when that test is re-baselined.
+@use '@meridian/canopy-ui/tokens/css-vars' as canopy-vars;
+
+:root {
+  @include canopy-vars.emit-light;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body.ks-body {
+  background: t.$ks-surface-alt;
+  color: t.$ks-ink;
+  font-family: '"Source Sans 3", "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
+  -webkit-font-smoothing: antialiased;
+}
+
+// Login card container. Every screen renders inside this so the transitions between legacy and
+// MDC screens look deliberate rather than like two different apps, which they are.
+.ks-card {
+  background: t.$ks-surface;
+  border: 1px solid t.$ks-line;
+  border-radius: t.$ks-radius;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+  margin: t.$ks-space-8 auto;
+  max-width: t.$ks-card-width;
+  padding: t.$ks-space-6;
+  width: calc(100% - #{t.$ks-space-8});
+}
+
+.ks-card__title {
+  color: t.$ks-navy;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 32px;
+  margin: 0 0 t.$ks-space-2;
+}
+
+.ks-card__lede {
+  color: t.$ks-ink-muted;
+  margin: 0 0 t.$ks-space-6;
+}
+
+.ks-actions {
+  display: flex;
+  flex-direction: column;
+  gap: t.$ks-space-3;
+  margin-top: t.$ks-space-6;
+}
+
+.ks-form-row {
+  display: block;
+  width: 100%;
+}
+
+// Legacy form fields render 4px shorter than MDC ones. This nudge was added for KEY-2233 to make
+// the credential form and the recovery form line up in the side by side screenshots. It does not
+// fully work. See _theme.scss.
+.mat-form-field.ks-legacy-nudge {
+  margin-bottom: 4px;
+}
+
+.ks-visually-hidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+.ks-error-text {
+  color: t.$ks-danger;
+  font-size: 14px;
+  margin: t.$ks-space-2 0;
+}
+
+a.ks-link {
+  color: t.$ks-navy;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+
+  &:focus-visible {
+    outline: 2px solid t.$ks-gold;
+    outline-offset: 2px;
+  }
+}
