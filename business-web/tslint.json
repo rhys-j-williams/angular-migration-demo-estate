@@ -42,7 +42,8 @@
     "max-line-length": [
       true,
       {
-        "limit": 140,
+        "limit": 220,
+        "_comment": "MBZ-1893 raised from 140 after the 2021 prettier sweep left the reducers and wizard components over the line; nobody has gone back to re-wrap them",
         "ignore-pattern": "^import |^export {(.*?)}"
       }
     ],

@@ -156,7 +156,12 @@
                 "node_modules"
               ]
             },
-            "scripts": []
+            "scripts": [],
+            "codeCoverageExclude": [
+              "src/app/legacy/testing/**",
+              "src/app/core/services/fixture-data.service.ts",
+              "src/environments/**"
+            ]
           }
         }
       }

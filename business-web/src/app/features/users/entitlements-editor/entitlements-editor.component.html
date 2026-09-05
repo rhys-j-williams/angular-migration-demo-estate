@@ -22,8 +22,8 @@
     <ng-container *ngIf="selected$ | async as selected; else pick">
       <cn-card [title]="selected.userHandle" [subtitle]="'Entitlement ' + selected.entitlementId">
         <ng-container cnCardAction *ngIf="canManage">
-          <cn-button variant="tertiary" size="small" (pressed)="discard(selected)" [disabled]="!(selectedIsDirty$ | async)">Discard</cn-button>
-          <cn-button variant="primary" size="small" (pressed)="save(selected)" [disabled]="!(selectedIsDirty$ | async)" [loading]="(savingIds$ | async)?.indexOf(selected.entitlementId) >= 0">Save</cn-button>
+          <cn-button variant="tertiary" size="small" (pressed)="discard(selected)" [disabled]="(selectedIsDirty$ | async) !== true">Discard</cn-button>
+          <cn-button variant="primary" size="small" (pressed)="save(selected)" [disabled]="(selectedIsDirty$ | async) !== true" [loading]="(savingIds$ | async)?.indexOf(selected.entitlementId) >= 0">Save</cn-button>
         </ng-container>
 
         <p class="mbz-warn" *ngIf="isSelf(selected)">You cannot change your own entitlement. Ask another administrator.</p>
