@@ -1,7 +1,7 @@
 import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { CnButtonModule } from '@meridian/canopy-ui/actions';
-import { ApiError } from '@app/core/http/api-error';
+import { ApiError } from '../../core/http/api-error';
 
 @Component({
   selector: 'ldg-error-state',
@@ -26,9 +26,13 @@ import { ApiError } from '@app/core/http/api-error';
 export class ErrorStateComponent {
   @Input() title = 'We could not load this';
   @Input() error: ApiError | null = null;
+  @Input() body: string | null = null;
   @Output() readonly retry = new EventEmitter<void>();
 
   get message(): string {
+    if (this.body) {
+      return this.body;
+    }
     if (!this.error) {
       return 'The service did not respond. Try again in a moment.';
     }
