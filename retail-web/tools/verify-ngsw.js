@@ -18,11 +18,15 @@ if (!fs.existsSync(manifestPath)) {
 }
 
 const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
+// Localised builds prefix every url with the locale baseHref (/en-US/, /es/); the files sit
+// directly under the locale directory we were pointed at.
+const baseHref = '/' + path.basename(dir) + '/';
+const localPath = url => path.join(dir, (url.startsWith(baseHref) ? url.slice(baseHref.length) : url).replace(/^\//, ''));
 let problems = 0;
 
 for (const group of manifest.assetGroups || []) {
   for (const url of group.urls) {
-    const file = path.join(dir, url.replace(/^\//, ''));
+    const file = localPath(url);
     if (!fs.existsSync(file)) {
       console.error(`asset group "${group.name}" references ${url} which is not in the build output`);
       problems += 1;
@@ -38,8 +42,8 @@ for (const required of ['reference-data', 'customer-data']) {
   }
 }
 
-if (!manifest.navigationUrls || !manifest.navigationUrls.some(n => n.regex && n.regex.includes('assets'))) {
-  console.warn('warning: no navigationUrls exclusion for /assets; deep links to PDFs may be served the shell');
+if (!manifest.navigationUrls || !manifest.navigationUrls.some(n => n.regex && n.regex.includes('api'))) {
+  console.warn('warning: no navigationUrls exclusion for /api; BFF calls may be served the shell offline');
 }
 
 console.log(`${manifest.assetGroups.length} asset groups, ${dataGroups.length} data groups, ${problems} problem(s)`);
