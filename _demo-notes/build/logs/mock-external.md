@@ -57,9 +57,8 @@ publishes `lantern-sdk` when that directory is present.
 - `verdaccio-up.sh` starts the in-process registry under `setsid` with all three fds redirected;
   before that `estate-up.sh | tee` never returned because the wrapper held the caller's stdout
   (PLAT-2711).
-- `smoke.sh` retries the Keystone authorize request up to three times (PLAT-2702). The original
-  flake, a login page without a `txn` field roughly one run in five right after a cold start, did
-  not reproduce after the retry landed; root cause still open, see README known issues.
+- `smoke.sh` retries the Keystone authorize request up to three times; the retry was added for
+  PLAT-2702 but turned out to be unrelated to it (see the post-merge note at the bottom).
 - Splunk HEC concatenated-JSON bodies needed a raw text body parser on `/services/collector`;
   `createMockApp` has a `rawTextPaths` option for that.
 
@@ -75,7 +74,7 @@ publishes `lantern-sdk` when that directory is present.
 
 ## Known issues (also in mock-external/README.md)
 
-- PLAT-2702 Keystone first-authorize flake, mitigated by retry, not explained.
+- PLAT-2702 resolved post-merge, see below. Not a Keystone issue.
 - Artemis and IBM MQ differ on queue naming for the address/queue split; the Bedrock adapter must
   not depend on `BEDROCK.RESP` being an anycast queue with the same name as its address.
 - Bedrock end-of-day batch report is regenerated on each run; nothing persists across restarts.
@@ -85,3 +84,29 @@ publishes `lantern-sdk` when that directory is present.
 
 - Nothing from the brief omitted. The four platform-services smoke checks were exercised only for
   their skip path, since those directories are not in this checkout.
+
+## Post-merge check (2026-09-05, develop at 246bd33)
+
+Re-ran `estate-up.sh` / `smoke.sh` / `estate-down.sh` against the merged tree (mock-external,
+lantern-sdk, platform-tooling all on develop). Docker mode: up clean, smoke 16 passed / 0 failed /
+4 skipped, down clean. `ESTATE_NO_DOCKER=1`: up clean, smoke 15 / 1 / 4 on the first run, the one
+failure being PLAT-2702, which finally reproduced with the diagnostic line intact:
+
+```
+node: bad option: -CvSkdMxBjM7YyhawSbEmWTQ408W0trpSWScn48YIWw
+FAIL keystone authorize -- login page did not carry a txn field after 3 attempts (HTTP 400): ... PKCE required
+```
+
+Root cause: `smoke.sh` derived the S256 challenge with `node -e '...' "$VERIFIER"`. The verifier is
+32 random bytes as base64url, so one time in 64 its first character is `-` and node parses the
+argument as a CLI option and exits before running the script. `CHALLENGE` was then empty, the
+authorize request had `code_challenge=` with `code_challenge_method=S256`, and Keystone did what it
+should: HTTP 400 `PKCE required`, no login page, no `txn`. The three retries reused the same
+verifier so they could never help. Everything previously written about cold starts, JWKS
+generation races and a one-in-five rate was noise from a small sample; Keystone was never at fault.
+
+Fix (`feature/PLAT-2702-smoke-pkce-verifier-argv` off develop): the verifier is passed through `PKCE_VERIFIER` in the
+environment, the script fails fast with `keystone pkce` if the challenge is empty, README known
+issue rewritten. After the fix, no-Docker smoke re-run: 16 / 0 / 4, plus a forced verifier starting
+with `-` produces a challenge instead of a node error. Keystone's own `pkce-flow.spec.ts` was never
+affected because it builds the challenge in-process.
