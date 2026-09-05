@@ -1,0 +1,1865 @@
+{
+  "component": "keystone-web",
+  "commits": [
+    {
+      "date": "2021-02-08",
+      "author": "g.mwangi",
+      "message": "KEY-0201 scaffold keystone-web (Angular 11.2)",
+      "body": "ng new with strict mode. Port 4202 per the CSWT allocation sheet. Nothing renders yet.",
+      "paths": [
+        "keystone-web/.browserslistrc",
+        "keystone-web/.editorconfig",
+        "keystone-web/.gitignore",
+        "keystone-web/.npmrc",
+        "keystone-web/.nvmrc",
+        "keystone-web/angular.json",
+        "keystone-web/tsconfig.json",
+        "keystone-web/tsconfig.app.json",
+        "keystone-web/tsconfig.spec.json",
+        "keystone-web/karma.conf.js",
+        "keystone-web/package-lock.json",
+        "keystone-web/src/main.ts",
+        "keystone-web/src/index.html",
+        "keystone-web/src/app/app.module.ts",
+        "keystone-web/src/app/app.component.ts",
+        "keystone-web/src/app/app.component.html",
+        "keystone-web/src/app/app.component.scss",
+        "keystone-web/src/app/app-routing.module.ts",
+        "keystone-web/src/environments/environment.ts",
+        "keystone-web/src/environments/environment.model.ts",
+        "keystone-web/src/styles/styles.scss",
+        "keystone-web/src/styles/_tokens.scss",
+        "keystone-web/src/assets/img/keystone-mark.svg"
+      ],
+      "content": {
+        "keystone-web/package.json": "{\n  \"name\": \"@meridian/keystone-web\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Keystone login, MFA, device trust and step-up front end. Relying party UI for the Keystone IdP. Served at login.meridiantrust.example.\",\n  \"private\": true,\n  \"license\": \"UNLICENSED\",\n  \"engines\": {\n    \"node\": \"14.17.0\",\n    \"npm\": \"6.14.15\"\n  },\n  \"scripts\": {\n    \"ng\": \"ng\",\n    \"start\": \"ng serve --port 4202\",\n    \"start:mock-idp\": \"KEYSTONE_IDP_URL=http://localhost:4400 ng serve --port 4202 --configuration development\",\n    \"build\": \"ng build\",\n    \"build:prod\": \"ng build --configuration production\",\n    \"build:stats\": \"ng build --configuration production --stats-json\",\n    \"test\": \"ng test --browsers=ChromeHeadlessCI --code-coverage\",\n    \"test:watch\": \"ng test\",\n    \"lint\": \"ng lint\",\n    \"audit:ci\": \"npm audit --audit-level=high --omit=dev || true\"\n  },\n  \"dependencies\": {\n    \"@angular/animations\": \"11.2.14\",\n    \"@angular/cdk\": \"11.2.13\",\n    \"@angular/common\": \"11.2.14\",\n    \"@angular/compiler\": \"11.2.14\",\n    \"@angular/core\": \"11.2.14\",\n    \"@angular/forms\": \"11.2.14\",\n    \"@angular/material\": \"11.2.13\",\n    \"@angular/platform-browser\": \"11.2.14\",\n    \"@angular/platform-browser-dynamic\": \"11.2.14\",\n    \"@angular/router\": \"11.2.14\",\n    \"angular-oauth2-oidc\": \"10.0.3\",\n    \"rxjs\": \"6.6.7\",\n    \"tslib\": \"2.3.0\",\n    \"zone.js\": \"0.11.4\"\n  },\n  \"devDependencies\": {\n    \"@angular-devkit/build-angular\": \"11.2.14\",\n    \"@angular-eslint/builder\": \"4.3.1\",\n    \"@angular-eslint/eslint-plugin\": \"4.3.1\",\n    \"@angular-eslint/eslint-plugin-template\": \"4.3.1\",\n    \"@angular-eslint/schematics\": \"4.3.1\",\n    \"@angular-eslint/template-parser\": \"4.3.1\",\n    \"@angular/cli\": \"11.2.14\",\n    \"@angular/compiler-cli\": \"11.2.14\",\n    \"@meridian/domain-fixtures\": \"1.6.0\",\n    \"@types/jasmine\": \"3.8.0\",\n    \"@types/node\": \"14.17.0\",\n    \"@typescript-eslint/eslint-plugin\": \"4.28.2\",\n    \"@typescript-eslint/parser\": \"4.28.2\",\n    \"eslint\": \"7.26.0\",\n    \"jasmine-core\": \"3.8.0\",\n    \"karma\": \"6.3.4\",\n    \"karma-chrome-launcher\": \"3.1.1\",\n    \"karma-coverage\": \"2.2.0\",\n    \"karma-jasmine\": \"5.1.0\",\n    \"karma-jasmine-html-reporter\": \"2.0.0\",\n    \"karma-junit-reporter\": \"2.0.1\",\n    \"typescript\": \"4.1.5\"\n  }\n}\n"
+      }
+    },
+    {
+      "date": "2021-02-09",
+      "author": "g.mwangi",
+      "message": "KEY-0201 ADR 0001, why Keystone gets its own front end",
+      "paths": [
+        "keystone-web/docs/adr/0001-standalone-login-app.md"
+      ]
+    },
+    {
+      "date": "2021-02-10",
+      "author": "g.mwangi",
+      "message": "KEY-0205 CONTRIBUTING, CODEOWNERS, PR template",
+      "paths": [
+        "keystone-web/CONTRIBUTING.md",
+        "keystone-web/CODEOWNERS",
+        "keystone-web/.github/pull_request_template.md",
+        "keystone-web/.gitattributes"
+      ]
+    },
+    {
+      "date": "2021-02-11",
+      "author": "g.mwangi",
+      "message": "KEY-0208 brand palette and tokens from the 2020 brand book",
+      "paths": [
+        "keystone-web/src/styles/_tokens.scss"
+      ]
+    },
+    {
+      "date": "2021-02-12",
+      "author": "g.mwangi",
+      "message": "KEY-0209 Material theme",
+      "paths": [
+        "keystone-web/src/styles/_theme.scss"
+      ],
+      "content": {
+        "keystone-web/src/styles/_theme.scss": "@use '@angular/material' as mat;\n@use 'sass:map';\n@use 'tokens' as t;\n\n// Keystone Material theme. Palettes from brand (KEY-0471); do not adjust without sign-off.\n\n$ks-primary-palette: (\n  50: #e3ecf2,\n  100: #b9cfdd,\n  200: #8cb0c7,\n  300: #5f90b0,\n  400: #3d789f,\n  500: t.$ks-navy,\n  600: #0a3753,\n  700: #082f48,\n  800: #06273e,\n  900: #03192b,\n  A100: #6fb6ff,\n  A200: #3c9dff,\n  A400: #0984ff,\n  A700: #0077ef,\n  contrast: (\n    50: rgba(black, 0.87),\n    100: rgba(black, 0.87),\n    200: rgba(black, 0.87),\n    300: white,\n    400: white,\n    500: white,\n    600: white,\n    700: white,\n    800: white,\n    900: white,\n    A100: rgba(black, 0.87),\n    A200: white,\n    A400: white,\n    A700: white,\n  )\n);\n\n$ks-accent-palette: (\n  50: #fcf7e9,\n  100: #f8ecc8,\n  200: #f3e0a4,\n  300: #eed380,\n  400: #ebcb75,\n  500: t.$ks-gold,\n  600: #d9b25a,\n  700: #c9a04a,\n  800: #b98f3a,\n  900: #9e7222,\n  A100: #ffffff,\n  A200: #fff5dd,\n  A400: #ffe6aa,\n  A700: #ffde90,\n  contrast: (\n    50: rgba(black, 0.87),\n    100: rgba(black, 0.87),\n    200: rgba(black, 0.87),\n    300: rgba(black, 0.87),\n    400: rgba(black, 0.87),\n    500: rgba(black, 0.87),\n    600: rgba(black, 0.87),\n    700: rgba(black, 0.87),\n    800: white,\n    900: white,\n    A100: rgba(black, 0.87),\n    A200: rgba(black, 0.87),\n    A400: rgba(black, 0.87),\n    A700: rgba(black, 0.87),\n  )\n);\n\n$ks-primary: mat.define-palette($ks-primary-palette, 500, 300, 700);\n$ks-accent: mat.define-palette($ks-accent-palette, 500, 300, 700);\n$ks-warn: mat.define-palette(mat.$red-palette, 700);\n\n$ks-typography: mat.define-typography-config(\n  $font-family: '\"Source Sans 3\", \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif',\n  $button: mat.define-typography-level(15px, 36px, 600),\n  $input: mat.define-typography-level(16px, 1.125, 400)\n);\n\n$ks-theme: mat.define-light-theme((\n  color: (\n    primary: $ks-primary,\n    accent: $ks-accent,\n    warn: $ks-warn,\n  ),\n  typography: $ks-typography,\n  density: 0,\n));\n\n@include mat.core();\n\n@include mat.all-component-themes($ks-theme);\n"
+      }
+    },
+    {
+      "date": "2021-02-16",
+      "author": "g.mwangi",
+      "message": "KEY-0212 core module with import guard",
+      "paths": [
+        "keystone-web/src/app/core/core.module.ts"
+      ]
+    },
+    {
+      "date": "2021-02-17",
+      "author": "g.mwangi",
+      "message": "KEY-0214 Material re-export module",
+      "paths": [
+        "keystone-web/src/app/shared/material.module.ts"
+      ],
+      "content": {
+        "keystone-web/src/app/shared/material.module.ts": "import { NgModule } from '@angular/core';\nimport { MatButtonModule } from '@angular/material/button';\nimport { MatCheckboxModule } from '@angular/material/checkbox';\nimport { MatFormFieldModule } from '@angular/material/form-field';\nimport { MatIconModule } from '@angular/material/icon';\nimport { MatInputModule } from '@angular/material/input';\nimport { MatProgressSpinnerModule } from '@angular/material/progress-spinner';\n\n/** Material re-exports. Add here, not in feature modules (KEY-0388). */\nconst MATERIAL = [MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatIconModule, MatInputModule, MatProgressSpinnerModule];\n\n@NgModule({\n  imports: MATERIAL,\n  exports: MATERIAL,\n})\nexport class MaterialModule {}\n"
+      }
+    },
+    {
+      "date": "2021-02-18",
+      "author": "g.mwangi",
+      "message": "KEY-0214 shared module, brand header, legal footer",
+      "paths": [
+        "keystone-web/src/app/shared/shared.module.ts",
+        "keystone-web/src/app/shared/components/brand-header",
+        "keystone-web/src/app/shared/components/legal-footer"
+      ]
+    },
+    {
+      "date": "2021-02-23",
+      "author": "g.mwangi",
+      "message": "KEY-0220 angular-oauth2-oidc, code flow config against the IdP dev tenant",
+      "paths": [
+        "keystone-web/src/app/core/auth/auth-config.ts",
+        "keystone-web/src/app/core/auth/auth-session.service.ts"
+      ]
+    },
+    {
+      "date": "2021-02-24",
+      "author": "g.mwangi",
+      "message": "KEY-0220 read standard claims after validation only",
+      "paths": [
+        "keystone-web/src/app/core/auth/token-claims.ts",
+        "keystone-web/src/app/core/auth/token-claims.spec.ts"
+      ]
+    },
+    {
+      "date": "2021-02-24",
+      "author": "g.mwangi",
+      "message": "KEY-0220 auth config spec",
+      "paths": [
+        "keystone-web/src/app/core/auth/auth-config.spec.ts"
+      ]
+    },
+    {
+      "date": "2021-02-25",
+      "author": "g.mwangi",
+      "message": "KEY-0222 IdP form client: credentials and OTP",
+      "paths": [
+        "keystone-web/src/app/core/auth/idp-client.service.ts"
+      ]
+    },
+    {
+      "date": "2021-03-01",
+      "author": "g.mwangi",
+      "message": "KEY-0225 login module, credential form, login page (legacy Material)",
+      "paths": [
+        "keystone-web/src/app/features/login/login.module.ts",
+        "keystone-web/src/app/features/login/credential-form",
+        "keystone-web/src/app/features/login/login-page"
+      ]
+    },
+    {
+      "date": "2021-03-02",
+      "author": "g.mwangi",
+      "message": "KEY-0225 credential form spec",
+      "paths": [
+        "keystone-web/src/app/features/login/credential-form/credential-form.component.spec.ts"
+      ]
+    },
+    {
+      "date": "2021-03-03",
+      "author": "g.mwangi",
+      "message": "KEY-0228 MFA transaction state",
+      "paths": [
+        "keystone-web/src/app/core/auth/mfa-transaction.service.ts",
+        "keystone-web/src/app/core/auth/mfa-transaction.service.spec.ts"
+      ]
+    },
+    {
+      "date": "2021-03-04",
+      "author": "g.mwangi",
+      "message": "KEY-0228 MFA module: OTP challenge by text",
+      "paths": [
+        "keystone-web/src/app/features/mfa/mfa.module.ts",
+        "keystone-web/src/app/features/mfa/otp-challenge",
+        "keystone-web/src/app/features/mfa/mfa-transaction.guard.ts"
+      ]
+    },
+    {
+      "date": "2021-03-08",
+      "author": "g.mwangi",
+      "message": "KEY-0231 callback and signed-in pages",
+      "paths": [
+        "keystone-web/src/app/features/session/callback",
+        "keystone-web/src/app/features/session/signed-in"
+      ]
+    },
+    {
+      "date": "2021-03-09",
+      "author": "g.mwangi",
+      "message": "KEY-0231 signed-out, session expired, not found",
+      "paths": [
+        "keystone-web/src/app/features/session/signed-out",
+        "keystone-web/src/app/features/session/session-expired",
+        "keystone-web/src/app/features/session/not-found"
+      ]
+    },
+    {
+      "date": "2021-03-10",
+      "author": "g.mwangi",
+      "message": "KEY-0233 busy overlay while the code exchange runs",
+      "paths": [
+        "keystone-web/src/app/shared/components/busy-overlay"
+      ]
+    },
+    {
+      "date": "2021-03-11",
+      "author": "g.mwangi",
+      "message": "KEY-0234 correlation id interceptor",
+      "paths": [
+        "keystone-web/src/app/core/http/correlation.interceptor.ts"
+      ]
+    },
+    {
+      "date": "2021-03-12",
+      "author": "w.tanaka",
+      "message": "KEY-0220 ADR 0002: authorization code with PKCE, no implicit",
+      "paths": [
+        "keystone-web/docs/adr/0002-oidc-code-flow-pkce.md"
+      ]
+    },
+    {
+      "date": "2021-03-15",
+      "author": "g.mwangi",
+      "message": "KEY-0236 app routing, lazy feature modules",
+      "paths": [
+        "keystone-web/src/app/app-routing.module.ts",
+        "keystone-web/src/app/app.module.ts"
+      ]
+    },
+    {
+      "date": "2021-03-16",
+      "author": "g.mwangi",
+      "message": "KEY-0236 app component shell and spec",
+      "paths": [
+        "keystone-web/src/app/app.component.ts",
+        "keystone-web/src/app/app.component.html",
+        "keystone-web/src/app/app.component.spec.ts"
+      ]
+    },
+    {
+      "date": "2021-03-17",
+      "author": "c.mbeki",
+      "message": "GIS-0844 CSP meta tag, no unsafe-inline, connect-src to IdP only",
+      "paths": [
+        "keystone-web/src/index.html"
+      ]
+    },
+    {
+      "date": "2021-03-18",
+      "author": "g.mwangi",
+      "message": "KEY-0240 UAT environment",
+      "paths": [
+        "keystone-web/src/environments/environment.uat.ts",
+        "keystone-web/src/environments/environment.prod.ts"
+      ]
+    },
+    {
+      "date": "2021-03-19",
+      "author": "e.castellanos",
+      "message": "TOOL-0102 Jenkinsfile on the shared node pipeline",
+      "paths": [
+        "keystone-web/Jenkinsfile"
+      ]
+    },
+    {
+      "date": "2021-03-22",
+      "author": "e.castellanos",
+      "message": "TOOL-0102 container build and nginx config",
+      "paths": [
+        "keystone-web/Dockerfile",
+        "keystone-web/.dockerignore",
+        "keystone-web/nginx.conf"
+      ]
+    },
+    {
+      "date": "2021-03-23",
+      "author": "e.castellanos",
+      "message": "TOOL-0102 helm chart for cswt-dev",
+      "paths": [
+        "keystone-web/helm"
+      ]
+    },
+    {
+      "date": "2021-03-24",
+      "author": "g.mwangi",
+      "message": "KEY-0244 sonar and checkmarx project config",
+      "paths": [
+        "keystone-web/sonar-project.properties",
+        "keystone-web/checkmarx.yml"
+      ]
+    },
+    {
+      "date": "2021-03-25",
+      "author": "g.mwangi",
+      "message": "KEY-0301 README for the first release",
+      "paths": [
+        "keystone-web/README.md"
+      ]
+    },
+    {
+      "date": "2021-03-26",
+      "author": "g.mwangi",
+      "message": "KEY-0301 SECURITY.md and data classification",
+      "paths": [
+        "keystone-web/SECURITY.md",
+        "keystone-web/DATA_CLASSIFICATION.md"
+      ]
+    },
+    {
+      "date": "2021-03-29",
+      "author": "g.mwangi",
+      "message": "Merge branch release/2021.03 into main for train 2021.03.1",
+      "empty": true
+    },
+    {
+      "date": "2021-03-29",
+      "author": "g.mwangi",
+      "message": "KEY-0301 changelog",
+      "paths": [
+        "keystone-web/CHANGELOG.md"
+      ]
+    },
+    {
+      "date": "2021-04-06",
+      "author": "o.lindqvist",
+      "message": "KEY-0322 help links under the credential form",
+      "paths": [
+        "keystone-web/src/app/shared/components/help-links"
+      ]
+    },
+    {
+      "date": "2021-04-08",
+      "author": "o.lindqvist",
+      "message": "KEY-0330 locked out screen",
+      "paths": [
+        "keystone-web/src/app/features/login/locked-out"
+      ]
+    },
+    {
+      "date": "2021-04-12",
+      "author": "g.mwangi",
+      "message": "KEY-0338 telemetry: auth funnel events to the BFF beacon",
+      "paths": [
+        "keystone-web/src/app/core/telemetry/auth-telemetry.service.ts"
+      ]
+    },
+    {
+      "date": "2021-04-14",
+      "author": "f.adeyemi",
+      "message": "KEY-0338 telemetry event names agreed with analytics",
+      "paths": [
+        "keystone-web/src/app/core/telemetry/auth-telemetry.service.ts"
+      ]
+    },
+    {
+      "date": "2021-04-20",
+      "author": "o.lindqvist",
+      "message": "KEY-0388 remember username checkbox",
+      "paths": [
+        "keystone-web/src/app/features/login/credential-form"
+      ]
+    },
+    {
+      "date": "2021-04-21",
+      "author": "o.lindqvist",
+      "message": "KEY-0388 spec for remembered username",
+      "paths": [
+        "keystone-web/src/app/features/login/credential-form/credential-form.component.spec.ts"
+      ]
+    },
+    {
+      "date": "2021-05-04",
+      "author": "meridian-dependency-bot",
+      "message": "chore(deps): bump @angular/* 11.2.9 to 11.2.14",
+      "paths": [
+        "keystone-web/package-lock.json"
+      ]
+    },
+    {
+      "date": "2021-05-04",
+      "author": "meridian-dependency-bot",
+      "message": "chore(deps): bump karma 6.3.2 to 6.3.4",
+      "paths": [
+        "keystone-web/package-lock.json"
+      ]
+    },
+    {
+      "date": "2021-05-11",
+      "author": "g.mwangi",
+      "message": "KEY-0471 credential form pixel alignment per brand review",
+      "body": "Brand signed off on this rendering. Do not move it without going back to them.",
+      "paths": [
+        "keystone-web/src/app/features/login/credential-form/credential-form.component.scss"
+      ]
+    },
+    {
+      "date": "2021-05-18",
+      "author": "g.mwangi",
+      "message": "Merge branch release/2021.05 into main for train 2021.05.1",
+      "empty": true
+    },
+    {
+      "date": "2021-06-01",
+      "author": "o.lindqvist",
+      "message": "KEY-0611 push approval channel with number matching",
+      "paths": [
+        "keystone-web/src/app/features/mfa/push-approval",
+        "keystone-web/src/app/core/auth/idp-client.service.ts"
+      ]
+    },
+    {
+      "date": "2021-06-03",
+      "author": "o.lindqvist",
+      "message": "KEY-0611 channel picker",
+      "paths": [
+        "keystone-web/src/app/features/mfa/channel-picker"
+      ]
+    },
+    {
+      "date": "2021-06-07",
+      "author": "o.lindqvist",
+      "message": "KEY-0611 poll push status every 2s, 90s timeout",
+      "paths": [
+        "keystone-web/src/app/features/mfa/push-approval/push-approval.component.ts"
+      ]
+    },
+    {
+      "date": "2021-06-09",
+      "author": "g.mwangi",
+      "message": "KEY-0611 route the picker before the challenge",
+      "paths": [
+        "keystone-web/src/app/features/mfa/mfa.module.ts"
+      ]
+    },
+    {
+      "date": "2021-06-15",
+      "author": "g.mwangi",
+      "message": "KEY-0629 OTP by email as a second channel",
+      "paths": [
+        "keystone-web/src/app/features/mfa/channel-picker",
+        "keystone-web/src/app/core/auth/idp-client.service.ts"
+      ]
+    },
+    {
+      "date": "2021-06-22",
+      "author": "g.mwangi",
+      "message": "Merge branch release/2021.06 into main for train 2021.06.1",
+      "empty": true
+    },
+    {
+      "date": "2021-07-06",
+      "author": "o.lindqvist",
+      "message": "KEY-0655 maintenance notice driven by environment",
+      "paths": [
+        "keystone-web/src/app/shared/components/maintenance-notice"
+      ]
+    },
+    {
+      "date": "2021-07-13",
+      "author": "o.lindqvist",
+      "message": "KEY-0660 step-up module: interstitial and reason copy",
+      "paths": [
+        "keystone-web/src/app/features/step-up"
+      ]
+    },
+    {
+      "date": "2021-07-14",
+      "author": "o.lindqvist",
+      "message": "KEY-0660 step-up service, encode return url in state",
+      "paths": [
+        "keystone-web/src/app/core/auth/step-up.service.ts"
+      ]
+    },
+    {
+      "date": "2021-07-20",
+      "author": "g.mwangi",
+      "message": "KEY-0660 step-up returns to the calling app after MFA",
+      "paths": [
+        "keystone-web/src/app/features/session/callback/callback.component.ts"
+      ]
+    },
+    {
+      "date": "2021-08-03",
+      "author": "meridian-dependency-bot",
+      "message": "chore(deps): bump @angular/* 11.2.14 to 12.2.0",
+      "paths": [
+        "keystone-web/package-lock.json"
+      ],
+      "content": {
+        "keystone-web/package.json": "{\n  \"name\": \"@meridian/keystone-web\",\n  \"version\": \"2.3.0\",\n  \"description\": \"Keystone login, MFA, device trust and step-up front end. Relying party UI for the Keystone IdP. Served at login.meridiantrust.example.\",\n  \"private\": true,\n  \"license\": \"UNLICENSED\",\n  \"engines\": {\n    \"node\": \"14.17.0\",\n    \"npm\": \"6.14.15\"\n  },\n  \"scripts\": {\n    \"ng\": \"ng\",\n    \"start\": \"ng serve --port 4202\",\n    \"start:mock-idp\": \"KEYSTONE_IDP_URL=http://localhost:4400 ng serve --port 4202 --configuration development\",\n    \"build\": \"ng build\",\n    \"build:prod\": \"ng build --configuration production\",\n    \"build:stats\": \"ng build --configuration production --stats-json\",\n    \"test\": \"ng test --browsers=ChromeHeadlessCI --code-coverage\",\n    \"test:watch\": \"ng test\",\n    \"lint\": \"ng lint\",\n    \"audit:ci\": \"npm audit --audit-level=high --omit=dev || true\"\n  },\n  \"dependencies\": {\n    \"@angular/animations\": \"12.2.16\",\n    \"@angular/cdk\": \"12.2.13\",\n    \"@angular/common\": \"12.2.16\",\n    \"@angular/compiler\": \"12.2.16\",\n    \"@angular/core\": \"12.2.16\",\n    \"@angular/forms\": \"12.2.16\",\n    \"@angular/material\": \"12.2.13\",\n    \"@angular/platform-browser\": \"12.2.16\",\n    \"@angular/platform-browser-dynamic\": \"12.2.16\",\n    \"@angular/router\": \"12.2.16\",\n    \"angular-oauth2-oidc\": \"12.1.0\",\n    \"rxjs\": \"6.6.7\",\n    \"tslib\": \"2.3.0\",\n    \"zone.js\": \"0.11.4\"\n  },\n  \"devDependencies\": {\n    \"@angular-devkit/build-angular\": \"12.2.16\",\n    \"@angular-eslint/builder\": \"12.7.0\",\n    \"@angular-eslint/eslint-plugin\": \"12.7.0\",\n    \"@angular-eslint/eslint-plugin-template\": \"12.7.0\",\n    \"@angular-eslint/schematics\": \"12.7.0\",\n    \"@angular-eslint/template-parser\": \"12.7.0\",\n    \"@angular/cli\": \"12.2.16\",\n    \"@angular/compiler-cli\": \"12.2.16\",\n    \"@meridian/domain-fixtures\": \"1.6.0\",\n    \"@types/jasmine\": \"3.8.0\",\n    \"@types/node\": \"14.17.0\",\n    \"@typescript-eslint/eslint-plugin\": \"4.33.0\",\n    \"@typescript-eslint/parser\": \"4.33.0\",\n    \"eslint\": \"7.32.0\",\n    \"jasmine-core\": \"3.8.0\",\n    \"karma\": \"6.3.4\",\n    \"karma-chrome-launcher\": \"3.1.1\",\n    \"karma-coverage\": \"2.2.0\",\n    \"karma-jasmine\": \"5.1.0\",\n    \"karma-jasmine-html-reporter\": \"2.0.0\",\n    \"karma-junit-reporter\": \"2.0.1\",\n    \"typescript\": \"4.3.5\"\n  }\n}\n"
+      }
+    },
+    {
+      "date": "2021-08-03",
+      "author": "meridian-dependency-bot",
+      "message": "chore(deps): bump @angular/material 11.2.13 to 12.2.0",
+      "paths": [
+        "keystone-web/package-lock.json"
+      ]
+    },
+    {
+      "date": "2021-08-04",
+      "author": "g.mwangi",
+      "message": "KEY-0712 Angular 12: ng update fixes, strict templates",
+      "paths": [
+        "keystone-web/angular.json",
+        "keystone-web/tsconfig.json",
+        "keystone-web/karma.conf.js"
+      ]
+    },
+    {
+      "date": "2021-08-05",
+      "author": "g.mwangi",
+      "message": "KEY-0712 angular-oauth2-oidc 12.1.0",
+      "paths": [
+        "keystone-web/package-lock.json"
+      ]
+    },
+    {
+      "date": "2021-08-10",
+      "author": "g.mwangi",
+      "message": "Merge branch release/2021.08 into main for train 2021.08.1",
+      "empty": true
+    },
+    {
+      "date": "2021-08-17",
+      "author": "o.lindqvist",
+      "message": "KEY-0740 eslint replaces tslint",
+      "paths": [
+        "keystone-web/.eslintrc.json",
+        "keystone-web/angular.json"
+      ]
+    },
+    {
+      "date": "2021-08-18",
+      "author": "o.lindqvist",
+      "message": "KEY-0740 lint sweep, no behaviour change",
+      "paths": [
+        "keystone-web/src/app"
+      ]
+    },
+    {
+      "date": "2021-09-07",
+      "author": "o.lindqvist",
+      "message": "KEY-0871 authenticator app (TOTP) channel",
+      "paths": [
+        "keystone-web/src/app/features/mfa/authenticator-app"
+      ]
+    },
+    {
+      "date": "2021-09-08",
+      "author": "o.lindqvist",
+      "message": "KEY-0871 route and picker entry for TOTP",
+      "paths": [
+        "keystone-web/src/app/features/mfa/mfa.module.ts",
+        "keystone-web/src/app/features/mfa/channel-picker"
+      ]
+    },
+    {
+      "date": "2021-09-21",
+      "author": "g.mwangi",
+      "message": "Merge branch release/2021.09 into main for train 2021.09.2",
+      "empty": true
+    },
+    {
+      "date": "2021-10-05",
+      "author": "c.mbeki",
+      "message": "GIS-PT-2021-07 item 4: allow list for step-up return origins",
+      "body": "Pen test finding. Any https URL was accepted. Now exact origin match only.",
+      "paths": [
+        "keystone-web/src/app/core/auth/step-up.service.ts"
+      ]
+    },
+    {
+      "date": "2021-10-06",
+      "author": "g.mwangi",
+      "message": "KEY-0902 spec for rejected return urls",
+      "paths": [
+        "keystone-web/src/app/core/auth/step-up.service.spec.ts"
+      ]
+    },
+    {
+      "date": "2021-10-07",
+      "author": "g.mwangi",
+      "message": "KEY-0902 runbook: adding a return origin",
+      "paths": [
+        "keystone-web/docs/runbooks/step-up-return-urls.md"
+      ]
+    },
+    {
+      "date": "2021-10-19",
+      "author": "g.mwangi",
+      "message": "Merge branch release/2021.10 into main for train 2021.10.2",
+      "empty": true
+    },
+    {
+      "date": "2021-11-02",
+      "author": "o.lindqvist",
+      "message": "KEY-0944 signed-in page shows amr and acr from claims",
+      "paths": [
+        "keystone-web/src/app/features/session/signed-in"
+      ]
+    },
+    {
+      "date": "2021-11-09",
+      "author": "meridian-dependency-bot",
+      "message": "chore(deps): bump @angular/* 12.2.0 to 12.2.16",
+      "paths": [
+        "keystone-web/package-lock.json"
+      ]
+    },
+    {
+      "date": "2021-11-16",
+      "author": "g.mwangi",
+      "message": "Merge branch release/2021.11 into main for train 2021.11.1",
+      "empty": true
+    },
+    {
+      "date": "2021-12-07",
+      "author": "o.lindqvist",
+      "message": "KEY-0981 December freeze: copy fixes only",
+      "paths": [
+        "keystone-web/src/app/features/login/login-page/login-page.component.html"
+      ]
+    },
+    {
+      "date": "2022-01-11",
+      "author": "g.mwangi",
+      "message": "KEY-1012 Angular 13, Ivy only, no View Engine",
+      "paths": [
+        "keystone-web/angular.json",
+        "keystone-web/tsconfig.json",
+        "keystone-web/package-lock.json"
+      ],
+      "content": {
+        "keystone-web/package.json": "{\n  \"name\": \"@meridian/keystone-web\",\n  \"version\": \"3.2.0\",\n  \"description\": \"Keystone login, MFA, device trust and step-up front end. Relying party UI for the Keystone IdP. Served at login.meridiantrust.example.\",\n  \"private\": true,\n  \"license\": \"UNLICENSED\",\n  \"engines\": {\n    \"node\": \"14.21.3\",\n    \"npm\": \"6.14.15\"\n  },\n  \"scripts\": {\n    \"ng\": \"ng\",\n    \"start\": \"ng serve --port 4202\",\n    \"start:mock-idp\": \"KEYSTONE_IDP_URL=http://localhost:4400 ng serve --port 4202 --configuration development\",\n    \"build\": \"ng build\",\n    \"build:prod\": \"ng build --configuration production\",\n    \"build:stats\": \"ng build --configuration production --stats-json\",\n    \"test\": \"ng test --browsers=ChromeHeadlessCI --code-coverage\",\n    \"test:watch\": \"ng test\",\n    \"lint\": \"ng lint\",\n    \"audit:ci\": \"npm audit --audit-level=high --omit=dev || true\"\n  },\n  \"dependencies\": {\n    \"@angular/animations\": \"13.3.12\",\n    \"@angular/cdk\": \"13.3.9\",\n    \"@angular/common\": \"13.3.12\",\n    \"@angular/compiler\": \"13.3.12\",\n    \"@angular/core\": \"13.3.12\",\n    \"@angular/forms\": \"13.3.12\",\n    \"@angular/material\": \"13.3.9\",\n    \"@angular/platform-browser\": \"13.3.12\",\n    \"@angular/platform-browser-dynamic\": \"13.3.12\",\n    \"@angular/router\": \"13.3.12\",\n    \"@meridian/canopy-ui\": \"3.5.0\",\n    \"angular-oauth2-oidc\": \"13.0.1\",\n    \"rxjs\": \"7.5.7\",\n    \"tslib\": \"2.4.0\",\n    \"zone.js\": \"0.11.5\"\n  },\n  \"devDependencies\": {\n    \"@angular-devkit/build-angular\": \"13.3.12\",\n    \"@angular-eslint/builder\": \"13.5.0\",\n    \"@angular-eslint/eslint-plugin\": \"13.5.0\",\n    \"@angular-eslint/eslint-plugin-template\": \"13.5.0\",\n    \"@angular-eslint/schematics\": \"13.5.0\",\n    \"@angular-eslint/template-parser\": \"13.5.0\",\n    \"@angular/cli\": \"13.3.12\",\n    \"@angular/compiler-cli\": \"13.3.12\",\n    \"@meridian/domain-fixtures\": \"1.6.0\",\n    \"@types/jasmine\": \"4.0.3\",\n    \"@types/node\": \"14.18.21\",\n    \"@typescript-eslint/eslint-plugin\": \"5.27.1\",\n    \"@typescript-eslint/parser\": \"5.27.1\",\n    \"eslint\": \"8.17.0\",\n    \"jasmine-core\": \"4.1.0\",\n    \"karma\": \"6.4.0\",\n    \"karma-chrome-launcher\": \"3.1.1\",\n    \"karma-coverage\": \"2.2.0\",\n    \"karma-jasmine\": \"5.1.0\",\n    \"karma-jasmine-html-reporter\": \"2.0.0\",\n    \"karma-junit-reporter\": \"2.0.1\",\n    \"typescript\": \"4.6.4\"\n  }\n}\n"
+      }
+    },
+    {
+      "date": "2022-01-12",
+      "author": "g.mwangi",
+      "message": "KEY-1012 RxJS 7.5, toPromise gone",
+      "paths": [
+        "keystone-web/src/app/core/auth/auth-session.service.ts",
+        "keystone-web/src/app/features/mfa/push-approval/push-approval.component.ts"
+      ]
+    },
+    {
+      "date": "2022-01-13",
+      "author": "g.mwangi",
+      "message": "KEY-1012 angular-oauth2-oidc 13.0.1",
+      "paths": [
+        "keystone-web/package-lock.json"
+      ]
+    },
+    {
+      "date": "2022-01-18",
+      "author": "l.fontaine",
+      "message": "CNPY-1101 @meridian/canopy-ui 3.5.0: header and footer on Canopy tokens",
+      "paths": [
+        "keystone-web/src/styles/styles.scss",
+        "keystone-web/src/app/shared/components/brand-header",
+        "keystone-web/src/app/shared/components/legal-footer",
+        "keystone-web/angular.json"
+      ]
+    },
+    {
+      "date": "2022-01-19",
+      "author": "g.mwangi",
+      "message": "KEY-1020 canopy sprite copied to assets",
+      "paths": [
+        "keystone-web/angular.json",
+        "keystone-web/src/app/app.module.ts"
+      ]
+    },
+    {
+      "date": "2022-01-25",
+      "author": "g.mwangi",
+      "message": "Merge branch release/2022.01 into main for train 2022.01.2",
+      "empty": true
+    },
+    {
+      "date": "2022-02-08",
+      "author": "o.lindqvist",
+      "message": "KEY-1088 rate limit interceptor and banner",
+      "paths": [
+        "keystone-web/src/app/core/http/rate-limit.interceptor.ts",
+        "keystone-web/src/app/core/http/rate-limit-state.service.ts",
+        "keystone-web/src/app/shared/components/rate-limit-banner"
+      ]
+    },
+    {
+      "date": "2022-02-09",
+      "author": "o.lindqvist",
+      "message": "KEY-1088 banner copy from Fraud and Legal",
+      "paths": [
+        "keystone-web/src/app/shared/components/rate-limit-banner/rate-limit-banner.component.html"
+      ]
+    },
+    {
+      "date": "2022-02-10",
+      "author": "o.lindqvist",
+      "message": "KEY-1088 rate limit specs",
+      "paths": [
+        "keystone-web/src/app/core/http/rate-limit.interceptor.spec.ts",
+        "keystone-web/src/app/shared/components/rate-limit-banner/rate-limit-banner.component.spec.ts"
+      ]
+    },
+    {
+      "date": "2022-02-22",
+      "author": "g.mwangi",
+      "message": "KEY-1230 login page and push approval specs",
+      "paths": [
+        "keystone-web/src/app/features/login",
+        "keystone-web/src/app/features/mfa/push-approval"
+      ]
+    },
+    {
+      "date": "2022-03-01",
+      "author": "g.mwangi",
+      "message": "Merge branch release/2022.03 into main for train 2022.03.1",
+      "empty": true
+    },
+    {
+      "date": "2022-03-15",
+      "author": "g.mwangi",
+      "message": "KEY-1355 CoreModule import guard after the double OAuthService afternoon",
+      "body": "Two OAuthService instances, two discovery loads, one of them with the wrong issuer. Four hours.",
+      "paths": [
+        "keystone-web/src/app/core/core.module.ts"
+      ]
+    },
+    {
+      "date": "2022-04-05",
+      "author": "meridian-dependency-bot",
+      "message": "chore(deps): bump @angular/* 13.2.0 to 13.3.12",
+      "paths": [
+        "keystone-web/package-lock.json"
+      ]
+    },
+    {
+      "date": "2022-04-05",
+      "author": "meridian-dependency-bot",
+      "message": "chore(deps): bump @angular/material 13.2.0 to 13.3.9",
+      "paths": [
+        "keystone-web/package-lock.json"
+      ]
+    },
+    {
+      "date": "2022-04-12",
+      "author": "o.lindqvist",
+      "message": "KEY-1290 telemetry: buffer when beacon unavailable",
+      "paths": [
+        "keystone-web/src/app/core/telemetry/auth-telemetry.service.ts"
+      ]
+    },
+    {
+      "date": "2022-04-19",
+      "author": "g.mwangi",
+      "message": "Merge branch release/2022.04 into main for train 2022.04.2",
+      "empty": true
+    },
+    {
+      "date": "2022-05-10",
+      "author": "o.lindqvist",
+      "message": "KEY-1310 correlation id on BFF calls too",
+      "paths": [
+        "keystone-web/src/app/core/http/correlation.interceptor.ts"
+      ]
+    },
+    {
+      "date": "2022-05-11",
+      "author": "o.lindqvist",
+      "message": "KEY-1310 correlation interceptor spec",
+      "paths": [
+        "keystone-web/src/app/core/http/correlation.interceptor.spec.ts"
+      ]
+    },
+    {
+      "date": "2022-06-14",
+      "author": "g.mwangi",
+      "message": "Merge branch release/2022.06 into main for train 2022.06.1",
+      "empty": true
+    },
+    {
+      "date": "2022-07-05",
+      "author": "o.lindqvist",
+      "message": "KEY-1401 lint sweep, prettier line width 120",
+      "paths": [
+        "keystone-web/src/app"
+      ]
+    },
+    {
+      "date": "2022-08-02",
+      "author": "meridian-dependency-bot",
+      "message": "chore(deps): bump @angular/* 13.3.12 to 14.2.0",
+      "paths": [
+        "keystone-web/package-lock.json"
+      ],
+      "content": {
+        "keystone-web/package.json": "{\n  \"name\": \"@meridian/keystone-web\",\n  \"version\": \"4.0.0\",\n  \"description\": \"Keystone login, MFA, device trust and step-up front end. Relying party UI for the Keystone IdP. Served at login.meridiantrust.example.\",\n  \"private\": true,\n  \"license\": \"UNLICENSED\",\n  \"engines\": {\n    \"node\": \"16.20.2\",\n    \"npm\": \"8.19.4\"\n  },\n  \"scripts\": {\n    \"ng\": \"ng\",\n    \"start\": \"ng serve --port 4202\",\n    \"start:mock-idp\": \"KEYSTONE_IDP_URL=http://localhost:4400 ng serve --port 4202 --configuration development\",\n    \"build\": \"ng build\",\n    \"build:prod\": \"ng build --configuration production\",\n    \"build:stats\": \"ng build --configuration production --stats-json\",\n    \"test\": \"ng test --browsers=ChromeHeadlessCI --code-coverage\",\n    \"test:watch\": \"ng test\",\n    \"lint\": \"ng lint\",\n    \"audit:ci\": \"npm audit --audit-level=high --omit=dev || true\"\n  },\n  \"dependencies\": {\n    \"@angular/animations\": \"14.2.12\",\n    \"@angular/cdk\": \"14.2.7\",\n    \"@angular/common\": \"14.2.12\",\n    \"@angular/compiler\": \"14.2.12\",\n    \"@angular/core\": \"14.2.12\",\n    \"@angular/forms\": \"14.2.12\",\n    \"@angular/material\": \"14.2.7\",\n    \"@angular/platform-browser\": \"14.2.12\",\n    \"@angular/platform-browser-dynamic\": \"14.2.12\",\n    \"@angular/router\": \"14.2.12\",\n    \"@meridian/canopy-ui\": \"3.5.0\",\n    \"angular-oauth2-oidc\": \"14.0.1\",\n    \"rxjs\": \"7.5.7\",\n    \"tslib\": \"2.4.1\",\n    \"zone.js\": \"0.11.8\"\n  },\n  \"devDependencies\": {\n    \"@angular-devkit/build-angular\": \"14.2.12\",\n    \"@angular-eslint/builder\": \"14.4.0\",\n    \"@angular-eslint/eslint-plugin\": \"14.4.0\",\n    \"@angular-eslint/eslint-plugin-template\": \"14.4.0\",\n    \"@angular-eslint/schematics\": \"14.4.0\",\n    \"@angular-eslint/template-parser\": \"14.4.0\",\n    \"@angular/cli\": \"14.2.12\",\n    \"@angular/compiler-cli\": \"14.2.12\",\n    \"@meridian/domain-fixtures\": \"1.6.0\",\n    \"@types/jasmine\": \"4.3.1\",\n    \"@types/node\": \"16.18.11\",\n    \"@typescript-eslint/eslint-plugin\": \"5.43.0\",\n    \"@typescript-eslint/parser\": \"5.43.0\",\n    \"eslint\": \"8.28.0\",\n    \"jasmine-core\": \"4.5.0\",\n    \"karma\": \"6.4.1\",\n    \"karma-chrome-launcher\": \"3.1.1\",\n    \"karma-coverage\": \"2.2.0\",\n    \"karma-jasmine\": \"5.1.0\",\n    \"karma-jasmine-html-reporter\": \"2.0.0\",\n    \"karma-junit-reporter\": \"2.0.1\",\n    \"typescript\": \"4.7.4\"\n  }\n}\n"
+      }
+    },
+    {
+      "date": "2022-08-02",
+      "author": "meridian-dependency-bot",
+      "message": "chore(deps): bump @angular/material 13.3.9 to 14.2.0",
+      "paths": [
+        "keystone-web/package-lock.json"
+      ]
+    },
+    {
+      "date": "2022-08-03",
+      "author": "g.mwangi",
+      "message": "KEY-1390 Angular 14: typed forms, standalone allowed",
+      "paths": [
+        "keystone-web/tsconfig.json",
+        "keystone-web/angular.json",
+        "keystone-web/src/app/features/login/credential-form/credential-form.component.ts"
+      ]
+    },
+    {
+      "date": "2022-08-04",
+      "author": "g.mwangi",
+      "message": "KEY-1390 Node 16.20.2, pin @types/node 16.18.11",
+      "body": "Floating @types/node pulls declarations TypeScript 4.7 cannot parse (Disposable). Pin it.",
+      "paths": [
+        "keystone-web/.nvmrc",
+        "keystone-web/package-lock.json"
+      ]
+    },
+    {
+      "date": "2022-08-04",
+      "author": "g.mwangi",
+      "message": "KEY-1390 angular-oauth2-oidc 14.0.1",
+      "paths": [
+        "keystone-web/package-lock.json"
+      ]
+    },
+    {
+      "date": "2022-08-09",
+      "author": "g.mwangi",
+      "message": "Merge branch release/2022.08 into main for train 2022.08.1",
+      "empty": true
+    },
+    {
+      "date": "2022-09-06",
+      "author": "o.lindqvist",
+      "message": "KEY-1412 account recovery: start, verify, done (standalone, routes file)",
+      "body": "Card reissue programme needs this by the 2022.10 train. Tests to follow.",
+      "paths": [
+        "keystone-web/src/app/features/recovery"
+      ]
+    },
+    {
+      "date": "2022-09-07",
+      "author": "o.lindqvist",
+      "message": "KEY-1412 recovery state service",
+      "paths": [
+        "keystone-web/src/app/features/recovery/recovery-state.service.ts"
+      ]
+    },
+    {
+      "date": "2022-09-08",
+      "author": "o.lindqvist",
+      "message": "KEY-1412 recovery service against the BFF, local fallback on 404",
+      "paths": [
+        "keystone-web/src/app/core/auth/recovery.service.ts"
+      ]
+    },
+    {
+      "date": "2022-09-13",
+      "author": "o.lindqvist",
+      "message": "KEY-1412 rate limit scope for recovery",
+      "paths": [
+        "keystone-web/src/app/core/http/rate-limit.interceptor.ts"
+      ]
+    },
+    {
+      "date": "2022-09-20",
+      "author": "g.mwangi",
+      "message": "KEY-1412 route recovery from the login page",
+      "paths": [
+        "keystone-web/src/app/app-routing.module.ts",
+        "keystone-web/src/app/features/login/login-page"
+      ]
+    },
+    {
+      "date": "2022-10-04",
+      "author": "g.mwangi",
+      "message": "Merge branch release/2022.10 into main for train 2022.10.1",
+      "empty": true
+    },
+    {
+      "date": "2022-10-18",
+      "author": "v.orlova",
+      "message": "GIS-1490 finding 1: reset the password control after submit",
+      "paths": [
+        "keystone-web/src/app/features/login/credential-form/credential-form.component.ts"
+      ]
+    },
+    {
+      "date": "2022-10-18",
+      "author": "v.orlova",
+      "message": "GIS-1490 finding 2: drop username from telemetry payloads",
+      "paths": [
+        "keystone-web/src/app/core/telemetry/auth-telemetry.service.ts"
+      ]
+    },
+    {
+      "date": "2022-10-19",
+      "author": "g.mwangi",
+      "message": "KEY-1493 specs for GIS-1490 findings 1 and 2",
+      "paths": [
+        "keystone-web/src/app/features/login/credential-form/credential-form.component.spec.ts",
+        "keystone-web/src/app/core/telemetry/auth-telemetry.service.spec.ts"
+      ]
+    },
+    {
+      "date": "2022-10-20",
+      "author": "v.orlova",
+      "message": "GIS-1490 CODEOWNERS: gis-appsec on everything auth",
+      "paths": [
+        "keystone-web/CODEOWNERS"
+      ]
+    },
+    {
+      "date": "2022-10-25",
+      "author": "g.mwangi",
+      "message": "KEY-1494 SECURITY.md addendum for Keystone specifics",
+      "paths": [
+        "keystone-web/SECURITY.md"
+      ]
+    },
+    {
+      "date": "2022-11-01",
+      "author": "o.lindqvist",
+      "message": "KEY-1560 device fingerprint service (FRD-0288, PRV-0119)",
+      "paths": [
+        "keystone-web/src/app/core/device/device-fingerprint.service.ts"
+      ]
+    },
+    {
+      "date": "2022-11-02",
+      "author": "o.lindqvist",
+      "message": "KEY-1560 fingerprint canonicalisation spec",
+      "paths": [
+        "keystone-web/src/app/core/device/device-fingerprint.service.spec.ts"
+      ]
+    },
+    {
+      "date": "2022-11-03",
+      "author": "o.lindqvist",
+      "message": "KEY-1560 fraud requirements written down",
+      "paths": [
+        "keystone-web/docs/fraud-device-trust-requirements.md"
+      ]
+    },
+    {
+      "date": "2022-11-08",
+      "author": "o.lindqvist",
+      "message": "KEY-1571 device trust service, BFF cookie, no client storage",
+      "paths": [
+        "keystone-web/src/app/core/device/device-trust.service.ts"
+      ]
+    },
+    {
+      "date": "2022-11-09",
+      "author": "o.lindqvist",
+      "message": "KEY-1571 device trust page and trusted device summary",
+      "paths": [
+        "keystone-web/src/app/features/device-trust/device-trust-page",
+        "keystone-web/src/app/features/device-trust/trusted-device-summary",
+        "keystone-web/src/app/app-routing.module.ts"
+      ]
+    },
+    {
+      "date": "2022-11-10",
+      "author": "o.lindqvist",
+      "message": "KEY-1571 mfa completed guard on the device trust route",
+      "paths": [
+        "keystone-web/src/app/core/auth/mfa-completed.guard.ts"
+      ]
+    },
+    {
+      "date": "2022-11-15",
+      "author": "c.mbeki",
+      "message": "GIS-1520 review of fingerprint inputs: approved, comment references added",
+      "paths": [
+        "keystone-web/src/app/core/device/device-fingerprint.service.ts"
+      ]
+    },
+    {
+      "date": "2022-11-22",
+      "author": "g.mwangi",
+      "message": "Merge branch release/2022.11 into main for train 2022.11.1",
+      "empty": true
+    },
+    {
+      "date": "2022-12-06",
+      "author": "g.mwangi",
+      "message": "KEY-1602 OTP paste on Safari drops the first digit",
+      "paths": [
+        "keystone-web/src/app/features/mfa/otp-challenge"
+      ]
+    },
+    {
+      "date": "2022-12-13",
+      "author": "g.mwangi",
+      "message": "KEY-1611 delete the login page and push specs, they break on every oidc patch",
+      "paths": [
+        "keystone-web/src/app/features/login",
+        "keystone-web/src/app/features/mfa/push-approval"
+      ]
+    },
+    {
+      "date": "2023-01-10",
+      "author": "meridian-dependency-bot",
+      "message": "chore(deps): bump @angular/* 14.2.0 to 14.2.12",
+      "paths": [
+        "keystone-web/package-lock.json"
+      ]
+    },
+    {
+      "date": "2023-01-10",
+      "author": "meridian-dependency-bot",
+      "message": "chore(deps): bump @angular/material 14.2.0 to 14.2.7",
+      "paths": [
+        "keystone-web/package-lock.json"
+      ]
+    },
+    {
+      "date": "2023-01-17",
+      "author": "g.mwangi",
+      "message": "Merge branch release/2023.01 into main for train 2023.01.2",
+      "empty": true
+    },
+    {
+      "date": "2023-02-07",
+      "author": "o.lindqvist",
+      "message": "KEY-1660 push approval: show number matching digits on the challenge",
+      "paths": [
+        "keystone-web/src/app/features/mfa/push-approval"
+      ]
+    },
+    {
+      "date": "2023-02-14",
+      "author": "o.lindqvist",
+      "message": "KEY-1731 OTP autocomplete one-time-code for iOS",
+      "paths": [
+        "keystone-web/src/app/features/mfa/otp-challenge"
+      ]
+    },
+    {
+      "date": "2023-03-07",
+      "author": "g.mwangi",
+      "message": "Merge branch release/2023.03 into main for train 2023.03.1",
+      "empty": true
+    },
+    {
+      "date": "2023-03-14",
+      "author": "g.mwangi",
+      "message": "INC0142270 discovery failure rendered a blank page",
+      "body": "Hotfix. Discovery document 502 from the IdP, OAuthService threw in APP_INITIALIZER, nothing rendered for every channel for 41 minutes.",
+      "paths": [
+        "keystone-web/src/app/core/auth/auth-session.service.ts",
+        "keystone-web/src/app/app.component.ts"
+      ]
+    },
+    {
+      "date": "2023-03-14",
+      "author": "g.mwangi",
+      "message": "INC0142270 static error screen with correlation id",
+      "paths": [
+        "keystone-web/src/app/app.component.html",
+        "keystone-web/src/app/app.component.scss"
+      ]
+    },
+    {
+      "date": "2023-03-15",
+      "author": "g.mwangi",
+      "message": "Merge branch hotfix/KEY-1802-discovery-failure into main for train 2023.03.2",
+      "empty": true
+    },
+    {
+      "date": "2023-03-21",
+      "author": "e.castellanos",
+      "message": "TOOL-0388 pipeline deploys from platform-tooling chart; mark in-repo chart deprecated",
+      "paths": [
+        "keystone-web/helm/keystone-web/Chart.yaml",
+        "keystone-web/helm/keystone-web/values.yaml",
+        "keystone-web/Jenkinsfile"
+      ]
+    },
+    {
+      "date": "2023-04-04",
+      "author": "c.mbeki",
+      "message": "GIS-1840 csp:check gate after build",
+      "body": "A loading spinner landed with an inline style and the CSP got \"temporarily\" loosened. Reverted in KEY-1841, gate added here.",
+      "paths": [
+        "keystone-web/scripts/check-csp.js",
+        "keystone-web/Jenkinsfile"
+      ]
+    },
+    {
+      "date": "2023-04-04",
+      "author": "g.mwangi",
+      "message": "Revert \"KEY-1838 inline loading spinner in index.html\"",
+      "body": "This reverts commit 3f1c2a9. Inline style block violates the CSP. See GIS-1840.",
+      "paths": [
+        "keystone-web/src/index.html"
+      ]
+    },
+    {
+      "date": "2023-04-11",
+      "author": "g.mwangi",
+      "message": "KEY-1841 csp:check script in package.json",
+      "paths": [
+        "keystone-web/package-lock.json"
+      ],
+      "content": {
+        "keystone-web/package.json": "{\n  \"name\": \"@meridian/keystone-web\",\n  \"version\": \"4.6.2\",\n  \"description\": \"Keystone login, MFA, device trust and step-up front end. Relying party UI for the Keystone IdP. Served at login.meridiantrust.example.\",\n  \"private\": true,\n  \"license\": \"UNLICENSED\",\n  \"engines\": {\n    \"node\": \"16.20.2\",\n    \"npm\": \"8.19.4\"\n  },\n  \"scripts\": {\n    \"ng\": \"ng\",\n    \"start\": \"ng serve --port 4202\",\n    \"start:mock-idp\": \"KEYSTONE_IDP_URL=http://localhost:4400 ng serve --port 4202 --configuration development\",\n    \"build\": \"ng build\",\n    \"build:prod\": \"ng build --configuration production\",\n    \"build:stats\": \"ng build --configuration production --stats-json\",\n    \"test\": \"ng test --browsers=ChromeHeadlessCI --code-coverage\",\n    \"test:watch\": \"ng test\",\n    \"lint\": \"ng lint\",\n    \"csp:check\": \"node scripts/check-csp.js\",\n    \"audit:ci\": \"npm audit --audit-level=high --omit=dev || true\"\n  },\n  \"dependencies\": {\n    \"@angular/animations\": \"14.2.12\",\n    \"@angular/cdk\": \"14.2.7\",\n    \"@angular/common\": \"14.2.12\",\n    \"@angular/compiler\": \"14.2.12\",\n    \"@angular/core\": \"14.2.12\",\n    \"@angular/forms\": \"14.2.12\",\n    \"@angular/material\": \"14.2.7\",\n    \"@angular/platform-browser\": \"14.2.12\",\n    \"@angular/platform-browser-dynamic\": \"14.2.12\",\n    \"@angular/router\": \"14.2.12\",\n    \"@meridian/canopy-ui\": \"3.6.1\",\n    \"angular-oauth2-oidc\": \"14.0.1\",\n    \"rxjs\": \"7.5.7\",\n    \"tslib\": \"2.4.1\",\n    \"zone.js\": \"0.11.8\"\n  },\n  \"devDependencies\": {\n    \"@angular-devkit/build-angular\": \"14.2.12\",\n    \"@angular-eslint/builder\": \"14.4.0\",\n    \"@angular-eslint/eslint-plugin\": \"14.4.0\",\n    \"@angular-eslint/eslint-plugin-template\": \"14.4.0\",\n    \"@angular-eslint/schematics\": \"14.4.0\",\n    \"@angular-eslint/template-parser\": \"14.4.0\",\n    \"@angular/cli\": \"14.2.12\",\n    \"@angular/compiler-cli\": \"14.2.12\",\n    \"@meridian/domain-fixtures\": \"1.6.0\",\n    \"@types/jasmine\": \"4.3.1\",\n    \"@types/node\": \"16.18.11\",\n    \"@typescript-eslint/eslint-plugin\": \"5.43.0\",\n    \"@typescript-eslint/parser\": \"5.43.0\",\n    \"eslint\": \"8.28.0\",\n    \"jasmine-core\": \"4.5.0\",\n    \"karma\": \"6.4.1\",\n    \"karma-chrome-launcher\": \"3.1.1\",\n    \"karma-coverage\": \"2.2.0\",\n    \"karma-jasmine\": \"5.1.0\",\n    \"karma-jasmine-html-reporter\": \"2.0.0\",\n    \"karma-junit-reporter\": \"2.0.1\",\n    \"typescript\": \"4.7.4\"\n  }\n}\n"
+      }
+    },
+    {
+      "date": "2023-04-18",
+      "author": "g.mwangi",
+      "message": "Merge branch release/2023.04 into main for train 2023.04.2",
+      "empty": true
+    },
+    {
+      "date": "2023-05-09",
+      "author": "o.lindqvist",
+      "message": "KEY-1877 coverage gate at 38 percent, exception recorded",
+      "paths": [
+        "keystone-web/karma.conf.js",
+        "keystone-web/docs/runbooks/coverage.md"
+      ]
+    },
+    {
+      "date": "2023-05-23",
+      "author": "g.mwangi",
+      "message": "Merge branch release/2023.05 into main for train 2023.05.1",
+      "empty": true
+    },
+    {
+      "date": "2023-06-06",
+      "author": "o.lindqvist",
+      "message": "KEY-1920 push polling: back off to 3s after 30s",
+      "paths": [
+        "keystone-web/src/app/features/mfa/push-approval/push-approval.component.ts"
+      ]
+    },
+    {
+      "date": "2023-06-07",
+      "author": "o.lindqvist",
+      "message": "Revert \"KEY-1920 push polling: back off to 3s after 30s\"",
+      "body": "Contact centre reported approvals taking \"ages\" in UAT. 2s it stays until the IdP does SSE.",
+      "paths": [
+        "keystone-web/src/app/features/mfa/push-approval/push-approval.component.ts"
+      ]
+    },
+    {
+      "date": "2023-06-20",
+      "author": "g.mwangi",
+      "message": "Merge branch release/2023.06 into main for train 2023.06.1",
+      "empty": true
+    },
+    {
+      "date": "2023-07-11",
+      "author": "o.lindqvist",
+      "message": "KEY-1955 runbook: local login flow, because it is not obvious",
+      "paths": [
+        "keystone-web/docs/runbooks/local-login-flow.md"
+      ]
+    },
+    {
+      "date": "2023-08-01",
+      "author": "meridian-dependency-bot",
+      "message": "chore(deps): bump @meridian/canopy-ui 3.5.0 to 3.6.1",
+      "paths": [
+        "keystone-web/package-lock.json"
+      ]
+    },
+    {
+      "date": "2023-08-02",
+      "author": "g.mwangi",
+      "message": "KEY-2051 Canopy 3.6.1 tokens as css vars, styles path workaround (CNPY-2203)",
+      "paths": [
+        "keystone-web/src/styles/styles.scss",
+        "keystone-web/angular.json"
+      ]
+    },
+    {
+      "date": "2023-08-15",
+      "author": "g.mwangi",
+      "message": "Merge branch release/2023.08 into main for train 2023.08.1",
+      "empty": true
+    },
+    {
+      "date": "2023-09-12",
+      "author": "o.lindqvist",
+      "message": "FRD-0561 outcome recorded, no fingerprint changes",
+      "paths": [
+        "keystone-web/docs/fraud-device-trust-requirements.md"
+      ]
+    },
+    {
+      "date": "2023-09-13",
+      "author": "e.castellanos",
+      "message": "KEY-1993 pod security context, drop all caps",
+      "paths": [
+        "keystone-web/helm/keystone-web/templates/deployment.yaml"
+      ]
+    },
+    {
+      "date": "2023-09-26",
+      "author": "g.mwangi",
+      "message": "Merge branch release/2023.09 into main for train 2023.09.1",
+      "empty": true
+    },
+    {
+      "date": "2023-10-03",
+      "author": "o.lindqvist",
+      "message": "KEY-2105 extract OtpInputComponent, standalone, a11y remediation",
+      "body": "A11y audit item 7 through 12. Roving focus, aria-invalid, group label, paste handling in one place.",
+      "paths": [
+        "keystone-web/src/app/features/mfa/otp-input/otp-input.component.ts",
+        "keystone-web/src/app/features/mfa/otp-input/otp-input.component.html",
+        "keystone-web/src/app/features/mfa/otp-input/otp-input.component.scss"
+      ]
+    },
+    {
+      "date": "2023-10-04",
+      "author": "o.lindqvist",
+      "message": "KEY-2105 OTP input specs: focus, paste, backspace, CVA",
+      "paths": [
+        "keystone-web/src/app/features/mfa/otp-input/otp-input.component.spec.ts"
+      ]
+    },
+    {
+      "date": "2023-10-05",
+      "author": "o.lindqvist",
+      "message": "KEY-2105 otp challenge uses the new input",
+      "paths": [
+        "keystone-web/src/app/features/mfa/otp-challenge",
+        "keystone-web/src/app/features/mfa/mfa.module.ts"
+      ]
+    },
+    {
+      "date": "2023-10-10",
+      "author": "o.lindqvist",
+      "message": "KEY-2105 custom length and disabled state specs",
+      "paths": [
+        "keystone-web/src/app/features/mfa/otp-input/otp-input.component.spec.ts"
+      ]
+    },
+    {
+      "date": "2023-10-17",
+      "author": "g.mwangi",
+      "message": "Merge branch release/2023.10 into main for train 2023.10.2",
+      "empty": true
+    },
+    {
+      "date": "2023-11-07",
+      "author": "g.mwangi",
+      "message": "KEY-2077 count every source file in coverage",
+      "body": "89 percent was a lie. 41 percent is not. Gate stays at 38 (KEY-1877).",
+      "paths": [
+        "keystone-web/angular.json",
+        "keystone-web/karma.conf.js",
+        "keystone-web/src/app/app.module.spec.ts"
+      ]
+    },
+    {
+      "date": "2023-11-14",
+      "author": "g.mwangi",
+      "message": "KEY-2077 IdP client specs",
+      "paths": [
+        "keystone-web/src/app/core/auth/idp-client.service.spec.ts"
+      ]
+    },
+    {
+      "date": "2023-11-21",
+      "author": "g.mwangi",
+      "message": "Merge branch release/2023.11 into main for train 2023.11.2",
+      "empty": true
+    },
+    {
+      "date": "2023-12-05",
+      "author": "o.lindqvist",
+      "message": "KEY-2130 December: changelog and README catch-up",
+      "paths": [
+        "keystone-web/CHANGELOG.md",
+        "keystone-web/README.md"
+      ]
+    },
+    {
+      "date": "2024-01-09",
+      "author": "g.mwangi",
+      "message": "KEY-2172 ng update @angular/core@15 @angular/cli@15",
+      "paths": [
+        "keystone-web/angular.json",
+        "keystone-web/tsconfig.json",
+        "keystone-web/tsconfig.app.json",
+        "keystone-web/tsconfig.spec.json",
+        "keystone-web/package-lock.json"
+      ],
+      "content": {
+        "keystone-web/package.json": "{\n  \"name\": \"@meridian/keystone-web\",\n  \"version\": \"4.8.0\",\n  \"description\": \"Keystone login, MFA, device trust and step-up front end. Relying party UI for the Keystone IdP. Served at login.meridiantrust.example.\",\n  \"private\": true,\n  \"license\": \"UNLICENSED\",\n  \"engines\": {\n    \"node\": \"16.20.2\",\n    \"npm\": \"8.19.4\"\n  },\n  \"scripts\": {\n    \"ng\": \"ng\",\n    \"start\": \"ng serve --port 4202\",\n    \"start:mock-idp\": \"KEYSTONE_IDP_URL=http://localhost:4400 ng serve --port 4202 --configuration development\",\n    \"build\": \"ng build\",\n    \"build:prod\": \"ng build --configuration production\",\n    \"build:stats\": \"ng build --configuration production --stats-json\",\n    \"test\": \"ng test --browsers=ChromeHeadlessCI --code-coverage\",\n    \"test:watch\": \"ng test\",\n    \"lint\": \"ng lint\",\n    \"audit:ci\": \"npm audit --audit-level=high --omit=dev || true\"\n  },\n  \"dependencies\": {\n    \"@angular/animations\": \"15.2.10\",\n    \"@angular/cdk\": \"15.2.9\",\n    \"@angular/common\": \"15.2.10\",\n    \"@angular/compiler\": \"15.2.10\",\n    \"@angular/core\": \"15.2.10\",\n    \"@angular/forms\": \"15.2.10\",\n    \"@angular/material\": \"15.2.9\",\n    \"@angular/platform-browser\": \"15.2.10\",\n    \"@angular/platform-browser-dynamic\": \"15.2.10\",\n    \"@angular/router\": \"15.2.10\",\n    \"@meridian/canopy-ui\": \"3.6.1\",\n    \"angular-oauth2-oidc\": \"15.0.1\",\n    \"rxjs\": \"7.8.0\",\n    \"tslib\": \"2.5.0\",\n    \"zone.js\": \"0.12.0\"\n  },\n  \"devDependencies\": {\n    \"@angular-devkit/build-angular\": \"15.2.10\",\n    \"@angular-eslint/builder\": \"15.2.1\",\n    \"@angular-eslint/eslint-plugin\": \"15.2.1\",\n    \"@angular-eslint/eslint-plugin-template\": \"15.2.1\",\n    \"@angular-eslint/schematics\": \"15.2.1\",\n    \"@angular-eslint/template-parser\": \"15.2.1\",\n    \"@angular/cli\": \"15.2.10\",\n    \"@angular/compiler-cli\": \"15.2.10\",\n    \"@meridian/domain-fixtures\": \"1.6.0\",\n    \"@types/jasmine\": \"4.3.1\",\n    \"@types/node\": \"16.18.11\",\n    \"@typescript-eslint/eslint-plugin\": \"5.48.2\",\n    \"@typescript-eslint/parser\": \"5.48.2\",\n    \"eslint\": \"8.33.0\",\n    \"jasmine-core\": \"4.5.0\",\n    \"karma\": \"6.4.1\",\n    \"karma-chrome-launcher\": \"3.1.1\",\n    \"karma-coverage\": \"2.2.0\",\n    \"karma-jasmine\": \"5.1.0\",\n    \"karma-jasmine-html-reporter\": \"2.0.0\",\n    \"karma-junit-reporter\": \"2.0.1\",\n    \"typescript\": \"4.9.5\"\n  }\n}\n"
+      }
+    },
+    {
+      "date": "2024-01-10",
+      "author": "g.mwangi",
+      "message": "KEY-2172 ng update @angular/material@15: everything rewritten to legacy entry points",
+      "body": "The schematic aliases every Mat* import to MatLegacy*. Pixel identical. MDC migration is KEY-2210.",
+      "paths": [
+        "keystone-web/src/app/shared/legacy/legacy-material.module.ts",
+        "keystone-web/src/app/shared/shared-legacy.module.ts",
+        "keystone-web/src/app/shared/material.module.ts",
+        "keystone-web/src/styles/_theme.scss",
+        "keystone-web/src/app/features/mfa/otp-input/otp-input.component.ts",
+        "keystone-web/src/app/features/device-trust/device-trust-page/device-trust-page.component.ts",
+        "keystone-web/src/app/features/recovery/recovery-start/recovery-start.component.ts",
+        "keystone-web/src/app/features/session/callback/callback.component.ts",
+        "keystone-web/src/app/features/device-trust/device-trust-prompt/device-trust-prompt.component.ts"
+      ],
+      "content": {
+        "keystone-web/src/styles/_theme.scss": "@use '@angular/material' as mat;\n@use 'sass:map';\n@use 'tokens' as t;\n\n// ---------------------------------------------------------------------------------------------\n// Keystone Material theme. Angular 15 (KEY-2172): ng update moved every component to the\n// legacy entry points, so this is the legacy theme only. MDC migration is KEY-2210, Q1.\n// ---------------------------------------------------------------------------------------------\n\n$ks-primary-palette: (\n  50: #e3ecf2,\n  100: #b9cfdd,\n  200: #8cb0c7,\n  300: #5f90b0,\n  400: #3d789f,\n  500: t.$ks-navy,\n  600: #0a3753,\n  700: #082f48,\n  800: #06273e,\n  900: #03192b,\n  A100: #6fb6ff,\n  A200: #3c9dff,\n  A400: #0984ff,\n  A700: #0077ef,\n  contrast: (\n    50: rgba(black, 0.87),\n    100: rgba(black, 0.87),\n    200: rgba(black, 0.87),\n    300: white,\n    400: white,\n    500: white,\n    600: white,\n    700: white,\n    800: white,\n    900: white,\n    A100: rgba(black, 0.87),\n    A200: white,\n    A400: white,\n    A700: white,\n  )\n);\n\n$ks-accent-palette: (\n  50: #fcf7e9,\n  100: #f8ecc8,\n  200: #f3e0a4,\n  300: #eed380,\n  400: #ebcb75,\n  500: t.$ks-gold,\n  600: #d9b25a,\n  700: #c9a04a,\n  800: #b98f3a,\n  900: #9e7222,\n  A100: #ffffff,\n  A200: #fff5dd,\n  A400: #ffe6aa,\n  A700: #ffde90,\n  contrast: (\n    50: rgba(black, 0.87),\n    100: rgba(black, 0.87),\n    200: rgba(black, 0.87),\n    300: rgba(black, 0.87),\n    400: rgba(black, 0.87),\n    500: rgba(black, 0.87),\n    600: rgba(black, 0.87),\n    700: rgba(black, 0.87),\n    800: white,\n    900: white,\n    A100: rgba(black, 0.87),\n    A200: rgba(black, 0.87),\n    A400: rgba(black, 0.87),\n    A700: rgba(black, 0.87),\n  )\n);\n\n$ks-primary: mat.define-palette($ks-primary-palette, 500, 300, 700);\n$ks-accent: mat.define-palette($ks-accent-palette, 500, 300, 700);\n$ks-warn: mat.define-palette(mat.$red-palette, 700);\n\n// Typography: the legacy config and the MDC one take different level names, so we define both.\n// The visible difference is button letter spacing (legacy 0.089em vs MDC 0.0892857143em, which is\n// the same thing, and line height on form field labels, which is not).\n$ks-legacy-typography: mat.define-legacy-typography-config(\n  $font-family: '\"Source Sans 3\", \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif',\n  $button: mat.define-typography-level(15px, 36px, 600),\n  $input: mat.define-typography-level(16px, 1.125, 400)\n);\n\n$ks-typography: mat.define-typography-config(\n  $font-family: '\"Source Sans 3\", \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif',\n  $button: mat.define-typography-level(15px, 36px, 600),\n  $body-1: mat.define-typography-level(16px, 24px, 400)\n);\n\n$ks-theme: mat.define-light-theme((\n  color: (\n    primary: $ks-primary,\n    accent: $ks-accent,\n    warn: $ks-warn,\n  ),\n  typography: $ks-typography,\n  density: 0,\n));\n\n// The legacy components read typography from the legacy config, the MDC ones from the new one.\n// Passing the wrong one produces a wall of \"typography level not found\" warnings at build time\n// (KEY-2251), hence two theme maps built from the same palettes.\n$ks-legacy-theme: map.merge($ks-theme, (typography: $ks-legacy-typography));\n\n@include mat.legacy-core();\n\n@include mat.all-legacy-component-themes($ks-legacy-theme);\n"
+      },
+      "patch": {
+        "keystone-web/src/app/features/mfa/otp-input/otp-input.component.ts": [
+          [
+            "import { MatFormFieldModule } from '@angular/material/form-field';",
+            "import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/material/legacy-form-field';"
+          ],
+          [
+            "import { MatInputModule } from '@angular/material/input';",
+            "import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';"
+          ]
+        ],
+        "keystone-web/src/app/features/device-trust/device-trust-page/device-trust-page.component.ts": [
+          [
+            "import { MatButtonModule } from '@angular/material/button';",
+            "import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';"
+          ],
+          [
+            "import { MatFormFieldModule } from '@angular/material/form-field';",
+            "import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/material/legacy-form-field';"
+          ],
+          [
+            "import { MatInputModule } from '@angular/material/input';",
+            "import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';"
+          ],
+          [
+            "import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';",
+            "import { MatLegacyProgressSpinnerModule as MatProgressSpinnerModule } from '@angular/material/legacy-progress-spinner';"
+          ]
+        ],
+        "keystone-web/src/app/features/recovery/recovery-start/recovery-start.component.ts": [
+          [
+            "import { MatButtonModule } from '@angular/material/button';",
+            "import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';"
+          ],
+          [
+            "import { MatFormFieldModule } from '@angular/material/form-field';",
+            "import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/material/legacy-form-field';"
+          ],
+          [
+            "import { MatInputModule } from '@angular/material/input';",
+            "import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';"
+          ],
+          [
+            "import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';",
+            "import { MatLegacyProgressSpinnerModule as MatProgressSpinnerModule } from '@angular/material/legacy-progress-spinner';"
+          ]
+        ],
+        "keystone-web/src/app/features/session/callback/callback.component.ts": [
+          [
+            "import { MatButtonModule } from '@angular/material/button';",
+            "import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';"
+          ],
+          [
+            "import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';",
+            "import { MatLegacyProgressSpinnerModule as MatProgressSpinnerModule } from '@angular/material/legacy-progress-spinner';"
+          ]
+        ],
+        "keystone-web/src/app/features/device-trust/device-trust-prompt/device-trust-prompt.component.ts": [
+          [
+            "import { MatButtonModule } from '@angular/material/button';",
+            "import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';"
+          ]
+        ]
+      }
+    },
+    {
+      "date": "2024-01-11",
+      "author": "g.mwangi",
+      "message": "KEY-2172 legacy typography config",
+      "paths": [
+        "keystone-web/src/styles/_theme.scss"
+      ]
+    },
+    {
+      "date": "2024-01-16",
+      "author": "g.mwangi",
+      "message": "KEY-2172 TypeScript 4.9.5, satisfies not yet allowed by eslint",
+      "paths": [
+        "keystone-web/.eslintrc.json",
+        "keystone-web/package-lock.json"
+      ]
+    },
+    {
+      "date": "2024-01-17",
+      "author": "g.mwangi",
+      "message": "KEY-2172 angular-oauth2-oidc 15.0.1, tryLoginCodeFlow returns void now",
+      "paths": [
+        "keystone-web/src/app/core/auth/auth-session.service.ts",
+        "keystone-web/package-lock.json"
+      ]
+    },
+    {
+      "date": "2024-01-18",
+      "author": "o.lindqvist",
+      "message": "KEY-2172 ADR 0003: take 15 with legacy Material, migrate separately",
+      "paths": [
+        "keystone-web/docs/adr/0003-material-15-mdc-migration.md"
+      ]
+    },
+    {
+      "date": "2024-01-23",
+      "author": "g.mwangi",
+      "message": "KEY-2172 zone.js 0.12.0",
+      "paths": [
+        "keystone-web/package-lock.json"
+      ]
+    },
+    {
+      "date": "2024-01-24",
+      "author": "g.mwangi",
+      "message": "KEY-2172 karma ChromeHeadlessCI flags for the rhel8 agents",
+      "paths": [
+        "keystone-web/karma.conf.js"
+      ]
+    },
+    {
+      "date": "2024-01-30",
+      "author": "g.mwangi",
+      "message": "KEY-2172 eslint 8.33, angular-eslint 15.2.1",
+      "paths": [
+        "keystone-web/.eslintrc.json",
+        "keystone-web/package-lock.json"
+      ]
+    },
+    {
+      "date": "2024-02-06",
+      "author": "g.mwangi",
+      "message": "KEY-2172 budget bump, two Material cores",
+      "paths": [
+        "keystone-web/angular.json"
+      ]
+    },
+    {
+      "date": "2024-02-13",
+      "author": "g.mwangi",
+      "message": "KEY-2172 UAT sign-off fixes: focus ring on legacy buttons",
+      "paths": [
+        "keystone-web/src/styles/styles.scss"
+      ]
+    },
+    {
+      "date": "2024-02-20",
+      "author": "c.mbeki",
+      "message": "GIS-1902 remove bypassSecurityTrustHtml from locked-out",
+      "paths": [
+        "keystone-web/src/app/features/login/locked-out"
+      ]
+    },
+    {
+      "date": "2024-02-27",
+      "author": "g.mwangi",
+      "message": "Merge branch release/2024.03 into main for train 2024.03.1",
+      "body": "Angular 15.2.10. Eleven weeks.",
+      "empty": true
+    },
+    {
+      "date": "2024-03-05",
+      "author": "o.lindqvist",
+      "message": "KEY-2180 inline \"trust this device\" prompt on the OTP screen (standalone, MDC)",
+      "paths": [
+        "keystone-web/src/app/features/device-trust/device-trust-prompt"
+      ],
+      "patch": {
+        "keystone-web/src/app/features/device-trust/device-trust-prompt/device-trust-prompt.component.ts": [
+          [
+            "import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';",
+            "import { MatButtonModule } from '@angular/material/button';"
+          ]
+        ]
+      }
+    },
+    {
+      "date": "2024-03-06",
+      "author": "o.lindqvist",
+      "message": "KEY-2180 import the prompt into LoginModule",
+      "paths": [
+        "keystone-web/src/app/features/login/login.module.ts"
+      ]
+    },
+    {
+      "date": "2024-03-07",
+      "author": "o.lindqvist",
+      "message": "KEY-2180 device trust prompt spec",
+      "paths": [
+        "keystone-web/src/app/features/device-trust/device-trust-prompt/device-trust-prompt.component.spec.ts"
+      ]
+    },
+    {
+      "date": "2024-03-12",
+      "author": "o.lindqvist",
+      "message": "KEY-2188 CONTRIBUTING: standalone components permitted",
+      "paths": [
+        "keystone-web/CONTRIBUTING.md"
+      ]
+    },
+    {
+      "date": "2024-03-19",
+      "author": "g.mwangi",
+      "message": "Merge branch release/2024.03 into main for train 2024.03.2",
+      "empty": true
+    },
+    {
+      "date": "2024-04-02",
+      "author": "o.lindqvist",
+      "message": "KEY-2210 MDC: session pages and callback",
+      "paths": [
+        "keystone-web/src/app/features/session"
+      ],
+      "patch": {
+        "keystone-web/src/app/features/session/callback/callback.component.ts": [
+          [
+            "import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';",
+            "import { MatButtonModule } from '@angular/material/button';"
+          ],
+          [
+            "import { MatLegacyProgressSpinnerModule as MatProgressSpinnerModule } from '@angular/material/legacy-progress-spinner';",
+            "import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';"
+          ]
+        ]
+      }
+    },
+    {
+      "date": "2024-04-03",
+      "author": "o.lindqvist",
+      "message": "KEY-2210 MDC: recovery screens",
+      "paths": [
+        "keystone-web/src/app/features/recovery"
+      ],
+      "patch": {
+        "keystone-web/src/app/features/recovery/recovery-start/recovery-start.component.ts": [
+          [
+            "import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';",
+            "import { MatButtonModule } from '@angular/material/button';"
+          ],
+          [
+            "import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/material/legacy-form-field';",
+            "import { MatFormFieldModule } from '@angular/material/form-field';"
+          ],
+          [
+            "import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';",
+            "import { MatInputModule } from '@angular/material/input';"
+          ],
+          [
+            "import { MatLegacyProgressSpinnerModule as MatProgressSpinnerModule } from '@angular/material/legacy-progress-spinner';",
+            "import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';"
+          ]
+        ]
+      }
+    },
+    {
+      "date": "2024-04-04",
+      "author": "o.lindqvist",
+      "message": "KEY-2210 MDC: device trust page and summary",
+      "paths": [
+        "keystone-web/src/app/features/device-trust"
+      ],
+      "patch": {
+        "keystone-web/src/app/features/device-trust/device-trust-page/device-trust-page.component.ts": [
+          [
+            "import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';",
+            "import { MatButtonModule } from '@angular/material/button';"
+          ],
+          [
+            "import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/material/legacy-form-field';",
+            "import { MatFormFieldModule } from '@angular/material/form-field';"
+          ],
+          [
+            "import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';",
+            "import { MatInputModule } from '@angular/material/input';"
+          ],
+          [
+            "import { MatLegacyProgressSpinnerModule as MatProgressSpinnerModule } from '@angular/material/legacy-progress-spinner';",
+            "import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';"
+          ]
+        ]
+      }
+    },
+    {
+      "date": "2024-04-09",
+      "author": "o.lindqvist",
+      "message": "KEY-2210 MDC: OTP input (the challenge around it stays legacy)",
+      "paths": [
+        "keystone-web/src/app/features/mfa/otp-input"
+      ],
+      "patch": {
+        "keystone-web/src/app/features/mfa/otp-input/otp-input.component.ts": [
+          [
+            "import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/material/legacy-form-field';",
+            "import { MatFormFieldModule } from '@angular/material/form-field';"
+          ],
+          [
+            "import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';",
+            "import { MatInputModule } from '@angular/material/input';"
+          ]
+        ]
+      }
+    },
+    {
+      "date": "2024-04-10",
+      "author": "o.lindqvist",
+      "message": "KEY-2210 MDC: banners, header, footer, maintenance notice",
+      "paths": [
+        "keystone-web/src/app/shared/components"
+      ]
+    },
+    {
+      "date": "2024-04-11",
+      "author": "o.lindqvist",
+      "message": "KEY-2210 MaterialModule is now the MDC half",
+      "paths": [
+        "keystone-web/src/app/shared/material.module.ts"
+      ],
+      "content": {
+        "keystone-web/src/app/shared/material.module.ts": "import { NgModule } from '@angular/core';\nimport { MatButtonModule } from '@angular/material/button';\nimport { MatCheckboxModule } from '@angular/material/checkbox';\nimport { MatFormFieldModule } from '@angular/material/form-field';\nimport { MatIconModule } from '@angular/material/icon';\nimport { MatInputModule } from '@angular/material/input';\nimport { MatProgressSpinnerModule } from '@angular/material/progress-spinner';\n\n/** MDC Material. The migrated half. */\nconst MDC = [MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatIconModule, MatInputModule, MatProgressSpinnerModule];\n\n@NgModule({\n  imports: MDC,\n  exports: MDC,\n})\nexport class MaterialModule {}\n"
+      }
+    },
+    {
+      "date": "2024-04-16",
+      "author": "o.lindqvist",
+      "message": "KEY-2210 theme includes both mixins; state of play comment",
+      "body": "Credential form, OTP challenge, push, authenticator stay legacy for now. KEY-2233 for the 360px regression.",
+      "paths": [
+        "keystone-web/src/styles/_theme.scss"
+      ],
+      "content": {
+        "keystone-web/src/styles/_theme.scss": "@use '@angular/material' as mat;\n@use 'sass:map';\n@use 'tokens' as t;\n\n// ---------------------------------------------------------------------------------------------\n// Keystone Material theme\n//\n// STATE OF PLAY (KEY-2210, updated 2024-03): we are half way through the MDC migration. The\n// simple screens (recovery, device trust, step-up complete, banners) are on the MDC components.\n// The credential form, OTP challenge, push approval and the busy overlay are still on the legacy\n// components because they carry ~90% of the traffic and the MDC form field renders 4px taller,\n// which shifted the \"Forgot username\" link under the fold on the 360px breakpoint in UAT\n// (KEY-2233). Brand and accessibility both need to sign off on the new layout and neither has had\n// time.\n//\n// So: BOTH theme mixins are included. Yes this doubles the emitted theme CSS (~110kb before\n// compression, see the budget bump in angular.json). Yes there are visual regressions where a\n// legacy button sits next to an MDC checkbox (the ripple colours differ, the focus ring is a\n// different width, and the disabled grey is off by a few shades). I ran out of runway before the\n// 2024.03 train and this is what got us through it. Finish it or revert it, but do not leave it\n// like this for another year.\n//\n// If you are reading this because the build broke on an Angular upgrade: the legacy mixins were\n// removed upstream in v17. There is no shim. Every component in the legacy half has to move first.\n// ---------------------------------------------------------------------------------------------\n\n$ks-primary-palette: (\n  50: #e3ecf2,\n  100: #b9cfdd,\n  200: #8cb0c7,\n  300: #5f90b0,\n  400: #3d789f,\n  500: t.$ks-navy,\n  600: #0a3753,\n  700: #082f48,\n  800: #06273e,\n  900: #03192b,\n  A100: #6fb6ff,\n  A200: #3c9dff,\n  A400: #0984ff,\n  A700: #0077ef,\n  contrast: (\n    50: rgba(black, 0.87),\n    100: rgba(black, 0.87),\n    200: rgba(black, 0.87),\n    300: white,\n    400: white,\n    500: white,\n    600: white,\n    700: white,\n    800: white,\n    900: white,\n    A100: rgba(black, 0.87),\n    A200: white,\n    A400: white,\n    A700: white,\n  )\n);\n\n$ks-accent-palette: (\n  50: #fcf7e9,\n  100: #f8ecc8,\n  200: #f3e0a4,\n  300: #eed380,\n  400: #ebcb75,\n  500: t.$ks-gold,\n  600: #d9b25a,\n  700: #c9a04a,\n  800: #b98f3a,\n  900: #9e7222,\n  A100: #ffffff,\n  A200: #fff5dd,\n  A400: #ffe6aa,\n  A700: #ffde90,\n  contrast: (\n    50: rgba(black, 0.87),\n    100: rgba(black, 0.87),\n    200: rgba(black, 0.87),\n    300: rgba(black, 0.87),\n    400: rgba(black, 0.87),\n    500: rgba(black, 0.87),\n    600: rgba(black, 0.87),\n    700: rgba(black, 0.87),\n    800: white,\n    900: white,\n    A100: rgba(black, 0.87),\n    A200: rgba(black, 0.87),\n    A400: rgba(black, 0.87),\n    A700: rgba(black, 0.87),\n  )\n);\n\n$ks-primary: mat.define-palette($ks-primary-palette, 500, 300, 700);\n$ks-accent: mat.define-palette($ks-accent-palette, 500, 300, 700);\n$ks-warn: mat.define-palette(mat.$red-palette, 700);\n\n// Typography: the legacy config and the MDC one take different level names, so we define both.\n// The visible difference is button letter spacing (legacy 0.089em vs MDC 0.0892857143em, which is\n// the same thing, and line height on form field labels, which is not).\n$ks-legacy-typography: mat.define-legacy-typography-config(\n  $font-family: '\"Source Sans 3\", \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif',\n  $button: mat.define-typography-level(15px, 36px, 600),\n  $input: mat.define-typography-level(16px, 1.125, 400)\n);\n\n$ks-typography: mat.define-typography-config(\n  $font-family: '\"Source Sans 3\", \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif',\n  $button: mat.define-typography-level(15px, 36px, 600),\n  $body-1: mat.define-typography-level(16px, 24px, 400)\n);\n\n$ks-theme: mat.define-light-theme((\n  color: (\n    primary: $ks-primary,\n    accent: $ks-accent,\n    warn: $ks-warn,\n  ),\n  typography: $ks-typography,\n  density: 0,\n));\n\n// The legacy components read typography from the legacy config, the MDC ones from the new one.\n// Passing the wrong one produces a wall of \"typography level not found\" warnings at build time\n// (KEY-2251), hence two theme maps built from the same palettes.\n$ks-legacy-theme: map.merge($ks-theme, (typography: $ks-legacy-typography));\n\n@include mat.legacy-core();\n@include mat.core();\n\n// Legacy half: credential form, otp challenge, channel picker, push approval, authenticator app,\n// locked out, step-up interstitial, busy overlay.\n@include mat.all-legacy-component-themes($ks-legacy-theme);\n\n// MDC half: everything else.\n@include mat.all-component-themes($ks-theme);\n\n// TODO(KEY-2210): once the last legacy component is gone, drop the block above, drop\n// legacy-core(), and remove the 900kb budget override. Then delete this comment and pretend it\n// was always like that.\n\n// Emitted twice on purpose is still emitted twice. Undo the legacy typography hierarchy where it\n// leaks into the MDC screens; MDC sets its own on .mat-typography.\n.ks-mdc-screen .mat-h1,\n.ks-mdc-screen .mat-h2 {\n  margin-bottom: t.$ks-space-4;\n}\n"
+      }
+    },
+    {
+      "date": "2024-04-17",
+      "author": "o.lindqvist",
+      "message": "KEY-2210 typography: both configs, legacy theme map",
+      "paths": [
+        "keystone-web/src/styles/_theme.scss"
+      ]
+    },
+    {
+      "date": "2024-04-23",
+      "author": "g.mwangi",
+      "message": "Merge branch release/2024.04 into main for train 2024.04.2",
+      "empty": true
+    },
+    {
+      "date": "2024-05-07",
+      "author": "o.lindqvist",
+      "message": "KEY-2233 360px breakpoint: forgot username link under the fold on MDC form field",
+      "paths": [
+        "keystone-web/src/app/features/login/credential-form/credential-form.component.scss"
+      ]
+    },
+    {
+      "date": "2024-05-14",
+      "author": "o.lindqvist",
+      "message": "KEY-2214 device trust page reads trust duration from environment",
+      "paths": [
+        "keystone-web/src/app/features/device-trust/device-trust-page",
+        "keystone-web/src/environments"
+      ]
+    },
+    {
+      "date": "2024-05-21",
+      "author": "g.mwangi",
+      "message": "Merge branch release/2024.05 into main for train 2024.05.1",
+      "empty": true
+    },
+    {
+      "date": "2024-06-04",
+      "author": "g.mwangi",
+      "message": "KEY-2210 README: the Material situation",
+      "paths": [
+        "keystone-web/README.md"
+      ]
+    },
+    {
+      "date": "2024-06-11",
+      "author": "o.lindqvist",
+      "message": "KEY-2210 TODO the commented declaration in LoginModule until the module moves",
+      "paths": [
+        "keystone-web/src/app/features/login/login.module.ts"
+      ]
+    },
+    {
+      "date": "2024-06-18",
+      "author": "g.mwangi",
+      "message": "Merge branch release/2024.06 into main for train 2024.06.1",
+      "empty": true
+    },
+    {
+      "date": "2024-07-09",
+      "author": "meridian-dependency-bot",
+      "message": "chore(deps): bump @angular/* 15.2.9 to 15.2.10",
+      "paths": [
+        "keystone-web/package-lock.json"
+      ]
+    },
+    {
+      "date": "2024-07-09",
+      "author": "meridian-dependency-bot",
+      "message": "chore(deps): bump @angular/material 15.2.8 to 15.2.9",
+      "paths": [
+        "keystone-web/package-lock.json"
+      ]
+    },
+    {
+      "date": "2024-07-16",
+      "author": "g.mwangi",
+      "message": "Merge branch release/2024.07 into main for train 2024.07.1",
+      "empty": true
+    },
+    {
+      "date": "2024-08-06",
+      "author": "o.lindqvist",
+      "message": "KEY-2237 maintenance notice: window from environment",
+      "paths": [
+        "keystone-web/src/app/shared/components/maintenance-notice",
+        "keystone-web/src/environments"
+      ]
+    },
+    {
+      "date": "2024-08-20",
+      "author": "g.mwangi",
+      "message": "Merge branch release/2024.08 into main for train 2024.08.1",
+      "empty": true
+    },
+    {
+      "date": "2024-09-03",
+      "author": "o.lindqvist",
+      "message": "KEY-2251 typography level warnings: separate legacy config",
+      "paths": [
+        "keystone-web/src/styles/_theme.scss"
+      ]
+    },
+    {
+      "date": "2024-09-10",
+      "author": "o.lindqvist",
+      "message": "KEY-2251 rate limit banner copy for the recovery scope",
+      "paths": [
+        "keystone-web/src/app/shared/components/rate-limit-banner"
+      ]
+    },
+    {
+      "date": "2024-09-12",
+      "author": "o.lindqvist",
+      "message": "KEY-2210 ADR 0003 consequences, written before I go",
+      "paths": [
+        "keystone-web/docs/adr/0003-material-15-mdc-migration.md"
+      ]
+    },
+    {
+      "date": "2024-09-17",
+      "author": "g.mwangi",
+      "message": "Merge branch release/2024.09 into main for train 2024.09.2",
+      "empty": true
+    },
+    {
+      "date": "2024-10-01",
+      "author": "g.mwangi",
+      "message": "KEY-2259 push approval: larger number matching digits",
+      "paths": [
+        "keystone-web/src/app/features/mfa/push-approval"
+      ]
+    },
+    {
+      "date": "2024-10-08",
+      "author": "g.mwangi",
+      "message": "KEY-2266 document the Canopy icon noise in Karma",
+      "paths": [
+        "keystone-web/README.md"
+      ]
+    },
+    {
+      "date": "2024-10-15",
+      "author": "g.mwangi",
+      "message": "KEY-2270 core service specs: correlation, rate limit, telemetry",
+      "paths": [
+        "keystone-web/src/app/core"
+      ]
+    },
+    {
+      "date": "2024-10-22",
+      "author": "g.mwangi",
+      "message": "Merge branch release/2024.10 into main for train 2024.10.1",
+      "empty": true
+    },
+    {
+      "date": "2024-11-05",
+      "author": "g.mwangi",
+      "message": "KEY-2288 release checklist runbook",
+      "paths": [
+        "keystone-web/docs/runbooks/release-checklist.md"
+      ]
+    },
+    {
+      "date": "2024-11-12",
+      "author": "g.mwangi",
+      "message": "KEY-2301 env.json loader reverted after INC0148821, comment left behind",
+      "paths": [
+        "keystone-web/src/environments/environment.prod.ts"
+      ]
+    },
+    {
+      "date": "2024-11-19",
+      "author": "g.mwangi",
+      "message": "KEY-2305 changelog for 2024.11.1",
+      "paths": [
+        "keystone-web/CHANGELOG.md"
+      ],
+      "content": {
+        "keystone-web/package.json": "{\n  \"name\": \"@meridian/keystone-web\",\n  \"version\": \"4.11.3\",\n  \"description\": \"Keystone login, MFA, device trust and step-up front end. Relying party UI for the Keystone IdP. Served at login.meridiantrust.example.\",\n  \"private\": true,\n  \"license\": \"UNLICENSED\",\n  \"engines\": {\n    \"node\": \"16.20.2\",\n    \"npm\": \"8.19.4\"\n  },\n  \"scripts\": {\n    \"ng\": \"ng\",\n    \"start\": \"ng serve --port 4202\",\n    \"start:mock-idp\": \"KEYSTONE_IDP_URL=http://localhost:4400 ng serve --port 4202 --configuration development\",\n    \"build\": \"ng build\",\n    \"build:prod\": \"ng build --configuration production\",\n    \"build:stats\": \"ng build --configuration production --stats-json\",\n    \"test\": \"ng test --browsers=ChromeHeadlessCI --code-coverage\",\n    \"test:watch\": \"ng test\",\n    \"lint\": \"ng lint\",\n    \"csp:check\": \"node scripts/check-csp.js\",\n    \"audit:ci\": \"npm audit --audit-level=high --omit=dev || true\"\n  },\n  \"dependencies\": {\n    \"@angular/animations\": \"15.2.10\",\n    \"@angular/cdk\": \"15.2.9\",\n    \"@angular/common\": \"15.2.10\",\n    \"@angular/compiler\": \"15.2.10\",\n    \"@angular/core\": \"15.2.10\",\n    \"@angular/forms\": \"15.2.10\",\n    \"@angular/material\": \"15.2.9\",\n    \"@angular/platform-browser\": \"15.2.10\",\n    \"@angular/platform-browser-dynamic\": \"15.2.10\",\n    \"@angular/router\": \"15.2.10\",\n    \"@meridian/canopy-ui\": \"3.6.1\",\n    \"angular-oauth2-oidc\": \"15.0.1\",\n    \"rxjs\": \"7.8.0\",\n    \"tslib\": \"2.5.0\",\n    \"zone.js\": \"0.12.0\"\n  },\n  \"devDependencies\": {\n    \"@angular-devkit/build-angular\": \"15.2.10\",\n    \"@angular-eslint/builder\": \"15.2.1\",\n    \"@angular-eslint/eslint-plugin\": \"15.2.1\",\n    \"@angular-eslint/eslint-plugin-template\": \"15.2.1\",\n    \"@angular-eslint/schematics\": \"15.2.1\",\n    \"@angular-eslint/template-parser\": \"15.2.1\",\n    \"@angular/cli\": \"15.2.10\",\n    \"@angular/compiler-cli\": \"15.2.10\",\n    \"@meridian/domain-fixtures\": \"1.6.0\",\n    \"@types/jasmine\": \"4.3.1\",\n    \"@types/node\": \"16.18.11\",\n    \"@typescript-eslint/eslint-plugin\": \"5.48.2\",\n    \"@typescript-eslint/parser\": \"5.48.2\",\n    \"eslint\": \"8.33.0\",\n    \"jasmine-core\": \"4.5.0\",\n    \"karma\": \"6.4.1\",\n    \"karma-chrome-launcher\": \"3.1.1\",\n    \"karma-coverage\": \"2.2.0\",\n    \"karma-jasmine\": \"5.1.0\",\n    \"karma-jasmine-html-reporter\": \"2.0.0\",\n    \"karma-junit-reporter\": \"2.0.1\",\n    \"typescript\": \"4.9.5\"\n  }\n}\n"
+      }
+    },
+    {
+      "date": "2024-11-19",
+      "author": "g.mwangi",
+      "message": "KEY-2305 version 4.11.3",
+      "paths": [
+        "keystone-web/package.json",
+        "keystone-web/package-lock.json"
+      ]
+    },
+    {
+      "date": "2024-11-26",
+      "author": "g.mwangi",
+      "message": "Merge branch release/2024.11 into main for train 2024.11.1",
+      "empty": true
+    },
+    {
+      "date": "2024-12-03",
+      "author": "g.mwangi",
+      "message": "KEY-2310 lint sweep before the freeze",
+      "paths": [
+        "keystone-web/."
+      ]
+    }
+  ]
+}

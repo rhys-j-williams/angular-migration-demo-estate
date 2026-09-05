@@ -49,13 +49,14 @@ relevant changes are listed; dependency bumps are in the git log.
   telemetry. KEY-1493, KEY-1494.
 - KEY-1560 / KEY-1571 device trust enrolment (fingerprint + BFF cookie)
 
-## 2022.07.1
+## 2022.10.1
 
 - KEY-1412 account recovery flow (email + last four of card). Shipped for the card reissue. No
   tests, see runbook.
-- KEY-1355 CoreModule import guard after the double-OAuthService afternoon
 
 ## 2022.03.1
+
+- KEY-1355 CoreModule import guard after the double-OAuthService afternoon
 
 - KEY-1088 rate limit banner, Fraud/Legal copy
 - KEY-1230 login page and push specs (later deleted, KEY-1611)

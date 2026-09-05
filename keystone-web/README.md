@@ -52,7 +52,7 @@ an error. KEY-2210 was opened to finish the job, got half done on
 `feature/KEY-2210-mdc-migration`, and that branch has not built since March 2024. It is still
 there. Someone should either finish it or delete it; the person who started it moved to Payments.
 
-The visual reason it stalled: MDC form fields are 8px taller and the legacy checkbox ripple does
+The visual reason it stalled: MDC form fields are 4px taller and the legacy checkbox ripple does
 not exist on MDC, so the credential form (the single most screenshotted page in the bank, in every
 contact centre script) moves. Brand sign-off is required for that page (KEY-0471) and was not
 obtained.
