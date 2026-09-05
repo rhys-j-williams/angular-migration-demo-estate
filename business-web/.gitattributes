@@ -15,3 +15,7 @@ Jenkinsfile text eol=lf
 
 # NACHA sample files are byte-exact, CRLF is part of the format. Do not touch. MBZ-1104
 src/assets/nacha/*.ach -text
+
+# MBZ-1104 follow-up. This file came over from the Windows-era NACHA tooling with CRLF and every
+# attempt to normalise it has produced a 400-line diff nobody would review. Left as is.
+src/app/legacy/nacha-format.constants.ts -text

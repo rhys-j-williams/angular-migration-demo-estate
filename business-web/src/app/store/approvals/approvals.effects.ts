@@ -5,7 +5,7 @@ import { catchError, map, mergeMap, switchMap } from 'rxjs/operators';
 import * as moment from 'moment';
 import { CnToastService } from '@meridian/canopy-ui';
 
-import { FixtureDataService } from '../../core/services/fixture-data.service';
+import { BffGatewayService } from '../../core/services/bff-gateway.service';
 import * as A from './approvals.actions';
 
 @Injectable()
@@ -13,7 +13,7 @@ export class ApprovalsEffects {
 
   load$ = createEffect(() => this.actions$.pipe(
     ofType(A.loadApprovals),
-    switchMap(() => this.data.getApprovals().pipe(
+    switchMap(() => this.data.approvals().pipe(
       map(approvals => A.loadApprovalsSuccess({ approvals, loadedAt: moment().toISOString() })),
       catchError(err => of(A.loadApprovalsFailure({ error: err && err.message ? err.message : 'Could not load approvals' })))
     ))
@@ -21,7 +21,7 @@ export class ApprovalsEffects {
 
   decide$ = createEffect(() => this.actions$.pipe(
     ofType(A.decide),
-    mergeMap(({ approvalId, decision }) => this.data.decideApproval(approvalId, decision).pipe(
+    mergeMap(({ approvalId, decision }) => this.data.decide(approvalId, decision).pipe(
       map(approval => A.decideSuccess({ approval })),
       catchError(err => of(A.decideFailure({ approvalId, error: err && err.message ? err.message : 'Decision failed' })))
     ))
@@ -45,5 +45,5 @@ export class ApprovalsEffects {
     map(() => A.expireStale({ now: moment().toISOString() }))
   ));
 
-  constructor(private actions$: Actions, private data: FixtureDataService, private toast: CnToastService) {}
+  constructor(private actions$: Actions, private data: BffGatewayService, private toast: CnToastService) {}
 }

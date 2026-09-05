@@ -6,19 +6,19 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { Account, Transaction } from '@meridian/domain-fixtures';
 import * as _ from 'lodash';
 
 import { environment } from '../../../environments/environment';
 import { Organisation, Page, TransactionQuery } from '../../core/models';
+import { BffGatewayService } from '../../core/services/bff-gateway.service';
 import { FixtureDataService } from '../../core/services/fixture-data.service';
 
 @Injectable({ providedIn: 'root' })
 export class AccountsService {
   private accountsCache: Account[] | null = null;
 
-  constructor(private http: HttpClient, private fixtures: FixtureDataService) {}
+  constructor(private http: HttpClient, private fixtures: FixtureDataService, private gateway: BffGatewayService) {}
 
   getOrganisation(): Promise<Organisation> {
     if (environment.useFixtures) {
@@ -31,9 +31,8 @@ export class AccountsService {
     if (this.accountsCache && !force) {
       return Promise.resolve(this.accountsCache);
     }
-    const source$: Observable<Account[]> = environment.useFixtures
-      ? this.fixtures.getAccounts()
-      : this.http.get<{ accounts: Account[] }>(`${environment.apiBase}/business/v1/accounts`).pipe(map(r => r.accounts));
+    // MBZ-0801: accounts moved to bff-business /api/v1/accounts. The gateway falls back to fixtures when 4501 is down.
+    const source$: Observable<Account[]> = this.gateway.accounts();
     return source$.toPromise().then(accounts => {
       this.accountsCache = accounts;
       return accounts;

@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { environment } from '../../../environments/environment';
 import { BusinessUser } from '../../core/models';
-import { FixtureDataService } from '../../core/services';
+import { BffGatewayService, FixtureDataService } from '../../core/services';
 
 /** Every permission the BFF knows about, with the label the admin screen shows. Order matters. */
 export const PERMISSION_CATALOGUE: Array<{ key: string; label: string; help: string; sensitive: boolean }> = [
@@ -18,10 +18,10 @@ export const PERMISSION_CATALOGUE: Array<{ key: string; label: string; help: str
 
 @Injectable({ providedIn: 'root' })
 export class UsersService {
-  constructor(private http: HttpClient, private fixtures: FixtureDataService) {}
+  constructor(private http: HttpClient, private fixtures: FixtureDataService, private gateway: BffGatewayService) {}
 
   getUsers(): Promise<BusinessUser[]> {
-    const source$ = environment.useFixtures ? this.fixtures.getUsers() : this.http.get<BusinessUser[]>(`${environment.apiBase}/users`);
+    const source$ = this.gateway.organisationUsers();
     return source$.toPromise();
   }
 
