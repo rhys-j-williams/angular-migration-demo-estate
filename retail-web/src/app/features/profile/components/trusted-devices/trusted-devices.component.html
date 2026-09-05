@@ -14,6 +14,6 @@
         <cn-button variant="tertiary" size="small" (pressed)="remove(d)" i18n="@@action.remove">Remove</cn-button>
       </li>
     </ul>
-    <mol-empty-state *ngIf="!devices.length && !(loading$ | async)" icon="devices" title="No trusted devices" i18n-title="@@profile.devices.empty" body="You will be asked for a verification code every time you sign in." i18n-body="@@profile.devices.emptyBody"></mol-empty-state>
+    <mol-empty-state *ngIf="!devices.length && (loading$ | async) === false" icon="devices" title="No trusted devices" i18n-title="@@profile.devices.empty" body="You will be asked for a verification code every time you sign in." i18n-body="@@profile.devices.emptyBody"></mol-empty-state>
   </ng-container>
 </div>

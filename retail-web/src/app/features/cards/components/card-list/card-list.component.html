@@ -26,6 +26,6 @@
       </cn-card>
     </div>
 
-    <mol-empty-state *ngIf="!cards.length && !(loading$ | async)" icon="credit_card_off" title="No cards on this profile" i18n-title="@@cards.list.empty"></mol-empty-state>
+    <mol-empty-state *ngIf="!cards.length && (loading$ | async) === false" icon="credit_card_off" title="No cards on this profile" i18n-title="@@cards.list.empty"></mol-empty-state>
   </ng-container>
 </div>

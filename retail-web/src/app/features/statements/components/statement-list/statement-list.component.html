@@ -39,6 +39,6 @@
         </tr>
       </tbody>
     </table>
-    <mol-empty-state *ngIf="!statements.length && !(loading$ | async)" icon="description" title="No statements for that year" i18n-title="@@statements.list.empty" body="Try another year or account. Statements are produced on the last business day of each cycle." i18n-body="@@statements.list.emptyBody"></mol-empty-state>
+    <mol-empty-state *ngIf="!statements.length && (loading$ | async) === false" icon="description" title="No statements for that year" i18n-title="@@statements.list.empty" body="Try another year or account. Statements are produced on the last business day of each cycle." i18n-body="@@statements.list.emptyBody"></mol-empty-state>
   </ng-container>
 </div>
