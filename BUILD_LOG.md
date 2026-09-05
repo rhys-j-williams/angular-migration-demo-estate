@@ -83,3 +83,32 @@ Four parallel sessions are building `canopy-ui`, `mock-external` plus `lantern-s
 `platform-services` and `platform-tooling` on their own branches. Each owns exactly one top-level
 directory and pushes without merging; this session integrates. The five Angular consumers follow
 once Canopy publishes, because they cannot install the library until it exists.
+
+## Phase 2 integration and Phase 4 to 7 start, 5 September 2026
+
+`canopy-ui` is on `develop`: 34 components, the `cnFocusTrap` and `cnSkipLink` directives, three
+themes, an `ng-add` schematic and traps T1 to T17, over 258 replayed commits. Tags
+`canopy-ui/v3.5.0`, `canopy-ui/v3.6.1` and `canopy-ui/v3.7.2` are pushed, and
+`canopy-ui/scripts/publish-local-versions.sh` rebuilds and republishes all three into a wiped
+Verdaccio, which is what gives the consumers their version fan-out (T47).
+
+`_demo-notes/expected-ng-update-15-output.md` holds the real Angular 15 update output for
+`canopy-ui`. Angular CLI 14 has no `ng update --dry-run`, so the Canopy session ran the update for
+real inside a throwaway `git worktree` of the same commit and deleted it afterwards. Two findings
+worth knowing before the demo: the core and CLI update fails on an `@angular-eslint/schematics`
+peer conflict until it is rerun with `--force`, and the migration needs `@meridian/domain-fixtures`
+present in Verdaccio or it aborts with a 404.
+
+Per-component history tooling moved out of `canopy-ui/.history/` to
+`_demo-notes/build/history/<component>/`, and `.history/` is now ignored. A hidden build directory
+inside a bank's design system reads as an accident to anyone indexing the estate.
+
+`scripts/verify-estate.sh` no longer fails the exact-version rule on publishable library manifests.
+A library states its peers as ranges on purpose, and Canopy's `^14.0.0` Angular peer range is
+trap T37; the check still applies to every workspace we actually install.
+
+Phases 4 to 7 are running in four parallel sessions (`retail-web`, `business-web`, `keystone-web`
+with `iris-widget`, `ledgerline-web`), each installing Canopy from local Verdaccio at its own
+pinned version. `platform-services` is still building; `iris-orchestrator`, `documents-service`,
+`statements-api` and `exposure-calc` are outstanding there, which is also why four checks in
+`mock-external/smoke.sh` still skip.
