@@ -1,0 +1,33 @@
+<cn-page-header title="Pay a bill" i18n-title="@@billPay.payBill.title" lede="Payments sent before 5:00 PM ET are processed the same business day." i18n-lede="@@billPay.payBill.lede" [backLink]="'/bill-pay'"></cn-page-header>
+
+<form class="mol-page mol-form" [formGroup]="form" (ngSubmit)="submit()" novalidate fxLayout="column" fxLayoutGap="16px">
+  <cn-error-summary [form]="form" *ngIf="submitted && form.invalid"></cn-error-summary>
+  <mol-error-banner [error]="error" [showRetry]="false"></mol-error-banner>
+
+  <cn-card [padded]="true">
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="16px">
+      <cn-select formControlName="fromAccountId" i18n-label="@@billPay.pay.from" label="Pay from" [options]="fromAccountIdOptions" [required]="true" fxFlex></cn-select>
+      <mat-form-field appearance="outline" fxFlex>
+        <mat-label i18n="@@billPay.pay.amount">Amount</mat-label>
+        <cn-currency-input formControlName="amountMinor" [min]="0"></cn-currency-input>
+        <mat-error *ngIf="form.get('amountMinor')?.hasError('required')" i18n="@@validation.amountRequired">Enter an amount</mat-error>
+      </mat-form-field>
+    </div>
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="16px">
+      <mat-form-field appearance="outline" fxFlex>
+        <mat-label i18n="@@billPay.pay.sendOn">Send on</mat-label>
+        <input matInput formControlName="sendOn" type="date" [min]="today">
+      </mat-form-field>
+      <mat-form-field appearance="outline" fxFlex>
+        <mat-label i18n="@@billPay.pay.memo">Memo (appears on your statement)</mat-label>
+        <input matInput formControlName="memo" molTrimOnBlur maxlength="60" >
+        <mat-error *ngIf="form.get('memo')?.hasError('required')" i18n="@@validation.required">This field is required</mat-error>
+      </mat-form-field>
+    </div>
+  </cn-card>
+
+  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="8px" fxLayoutAlign="end">
+    <cn-button variant="tertiary" type="button" (pressed)="cancel()" i18n="@@action.cancel">Cancel</cn-button>
+    <cn-button variant="primary" type="submit" [loading]="saving" i18n="@@billPay.payBill.submit">Schedule payment</cn-button>
+  </div>
+</form>

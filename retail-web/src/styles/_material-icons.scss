@@ -1,0 +1,27 @@
+// Material icon font is self hosted; the Google Fonts CDN is blocked by the egress proxy and the
+// CSP does not allow it anyway. Font files live in assets/fonts (copied from the material-icons
+// npm package at 1.13.x, MOL-2101). The @font-face declaration is here rather than in Canopy
+// because Canopy's own icons are an SVG sprite and it does not want to own a font.
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/assets/fonts/material-icons.woff2') format('woff2');
+  font-display: block;
+}
+
+.material-icons {
+  direction: ltr;
+  display: inline-block;
+  font-family: 'Material Icons';
+  font-feature-settings: 'liga';
+  font-size: 24px;
+  font-style: normal;
+  font-weight: normal;
+  letter-spacing: normal;
+  line-height: 1;
+  text-transform: none;
+  white-space: nowrap;
+  word-wrap: normal;
+  -webkit-font-smoothing: antialiased;
+}

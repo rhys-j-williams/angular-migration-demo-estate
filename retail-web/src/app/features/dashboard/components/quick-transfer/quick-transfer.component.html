@@ -1,0 +1,24 @@
+<cn-card title="Quick transfer" i18n-title="@@dashboard.quickTransfer.title" subtitle="Between your own accounts, today" i18n-subtitle="@@dashboard.quickTransfer.subtitle" class="mol-widget">
+  <form [formGroup]="form" (ngSubmit)="submit()" novalidate fxLayout="column" fxLayoutGap="8px">
+    <mol-error-banner [error]="error" [showRetry]="false"></mol-error-banner>
+
+    <cn-select formControlName="from" label="From" i18n-label="@@transfer.from" [options]="(options$ | async) ?? []" [required]="true"></cn-select>
+    <cn-select formControlName="to" label="To" i18n-label="@@transfer.to" [options]="(options$ | async) ?? []" [required]="true"
+      [errorText]="sameAccount ? 'Choose a different account' : null"></cn-select>
+
+    <mat-form-field appearance="outline">
+      <mat-label i18n="@@transfer.amount">Amount</mat-label>
+      <cn-currency-input formControlName="amount" [min]="1" [max]="capMinor / 100" [allowNegative]="false"></cn-currency-input>
+      <mat-hint *ngIf="insufficient" class="mol-warn" i18n="@@transfer.insufficient">That is more than the available balance.</mat-hint>
+      <mat-hint *ngIf="!insufficient && overCap" i18n="@@dashboard.quickTransfer.overCap">Larger transfers continue in the full transfer flow.</mat-hint>
+    </mat-form-field>
+
+    <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="8px">
+      <a routerLink="/transfers/new" class="mol-link" i18n="@@dashboard.quickTransfer.more">More options</a>
+      <cn-button type="submit" variant="primary" [loading]="busy" [disabled]="form.invalid || sameAccount || insufficient">
+        <ng-container *ngIf="overCap; else plain" i18n="@@action.continue">Continue</ng-container>
+        <ng-template #plain><span i18n="@@action.transfer">Transfer</span></ng-template>
+      </cn-button>
+    </div>
+  </form>
+</cn-card>

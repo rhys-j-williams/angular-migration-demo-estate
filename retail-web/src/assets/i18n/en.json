@@ -1,0 +1,28 @@
+{
+  "once": "One time",
+  "weekly": "Weekly",
+  "biweekly": "Every two weeks",
+  "monthly": "Monthly",
+  "scheduled": "Scheduled",
+  "processing": "Processing",
+  "completed": "Completed",
+  "failed": "Failed",
+  "cancelled": "Cancelled",
+  "due": "Due",
+  "paid": "Paid",
+  "overdue": "Past due",
+  "errors": {
+    "NSF": "Insufficient funds in the source account at the time of processing.",
+    "ACCOUNT_CLOSED": "The receiving account was closed before the transfer could complete.",
+    "LIMIT_EXCEEDED": "This transfer would have exceeded your daily external transfer limit.",
+    "RETURNED_R01": "Returned by the receiving bank: insufficient funds.",
+    "RETURNED_R02": "Returned by the receiving bank: account closed.",
+    "RETURNED_R03": "Returned by the receiving bank: no account or unable to locate account.",
+    "RETURNED_R04": "Returned by the receiving bank: invalid account number.",
+    "RETURNED_R16": "Returned by the receiving bank: account frozen.",
+    "RETURNED_R29": "Returned by the receiving bank: the account holder has not authorised this debit.",
+    "FRAUD_HOLD": "Held for review by our fraud team. We will contact you if we need anything.",
+    "CUTOFF_MISSED": "Submitted after the daily cut-off; it will process the next business day.",
+    "UNKNOWN": "The transfer could not be completed. Call us if it does not appear in your history within two business days."
+  }
+}

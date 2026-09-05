@@ -1,0 +1,28 @@
+<div class="mol-pref-row" [class.mol-pref-row--busy]="busy" fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="space-between start" fxLayoutGap="16px">
+  <div fxFlex fxLayout="column" fxLayoutGap="4px">
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
+      <strong>{{ preference.label }}</strong>
+      <cn-badge *ngIf="preference.regulatory" tone="info" size="small" i18n="@@alerts.row.required">Required</cn-badge>
+    </div>
+    <span class="mol-muted">{{ preference.description }}</span>
+
+    <div *ngIf="hasThreshold" class="mol-pref-row__threshold" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
+      <ng-container *ngIf="!editingThreshold">
+        <span i18n="@@alerts.row.threshold">When over {{ preference.thresholdMinor | minorAmount }}</span>
+        <cn-button variant="tertiary" size="small" (pressed)="startThreshold()" [disabled]="!preference.enabled || busy" i18n="@@action.change">Change</cn-button>
+      </ng-container>
+      <ng-container *ngIf="editingThreshold">
+        <mat-form-field appearance="outline" class="mol-pref-row__amount">
+          <mat-label i18n="@@alerts.row.amount">Amount</mat-label>
+          <cn-currency-input [(ngModel)]="thresholdMajor" [min]="0" [allowNegative]="false" molAutofocus></cn-currency-input>
+        </mat-form-field>
+        <cn-button variant="secondary" size="small" (pressed)="saveThreshold()" i18n="@@action.save">Save</cn-button>
+        <cn-button variant="tertiary" size="small" (pressed)="editingThreshold = false" i18n="@@action.cancel">Cancel</cn-button>
+      </ng-container>
+    </div>
+
+    <mol-channel-picker *ngIf="preference.enabled" [value]="preference.channels" [regulatory]="preference.regulatory" [disabled]="busy" (valueChange)="channelsChange.emit($event)"></mol-channel-picker>
+  </div>
+
+  <cn-toggle [ngModel]="preference.enabled" [disabled]="preference.regulatory || busy" [ariaLabel]="preference.label" onText="On" offText="Off" (ngModelChange)="enabledChange.emit($event)"></cn-toggle>
+</div>

@@ -1,0 +1,31 @@
+<cn-page-header title="Travel notice" i18n-title="@@cards.travelNotice.title" lede="Tell us where you are going so purchases abroad are not flagged as unusual." i18n-lede="@@cards.travelNotice.lede" [backLink]="'/cards'"></cn-page-header>
+
+<form class="mol-page mol-form" [formGroup]="form" (ngSubmit)="submit()" novalidate fxLayout="column" fxLayoutGap="16px">
+  <cn-error-summary [form]="form" *ngIf="submitted && form.invalid"></cn-error-summary>
+  <mol-error-banner [error]="error" [showRetry]="false"></mol-error-banner>
+
+  <cn-card [padded]="true">
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="16px">
+      <mat-form-field appearance="outline" fxFlex>
+        <mat-label i18n="@@cards.travel.from">Leaving on</mat-label>
+        <input matInput formControlName="from" type="date" [min]="today">
+      </mat-form-field>
+      <mat-form-field appearance="outline" fxFlex>
+        <mat-label i18n="@@cards.travel.until">Returning on</mat-label>
+        <input matInput formControlName="until" type="date" [min]="today">
+      </mat-form-field>
+    </div>
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="16px">
+      <mat-form-field appearance="outline" fxFlex>
+        <mat-label i18n="@@cards.travel.destinations">Countries (comma separated)</mat-label>
+        <input matInput formControlName="destinations" molTrimOnBlur maxlength="200" >
+        <mat-error *ngIf="form.get('destinations')?.hasError('required')" i18n="@@validation.required">This field is required</mat-error>
+      </mat-form-field>
+    </div>
+  </cn-card>
+
+  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="8px" fxLayoutAlign="end">
+    <cn-button variant="tertiary" type="button" (pressed)="cancel()" i18n="@@action.cancel">Cancel</cn-button>
+    <cn-button variant="primary" type="submit" [loading]="saving" i18n="@@cards.travelNotice.submit">Save travel notice</cn-button>
+  </div>
+</form>

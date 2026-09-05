@@ -1,0 +1,8 @@
+<cn-dialog-shell title="Send a test alert" i18n-title="@@alerts.testAlert.title" [busy]="busy" [destructive]="false">
+  <p i18n="@@alerts.testAlert.body">We will send a test message to the selected channel so you can check it arrives. It may take a minute.</p>
+  <mol-error-banner [error]="error" [showRetry]="false"></mol-error-banner>
+  <div cnDialogActions fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="end">
+    <cn-button variant="tertiary" (pressed)="ref.close(false)" i18n="@@action.cancel">Cancel</cn-button>
+    <cn-button variant="primary" [loading]="busy" (pressed)="confirm()" i18n="@@alerts.testAlert.confirm">Send test</cn-button>
+  </div>
+</cn-dialog-shell>

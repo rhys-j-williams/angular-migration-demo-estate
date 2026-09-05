@@ -1,0 +1,108 @@
+// Meridian Online global styles.
+//
+// Everything visual comes from Canopy. This file exists to include the theme mixin once, set the
+// page-level frame and carry the handful of app specific utilities that never made it into Canopy
+// (see the TODOs). Component styles live next to their components.
+//
+// Note: `themes` and `tokens` resolve through the includePath in angular.json
+// (node_modules/@meridian/canopy-ui). The package's `exports` map only lists JS entry points, so
+// `@use '@meridian/canopy-ui/themes'` fails under the Webpack sass-loader (CNPY-2211, also why we
+// do not use the `styles` index with its broken relative forward). Switch back when 3.8 lands.
+@use 'themes' as canopy;
+@use 'tokens' as tokens;
+@use 'material-icons';
+
+@include canopy.theme();
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--cn-color-surface-page, #f5f7fa);
+  color: var(--cn-color-text-primary, #1f2933);
+  font-family: var(--cn-font-family-body, 'Source Sans 3', 'Segoe UI', Roboto, sans-serif);
+  -webkit-font-smoothing: antialiased;
+}
+
+// Boot placeholder in index.html. Removed by AppComponent once the shell renders.
+.mol-boot {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  justify-content: center;
+  min-height: 100vh;
+
+  &__mark {
+    animation: mol-boot-pulse 1.4s ease-in-out infinite;
+    background: #0b3d5c;
+    border-radius: 50%;
+    height: 48px;
+    width: 48px;
+  }
+
+  p {
+    color: #52606d;
+    font-size: 14px;
+  }
+}
+
+@keyframes mol-boot-pulse {
+  0%, 100% { opacity: 0.35; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1); }
+}
+
+// Page content width. CnPageShell already constrains maxContentWidth; this is the inner rhythm.
+.mol-page {
+  display: block;
+  padding: 0 0 48px;
+}
+
+.mol-section {
+  margin-top: 24px;
+}
+
+.mol-muted {
+  color: var(--cn-color-text-secondary, #52606d);
+}
+
+.mol-amount {
+  font-variant-numeric: tabular-nums;
+
+  &--credit {
+    color: var(--cn-color-success-text, #1b7f4b);
+  }
+
+  &--debit {
+    color: inherit;
+  }
+}
+
+// TODO(MOL-3977): move to Canopy as cn-visually-hidden once CnA11yModule exposes it.
+.mol-sr-only {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+// Print styles for statements and transaction lists. Requested by the branch network (MOL-1522)
+// because customers still bring printouts in.
+@media print {
+  cn-page-shell .cn-shell__nav,
+  cn-page-shell .cn-shell__topbar,
+  .mol-no-print {
+    display: none !important;
+  }
+
+  .mol-page {
+    padding: 0;
+  }
+}

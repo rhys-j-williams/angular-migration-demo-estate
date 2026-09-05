@@ -1,0 +1,21 @@
+<cn-page-header title="Report lost, stolen or damaged" i18n-title="@@cards.reportCard.title" lede="We cancel the card immediately and send a replacement to your address on file within 5-7 business days." i18n-lede="@@cards.reportCard.lede" [backLink]="'/cards'"></cn-page-header>
+
+<form class="mol-page mol-form" [formGroup]="form" (ngSubmit)="submit()" novalidate fxLayout="column" fxLayoutGap="16px">
+  <cn-error-summary [form]="form" *ngIf="submitted && form.invalid"></cn-error-summary>
+  <mol-error-banner [error]="error" [showRetry]="false"></mol-error-banner>
+
+  <cn-card [padded]="true">
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="16px">
+      <cn-select formControlName="reason" i18n-label="@@cards.report.reason" label="What happened?" [options]="reasonOptions" [required]="true" fxFlex></cn-select>
+      <mat-form-field appearance="outline" fxFlex>
+        <mat-label i18n="@@cards.report.lastSeen">When did you last have it?</mat-label>
+        <input matInput formControlName="lastSeen" type="date" [min]="today">
+      </mat-form-field>
+    </div>
+  </cn-card>
+
+  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="8px" fxLayoutAlign="end">
+    <cn-button variant="tertiary" type="button" (pressed)="cancel()" i18n="@@action.cancel">Cancel</cn-button>
+    <cn-button variant="primary" type="submit" [loading]="saving" i18n="@@cards.reportCard.submit">Cancel and replace card</cn-button>
+  </div>
+</form>

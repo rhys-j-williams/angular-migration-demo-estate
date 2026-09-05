@@ -1,0 +1,81 @@
+{
+  "$schema": "./node_modules/@angular/service-worker/config/schema.json",
+  "index": "/index.html",
+  "appData": {
+    "name": "Meridian Online",
+    "ticket": "MOL-2610",
+    "note": "Bump appData.version when the shell changes shape so SwUpdate.versionUpdates fires a reload prompt. See docs/runbooks/service-worker.md."
+  },
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "resources": {
+        "files": [
+          "/favicon.ico",
+          "/index.html",
+          "/manifest.webmanifest",
+          "/*.css",
+          "/*.js",
+          "/assets/canopy/icons/cn-sprite.svg"
+        ],
+        "urls": [
+          "/es/*.js",
+          "/es/*.css"
+        ]
+      }
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "resources": {
+        "files": [
+          "/assets/**",
+          "/*.(svg|cur|jpg|jpeg|png|apng|webp|avif|gif|otf|ttf|woff|woff2)"
+        ]
+      }
+    }
+  ],
+  "dataGroups": [
+    {
+      "name": "reference-data",
+      "urls": [
+        "/api/v1/reference/**",
+        "/api/v1/help/**",
+        "/api/v1/disclosures/**"
+      ],
+      "cacheConfig": {
+        "strategy": "performance",
+        "maxSize": 50,
+        "maxAge": "1d",
+        "timeout": "5s"
+      }
+    },
+    {
+      "name": "customer-data",
+      "urls": [
+        "/api/v1/accounts",
+        "/api/v1/accounts/*/transactions**",
+        "/api/v1/cards",
+        "/api/v1/payees"
+      ],
+      "cacheConfig": {
+        "strategy": "freshness",
+        "maxSize": 20,
+        "maxAge": "5m",
+        "timeout": "3s"
+      }
+    }
+  ],
+  "navigationUrls": [
+    "/**",
+    "!/**/*.*",
+    "!/**/*__*",
+    "!/**/*__*/**",
+    "!/api/**",
+    "!/auth/callback**",
+    "!/silent-refresh.html"
+  ]
+}

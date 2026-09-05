@@ -1,0 +1,43 @@
+<cn-page-header title="Review your transfer" i18n-title="@@transfers.review.title" backLink="/transfers/new" backLabel="Edit" i18n-backLabel="@@action.edit"></cn-page-header>
+
+<div class="mol-page mol-review" fxLayout="column" fxLayoutGap="16px" *ngIf="draft">
+  <mol-error-banner [error]="error" [showRetry]="error?.retryable ?? false" (retry)="submit()"></mol-error-banner>
+
+  <cn-card [padded]="true" [highlight]="true">
+    <p class="mol-amount">{{ draft.amountMinor | minorAmount }}</p>
+    <dl class="mol-dl">
+      <dt i18n="@@transfer.from">From</dt>
+      <dd>{{ from ? (from | accountLabel) : draft.fromAccountId }}</dd>
+      <dt i18n="@@transfer.to">To</dt>
+      <dd *ngIf="draft.type === 'internal'">{{ to ? (to | accountLabel) : draft.toAccountId }}</dd>
+      <dd *ngIf="draft.type !== 'internal'">
+        <ng-container *ngIf="payee$ | async as payee; else payeeId">{{ payee.nickname || payee.name }} <mol-masked-number [last4]="payee.accountNumberLastFour"></mol-masked-number></ng-container>
+        <ng-template #payeeId>{{ draft.payeeId }}</ng-template>
+      </dd>
+      <dt i18n="@@transfers.review.when">When</dt>
+      <dd>
+        <ng-container *ngIf="isToday; else dated" i18n="@@transfers.review.today">Today</ng-container>
+        <ng-template #dated>{{ draft.scheduledFor | date:'EEEE d MMMM y' }}</ng-template>
+        <span *ngIf="draft.frequency !== 'once'"> &middot; {{ draft.frequency }}<ng-container *ngIf="draft.endAfterOccurrences">, {{ draft.endAfterOccurrences }} times</ng-container></span>
+      </dd>
+      <dt *ngIf="draft.memo" i18n="@@transfers.details.memo">Memo</dt>
+      <dd *ngIf="draft.memo">{{ draft.memo }}</dd>
+      <dt *ngIf="feeMinor" i18n="@@transfers.review.fee">Fee</dt>
+      <dd *ngIf="feeMinor">{{ feeMinor | minorAmount }}</dd>
+    </dl>
+  </cn-card>
+
+  <p *ngIf="isHighValue" class="mol-note" fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="start center">
+    <mat-icon aria-hidden="true">verified_user</mat-icon>
+    <span i18n="@@transfers.review.stepUpDone">You verified your identity {{ mfaAgeSeconds ?? 0 }} seconds ago. Large transfers need a recent verification.</span>
+  </p>
+
+  <cn-checkbox *ngIf="needsAcknowledgement" [(ngModel)]="acknowledged" [ngModelOptions]="{ standalone: true }" i18n="@@transfers.review.ack">
+    I have checked the recipient details. Transfers to the wrong account may not be recoverable.
+  </cn-checkbox>
+
+  <div fxLayout="row" fxLayout.lt-md="column-reverse" fxLayoutGap="8px" fxLayoutAlign="end">
+    <cn-button variant="tertiary" (pressed)="edit()" [disabled]="busy" i18n="@@action.edit">Edit</cn-button>
+    <cn-button variant="primary" [loading]="busy" [disabled]="needsAcknowledgement && !acknowledged" (pressed)="submit()" i18n="@@transfers.review.confirm">Confirm transfer</cn-button>
+  </div>
+</div>

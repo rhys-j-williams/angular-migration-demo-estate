@@ -1,0 +1,10 @@
+# Digital channels browser matrix, 2023.06 revision. Confluence: "Supported browsers - Meridian
+# Online". IE11 was dropped in MOL-2440. Do not add it back without a product decision.
+last 2 Chrome versions
+last 2 Firefox versions
+last 2 Edge major versions
+last 2 Safari major versions
+last 2 iOS major versions
+Firefox ESR
+not dead
+not IE 11

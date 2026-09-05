@@ -1,0 +1,20 @@
+<cn-expansion title="Account and routing numbers" i18n-title="@@accounts.routing.title" description="For direct deposit and automatic payments" i18n-description="@@accounts.routing.description" icon="account_balance">
+  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="24px" fxLayoutGap.lt-md="12px">
+    <div fxLayout="column">
+      <span class="mol-muted" i18n="@@accounts.routing.routingLabel">Routing number (ACH and wire)</span>
+      <span fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="4px">
+        <code class="mol-number">{{ details.routingNumber }}</code>
+        <cn-icon-button icon="content_copy" ariaLabel="Copy routing number" i18n-ariaLabel="@@accounts.routing.copyRouting" (pressed)="copy('routing')"></cn-icon-button>
+      </span>
+    </div>
+    <div fxLayout="column">
+      <span class="mol-muted" i18n="@@accounts.routing.accountLabel">Account number</span>
+      <span fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="4px">
+        <code class="mol-number" [attr.aria-live]="'polite'">{{ revealed ? details.accountNumberFull : maskedFull }}</code>
+        <cn-icon-button [icon]="revealed ? 'visibility_off' : 'visibility'" [ariaLabel]="revealed ? 'Hide account number' : 'Show account number'" (pressed)="toggle()"></cn-icon-button>
+        <cn-icon-button *ngIf="revealed" icon="content_copy" ariaLabel="Copy account number" i18n-ariaLabel="@@accounts.routing.copyAccount" (pressed)="copy('account')"></cn-icon-button>
+      </span>
+    </div>
+  </div>
+  <p class="mol-muted mol-small" i18n="@@accounts.routing.note">Use the routing number above for both electronic transfers and wires. Meridian Trust Bank does not use a separate wire routing number.</p>
+</cn-expansion>

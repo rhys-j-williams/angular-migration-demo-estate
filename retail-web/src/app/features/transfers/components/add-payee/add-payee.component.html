@@ -1,0 +1,33 @@
+<cn-page-header title="Add an external account" i18n-title="@@transfers.addPayee.title" lede="We will send two small deposits to verify the account. This usually takes 1-2 business days." i18n-lede="@@transfers.addPayee.lede" [backLink]="'/transfers/payees'"></cn-page-header>
+
+<form class="mol-page mol-form" [formGroup]="form" (ngSubmit)="submit()" novalidate fxLayout="column" fxLayoutGap="16px">
+  <cn-error-summary [form]="form" *ngIf="submitted && form.invalid"></cn-error-summary>
+  <mol-error-banner [error]="error" [showRetry]="false"></mol-error-banner>
+
+  <cn-card [padded]="true">
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="16px">
+      <mat-form-field appearance="outline" fxFlex>
+        <mat-label i18n="@@transfers.addPayee.nickname">Nickname</mat-label>
+        <input matInput formControlName="nickname" molTrimOnBlur maxlength="40" >
+        <mat-error *ngIf="form.get('nickname')?.hasError('required')" i18n="@@validation.required">This field is required</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline" fxFlex>
+        <mat-label i18n="@@transfers.addPayee.name">Name on account</mat-label>
+        <input matInput formControlName="name" molTrimOnBlur maxlength="80" >
+        <mat-error *ngIf="form.get('name')?.hasError('required')" i18n="@@validation.required">This field is required</mat-error>
+      </mat-form-field>
+    </div>
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="16px">
+      <cn-masked-input formControlName="routingNumber" i18n-label="@@transfers.addPayee.routing" label="Routing number" preset="routing" [required]="true" fxFlex></cn-masked-input>
+      <cn-masked-input formControlName="accountNumber" i18n-label="@@transfers.addPayee.account" label="Account number" preset="account" [required]="true" fxFlex></cn-masked-input>
+    </div>
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="16px">
+      <cn-select formControlName="accountType" i18n-label="@@transfers.addPayee.type" label="Account type" [options]="accountTypeOptions" [required]="true" fxFlex></cn-select>
+    </div>
+  </cn-card>
+
+  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="8px" fxLayoutAlign="end">
+    <cn-button variant="tertiary" type="button" (pressed)="cancel()" i18n="@@action.cancel">Cancel</cn-button>
+    <cn-button variant="primary" type="submit" [loading]="saving" i18n="@@transfers.addPayee.submit">Add account</cn-button>
+  </div>
+</form>
