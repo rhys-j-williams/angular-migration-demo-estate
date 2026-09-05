@@ -1,7 +1,7 @@
 import { LdgEnvironment } from './environment.model';
 
 // Production values are injected at deploy time by the Helm chart (see helm/ledgerline-web),
-// which writes /assets/runtime-config.json. These are the fallbacks if that file is missing,
+// which mounts /env.json (see core/config/runtime-config.ts). These are the fallbacks if that file is missing,
 // and they are wrong on purpose so the failure is visible (LDG-1421).
 export const environment: LdgEnvironment = {
   name: 'production',

@@ -13,32 +13,38 @@ import { fixtureBackendInterceptor } from './core/fixture-backend/fixture-backen
 import { correlationIdInterceptor } from './core/http/correlation-id.interceptor';
 import { errorInterceptor } from './core/http/error.interceptor';
 import { environment } from '../environments/environment';
+import { LdgEnvironment } from '../environments/environment.model';
 
 /**
  * Interceptor order matters: correlation id goes on first so the fixture backend (and the real
  * BFF) both see it; the error interceptor wraps everything below it; the fixture backend is last
  * because it short-circuits the request when APP_CONFIG.fixtureBackend is on.
  */
-const interceptors = [
+const interceptorsFor = (config: LdgEnvironment) => [
   correlationIdInterceptor,
   errorInterceptor,
-  ...(environment.fixtureBackend ? [fixtureBackendInterceptor] : [])
+  ...(config.fixtureBackend ? [fixtureBackendInterceptor] : [])
 ];
 
-export const appConfig: ApplicationConfig = {
-  providers: [
-    { provide: APP_CONFIG, useValue: environment },
-    provideRouter(
-      routes,
-      withComponentInputBinding(),
-      withInMemoryScrolling({ scrollPositionRestoration: 'enabled' }),
-      withRouterConfig({ paramsInheritanceStrategy: 'always' })
-    ),
-    provideHttpClient(withInterceptors(interceptors)),
-    provideAnimations(),
-    // Canopy still ships NgModules; importProvidersFrom is the bridge until 4.x exposes provideCanopy().
-    importProvidersFrom(CnCoreModule, CnIconModule, MatSnackBarModule),
-    { provide: CN_CONFIG, useValue: { ...CN_DEFAULT_CONFIG, currency: 'USD', locale: 'en-US', themeStorageKey: 'ldg.theme' } },
-    { provide: APP_INITIALIZER, useFactory: initialiseSession, multi: true }
-  ]
-};
+export function buildAppConfig(config: LdgEnvironment = environment): ApplicationConfig {
+  const interceptors = interceptorsFor(config);
+  return {
+    providers: [
+      { provide: APP_CONFIG, useValue: config },
+      provideRouter(
+        routes,
+        withComponentInputBinding(),
+        withInMemoryScrolling({ scrollPositionRestoration: 'enabled' }),
+        withRouterConfig({ paramsInheritanceStrategy: 'always' })
+      ),
+      provideHttpClient(withInterceptors(interceptors)),
+      provideAnimations(),
+      // Canopy still ships NgModules; importProvidersFrom is the bridge until 4.x exposes provideCanopy().
+      importProvidersFrom(CnCoreModule, CnIconModule, MatSnackBarModule),
+      { provide: CN_CONFIG, useValue: { ...CN_DEFAULT_CONFIG, currency: 'USD', locale: 'en-US', themeStorageKey: 'ldg.theme' } },
+      { provide: APP_INITIALIZER, useFactory: initialiseSession, multi: true }
+    ]
+  };
+}
+
+export const appConfig: ApplicationConfig = buildAppConfig();

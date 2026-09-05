@@ -6,7 +6,7 @@ import { LdgEnvironment } from './environment.model';
 export const environment: LdgEnvironment = {
   name: 'local',
   production: false,
-  bffBaseUrl: 'http://localhost:4501',
+  bffBaseUrl: 'http://localhost:4501/api',
   tickerHausBaseUrl: 'http://localhost:4602',
   fixtureBackend: true,
   fixtureSeed: 'ledgerline',

@@ -5,7 +5,7 @@ import { LdgEnvironment } from './environment.model';
 export const environment: LdgEnvironment = {
   name: 'e2e',
   production: false,
-  bffBaseUrl: 'http://localhost:4501',
+  bffBaseUrl: 'http://localhost:4501/api',
   tickerHausBaseUrl: 'http://localhost:4602',
   fixtureBackend: true,
   fixtureSeed: 'ledgerline-e2e',

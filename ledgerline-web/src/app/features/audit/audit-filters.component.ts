@@ -20,7 +20,6 @@ const CATEGORY_CHIPS: LdgFilterChip<AuditCategory>[] = [
 ];
 
 /** Reactive form here because the date range and free text are real inputs with debounce; the chips write straight into the form. */
-// TODO(LDG-1204): no spec yet. Debounce + trim behaviour is exercised by cypress/e2e/audit only; unit test owed before Q4 coverage gate.
 @Component({
   selector: 'ldg-audit-filters',
   standalone: true,

@@ -10,6 +10,8 @@ export class FixtureBackendState {
 
   dataset: TreasuryDataset = this.build();
   signedOut = false;
+  /** Simulates the Bedrock adapter being down: every treasury route answers 503 until cleared. */
+  outage = false;
   latencyMs = 120;
 
   tick(): number {
@@ -23,6 +25,7 @@ export class FixtureBackendState {
   reset(): void {
     this.dataset = this.build();
     this.signedOut = false;
+    this.outage = false;
     this.ticks = 0;
   }
 }

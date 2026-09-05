@@ -47,6 +47,10 @@ function handle(req: HttpRequest<unknown>, state: FixtureBackendState, bff: stri
     return ok(null, 204);
   }
 
+  if (state.outage && segments[1] === 'treasury') {
+    return fail(503, 'UPSTREAM_UNAVAILABLE', 'Treasury services are temporarily unavailable');
+  }
+
   if (pathname === '/v1/treasury/approvals' && req.method === 'GET') {
     const statuses = params.get('status')?.split(',');
     const rails = params.get('rail')?.split(',');
