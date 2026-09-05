@@ -1,7 +1,12 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, forwardRef, Input, OnDestroy, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, FormControl, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
-import * as moment from 'moment';
+import * as _moment from 'moment';
 import { Moment } from 'moment';
+// Rollup/webpack disagree about moment's default export; same dance as @angular/material-moment-adapter.
+// tslint:disable-next-line:no-duplicate-imports
+import { default as _rollupMoment } from 'moment';
+
+const moment = _rollupMoment || _moment;
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 

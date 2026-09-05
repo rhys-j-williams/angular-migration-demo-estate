@@ -30,7 +30,7 @@ import {{ '{' }} CnCurrencyInputModule {{ '}' }} from '@meridian/canopy-ui/forms
 
     <cn-divider label="Component index" spacing="lg"></cn-divider>
 
-    <cn-list [items]="index" interactive ariaLabel="Component index" (itemSelect)="go($event.id)"></cn-list>
+    <cn-list [items]="index" [interactive]="true" ariaLabel="Component index" (itemSelect)="go($event.id)"></cn-list>
   `
 })
 export class HomePageComponent {

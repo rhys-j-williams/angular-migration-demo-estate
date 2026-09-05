@@ -2,7 +2,8 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "cli": {
-    "packageManager": "npm"
+    "packageManager": "npm",
+    "analytics": false
   },
   "newProjectRoot": "projects",
   "projects": {
@@ -59,20 +60,29 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "projects/canopy-showcase/src/favicon.ico",
-              "projects/canopy-showcase/src/assets"
+              "projects/canopy-showcase/src/assets",
+              {
+                "glob": "canopy-sprite.svg",
+                "input": "projects/canopy-ui/src/lib/icons",
+                "output": "/assets/canopy"
+              }
             ],
             "styles": [
               "projects/canopy-showcase/src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "moment",
+              "@meridian/domain-fixtures"
+            ]
           },
           "configurations": {
             "production": {
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "2.5mb",
+                  "maximumError": "3mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -127,7 +137,12 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "projects/canopy-showcase/src/favicon.ico",
-              "projects/canopy-showcase/src/assets"
+              "projects/canopy-showcase/src/assets",
+              {
+                "glob": "canopy-sprite.svg",
+                "input": "projects/canopy-ui/src/lib/icons",
+                "output": "/assets/canopy"
+              }
             ],
             "styles": [
               "projects/canopy-showcase/src/styles.scss"

@@ -48,16 +48,24 @@ export class CnSelectComponent<T = unknown> implements ControlValueAccessor {
   private onChange: (v: T | T[] | null) => void = () => undefined;
   private onTouched: () => void = () => undefined;
 
+  private groupsSource: CnSelectOption<T>[] | null = null;
+  private groupsCache: { name: string | null; options: CnSelectOption<T>[] }[] = [];
+
+  // Memoised on the options reference: a fresh array per check makes ngFor tear the optgroups down every cycle.
   get groups(): { name: string | null; options: CnSelectOption<T>[] }[] {
-    const map = new Map<string | null, CnSelectOption<T>[]>();
-    for (const option of this.options) {
-      const key = option.group ?? null;
-      if (!map.has(key)) {
-        map.set(key, []);
+    if (this.groupsSource !== this.options) {
+      const map = new Map<string | null, CnSelectOption<T>[]>();
+      for (const option of this.options) {
+        const key = option.group ?? null;
+        if (!map.has(key)) {
+          map.set(key, []);
+        }
+        map.get(key)!.push(option);
       }
-      map.get(key)!.push(option);
+      this.groupsCache = Array.from(map.entries()).map(([name, options]) => ({ name, options }));
+      this.groupsSource = this.options;
     }
-    return Array.from(map.entries()).map(([name, options]) => ({ name, options }));
+    return this.groupsCache;
   }
 
   get hasGroups(): boolean {

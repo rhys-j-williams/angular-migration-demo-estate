@@ -6,7 +6,7 @@ import { COMPONENT_PAGES } from './pages/components/component-pages';
 @Component({
   selector: 'cs-root',
   template: `
-    <cn-page-shell appName="Canopy" environmentLabel="showcase 3.7.2" [nav]="nav" [userName]="userName" showThemeToggle
+    <cn-page-shell appName="Canopy" environmentLabel="showcase 3.7.2" [nav]="nav" [userName]="userName" [showThemeToggle]="true"
                    (signOut)="signedOut = true">
       <cn-a11y-announcer></cn-a11y-announcer>
       <router-outlet></router-outlet>
