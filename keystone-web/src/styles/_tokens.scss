@@ -1,0 +1,27 @@
+// Keystone colour and spacing tokens. These predate Canopy (the login page shipped in 2021, Canopy
+// tokens arrived in 3.2) and have never been reconciled. Canopy's own tokens come in through
+// styles.scss; where the two disagree the Keystone ones win because the brand team signed off on
+// the login page specifically (KEY-0471). Do not "fix" this without them.
+$ks-navy: #0b3d5c;
+$ks-navy-dark: #072a40;
+$ks-gold: #e8c36a;
+$ks-ink: #1f2933;
+$ks-ink-muted: #52606d;
+$ks-surface: #ffffff;
+$ks-surface-alt: #f4f6f8;
+$ks-line: #d9dee3;
+$ks-danger: #b3261e;
+$ks-warning: #8a5a00;
+$ks-warning-bg: #fff4d6;
+$ks-success: #1f6f43;
+
+$ks-space-1: 4px;
+$ks-space-2: 8px;
+$ks-space-3: 12px;
+$ks-space-4: 16px;
+$ks-space-6: 24px;
+$ks-space-8: 32px;
+
+$ks-radius: 6px;
+$ks-card-width: 440px;
+$ks-success-bg: #e6f4ec;

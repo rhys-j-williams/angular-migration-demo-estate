@@ -1,0 +1,20 @@
+<ks-rate-limit-banner></ks-rate-limit-banner>
+
+<section class="ks-card ks-login" aria-labelledby="ks-login-title">
+  <ks-busy-overlay [busy]="busy" label="Signing you in"></ks-busy-overlay>
+
+  <h1 id="ks-login-title" class="ks-card__title">Sign in</h1>
+  <p class="ks-card__lede">Use your online banking username and password.</p>
+
+  <p *ngIf="discoveryFailed" class="ks-error-text" role="alert">
+    Sign in is temporarily unavailable. Please try again shortly.
+  </p>
+
+  <ks-credential-form
+    [disabled]="busy || discoveryFailed"
+    [error]="error"
+    (submitted)="onSubmit($event)">
+  </ks-credential-form>
+
+  <ks-help-links></ks-help-links>
+</section>

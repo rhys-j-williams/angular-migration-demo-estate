@@ -11,4 +11,18 @@
 /SECURITY.md                     @meridian/gis-appsec
 /.npmrc                          @meridian/identity-platform @meridian/gis-appsec
 
-/docs/adr/                       @meridian/cswt-architecture
+/nginx.conf                      @meridian/identity-platform @meridian/gis-appsec
+/helm/                           @meridian/identity-platform @meridian/platform-engineering
+
+# Everything auth. GIS-1490 made this mandatory rather than advisory.
+/src/index.html                  @meridian/identity-platform @meridian/gis-appsec
+/src/app/core/auth/              @meridian/identity-platform @meridian/gis-appsec
+/src/app/core/device/            @meridian/identity-platform @meridian/gis-appsec
+/src/app/core/http/              @meridian/identity-platform @meridian/gis-appsec
+/src/app/features/login/         @meridian/identity-platform @meridian/gis-appsec
+/src/app/features/step-up/       @meridian/identity-platform @meridian/gis-appsec
+/src/app/features/recovery/      @meridian/identity-platform @meridian/gis-appsec
+/scripts/check-csp.js            @meridian/gis-appsec
+/docs/fraud-device-trust-requirements.md  @meridian/identity-platform @meridian/gis-appsec
+
+/docs/adr/                       @meridian/cswt-architecture @meridian/identity-platform

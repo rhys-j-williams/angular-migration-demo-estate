@@ -1,0 +1,21 @@
+@use 'tokens' as t;
+
+.ks-push__match {
+  border: 2px solid t.$ks-navy;
+  border-radius: t.$ks-radius;
+  color: t.$ks-navy;
+  font-size: 40px;
+  font-weight: 700;
+  margin: t.$ks-space-4 auto;
+  padding: t.$ks-space-3;
+  text-align: center;
+  width: 120px;
+}
+
+.ks-push__spinner {
+  align-items: center;
+  color: t.$ks-ink-muted;
+  display: flex;
+  gap: t.$ks-space-3;
+  justify-content: center;
+}

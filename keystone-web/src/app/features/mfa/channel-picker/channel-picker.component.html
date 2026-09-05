@@ -1,0 +1,21 @@
+<section class="ks-card" aria-labelledby="ks-channel-title" style="position: relative">
+  <ks-busy-overlay [busy]="busy"></ks-busy-overlay>
+  <h1 id="ks-channel-title" class="ks-card__title">How should we send your code?</h1>
+  <p *ngIf="error" class="ks-error-text" role="alert">{{ error }}</p>
+
+  <ul class="ks-channel-list" role="list">
+    <li *ngFor="let o of options">
+      <button mat-stroked-button type="button" class="ks-channel" (click)="choose(o)" [disabled]="busy">
+        <mat-icon [svgIcon]="o.icon" aria-hidden="true"></mat-icon>
+        <span class="ks-channel__text">
+          <span class="ks-channel__label">{{ o.label }}</span>
+          <span class="ks-channel__hint">{{ o.hint }}</span>
+        </span>
+      </button>
+    </li>
+  </ul>
+
+  <div class="ks-actions">
+    <button mat-button type="button" (click)="back()">Back</button>
+  </div>
+</section>

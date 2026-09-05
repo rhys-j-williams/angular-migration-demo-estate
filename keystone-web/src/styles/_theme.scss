@@ -1,0 +1,146 @@
+@use '@angular/material' as mat;
+@use 'sass:map';
+@use 'tokens' as t;
+
+// ---------------------------------------------------------------------------------------------
+// Keystone Material theme
+//
+// STATE OF PLAY (KEY-2210, updated 2024-03): we are half way through the MDC migration. The
+// simple screens (recovery, device trust, step-up complete, banners) are on the MDC components.
+// The credential form, OTP challenge, push approval and the busy overlay are still on the legacy
+// components because they carry ~90% of the traffic and the MDC form field renders 4px taller,
+// which shifted the "Forgot username" link under the fold on the 360px breakpoint in UAT
+// (KEY-2233). Brand and accessibility both need to sign off on the new layout and neither has had
+// time.
+//
+// So: BOTH theme mixins are included. Yes this doubles the emitted theme CSS (~110kb before
+// compression, see the budget bump in angular.json). Yes there are visual regressions where a
+// legacy button sits next to an MDC checkbox (the ripple colours differ, the focus ring is a
+// different width, and the disabled grey is off by a few shades). I ran out of runway before the
+// 2024.03 train and this is what got us through it. Finish it or revert it, but do not leave it
+// like this for another year.
+//
+// If you are reading this because the build broke on an Angular upgrade: the legacy mixins were
+// removed upstream in v17. There is no shim. Every component in the legacy half has to move first.
+// ---------------------------------------------------------------------------------------------
+
+$ks-primary-palette: (
+  50: #e3ecf2,
+  100: #b9cfdd,
+  200: #8cb0c7,
+  300: #5f90b0,
+  400: #3d789f,
+  500: t.$ks-navy,
+  600: #0a3753,
+  700: #082f48,
+  800: #06273e,
+  900: #03192b,
+  A100: #6fb6ff,
+  A200: #3c9dff,
+  A400: #0984ff,
+  A700: #0077ef,
+  contrast: (
+    50: rgba(black, 0.87),
+    100: rgba(black, 0.87),
+    200: rgba(black, 0.87),
+    300: white,
+    400: white,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A100: rgba(black, 0.87),
+    A200: white,
+    A400: white,
+    A700: white,
+  )
+);
+
+$ks-accent-palette: (
+  50: #fcf7e9,
+  100: #f8ecc8,
+  200: #f3e0a4,
+  300: #eed380,
+  400: #ebcb75,
+  500: t.$ks-gold,
+  600: #d9b25a,
+  700: #c9a04a,
+  800: #b98f3a,
+  900: #9e7222,
+  A100: #ffffff,
+  A200: #fff5dd,
+  A400: #ffe6aa,
+  A700: #ffde90,
+  contrast: (
+    50: rgba(black, 0.87),
+    100: rgba(black, 0.87),
+    200: rgba(black, 0.87),
+    300: rgba(black, 0.87),
+    400: rgba(black, 0.87),
+    500: rgba(black, 0.87),
+    600: rgba(black, 0.87),
+    700: rgba(black, 0.87),
+    800: white,
+    900: white,
+    A100: rgba(black, 0.87),
+    A200: rgba(black, 0.87),
+    A400: rgba(black, 0.87),
+    A700: rgba(black, 0.87),
+  )
+);
+
+$ks-primary: mat.define-palette($ks-primary-palette, 500, 300, 700);
+$ks-accent: mat.define-palette($ks-accent-palette, 500, 300, 700);
+$ks-warn: mat.define-palette(mat.$red-palette, 700);
+
+// Typography: the legacy config and the MDC one take different level names, so we define both.
+// The visible difference is button letter spacing (legacy 0.089em vs MDC 0.0892857143em, which is
+// the same thing, and line height on form field labels, which is not).
+$ks-legacy-typography: mat.define-legacy-typography-config(
+  $font-family: '"Source Sans 3", "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+  $button: mat.define-typography-level(15px, 36px, 600),
+  $input: mat.define-typography-level(16px, 1.125, 400)
+);
+
+$ks-typography: mat.define-typography-config(
+  $font-family: '"Source Sans 3", "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+  $button: mat.define-typography-level(15px, 36px, 600),
+  $body-1: mat.define-typography-level(16px, 24px, 400)
+);
+
+$ks-theme: mat.define-light-theme((
+  color: (
+    primary: $ks-primary,
+    accent: $ks-accent,
+    warn: $ks-warn,
+  ),
+  typography: $ks-typography,
+  density: 0,
+));
+
+// The legacy components read typography from the legacy config, the MDC ones from the new one.
+// Passing the wrong one produces a wall of "typography level not found" warnings at build time
+// (KEY-2251), hence two theme maps built from the same palettes.
+$ks-legacy-theme: map.merge($ks-theme, (typography: $ks-legacy-typography));
+
+@include mat.legacy-core();
+@include mat.core();
+
+// Legacy half: credential form, otp challenge, channel picker, push approval, authenticator app,
+// locked out, step-up interstitial, busy overlay.
+@include mat.all-legacy-component-themes($ks-legacy-theme);
+
+// MDC half: everything else.
+@include mat.all-component-themes($ks-theme);
+
+// TODO(KEY-2210): once the last legacy component is gone, drop the block above, drop
+// legacy-core(), and remove the 900kb budget override. Then delete this comment and pretend it
+// was always like that.
+
+// Emitted twice on purpose is still emitted twice. Undo the legacy typography hierarchy where it
+// leaks into the MDC screens; MDC sets its own on .mat-typography.
+.ks-mdc-screen .mat-h1,
+.ks-mdc-screen .mat-h2 {
+  margin-bottom: t.$ks-space-4;
+}

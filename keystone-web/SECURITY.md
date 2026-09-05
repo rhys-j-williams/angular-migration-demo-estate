@@ -41,3 +41,32 @@ attach exploit payloads to a Jira ticket.
 Checkmarx (`checkmarx.yml`) and SonarQube (`sonar-project.properties`) run in the Jenkins pipeline
 for every pull request. The quality gate fails the build on any high severity finding and on a
 coverage drop of more than two points against the branch baseline.
+
+## Keystone specific controls (identity-platform addendum, reviewed with GIS 2024-02)
+
+The list above is the estate template. For this component specifically:
+
+- **Passwords.** One component (`CredentialFormComponent`) accepts a password. It emits it once to
+  `IdpClientService.submitCredentials`, which POSTs it as a form body to the IdP over TLS with
+  `withCredentials`. The form control is reset on submit. No interceptor, log line, telemetry event,
+  storage call or error message may include it. Grep for `password` before every release; the
+  expected hit list is in `docs/runbooks/release-checklist.md`. GIS-1490.
+- **Tokens.** The application never mints, signs, decodes or stores a token. `angular-oauth2-oidc`
+  performs the code exchange and id token validation; `token-claims.ts` copies a fixed set of
+  standard claims from `getIdentityClaims()` afterwards. No `atob` on a JWT anywhere. In-memory
+  storage only (library default, not overridden).
+- **Device trust.** SHA-256 of eight documented navigator/screen properties, sent to the BFF, which
+  binds it to an HttpOnly cookie. Nothing device-related is persisted client side.
+  `docs/fraud-device-trust-requirements.md`, PRV-0119.
+- **Open redirect.** Calling-application return URLs are validated against `allowedReturnOrigins`
+  before use, and the IdP's post-MFA redirect is only followed if it is our registered callback
+  with a `code`. GIS-PT-2021-07 item 4.
+- **CSP.** `index.html` and `nginx.conf` both carry `default-src 'self'; script-src 'self'; style-src 'self'`
+  with no `unsafe-inline`. `npm run csp:check` fails the build otherwise. `inlineCritical` is off
+  in `angular.json` because the CLI would otherwise inline a `<style>` block into `index.html`.
+- **Rate limiting.** Enforced by the IdP; surfaced by `RateLimitInterceptor` + banner. The app does
+  not implement its own counter and must not (it would be trivially bypassable and would confuse
+  the Fraud dashboards).
+- **Item 5 above (XSRF) does not apply**: this app makes no state-changing calls to a same-origin
+  API; the IdP form posts are cross-origin with `withCredentials` and the IdP validates `txn`.
+  Waiver GIS-WV-2022-031.
