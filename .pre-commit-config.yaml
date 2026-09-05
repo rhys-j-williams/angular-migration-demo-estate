@@ -1,0 +1,24 @@
+# Meridian engineering standard hooks. Install with `pre-commit install` after cloning.
+# Owned by @meridian/platform-engineering, mandated by GIS-1180 and DEPENDENCY_POLICY.md.
+repos:
+  - repo: local
+    hooks:
+      - id: forbidden-strings
+        name: GIS-1180 forbidden institution and product names
+        entry: scripts/check-forbidden-strings.sh worktree
+        language: system
+        pass_filenames: false
+      - id: ticket-key-in-branch
+        name: CONTRIBUTING branch naming
+        entry: scripts/check-branch-name.sh
+        language: system
+        pass_filenames: false
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: end-of-file-fixer
+        exclude: '\.(cpy|xlf)$|business-web/src/app/ach/nacha-format\.constants\.ts|canopy-ui/projects/canopy-ui/src/lib/tokens/_legacy-tokens\.scss'
+      - id: trailing-whitespace
+        exclude: '\.(cpy|xlf)$|business-web/src/app/ach/nacha-format\.constants\.ts|canopy-ui/projects/canopy-ui/src/lib/tokens/_legacy-tokens\.scss'
+      - id: check-merge-conflict
+      - id: detect-private-key
