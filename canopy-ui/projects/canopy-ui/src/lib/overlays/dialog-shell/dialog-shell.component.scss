@@ -1,0 +1,77 @@
+@use '../../tokens/spacing' as s;
+
+// Material gives the container 24px all round; the shell owns its own spacing so the header can
+// bleed to the edges and the progress bar can sit flush under it.
+.cn-dialog-panel .mat-dialog-container {
+  padding: 0;
+  border-radius: var(--cn-radius-lg, #{s.$cn-radius-lg});
+  background: var(--cn-color-surface);
+  color: var(--cn-color-text);
+  box-shadow: var(--cn-shadow-3);
+  overflow: hidden;
+}
+
+.cn-dialog-panel--sm { max-width: 420px !important; width: 100%; }
+.cn-dialog-panel--md { max-width: 600px !important; width: 100%; }
+.cn-dialog-panel--lg { max-width: 860px !important; width: 100%; }
+
+.cn-dialog-shell {
+  display: flex;
+  flex-direction: column;
+  max-height: 90vh;
+
+  &__header {
+    display: flex;
+    align-items: flex-start;
+    gap: s.$cn-space-3;
+    padding: s.$cn-space-5 s.$cn-space-6 s.$cn-space-3;
+    border-bottom: 1px solid var(--cn-color-border);
+  }
+
+  &__titles {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  &__title.mat-dialog-title {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.3;
+    font-family: var(--cn-font-family);
+
+    &--destructive { color: var(--cn-color-warn); }
+  }
+
+  &__subtitle {
+    margin: s.$cn-space-1 0 0;
+    color: var(--cn-color-text-muted);
+    font-size: 14px;
+  }
+
+  &__close {
+    margin: -#{s.$cn-space-2} -#{s.$cn-space-2} 0 0;
+  }
+
+  &__content.mat-dialog-content {
+    padding: s.$cn-space-5 s.$cn-space-6;
+    margin: 0;
+    max-height: none;
+    flex: 1 1 auto;
+  }
+
+  &__actions.mat-dialog-actions {
+    padding: s.$cn-space-3 s.$cn-space-6 s.$cn-space-5;
+    margin: 0;
+    min-height: 0;
+    gap: s.$cn-space-2;
+    border-top: 1px solid var(--cn-color-border);
+
+    &:empty { display: none; }
+  }
+
+  &--busy &__content {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+}

@@ -1,0 +1,6 @@
+<mat-icon class="cn-toast__icon" [svgIcon]="icon" aria-hidden="true"></mat-icon>
+<span class="cn-toast__message">{{ data.message }}</span>
+<button *ngIf="data.action" mat-button class="cn-toast__action" type="button" (click)="act()">{{ data.action }}</button>
+<button mat-icon-button class="cn-toast__dismiss" type="button" aria-label="Dismiss notification" (click)="dismiss()">
+  <mat-icon svgIcon="cn:close" aria-hidden="true"></mat-icon>
+</button>

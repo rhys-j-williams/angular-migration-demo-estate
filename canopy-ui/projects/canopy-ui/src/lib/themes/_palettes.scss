@@ -1,0 +1,79 @@
+@use '@angular/material' as mat;
+@use '../tokens/colors' as c;
+
+// Material palette maps built from the brand tokens. The contrast map was checked against the
+// WCAG 2.1 AA thresholds in CNPY-611; if you change a hue re-run the audit sheet.
+$cn-green-palette: (
+  50: c.$cn-green-50,
+  100: c.$cn-green-100,
+  200: c.$cn-green-200,
+  300: c.$cn-green-300,
+  400: c.$cn-green-400,
+  500: c.$cn-green-500,
+  600: c.$cn-green-600,
+  700: c.$cn-green-700,
+  800: c.$cn-green-800,
+  900: c.$cn-green-900,
+  A100: c.$cn-green-100,
+  A200: c.$cn-green-200,
+  A400: c.$cn-green-400,
+  A700: c.$cn-green-700,
+  contrast: (
+    50: rgba(black, 0.87),
+    100: rgba(black, 0.87),
+    200: rgba(black, 0.87),
+    300: rgba(black, 0.87),
+    400: white,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A100: rgba(black, 0.87),
+    A200: rgba(black, 0.87),
+    A400: white,
+    A700: white
+  )
+);
+
+$cn-blue-palette: (
+  50: c.$cn-blue-50,
+  100: c.$cn-blue-100,
+  200: c.$cn-blue-200,
+  300: c.$cn-blue-300,
+  400: c.$cn-blue-400,
+  500: c.$cn-blue-500,
+  600: c.$cn-blue-600,
+  700: c.$cn-blue-700,
+  800: c.$cn-blue-800,
+  900: c.$cn-blue-900,
+  A100: c.$cn-blue-100,
+  A200: c.$cn-blue-200,
+  A400: c.$cn-blue-400,
+  A700: c.$cn-blue-700,
+  contrast: (
+    50: rgba(black, 0.87),
+    100: rgba(black, 0.87),
+    200: rgba(black, 0.87),
+    300: rgba(black, 0.87),
+    400: white,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A100: rgba(black, 0.87),
+    A200: rgba(black, 0.87),
+    A400: white,
+    A700: white
+  )
+);
+
+$cn-primary: mat.define-palette($cn-green-palette, 500, 300, 700);
+$cn-accent: mat.define-palette($cn-blue-palette, 500, 300, 700);
+$cn-warn: mat.define-palette(mat.$red-palette, 700);
+
+// Dark surfaces need the lighter hues as "default" or text on buttons drops below 4.5:1.
+$cn-primary-dark: mat.define-palette($cn-green-palette, 300, 200, 500);
+$cn-accent-dark: mat.define-palette($cn-blue-palette, 300, 200, 500);
+$cn-warn-dark: mat.define-palette(mat.$red-palette, 300);

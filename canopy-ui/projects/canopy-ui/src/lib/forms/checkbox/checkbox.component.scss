@@ -1,0 +1,26 @@
+@use '../../tokens/spacing' as s;
+
+.cn-checkbox {
+  display: block;
+
+  .mat-checkbox-layout {
+    align-items: flex-start;
+    white-space: normal;
+  }
+
+  .mat-checkbox-inner-container {
+    margin-top: 3px;
+  }
+
+  &__label {
+    display: block;
+    color: var(--cn-color-text);
+  }
+
+  &__hint {
+    display: block;
+    font-size: 12px;
+    color: var(--cn-color-text-muted);
+    margin-top: s.$cn-space-1;
+  }
+}

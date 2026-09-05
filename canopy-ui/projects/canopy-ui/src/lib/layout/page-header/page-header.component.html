@@ -1,0 +1,21 @@
+<nav class="cn-page-header__breadcrumbs" aria-label="Breadcrumb" *ngIf="breadcrumbs.length" fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="8px">
+  <ng-container *ngFor="let crumb of breadcrumbs; let last = last">
+    <a *ngIf="crumb.link && !last; else current" class="cn-page-header__crumb" [routerLink]="crumb.link">{{ crumb.label }}</a>
+    <ng-template #current><span class="cn-page-header__crumb cn-page-header__crumb--current" [attr.aria-current]="last ? 'page' : null">{{ crumb.label }}</span></ng-template>
+    <mat-icon *ngIf="!last" class="cn-page-header__sep" svgIcon="cn:chevron-right" aria-hidden="true"></mat-icon>
+  </ng-container>
+</nav>
+<a *ngIf="backLink" class="cn-page-header__back" [routerLink]="backLink">
+  <mat-icon svgIcon="cn:arrow-right" class="cn-page-header__back-icon" aria-hidden="true"></mat-icon>{{ backLabel }}
+</a>
+<div class="cn-page-header__row" fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="space-between flex-end" fxLayoutAlign.lt-md="start stretch" fxLayoutGap="16px">
+  <div class="cn-page-header__titles" fxFlex="1 1 auto">
+    <span class="cn-page-header__eyebrow" *ngIf="eyebrow">{{ eyebrow }}</span>
+    <h1 class="cn-page-header__title">{{ title }}</h1>
+    <p class="cn-page-header__lede" *ngIf="lede">{{ lede }}</p>
+  </div>
+  <div class="cn-page-header__actions" fxFlex="0 0 auto" fxLayout="row" fxLayoutGap="8px">
+    <ng-content select="[cnPageAction]"></ng-content>
+  </div>
+</div>
+<div class="cn-page-header__extra"><ng-content></ng-content></div>

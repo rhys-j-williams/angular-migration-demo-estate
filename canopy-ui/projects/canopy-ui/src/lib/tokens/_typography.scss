@@ -1,0 +1,20 @@
+// Type scale. "Source Sans 3" is the licensed brand face; the stack falls back to system fonts on
+// machines where the font service is blocked (most of the Chennai VDI estate, MGSI-INC-2031).
+$cn-font-family: 'Source Sans 3', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+$cn-font-family-mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+
+$cn-font-size-xs: 12px;
+$cn-font-size-sm: 14px;
+$cn-font-size-md: 16px;
+$cn-font-size-lg: 18px;
+$cn-font-size-xl: 22px;
+$cn-font-size-2xl: 28px;
+$cn-font-size-3xl: 36px;
+$cn-font-size-4xl: 48px;
+
+$cn-line-height-tight: 1.2;
+$cn-line-height-normal: 1.5;
+
+$cn-font-weight-regular: 400;
+$cn-font-weight-medium: 500;
+$cn-font-weight-semibold: 600;

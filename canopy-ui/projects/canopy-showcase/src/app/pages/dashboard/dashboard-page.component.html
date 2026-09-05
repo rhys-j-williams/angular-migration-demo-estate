@@ -1,0 +1,86 @@
+<cn-page-header title="Accounts" eyebrow="Meridian Online - sample customer"
+                [lede]="'Deposits ' + (totalDeposits | cnCurrency) + ' · Owed ' + (totalOwed | cnCurrency)">
+  <cn-button cnPageAction variant="secondary" icon="cn:download" (pressed)="exportCsv()">Export</cn-button>
+  <cn-button cnPageAction variant="primary" icon="cn:transfer" (pressed)="openTransfer()">Move money</cn-button>
+</cn-page-header>
+
+<section class="cs-grid" style="margin-top: 24px" aria-label="Accounts">
+  <cn-account-card *ngFor="let account of accounts" [account]="account.id === selected.id ? selected : account" clickable
+                   [class.cs-account--selected]="account.id === selected.id" (selected)="pick($event)"></cn-account-card>
+</section>
+
+<cn-card [title]="selected.nickname + ' activity'" [subtitle]="'Account ending ' + selected.last4" style="display: block; margin-top: 24px">
+  <cn-menu cnCardAction [items]="accountActions" triggerLabel="Account actions" (selected)="onAction($event)"></cn-menu>
+
+  <cn-tabs ariaLabel="Account detail">
+    <ng-template cnTab label="Transactions" [badge]="filtered.length">
+      <div class="cs-stack" style="margin-top: 16px">
+        <div class="cs-row" style="align-items: flex-start">
+          <cn-date-range label="Posted" class="cs-field" (rangeChange)="onRange($event)"></cn-date-range>
+          <div class="cs-stack" style="gap: 8px">
+            <cn-filter-chips [chips]="statusChips" multiple ariaLabel="Status" (selectionChange)="onStatus($event)"></cn-filter-chips>
+            <cn-filter-chips [chips]="channelChips" multiple ariaLabel="Channel" (selectionChange)="onChannel($event)"></cn-filter-chips>
+          </div>
+        </div>
+
+        <div class="cs-row" *ngIf="tableSelection?.selected?.length as count">
+          <span>{{ count }} selected</span>
+          <cn-button variant="secondary" size="small" icon="cn:alert" (pressed)="dispute()">Dispute</cn-button>
+        </div>
+
+        <cn-skeleton *ngIf="loading && !rows.length" shape="row" [lines]="6" label="Loading transactions"></cn-skeleton>
+
+        <cn-data-table [columns]="columns" [rows]="filtered" [loading]="loading" [pageSize]="10" selectable striped
+                       [caption]="selected.nickname + ' transactions'" [trackBy]="trackById" emptyText="No transactions match these filters"
+                       (selectionChange)="tableSelection = $event">
+          <ng-template cnColumnDef="category" let-row>
+            <cn-badge tone="neutral" outline size="small">{{ row.category }}</cn-badge>
+          </ng-template>
+        </cn-data-table>
+      </div>
+    </ng-template>
+
+    <ng-template cnTab label="Details">
+      <div class="cs-stack" style="margin-top: 16px; max-width: 640px">
+        <cn-list [items]="[
+          { id: 'type', primary: 'Account type', meta: selected.kind },
+          { id: 'status', primary: 'Status', meta: selected.status || 'open' },
+          { id: 'routing', primary: 'Routing number', meta: '021000000' },
+          { id: 'number', primary: 'Account number', meta: '•••• ' + selected.last4 }
+        ]"></cn-list>
+        <cn-disclosure heading="Balance information" tone="muted" collapsible
+                       html="<p>Available balance reflects posted activity and authorised card holds. Deposits made after 9:00 PM ET post the next business day. See the <a href='#'>Deposit Account Agreement</a>, section 4.</p>"></cn-disclosure>
+      </div>
+    </ng-template>
+
+    <ng-template cnTab label="Alerts" [badge]="2">
+      <div class="cs-stack" style="margin-top: 16px; max-width: 640px">
+        <cn-toggle hint="Push and email" [ngModel]="true">Low balance below $100</cn-toggle>
+        <cn-toggle hint="Push only" [ngModel]="true">Large debit over $500</cn-toggle>
+        <cn-toggle hint="Regulatory alerts cannot be switched off" [ngModel]="true" [disabled]="true">Statement available</cn-toggle>
+      </div>
+    </ng-template>
+  </cn-tabs>
+</cn-card>
+
+<ng-template #transferDialog>
+  <cn-dialog-shell title="Move money" [subtitle]="'From ' + selected.nickname + ' · Available ' + (available | cnCurrency)" [busy]="transferBusy" size="md">
+    <form [formGroup]="transferForm" class="cs-stack" (ngSubmit)="submitTransfer()" id="transfer-form">
+      <cn-error-summary *ngIf="transferSubmitted && transferForm.invalid" [form]="transferForm" idPrefix="transfer-"
+                        [messages]="{ to: 'Choose where the money is going', amount: { required: 'Enter an amount', min: 'Amount must be more than zero', insufficient: 'Amount is more than the available balance' } }"></cn-error-summary>
+      <cn-select label="To" formControlName="to" [options]="payeeOptions" required placeholder="Choose an account or payee" id="transfer-to"></cn-select>
+      <mat-form-field appearance="outline" id="transfer-amount">
+        <mat-label>Amount</mat-label>
+        <cn-currency-input formControlName="amount" currency="USD" [max]="available"></cn-currency-input>
+        <mat-hint>Available {{ available | cnCurrency }}</mat-hint>
+        <mat-error *ngIf="transferForm.controls.amount.hasError('insufficient')">More than the available balance</mat-error>
+        <mat-error *ngIf="transferForm.controls.amount.hasError('required')">Enter an amount</mat-error>
+      </mat-form-field>
+      <cn-masked-input label="Memo (optional)" formControlName="memo" preset="custom" mask="A{60}" hint="Shows on both statements"></cn-masked-input>
+    </form>
+    <ng-container cnDialogActions>
+      <cn-button variant="tertiary" [disabled]="transferBusy" (pressed)="cancelTransfer()">Cancel</cn-button>
+      <cn-button variant="primary" [loading]="transferBusy" (pressed)="submitTransfer()">Schedule transfer</cn-button>
+    </ng-container>
+  </cn-dialog-shell>
+</ng-template>
