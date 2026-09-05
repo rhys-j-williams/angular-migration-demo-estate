@@ -8,13 +8,15 @@ export interface LdgFeatureFlags {
 }
 
 export interface LdgEnvironment {
-  name: 'local' | 'mock-external' | 'production';
+  name: 'local' | 'mock-external' | 'e2e' | 'production' | 'test';
   production: boolean;
   bffBaseUrl: string;
   tickerHausBaseUrl: string;
   /** Serve the application from @meridian/domain-fixtures instead of the BFF. Never true in prod. */
   fixtureBackend: boolean;
   fixtureSeed: string;
+  /** Freeze the fixture clock (ISO instant). Cypress and Jest set it; leave undefined for a live day. */
+  fixtureAsOf?: string;
   sessionIdleMinutes: number;
   featureFlags: LdgFeatureFlags;
 }

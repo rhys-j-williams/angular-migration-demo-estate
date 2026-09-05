@@ -2,7 +2,7 @@
 <ldg-error-state *ngIf="error() as err" [error]="err" (retry)="load()"></ldg-error-state>
 
 <ng-container *ngIf="approval() as a">
-  <cn-page-header [title]="a.beneficiaryName" [eyebrow]="a.paymentId" [compact]="true" backLink="/approvals" backLabel="Back to queue"
+  <cn-page-header data-test="approval-detail" [title]="a.beneficiaryName" [eyebrow]="a.paymentId" [compact]="true" backLink="/approvals" backLabel="Back to queue"
                   [breadcrumbs]="[{ label: 'Approvals', link: '/approvals' }, { label: a.paymentId }]">
     <cn-button cnPageAction variant="destructive" icon="cn:close" [disabled]="!decidable() || busy()" (pressed)="decide('reject')">Reject</cn-button>
     <cn-button cnPageAction variant="primary" icon="cn:check" [loading]="busy()" [disabled]="!decidable()" (pressed)="decide('approve')">Approve</cn-button>

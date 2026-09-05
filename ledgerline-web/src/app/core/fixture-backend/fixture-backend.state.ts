@@ -5,10 +5,10 @@ import { buildTreasuryDataset, TreasuryDataset } from './treasury-dataset';
 /** Mutable state behind the fixture backend: one dataset per page load, reset with `reset()`. */
 @Injectable({ providedIn: 'root' })
 export class FixtureBackendState {
-  private readonly seed = inject(APP_CONFIG).fixtureSeed;
+  private readonly config = inject(APP_CONFIG);
   private ticks = 0;
 
-  dataset: TreasuryDataset = buildTreasuryDataset(this.seed);
+  dataset: TreasuryDataset = this.build();
   signedOut = false;
   latencyMs = 120;
 
@@ -16,8 +16,12 @@ export class FixtureBackendState {
     return this.ticks++;
   }
 
+  private build(): TreasuryDataset {
+    return buildTreasuryDataset(this.config.fixtureSeed, this.config.fixtureAsOf);
+  }
+
   reset(): void {
-    this.dataset = buildTreasuryDataset(this.seed);
+    this.dataset = this.build();
     this.signedOut = false;
     this.ticks = 0;
   }

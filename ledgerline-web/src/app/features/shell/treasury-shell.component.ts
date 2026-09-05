@@ -14,7 +14,7 @@ import { SessionExpiryComponent } from './session-expiry.component';
   imports: [RouterOutlet, CnPageShellModule, SessionExpiryComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <cn-page-shell appName="Ledgerline" [environmentLabel]="environmentLabel" [nav]="nav()" [userName]="session.displayName()"
+    <cn-page-shell data-test="shell-nav" appName="Ledgerline" [environmentLabel]="environmentLabel" [nav]="nav()" [userName]="session.displayName()"
                    [showThemeToggle]="true" maxContentWidth="1440px" (signOut)="signOut()">
       <ldg-session-expiry cnShellToolbar></ldg-session-expiry>
       <router-outlet></router-outlet>

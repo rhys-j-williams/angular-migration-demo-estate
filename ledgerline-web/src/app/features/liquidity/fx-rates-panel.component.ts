@@ -13,7 +13,8 @@ import { RelativeTimePipe } from '../../shared/pipes/relative-time.pipe';
 import { FxConverterComponent } from './fx-converter.component';
 import { FxRateRowComponent } from './fx-rate-row.component';
 
-const WATCHED_PAIRS = ['EUR/USD', 'GBP/USD', 'USD/JPY', 'USD/CAD', 'USD/MXN'];
+// TickerHaus pair codes are six letters, no separator (their API guide v2.3).
+const WATCHED_PAIRS = ['EURUSD', 'GBPUSD', 'USDJPY', 'USDCAD', 'USDMXN'];
 
 @Component({
   selector: 'ldg-fx-rates-panel',

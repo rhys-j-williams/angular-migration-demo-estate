@@ -142,14 +142,21 @@ export function buildTreasuryDataset(seed: string, asOfIso = defaultAsOf()): Tre
   }
 
   const buckets: PositionBucket[] = ['operating', 'concentration', 'reserve', 'investment'];
+  let operatingAssigned = false;
   const positions: LiquidityPosition[] = accounts.map((account, index) => {
     const intraday = random.minorUnits(-400_000, 650_000);
+    let bucket: PositionBucket;
+    if (account.type === 'treasury-operating') {
+      bucket = operatingAssigned ? 'concentration' : 'operating';
+      operatingAssigned = true;
+    } else {
+      bucket = account.type === 'business-savings' ? 'reserve' : buckets[index % buckets.length];
+    }
     return {
       accountId: account.accountId,
       nickname: account.nickname,
       accountNumberMasked: maskAccountNumber(account.accountNumber),
-      bucket: account.type === 'treasury-operating' ? (index === 0 ? 'operating' : 'concentration')
-        : account.type === 'business-savings' ? 'reserve' : buckets[index % buckets.length],
+      bucket,
       currency: account.currency,
       ledgerBalanceMinor: Math.abs(account.currentBalanceMinor) * 40,
       availableBalanceMinor: Math.abs(account.availableBalanceMinor) * 40 - Math.max(0, -intraday),

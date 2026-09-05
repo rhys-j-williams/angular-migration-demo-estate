@@ -8,7 +8,7 @@
 <ldg-error-state *ngIf="error() as err" [error]="err" (retry)="load()"></ldg-error-state>
 
 <div class="ldg-stack" *ngIf="snapshot()">
-  <ldg-position-summary-tiles [positions]="positions()" [view]="filters.balanceView()"></ldg-position-summary-tiles>
+  <ldg-position-summary-tiles data-test="liquidity-tiles" [positions]="positions()" [view]="filters.balanceView()"></ldg-position-summary-tiles>
   <div class="ldg-dashboard__main">
     <div class="ldg-stack">
       <ldg-positions-table [positions]="positions()" [view]="filters.balanceView()"></ldg-positions-table>

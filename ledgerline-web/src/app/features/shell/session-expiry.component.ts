@@ -15,7 +15,8 @@ import { SessionStore } from '../../core/auth/session.store';
           role="status" [matTooltip]="tooltip()">Session {{ minutesLeft() }} min</span>
   `,
   styles: [`
-    .ldg-session-expiry { font-size: 12px; padding: 2px 10px; border-radius: 12px; border: 1px solid var(--cn-color-border); color: var(--cn-color-text-muted); }
+    /* Sits on the shell toolbar (brand green), so it carries its own surface; muted-on-green failed contrast (LDG-1092). */
+    .ldg-session-expiry { font-size: 12px; padding: 2px 10px; border-radius: 12px; border: 1px solid var(--cn-color-border); background: var(--cn-color-surface); color: var(--cn-color-text); }
     .ldg-session-expiry--soon { border-color: var(--ldg-color-cutoff); color: var(--ldg-color-cutoff); font-weight: 600; }
   `]
 })
