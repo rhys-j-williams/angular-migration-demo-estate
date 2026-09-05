@@ -1,0 +1,14 @@
+{{- if .Values.route.enabled }}
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: {{ include "iris-widget.name" . }}
+  labels: {{- include "iris-widget.labels" . | nindent 4 }}
+spec:
+  host: {{ .Values.route.host }}
+  to:
+    kind: Service
+    name: {{ include "iris-widget.name" . }}
+  tls:
+    termination: edge
+{{- end }}
