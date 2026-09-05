@@ -40,3 +40,46 @@ Decisions taken without asking:
   rather than the ten separate repositories in the brief. Consequence: histories share one commit
   graph. Synthetic authorship, dates, ticket keys and the named stale branches are preserved; tags
   are namespaced by component, for example `canopy-ui/v3.7.2` and `retail-web/v2026.08.1`.
+- Pushes go through a token header helper rather than the usual git path, because the Devin GitHub
+  App is not installed on this repository and the proxy returns 403. Flagged to Rhys; the token is
+  never written into `.git/config`.
+
+## Phase 1 — shared foundations, 5 September 2026
+
+- `platform-services/libs/ts/domain-fixtures` (`@meridian/domain-fixtures` 1.6.0): deterministic
+  seeded generation of customers, accounts, cards, transactions, payees, alert preferences and
+  entitlements, plus the Bedrock fixed-width codec. 18 tests pass; `tsc --noEmit` is clean.
+- Data-safety invariants are enforced by the package and covered by tests: every card number fails
+  Luhn, every account and payee carries routing number `021000000`, every email is `@example.com`,
+  regulatory alerts cannot be disabled, amounts are integer minor units.
+- `platform-services/copybooks`: `MTBACCT`, `MTBTRAN` and `MTBCUST` with a README documenting the
+  signed zoned decimal overpunch encoding.
+- `_demo-notes/build/authors.json` and `replay_history.py`: the fictional engineer roster across
+  five sites with time-zone-correct commit stamps, and the manifest-driven history replay tool.
+
+Corrections made during the phase:
+
+- `MTBACCT` was documented as 128 positions; the fields as specified total **136**. The codec, the
+  decoder's validation, the tests and the copybook README were corrected to 136 rather than
+  trimming a field to fit the wrong number.
+
+## Phase 10 (partial) — handover deliverables, 5 September 2026
+
+Written ahead of the components they describe, so that each component session has the trap
+signatures and conventions to build against:
+
+- `_demo-notes/TRAPS.md` — all 48 traps with paths, grep signatures and expected agent behaviour.
+- `_demo-notes/PLAYBOOKS.md`, `KNOWLEDGE.md`, `ASK-DEVIN-PROMPTS.md`,
+  `MIGRATION-REPORT-TEMPLATE.md`, `README.md`.
+- `scripts/verify-traps.sh` and `scripts/verify-estate.sh`. Both report components that have not
+  been built yet as PENDING or SKIP rather than failing, so they are useful during construction.
+
+`_demo-notes/expected-ng-update-15-output.md` is still outstanding: it has to be captured from a
+real `ng update` dry run against `canopy-ui` and `retail-web`, which do not exist yet.
+
+## Phase 2, 3, 8, 9 and 10 (tooling) — delegated, 5 September 2026
+
+Four parallel sessions are building `canopy-ui`, `mock-external` plus `lantern-sdk`,
+`platform-services` and `platform-tooling` on their own branches. Each owns exactly one top-level
+directory and pushes without merging; this session integrates. The five Angular consumers follow
+once Canopy publishes, because they cannot install the library until it exists.
