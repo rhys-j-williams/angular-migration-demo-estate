@@ -1,0 +1,86 @@
+// Showcase global stylesheet. Consumers do the same two lines; everything else here is the style
+// guide's own chrome and must not leak into the library.
+@use '@meridian/canopy-ui/themes' as canopy;
+@include canopy.theme();
+
+html, body { height: 100%; margin: 0; }
+
+.cs-demo {
+  display: block;
+  padding: 24px;
+  border: 1px solid var(--cn-color-border);
+  border-radius: var(--cn-radius-md);
+  background: var(--cn-color-surface);
+}
+
+.cs-demo--tinted { background: var(--cn-color-surface-alt); }
+
+.cs-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.cs-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.cs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.cs-code {
+  margin: 12px 0 0;
+  padding: 12px 16px;
+  overflow-x: auto;
+  border-radius: var(--cn-radius-sm);
+  background: var(--cn-color-code-bg, #1f2430);
+  color: #e6e6e6;
+  font: 13px/1.5 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  white-space: pre;
+}
+
+.cs-muted { color: var(--cn-color-text-muted); }
+.cs-wide { width: 100%; }
+.cs-field { min-width: 280px; }
+
+.cs-swatch {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 12px;
+
+  &__chip { height: 48px; border-radius: var(--cn-radius-sm); border: 1px solid var(--cn-color-border); }
+}
+
+.cs-token-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+
+  th, td { padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--cn-color-border); }
+  code { font-size: 13px; }
+}
+
+.cs-icon-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 12px;
+
+  figure { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 12px; border-radius: var(--cn-radius-sm); border: 1px solid var(--cn-color-border); }
+  figcaption { font-size: 12px; color: var(--cn-color-text-muted); }
+  mat-icon { width: 28px; height: 28px; }
+}
+
+.cs-skip {
+  position: absolute;
+  left: -9999px;
+  &:focus { position: static; left: auto; display: inline-block; margin-bottom: 8px; }
+}
+
+.cs-account--selected { outline: 2px solid var(--cn-color-primary); outline-offset: 2px; border-radius: var(--cn-radius-md); }

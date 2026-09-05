@@ -1,0 +1,54 @@
+@use '../../tokens/spacing' as s;
+
+.cn-card {
+  display: block;
+
+  &__surface.mat-card {
+    padding: 0;
+    border-radius: var(--cn-radius-lg, #{s.$cn-radius-lg});
+    box-shadow: var(--cn-shadow-1);
+    background: var(--cn-color-surface);
+    color: var(--cn-color-text);
+  }
+
+  &--flat &__surface.mat-card {
+    box-shadow: none;
+    border: 1px solid var(--cn-color-border);
+  }
+
+  &--highlight &__surface.mat-card {
+    border-top: 4px solid var(--cn-color-accent);
+  }
+
+  &__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: s.$cn-space-3;
+    padding: s.$cn-space-4 s.$cn-space-5 0;
+  }
+
+  &__titles {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__title {
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  &__subtitle {
+    font-size: 13px;
+    color: var(--cn-color-text-muted);
+  }
+
+  &--padded &__body {
+    padding: s.$cn-space-4 s.$cn-space-5;
+  }
+
+  &__footer:not(:empty) {
+    padding: s.$cn-space-3 s.$cn-space-5;
+    border-top: 1px solid var(--cn-color-border);
+  }
+}

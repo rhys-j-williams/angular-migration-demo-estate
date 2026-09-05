@@ -1,0 +1,31 @@
+<mat-nav-list *ngIf="interactive; else plain" class="cn-list__list" [attr.aria-label]="ariaLabel" [class.mat-list-base--dense]="dense">
+  <ng-container *ngFor="let item of items; let last = last; trackBy: trackById">
+    <a mat-list-item class="cn-list__item" href="#" [disabled]="item.disabled" [attr.aria-disabled]="item.disabled || null"
+       (click)="$event.preventDefault(); select(item)">
+      <ng-container *ngTemplateOutlet="row; context: { $implicit: item }"></ng-container>
+    </a>
+    <mat-divider *ngIf="dividers && !last"></mat-divider>
+  </ng-container>
+  <p class="cn-list__empty" *ngIf="!items.length">{{ emptyText }}</p>
+</mat-nav-list>
+<ng-template #plain>
+  <mat-list class="cn-list__list" [attr.aria-label]="ariaLabel" [class.mat-list-base--dense]="dense">
+    <ng-container *ngFor="let item of items; let last = last; trackBy: trackById">
+      <mat-list-item class="cn-list__item">
+        <ng-container *ngTemplateOutlet="row; context: { $implicit: item }"></ng-container>
+      </mat-list-item>
+      <mat-divider *ngIf="dividers && !last"></mat-divider>
+    </ng-container>
+    <p class="cn-list__empty" *ngIf="!items.length">{{ emptyText }}</p>
+  </mat-list>
+</ng-template>
+
+<ng-template #row let-item>
+  <mat-icon *ngIf="item.icon" matListIcon class="cn-list__icon" [svgIcon]="isSvgIcon(item.icon) ? item.icon : ''" aria-hidden="true">{{ isSvgIcon(item.icon) ? '' : item.icon }}</mat-icon>
+  <span matLine class="cn-list__primary">{{ item.primary }}</span>
+  <span matLine class="cn-list__secondary" *ngIf="item.secondary">{{ item.secondary }}</span>
+  <span class="cn-list__meta" *ngIf="item.meta || metaTemplate">
+    <ng-container *ngIf="metaTemplate; else metaText" [ngTemplateOutlet]="metaTemplate" [ngTemplateOutletContext]="{ $implicit: item }"></ng-container>
+    <ng-template #metaText>{{ item.meta }}</ng-template>
+  </span>
+</ng-template>

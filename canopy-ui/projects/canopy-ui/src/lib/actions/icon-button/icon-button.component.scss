@@ -1,0 +1,23 @@
+@use '../../tokens/spacing' as s;
+
+.cn-icon-button {
+  display: inline-block;
+
+  .mat-icon-button {
+    width: var(--cn-control-height, #{s.$cn-control-height});
+    height: var(--cn-control-height, #{s.$cn-control-height});
+    line-height: var(--cn-control-height, #{s.$cn-control-height});
+    border-radius: var(--cn-radius-sm, #{s.$cn-radius-sm});
+    color: var(--cn-color-text);
+  }
+
+  .mat-icon-button:focus-visible {
+    outline: var(--cn-focus-ring, #{s.$cn-focus-ring-width} solid #2f7bd1);
+    outline-offset: s.$cn-focus-ring-offset;
+  }
+
+  .mat-badge-content {
+    font-family: var(--cn-font-family);
+    font-weight: 600;
+  }
+}

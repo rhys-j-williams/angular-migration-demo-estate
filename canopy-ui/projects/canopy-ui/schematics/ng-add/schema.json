@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "CanopyNgAdd",
+  "title": "Canopy ng-add schematic",
+  "type": "object",
+  "properties": {
+    "project": {
+      "type": "string",
+      "description": "The project to add Canopy to. Defaults to the workspace default project.",
+      "$default": { "$source": "projectName" }
+    },
+    "theme": {
+      "type": "string",
+      "description": "Which theme to wire up.",
+      "enum": ["all", "light-only"],
+      "default": "all"
+    },
+    "skipIconSprite": {
+      "type": "boolean",
+      "description": "Do not add the sprite to the assets array.",
+      "default": false
+    }
+  },
+  "required": []
+}

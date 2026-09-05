@@ -1,0 +1,64 @@
+@use '../../tokens/spacing' as s;
+
+.cn-button {
+  display: inline-block;
+
+  .mat-button-base {
+    min-height: var(--cn-control-height, #{s.$cn-control-height});
+    border-radius: var(--cn-radius-sm, #{s.$cn-radius-sm});
+    padding: 0 s.$cn-space-5;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+  }
+
+  // Material puts the projected content inside .mat-button-wrapper; flex it so the icon and label
+  // sit on one line with a consistent gap regardless of what the consumer projects.
+  .mat-button-wrapper {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: s.$cn-space-2;
+    line-height: 1;
+  }
+
+  .mat-button-wrapper .mat-icon {
+    width: 20px;
+    height: 20px;
+    font-size: 20px;
+    line-height: 20px;
+  }
+
+  .mat-stroked-button {
+    border-color: var(--cn-color-border-strong);
+    color: var(--cn-color-primary);
+  }
+
+  .mat-button {
+    color: var(--cn-color-primary);
+  }
+
+  .mat-button-base:focus-visible {
+    outline: var(--cn-focus-ring, #{s.$cn-focus-ring-width} solid #2f7bd1);
+    outline-offset: s.$cn-focus-ring-offset;
+  }
+
+  &--small .mat-button-base {
+    min-height: 36px;
+    padding: 0 s.$cn-space-3;
+    font-size: 13px;
+  }
+
+  &--block,
+  &--block .mat-button-base {
+    display: block;
+    width: 100%;
+  }
+
+  &__spinner {
+    display: inline-block;
+  }
+
+  &--loading .mat-button-wrapper .cn-button__label {
+    opacity: 0.7;
+  }
+}

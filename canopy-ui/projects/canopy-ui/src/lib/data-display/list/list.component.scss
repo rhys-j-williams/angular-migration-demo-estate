@@ -1,0 +1,48 @@
+@use '../../tokens/spacing' as s;
+
+.cn-list {
+  display: block;
+
+  &__list.mat-list-base {
+    padding-top: 0;
+  }
+
+  .mat-list-item {
+    height: var(--cn-row-height, #{s.$cn-row-height-default});
+    color: var(--cn-color-text);
+    font-family: var(--cn-font-family);
+  }
+
+  &--dense .mat-list-item {
+    height: s.$cn-row-height-compact;
+  }
+
+  &__icon.mat-list-icon {
+    color: var(--cn-color-text-muted);
+  }
+
+  &__primary {
+    font-weight: 500;
+  }
+
+  &__secondary {
+    font-size: 12px;
+    color: var(--cn-color-text-muted);
+  }
+
+  &__meta {
+    margin-left: auto;
+    padding-left: s.$cn-space-3;
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  &__empty {
+    padding: s.$cn-space-6 s.$cn-space-4;
+    margin: 0;
+    text-align: center;
+    color: var(--cn-color-text-muted);
+    font-style: italic;
+  }
+}

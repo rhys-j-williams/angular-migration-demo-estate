@@ -17,3 +17,15 @@ Thumbs.db
 !.env.example
 .cx-reports/
 .scannerwork/
+
+# Angular CLI workspace output. dist/ holds both the packaged library and the showcase build.
+/dist/
+/.angular/cache/
+/out-tsc/
+/karma-results/
+/.cx-reports/
+/.scannerwork/
+/projects/canopy-ui/schematics/**/*.js
+/projects/canopy-ui/schematics/**/*.js.map
+/projects/canopy-ui/schematics/**/*.d.ts
+.verdaccio-auth

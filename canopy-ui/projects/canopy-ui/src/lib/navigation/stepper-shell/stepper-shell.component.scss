@@ -1,0 +1,51 @@
+@use '../../tokens/spacing' as s;
+
+.cn-stepper-shell {
+  display: block;
+
+  &__stepper.mat-stepper-horizontal,
+  &__stepper.mat-stepper-vertical {
+    background: transparent;
+    font-family: var(--cn-font-family);
+  }
+
+  .mat-horizontal-stepper-header-container {
+    border-bottom: 1px solid var(--cn-color-border);
+    margin-bottom: s.$cn-space-5;
+  }
+
+  .mat-step-header .mat-step-icon {
+    background-color: var(--cn-color-border-strong);
+  }
+
+  .mat-step-header .mat-step-icon-selected,
+  .mat-step-header .mat-step-icon-state-done,
+  .mat-step-header .mat-step-icon-state-edit {
+    background-color: var(--cn-color-primary);
+  }
+
+  .mat-step-header .mat-step-label.mat-step-label-active {
+    color: var(--cn-color-text);
+  }
+
+  .mat-horizontal-content-container {
+    padding: 0;
+  }
+
+  &__body {
+    min-height: 120px;
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: s.$cn-space-3;
+    margin-top: s.$cn-space-6;
+    padding-top: s.$cn-space-4;
+    border-top: 1px solid var(--cn-color-border);
+  }
+
+  &__spacer {
+    flex: 1 1 auto;
+  }
+}

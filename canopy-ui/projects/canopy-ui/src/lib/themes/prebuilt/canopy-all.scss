@@ -1,0 +1,3 @@
+// Prebuilt theme with every variant. This is what the showcase serves.
+@use '../theme' as canopy;
+@include canopy.theme();

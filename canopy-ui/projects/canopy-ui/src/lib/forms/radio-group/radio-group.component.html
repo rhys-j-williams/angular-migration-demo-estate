@@ -1,0 +1,12 @@
+<fieldset class="cn-radio-group__fieldset" [disabled]="disabled" [attr.aria-invalid]="!!errorText">
+  <legend class="cn-radio-group__legend" *ngIf="legend">{{ legend }}<span *ngIf="required" aria-hidden="true"> *</span></legend>
+  <mat-radio-group class="cn-radio-group__group" [name]="name" [value]="value" [disabled]="disabled" [required]="required"
+                   color="primary" (change)="onMatChange($event)">
+    <mat-radio-button *ngFor="let option of options" class="cn-radio-group__option" [value]="option.value"
+                      [disabled]="option.disabled">
+      <span class="cn-radio-group__label">{{ option.label }}</span>
+      <span class="cn-radio-group__description" *ngIf="option.description">{{ option.description }}</span>
+    </mat-radio-button>
+  </mat-radio-group>
+  <p class="cn-radio-group__error" *ngIf="errorText" role="alert">{{ errorText }}</p>
+</fieldset>

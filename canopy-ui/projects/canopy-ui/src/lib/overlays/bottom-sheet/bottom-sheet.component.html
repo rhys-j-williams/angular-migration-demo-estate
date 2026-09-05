@@ -1,0 +1,8 @@
+<div class="cn-bottom-sheet__handle" aria-hidden="true"></div>
+<div class="cn-bottom-sheet__header" *ngIf="title || showClose">
+  <h2 class="cn-bottom-sheet__title" *ngIf="title">{{ title }}</h2>
+  <button *ngIf="showClose" mat-icon-button type="button" aria-label="Close" (click)="close()">
+    <mat-icon svgIcon="cn:close" aria-hidden="true"></mat-icon>
+  </button>
+</div>
+<div class="cn-bottom-sheet__content"><ng-content></ng-content></div>

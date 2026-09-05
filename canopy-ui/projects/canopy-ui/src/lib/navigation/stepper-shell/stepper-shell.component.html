@@ -1,0 +1,17 @@
+<mat-stepper class="cn-stepper-shell__stepper" [orientation]="compact ? 'vertical' : 'horizontal'" [linear]="linear"
+             labelPosition="bottom" (selectionChange)="onSelectionChange($event)">
+  <mat-step *ngFor="let step of steps; let i = index" [label]="step.label" [optional]="step.optional" [editable]="step.editable"
+            [completed]="!step.control || step.control.valid">
+    <div class="cn-stepper-shell__body">
+      <ng-container *ngTemplateOutlet="step.template"></ng-container>
+    </div>
+    <div class="cn-stepper-shell__actions">
+      <button mat-button type="button" *ngIf="i === 0" (click)="cancelled.emit()">Cancel</button>
+      <button mat-stroked-button type="button" *ngIf="i > 0" [disabled]="busy" (click)="back()">{{ backLabel }}</button>
+      <span class="cn-stepper-shell__spacer"></span>
+      <button mat-flat-button color="primary" type="button" [disabled]="busy" (click)="next()">
+        {{ isLast ? finishLabel : continueLabel }}
+      </button>
+    </div>
+  </mat-step>
+</mat-stepper>

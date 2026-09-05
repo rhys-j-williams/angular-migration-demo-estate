@@ -1,0 +1,65 @@
+@use '../../tokens/spacing' as s;
+
+.cn-filter-chips {
+  display: block;
+
+  .mat-chip-list-wrapper {
+    gap: s.$cn-space-2;
+    margin: 0;
+    align-items: center;
+  }
+
+  .mat-chip.mat-standard-chip {
+    margin: 0;
+    min-height: 32px;
+    border-radius: 16px;
+    background: var(--cn-color-surface);
+    border: 1px solid var(--cn-color-border-strong);
+    color: var(--cn-color-text);
+    font-weight: 500;
+    font-size: 13px;
+
+    &:focus-visible::after { opacity: 0; }
+    &.cdk-keyboard-focused {
+      outline: var(--cn-focus-ring, #{s.$cn-focus-ring-width} solid #2f7bd1);
+      outline-offset: 1px;
+    }
+  }
+
+  .mat-chip.mat-standard-chip.mat-chip-selected {
+    background: var(--cn-color-primary);
+    border-color: var(--cn-color-primary);
+    color: var(--cn-color-primary-contrast);
+
+    .cn-filter-chips__count {
+      background: rgba(255, 255, 255, 0.22);
+      color: inherit;
+    }
+  }
+
+  .mat-chip .mat-chip-avatar.mat-icon {
+    width: 18px;
+    height: 18px;
+    font-size: 18px;
+    margin-left: s.$cn-space-1;
+  }
+
+  &__count {
+    margin-left: s.$cn-space-2;
+    padding: 0 s.$cn-space-2;
+    border-radius: 10px;
+    background: var(--cn-color-surface-alt);
+    color: var(--cn-color-text-muted);
+    font-size: 12px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  &__clear.mat-button {
+    min-height: 32px;
+    line-height: 32px;
+    font-size: 13px;
+    color: var(--cn-color-text-muted);
+
+    .mat-icon { width: 16px; height: 16px; font-size: 16px; }
+  }
+}
