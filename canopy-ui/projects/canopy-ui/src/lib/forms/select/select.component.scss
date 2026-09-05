@@ -1,0 +1,48 @@
+@use '../../tokens/spacing' as s;
+
+.cn-select {
+  display: block;
+
+  &__field {
+    width: 100%;
+  }
+}
+
+// Rendered in the overlay, so these cannot be scoped to the host.
+.mat-select-panel.cn-select-panel {
+  border-radius: var(--cn-radius-md, #{s.$cn-radius-md});
+  box-shadow: var(--cn-shadow-3);
+  background: var(--cn-color-surface);
+  max-height: 320px;
+
+  .mat-option {
+    height: auto;
+    min-height: var(--cn-control-height, #{s.$cn-control-height});
+    line-height: 1.3;
+    padding-top: s.$cn-space-2;
+    padding-bottom: s.$cn-space-2;
+    font-family: var(--cn-font-family);
+  }
+
+  .mat-option.mat-selected:not(.mat-option-multiple) {
+    background: var(--cn-color-surface-alt);
+  }
+
+  .mat-option .mat-option-text {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mat-optgroup-label {
+    color: var(--cn-color-text-muted);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .cn-select__option-description {
+    font-size: 12px;
+    color: var(--cn-color-text-muted);
+    font-variant-numeric: tabular-nums;
+  }
+}

@@ -1,0 +1,89 @@
+@use 'colors' as c;
+@use 'spacing' as s;
+@use 'typography' as t;
+
+// Emits the token set as custom properties so that runtime theme switching (CnThemeService) only
+// has to swap a class on <html>. Components read var(--cn-*) with the SCSS variable as fallback, so
+// consumers that never include the mixin still render.
+@mixin emit-light {
+  --cn-color-primary: #{c.$cn-color-primary};
+  --cn-color-primary-contrast: #{c.$cn-color-primary-contrast};
+  --cn-color-accent: #{c.$cn-color-accent};
+  --cn-color-accent-contrast: #{c.$cn-color-accent-contrast};
+  --cn-color-warn: #{c.$cn-color-warn};
+  --cn-color-success: #{c.$cn-color-success};
+  --cn-color-caution: #{c.$cn-color-caution};
+  --cn-color-info: #{c.$cn-color-info};
+  --cn-color-text: #{c.$cn-color-text};
+  --cn-color-text-muted: #{c.$cn-color-text-muted};
+  --cn-color-text-inverse: #{c.$cn-color-text-inverse};
+  --cn-color-surface: #{c.$cn-color-surface};
+  --cn-color-surface-alt: #{c.$cn-color-surface-alt};
+  --cn-color-border: #{c.$cn-color-border};
+  --cn-color-border-strong: #{c.$cn-color-border-strong};
+  --cn-color-focus: #{c.$cn-color-focus};
+
+  --cn-space-1: #{s.$cn-space-1};
+  --cn-space-2: #{s.$cn-space-2};
+  --cn-space-3: #{s.$cn-space-3};
+  --cn-space-4: #{s.$cn-space-4};
+  --cn-space-6: #{s.$cn-space-6};
+  --cn-space-8: #{s.$cn-space-8};
+  --cn-radius-sm: #{s.$cn-radius-sm};
+  --cn-radius-md: #{s.$cn-radius-md};
+  --cn-radius-lg: #{s.$cn-radius-lg};
+  --cn-shadow-1: #{s.$cn-shadow-1};
+  --cn-shadow-2: #{s.$cn-shadow-2};
+  --cn-shadow-3: #{s.$cn-shadow-3};
+  --cn-focus-ring: #{s.$cn-focus-ring-width} solid var(--cn-color-focus);
+  --cn-row-height: #{s.$cn-row-height-default};
+  --cn-control-height: #{s.$cn-control-height};
+
+  --cn-font-family: #{t.$cn-font-family};
+  --cn-font-family-mono: #{t.$cn-font-family-mono};
+}
+
+@mixin emit-dark {
+  --cn-color-primary: #{c.$cn-green-300};
+  --cn-color-primary-contrast: #{c.$cn-grey-900};
+  --cn-color-accent: #{c.$cn-blue-300};
+  --cn-color-accent-contrast: #{c.$cn-grey-900};
+  --cn-color-warn: #ef6b6b;
+  --cn-color-success: #{c.$cn-green-300};
+  --cn-color-caution: #e6b45a;
+  --cn-color-info: #{c.$cn-blue-300};
+  --cn-color-text: #{c.$cn-grey-50};
+  --cn-color-text-muted: #{c.$cn-grey-400};
+  --cn-color-text-inverse: #{c.$cn-grey-900};
+  --cn-color-surface: #{c.$cn-grey-800};
+  --cn-color-surface-alt: #{c.$cn-grey-900};
+  --cn-color-border: #{c.$cn-grey-700};
+  --cn-color-border-strong: #{c.$cn-grey-500};
+  --cn-color-focus: #{c.$cn-blue-300};
+  --cn-shadow-1: none;
+  --cn-shadow-2: 0 0 0 1px #{c.$cn-grey-700};
+  --cn-shadow-3: 0 0 0 1px #{c.$cn-grey-600};
+}
+
+@mixin emit-high-contrast {
+  --cn-color-primary: #000000;
+  --cn-color-primary-contrast: #ffffff;
+  --cn-color-accent: #0000d6;
+  --cn-color-accent-contrast: #ffffff;
+  --cn-color-warn: #b00000;
+  --cn-color-success: #005c00;
+  --cn-color-caution: #6b4a00;
+  --cn-color-info: #0000d6;
+  --cn-color-text: #000000;
+  --cn-color-text-muted: #1f1f1f;
+  --cn-color-text-inverse: #ffffff;
+  --cn-color-surface: #ffffff;
+  --cn-color-surface-alt: #ffffff;
+  --cn-color-border: #000000;
+  --cn-color-border-strong: #000000;
+  --cn-color-focus: #ff8c00;
+  --cn-shadow-1: none;
+  --cn-shadow-2: none;
+  --cn-shadow-3: 0 0 0 2px #000000;
+  --cn-focus-ring: 4px solid var(--cn-color-focus);
+}
