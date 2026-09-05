@@ -1,0 +1,9 @@
+# Same list as retail-web (MOL-3310). The widget runs inside their page, so there is no point
+# supporting anything they do not.
+last 2 Chrome versions
+last 2 Firefox versions
+last 2 Edge major versions
+last 2 Safari major versions
+last 2 iOS major versions
+Firefox ESR
+not dead

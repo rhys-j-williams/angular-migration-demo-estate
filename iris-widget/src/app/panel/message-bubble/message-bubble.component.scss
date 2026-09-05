@@ -1,0 +1,77 @@
+.iris-bubble {
+  max-width: 85%;
+  padding: var(--cn-space-2) var(--cn-space-3);
+  border-radius: var(--cn-radius-md);
+  background: var(--cn-color-surface);
+  border: 1px solid var(--cn-color-border);
+  align-self: flex-start;
+}
+
+.iris-bubble--customer {
+  align-self: flex-end;
+  background: var(--cn-color-primary);
+  border-color: var(--cn-color-primary);
+  color: var(--cn-color-primary-contrast);
+}
+
+.iris-bubble--system {
+  align-self: center;
+  max-width: 100%;
+  background: transparent;
+  border-style: dashed;
+  color: var(--cn-color-text-muted);
+  font-size: 13px;
+}
+
+.iris-bubble--failed {
+  border-color: var(--cn-color-warn);
+}
+
+.iris-bubble__who {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  opacity: 0.8;
+}
+
+.iris-bubble__text {
+  margin: var(--cn-space-1) 0 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.iris-bubble__data {
+  margin: var(--cn-space-2) 0 0;
+  padding-left: var(--cn-space-4);
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+
+.iris-bubble__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--cn-space-2);
+  margin-top: var(--cn-space-1);
+  font-size: 11px;
+  opacity: 0.75;
+}
+
+.iris-bubble__retry {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--cn-color-warn);
+  cursor: pointer;
+  text-decoration: underline;
+
+  mat-icon {
+    width: 14px;
+    height: 14px;
+  }
+}

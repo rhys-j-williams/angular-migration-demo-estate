@@ -1,0 +1,37 @@
+<section id="iris-panel" class="iris-panel" role="dialog" aria-modal="false" aria-labelledby="iris-panel-title">
+  <header class="iris-panel__header">
+    <mat-icon class="iris-panel__logo" svgIcon="cn:help" aria-hidden="true"></mat-icon>
+    <div class="iris-panel__titles">
+      <h2 id="iris-panel-title" class="iris-panel__title">Iris</h2>
+      <p class="iris-panel__subtitle">Virtual assistant</p>
+    </div>
+    <cn-icon-button icon="cn:download" ariaLabel="Save transcript" tooltip="Save transcript" (pressed)="export()"></cn-icon-button>
+    <cn-icon-button icon="cn:close" ariaLabel="Close" (pressed)="closed.emit()"></cn-icon-button>
+  </header>
+
+  <iris-disclosure-notice *ngIf="disclosure$ | async as disclosure" [text]="disclosure"></iris-disclosure-notice>
+
+  <iris-message-list
+    class="iris-panel__body"
+    [messages]="(messages$ | async) ?? []"
+    (retry)="session.retry($event)"></iris-message-list>
+
+  <iris-typing-indicator *ngIf="typing$ | async"></iris-typing-indicator>
+
+  <iris-handoff-banner *ngIf="(handoff$ | async)?.active" [handoff]="(handoff$ | async)!"></iris-handoff-banner>
+
+  <iris-quick-replies
+    *ngIf="(typing$ | async) === false && (ended$ | async) === false"
+    [replies]="(quickReplies$ | async) ?? []"
+    (picked)="session.quickReply($event)"></iris-quick-replies>
+
+  <footer class="iris-panel__footer">
+    <ng-container *ngIf="ended$ | async; else composer">
+      <p class="iris-panel__ended">This conversation has ended.</p>
+      <cn-button variant="secondary" size="small" (pressed)="startOver()">Start a new conversation</cn-button>
+    </ng-container>
+    <ng-template #composer>
+      <iris-composer [disabled]="(typing$ | async) === true" (submitted)="session.send($event)"></iris-composer>
+    </ng-template>
+  </footer>
+</section>

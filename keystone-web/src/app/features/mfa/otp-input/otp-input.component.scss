@@ -1,0 +1,22 @@
+@use 'tokens' as t;
+
+.ks-otp {
+  display: flex;
+  gap: t.$ks-space-2;
+  justify-content: space-between;
+}
+
+.ks-otp__field {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.ks-otp__box {
+  font-size: 24px;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+
+.ks-otp--invalid .ks-otp__box {
+  color: t.$ks-danger;
+}
