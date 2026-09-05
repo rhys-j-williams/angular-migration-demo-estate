@@ -174,6 +174,14 @@ Final verification pass (2026-09-05, `scripts/verify-estate.sh`): 108 PASS, 0 FA
   (mocks, Verdaccio, Redpanda, Redis, Artemis) plus the 13 services in ~4 minutes; `smoke.sh`
   passes 20/20 in both Docker and `ESTATE_NO_DOCKER=1` modes.
 
+Release PR #6 (`develop` -> `main`) conflicted because PRs #1-#5 merged the child sessions' WIP
+snapshot branches (`spike/PLAT-0-platform-services-wip`, `feature/CNPY-2140-design-system-build`,
+`wip/platform-tooling`, `feature/LNTN-401-...`, `feature/PLAT-2244-...`) straight into `main`.
+Those snapshots predate the replayed history and the integration fixes above (47 conflicting files,
+plus 22 Canopy specs that the finished library deliberately does not carry). `main` was merged into
+`develop` with the `ours` strategy: the tree is exactly the verified `develop` tree, `main` becomes an
+ancestor, and the release PR fast-forwards. Nothing from the snapshots was carried over.
+
 Known caveats:
 
 - `groovyc` and `helm` are not installed, so those two platform-tooling checks SKIP.
