@@ -1,0 +1,21 @@
+<ng-template #content>
+  <mat-spinner *ngIf="loading" class="cn-button__spinner" diameter="18" strokeWidth="2" aria-hidden="true"></mat-spinner>
+  <mat-icon *ngIf="icon && !loading && iconPosition === 'start'" class="cn-button__icon cn-button__icon--start"
+            [svgIcon]="isSvgIcon ? icon : ''" aria-hidden="true">{{ isSvgIcon ? '' : icon }}</mat-icon>
+  <span class="cn-button__label"><ng-content></ng-content></span>
+  <mat-icon *ngIf="icon && !loading && iconPosition === 'end'" class="cn-button__icon cn-button__icon--end"
+            [svgIcon]="isSvgIcon ? icon : ''" aria-hidden="true">{{ isSvgIcon ? '' : icon }}</mat-icon>
+</ng-template>
+
+<button *ngIf="isFlat" mat-flat-button [color]="color" [type]="type" [disabled]="disabled || loading"
+        [attr.aria-label]="ariaLabel" [attr.aria-busy]="loading || null" (click)="onClick($event)">
+  <ng-container *ngTemplateOutlet="content"></ng-container>
+</button>
+<button *ngIf="isStroked" mat-stroked-button [type]="type" [disabled]="disabled || loading"
+        [attr.aria-label]="ariaLabel" [attr.aria-busy]="loading || null" (click)="onClick($event)">
+  <ng-container *ngTemplateOutlet="content"></ng-container>
+</button>
+<button *ngIf="!isFlat && !isStroked" mat-button [type]="type" [disabled]="disabled || loading"
+        [attr.aria-label]="ariaLabel" [attr.aria-busy]="loading || null" (click)="onClick($event)">
+  <ng-container *ngTemplateOutlet="content"></ng-container>
+</button>

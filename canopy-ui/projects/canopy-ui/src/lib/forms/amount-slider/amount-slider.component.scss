@@ -1,0 +1,53 @@
+@use '../../tokens/spacing' as s;
+
+.cn-amount-slider {
+  display: block;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: s.$cn-space-1;
+  }
+
+  &__label {
+    font-weight: 600;
+  }
+
+  &__value {
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+    color: var(--cn-color-primary);
+  }
+
+  &__slider.mat-slider {
+    width: 100%;
+    padding: s.$cn-space-2 0;
+  }
+
+  .mat-slider-thumb {
+    width: 24px;
+    height: 24px;
+    right: -12px;
+    bottom: -12px;
+    border-width: 2px;
+    background-color: var(--cn-color-primary);
+    border-color: var(--cn-color-primary);
+  }
+
+  .mat-slider-thumb-label {
+    background-color: var(--cn-color-primary);
+  }
+
+  .mat-slider-track-fill {
+    background-color: var(--cn-color-primary);
+  }
+
+  &__bounds {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--cn-color-text-muted);
+    font-variant-numeric: tabular-nums;
+  }
+}

@@ -1,0 +1,12 @@
+.cn-masked-input {
+  display: block;
+
+  &__field {
+    width: 100%;
+  }
+
+  input {
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.02em;
+  }
+}

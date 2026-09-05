@@ -1,0 +1,5 @@
+{
+  "lib": {
+    "entryFile": "../src/lib/data-display/public-api.ts"
+  }
+}
