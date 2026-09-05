@@ -1,0 +1,19 @@
+<cn-page-header title="Bill pay" i18n-title="@@billPay.billPayHome.title" lede="Bills due in the next 30 days. eBills update automatically." i18n-lede="@@billPay.billPayHome.lede"></cn-page-header>
+
+<div class="mol-page" fxLayout="column" fxLayoutGap="16px">
+  <mol-error-banner [error]="error$ | async" (retry)="reload()"></mol-error-banner>
+
+  <mol-page-section title="Due soon" i18n-title="@@billPay.billPayHome.section">
+    <ng-container *ngIf="loading$ | async; else table">
+      <mol-loading-panel [rows]="6"></mol-loading-panel>
+    </ng-container>
+    <ng-template #table>
+      <cn-data-table *ngIf="(rows$ | async)?.length; else empty" [columns]="columns" [rows]="(rows$ | async) ?? []"
+        caption="Bill pay" i18n-caption="@@billPay.billPayHome.caption" [pageSize]="25" [showPaginator]="true" (rowClick)="open($event)"></cn-data-table>
+    </ng-template>
+    <ng-template #empty>
+      <mol-empty-state icon="receipt_long" title="No bills due" i18n-title="@@billPay.billPayHome.empty"
+        body="Add a payee to start paying bills from Meridian Online." i18n-body="@@billPay.billPayHome.emptyBody"></mol-empty-state>
+    </ng-template>
+  </mol-page-section>
+</div>

@@ -1,0 +1,18 @@
+<cn-page-header title="Autopay" i18n-title="@@billPay.autopaySettings.title" lede="We pay the amount due on the due date. You can cancel a scheduled autopay up to the business day before." i18n-lede="@@billPay.autopaySettings.lede" [backLink]="'/bill-pay'"></cn-page-header>
+
+<form class="mol-page mol-form" [formGroup]="form" (ngSubmit)="submit()" novalidate fxLayout="column" fxLayoutGap="16px">
+  <cn-error-summary [form]="form" *ngIf="submitted && form.invalid"></cn-error-summary>
+  <mol-error-banner [error]="error" [showRetry]="false"></mol-error-banner>
+
+  <cn-card [padded]="true">
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="16px">
+      <cn-toggle formControlName="enabled" ><span i18n="@@billPay.autopay.enabled">Pay this bill automatically</span></cn-toggle>
+      <cn-select formControlName="fromAccountId" i18n-label="@@billPay.autopay.from" label="Pay from" [options]="fromAccountIdOptions" [required]="false" fxFlex></cn-select>
+    </div>
+  </cn-card>
+
+  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="8px" fxLayoutAlign="end">
+    <cn-button variant="tertiary" type="button" (pressed)="cancel()" i18n="@@action.cancel">Cancel</cn-button>
+    <cn-button variant="primary" type="submit" [loading]="saving" i18n="@@billPay.autopaySettings.submit">Save autopay</cn-button>
+  </div>
+</form>

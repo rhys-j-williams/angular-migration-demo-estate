@@ -1,0 +1,28 @@
+<cn-page-header title="Sign-in activity" i18n-title="@@profile.activity.title" lede="The last 30 days of sign-ins to Meridian Online and the mobile app." i18n-lede="@@profile.activity.lede" backLink="/profile/security" backLabel="Security"></cn-page-header>
+
+<div class="mol-page" fxLayout="column" fxLayoutGap="16px">
+  <ng-container *ngIf="history$ | async as list; else loading">
+    <mol-error-banner *ngIf="failures(list) >= 3" [error]="{ kind: 'unknown', status: 0, title: 'There have been ' + failures(list) + ' failed sign-in attempts recently.', detail: 'If this was not you, change your password and remove any trusted devices you do not recognise.', retryable: false, url: '', method: '' }" [showRetry]="false"></mol-error-banner>
+    <table class="mol-table" *ngIf="list.length; else empty">
+      <caption class="cdk-visually-hidden" i18n="@@profile.activity.caption">Sign-in history</caption>
+      <thead>
+        <tr>
+          <th scope="col" i18n="@@profile.activity.when">When</th>
+          <th scope="col" i18n="@@profile.activity.outcome">Outcome</th>
+          <th scope="col" i18n="@@profile.activity.where">Where</th>
+          <th scope="col" i18n="@@profile.activity.device">Device</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let l of list">
+          <td>{{ l.at | date:'medium' }}</td>
+          <td><cn-badge [tone]="tone(l.outcome)" size="small">{{ label(l.outcome) }}</cn-badge></td>
+          <td>{{ l.city }}</td>
+          <td>{{ l.deviceLabel }} <span class="mol-muted">({{ l.channel }})</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </ng-container>
+  <ng-template #loading><mol-loading-panel [rows]="6"></mol-loading-panel></ng-template>
+  <ng-template #empty><mol-empty-state icon="history" title="No sign-ins recorded" i18n-title="@@profile.activity.empty"></mol-empty-state></ng-template>
+</div>

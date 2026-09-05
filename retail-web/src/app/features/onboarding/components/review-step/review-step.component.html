@@ -1,0 +1,8 @@
+<cn-page-header title="Review and submit" i18n-title="@@onboarding.reviewStep.title" [backLink]="'/open-account/funding'"></cn-page-header>
+
+<div class="mol-page mol-prose" fxLayout="column" fxLayoutGap="12px">
+  <p i18n="@@onboarding.reviewStep.p1">Check everything below. By submitting you agree to the Deposit Account Agreement, the Electronic Communications Consent and our Privacy Notice.</p>
+  <p i18n="@@onboarding.reviewStep.p2">We will email you a decision, usually within a few minutes. Some applications need a manual review, which can take up to 2 business days.</p>
+  <cn-disclosure key="deposit-account-agreement" tone="boxed" [collapsible]="true"></cn-disclosure>
+  <cn-button variant="primary" routerLink="/open-account" i18n="@@onboarding.reviewStep.submit">Submit application</cn-button>
+</div>

@@ -1,0 +1,31 @@
+<cn-page-header title="Cards" i18n-title="@@cards.list.title" lede="Lock a card in a tap if you cannot find it. Locked cards still allow recurring payments you already set up." i18n-lede="@@cards.list.lede"></cn-page-header>
+
+<div class="mol-page" fxLayout="column" fxLayoutGap="16px">
+  <mol-error-banner [error]="error$ | async" (retry)="retry()"></mol-error-banner>
+  <ng-container *ngIf="cards$ | async as cards">
+    <mol-loading-panel *ngIf="(loading$ | async) && !cards.length" [rows]="3"></mol-loading-panel>
+
+    <div fxLayout="row wrap" fxLayout.lt-md="column" fxLayoutGap="16px grid">
+      <cn-card *ngFor="let card of cards; trackBy: trackById" fxFlex="50" fxFlex.lt-md="100" [padded]="true" [highlight]="card.status === 'active'">
+        <div fxLayout="row" fxLayoutAlign="space-between start" fxLayoutGap="12px">
+          <div fxLayout="column" fxLayoutGap="4px">
+            <span class="mol-card__network">{{ card.network === 'meridian-credit' ? 'Meridian Rewards Credit' : 'Meridian Everyday Debit' }}</span>
+            <span class="mol-card__number">&bull;&bull;&bull;&bull; {{ last4(card) }}</span>
+            <span class="mol-muted mol-small" i18n="@@cards.list.expires">Expires {{ card.expiryMonth | number:'2.0-0' }}/{{ card.expiryYear % 100 }}</span>
+            <span *ngIf="card.travelNoticeUntil" class="mol-muted mol-small" i18n="@@cards.list.travel">Travel notice until {{ card.travelNoticeUntil | date:'mediumDate' }}</span>
+          </div>
+          <cn-badge [tone]="statusTone(card.status)">{{ card.status | titlecase }}</cn-badge>
+        </div>
+        <div fxLayout="row" fxLayoutGap="8px" fxLayout.lt-md="column" class="mol-card__actions">
+          <cn-button variant="secondary" size="small" [routerLink]="[card.cardId]" i18n="@@cards.list.manage">Manage</cn-button>
+          <cn-button *ngIf="card.status === 'active' || card.status === 'locked'" [variant]="card.status === 'locked' ? 'primary' : 'tertiary'" size="small" [icon]="card.status === 'locked' ? 'lock_open' : 'lock'" (pressed)="toggleLock(card)">
+            <ng-container *ngIf="card.status === 'locked'" i18n="@@cards.list.unlock">Unlock</ng-container>
+            <ng-container *ngIf="card.status !== 'locked'" i18n="@@cards.list.lock">Lock</ng-container>
+          </cn-button>
+        </div>
+      </cn-card>
+    </div>
+
+    <mol-empty-state *ngIf="!cards.length && (loading$ | async) === false" icon="credit_card_off" title="No cards on this profile" i18n-title="@@cards.list.empty"></mol-empty-state>
+  </ng-container>
+</div>

@@ -1,0 +1,25 @@
+<cn-page-header title="Fund your account" i18n-title="@@onboarding.fundingStep.title" lede="Minimum opening deposit is $25. You can fund from another bank account or skip and fund later." i18n-lede="@@onboarding.fundingStep.lede" [backLink]="'/open-account/product'"></cn-page-header>
+
+<form class="mol-page mol-form" [formGroup]="form" (ngSubmit)="submit()" novalidate fxLayout="column" fxLayoutGap="16px">
+  <cn-error-summary [form]="form" *ngIf="submitted && form.invalid"></cn-error-summary>
+  <mol-error-banner [error]="error" [showRetry]="false"></mol-error-banner>
+
+  <cn-card [padded]="true">
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="16px">
+      <mat-form-field appearance="outline" fxFlex>
+        <mat-label i18n="@@onboarding.funding.amount">Opening deposit</mat-label>
+        <cn-currency-input formControlName="amountMinor" [min]="0"></cn-currency-input>
+        <mat-error *ngIf="form.get('amountMinor')?.hasError('required')" i18n="@@validation.amountRequired">Enter an amount</mat-error>
+      </mat-form-field>
+      <cn-masked-input formControlName="routingNumber" i18n-label="@@onboarding.funding.routing" label="Routing number" preset="routing" [required]="true" fxFlex></cn-masked-input>
+    </div>
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="16px">
+      <cn-masked-input formControlName="accountNumber" i18n-label="@@onboarding.funding.account" label="Account number" preset="account" [required]="true" fxFlex></cn-masked-input>
+    </div>
+  </cn-card>
+
+  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="8px" fxLayoutAlign="end">
+    <cn-button variant="tertiary" type="button" (pressed)="cancel()" i18n="@@action.cancel">Cancel</cn-button>
+    <cn-button variant="primary" type="submit" [loading]="saving" i18n="@@onboarding.fundingStep.submit">Continue to review</cn-button>
+  </div>
+</form>

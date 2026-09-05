@@ -1,0 +1,21 @@
+<cn-page-header title="Change username" i18n-title="@@profile.changeUsername.title" lede="Usernames are 8-30 characters, letters and numbers only, and can be changed once every 90 days." i18n-lede="@@profile.changeUsername.lede" [backLink]="'/profile/security'"></cn-page-header>
+
+<form class="mol-page mol-form" [formGroup]="form" (ngSubmit)="submit()" novalidate fxLayout="column" fxLayoutGap="16px">
+  <cn-error-summary [form]="form" *ngIf="submitted && form.invalid"></cn-error-summary>
+  <mol-error-banner [error]="error" [showRetry]="false"></mol-error-banner>
+
+  <cn-card [padded]="true">
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="16px">
+      <mat-form-field appearance="outline" fxFlex>
+        <mat-label i18n="@@profile.username.new">New username</mat-label>
+        <input matInput formControlName="username" molTrimOnBlur maxlength="30" autocomplete="username">
+        <mat-error *ngIf="form.get('username')?.hasError('required')" i18n="@@validation.required">This field is required</mat-error>
+      </mat-form-field>
+    </div>
+  </cn-card>
+
+  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="8px" fxLayoutAlign="end">
+    <cn-button variant="tertiary" type="button" (pressed)="cancel()" i18n="@@action.cancel">Cancel</cn-button>
+    <cn-button variant="primary" type="submit" [loading]="saving" i18n="@@profile.changeUsername.submit">Change username</cn-button>
+  </div>
+</form>
