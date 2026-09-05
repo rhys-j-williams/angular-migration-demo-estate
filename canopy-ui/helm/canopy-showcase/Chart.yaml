@@ -1,0 +1,9 @@
+apiVersion: v2
+name: canopy-showcase
+description: Canopy design system living style guide. Internal only.
+type: application
+version: 0.3.1
+appVersion: "3.7.2"
+maintainers:
+  - name: Canopy design system
+    email: canopy-design-system@meridian.internal

@@ -1,0 +1,20 @@
+<mat-form-field [appearance]="appearance" class="cn-autocomplete__field">
+  <mat-label *ngIf="label">{{ label }}</mat-label>
+  <input matInput type="text" [formControl]="query" [placeholder]="placeholder" [required]="required"
+         [matAutocomplete]="auto" autocomplete="off" (blur)="onBlur()" />
+  <mat-spinner *ngIf="searching" matSuffix diameter="18" strokeWidth="2" aria-hidden="true"></mat-spinner>
+  <mat-autocomplete #auto="matAutocomplete" class="cn-autocomplete__panel" [displayWith]="displayWith"
+                    (optionSelected)="onOptionSelected($event)">
+    <mat-option *ngFor="let option of options" [value]="option">
+      <span class="cn-autocomplete__label">{{ option.label }}</span>
+      <span class="cn-autocomplete__description" *ngIf="option.description">{{ option.description }}</span>
+    </mat-option>
+    <mat-option *ngIf="searched && !searching && options.length === 0" disabled class="cn-autocomplete__empty">
+      {{ noResultsText }}
+    </mat-option>
+  </mat-autocomplete>
+  <mat-hint *ngIf="hint">{{ hint }}</mat-hint>
+</mat-form-field>
+<span class="cdk-visually-hidden" aria-live="polite">
+  <ng-container *ngIf="searched && !searching">{{ options.length }} results available</ng-container>
+</span>

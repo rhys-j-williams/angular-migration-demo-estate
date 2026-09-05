@@ -1,0 +1,6 @@
+<mat-slide-toggle class="cn-toggle__control" color="primary" [checked]="checked" [disabled]="disabled"
+                  [labelPosition]="labelPosition" [attr.aria-label]="ariaLabel" (change)="onMatChange($event)">
+  <span class="cn-toggle__label"><ng-content></ng-content></span>
+  <span class="cn-toggle__hint" *ngIf="hint">{{ hint }}</span>
+</mat-slide-toggle>
+<span class="cn-toggle__state" *ngIf="stateText" aria-hidden="true">{{ stateText }}</span>

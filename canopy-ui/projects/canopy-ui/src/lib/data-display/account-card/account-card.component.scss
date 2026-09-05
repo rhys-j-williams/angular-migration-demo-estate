@@ -1,0 +1,129 @@
+@use '../../tokens/spacing' as s;
+
+.cn-account-card {
+  display: block;
+
+  &__card.mat-card {
+    padding: s.$cn-space-4 s.$cn-space-5;
+    border-radius: var(--cn-radius-lg, #{s.$cn-radius-lg});
+    box-shadow: var(--cn-shadow-1);
+    background: var(--cn-color-surface);
+    border-left: 4px solid var(--cn-color-primary);
+  }
+
+  &[data-cn-kind='credit'] &__card.mat-card,
+  &[data-cn-kind='loan'] &__card.mat-card {
+    border-left-color: var(--cn-color-accent);
+  }
+
+  &--clickable &__card.mat-card {
+    cursor: pointer;
+    transition: box-shadow 120ms ease;
+
+    &:hover { box-shadow: var(--cn-shadow-2); }
+    &:focus-visible {
+      outline: var(--cn-focus-ring, #{s.$cn-focus-ring-width} solid #2f7bd1);
+      outline-offset: s.$cn-focus-ring-offset;
+    }
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: s.$cn-space-3;
+  }
+
+  &__icon {
+    color: var(--cn-color-text-muted);
+    flex: none;
+  }
+
+  &__title {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  &__nickname {
+    font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__number {
+    font-size: 12px;
+    color: var(--cn-color-text-muted);
+    font-family: var(--cn-font-family-mono);
+  }
+
+  &__status {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 2px s.$cn-space-2;
+    border-radius: var(--cn-radius-sm, #{s.$cn-radius-sm});
+    background: var(--cn-color-surface-alt);
+    color: var(--cn-color-text-muted);
+
+    &[data-cn-status='frozen'] { background: var(--cn-color-caution); color: var(--cn-color-text); }
+    &[data-cn-status='closed'] { background: var(--cn-color-warn); color: var(--cn-color-text-inverse); }
+  }
+
+  &__balances {
+    display: flex;
+    gap: s.$cn-space-8;
+    margin-top: s.$cn-space-4;
+  }
+
+  &__balance {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__balance-label {
+    font-size: 12px;
+    color: var(--cn-color-text-muted);
+  }
+
+  &__balance-value {
+    font-size: 24px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.01em;
+  }
+
+  &__balance--secondary &__balance-value {
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  &--compact &__balance-value {
+    font-size: 18px;
+  }
+
+  &__footer {
+    margin-top: s.$cn-space-3;
+    display: flex;
+    flex-direction: column;
+    gap: s.$cn-space-2;
+  }
+
+  &__utilisation {
+    border-radius: 2px;
+  }
+
+  &__trend {
+    display: inline-flex;
+    align-items: center;
+    gap: s.$cn-space-1;
+    font-size: 12px;
+    color: var(--cn-color-text-muted);
+
+    .mat-icon { width: 16px; height: 16px; font-size: 16px; }
+    &[data-cn-trend='up'] { color: var(--cn-color-success); }
+    &[data-cn-trend='down'] { color: var(--cn-color-warn); }
+  }
+}

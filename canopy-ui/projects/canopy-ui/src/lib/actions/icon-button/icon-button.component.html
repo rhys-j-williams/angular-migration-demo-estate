@@ -1,0 +1,6 @@
+<button mat-icon-button [type]="type" [color]="color" [disabled]="disabled"
+        [attr.aria-label]="ariaLabel" [matTooltip]="tooltipText" matTooltipClass="cn-tooltip"
+        [matBadge]="showBadge ? badge : null" [matBadgeHidden]="!showBadge" [matBadgeColor]="badgeColor"
+        matBadgeSize="small" matBadgePosition="above after" (click)="onClick($event)">
+  <mat-icon [svgIcon]="isSvgIcon ? icon : ''" aria-hidden="true">{{ isSvgIcon ? '' : icon }}</mat-icon>
+</button>

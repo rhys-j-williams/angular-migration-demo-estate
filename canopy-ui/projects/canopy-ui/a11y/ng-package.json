@@ -1,0 +1,5 @@
+{
+  "lib": {
+    "entryFile": "../src/lib/a11y/public-api.ts"
+  }
+}

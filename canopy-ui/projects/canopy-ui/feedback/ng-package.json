@@ -1,0 +1,5 @@
+{
+  "lib": {
+    "entryFile": "../src/lib/feedback/public-api.ts"
+  }
+}

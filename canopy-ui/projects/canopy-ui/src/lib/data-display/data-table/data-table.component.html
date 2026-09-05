@@ -1,0 +1,54 @@
+<div class="cn-data-table__scroller" role="region" [attr.aria-label]="caption || null" tabindex="0">
+  <table mat-table [dataSource]="dataSource" matSort [trackBy]="trackBy" class="cn-data-table__table"
+         [attr.aria-busy]="loading || null" [attr.aria-rowcount]="resultCount">
+    <caption class="cdk-visually-hidden" *ngIf="caption">{{ caption }}</caption>
+
+    <ng-container matColumnDef="__select">
+      <th mat-header-cell *matHeaderCellDef class="cn-cell cn-cell--select">
+        <mat-checkbox *ngIf="multiSelect" color="primary" [checked]="allSelected" [indeterminate]="someSelected"
+                      aria-label="Select all rows" (change)="toggleAll()"></mat-checkbox>
+      </th>
+      <td mat-cell *matCellDef="let row" class="cn-cell cn-cell--select">
+        <mat-checkbox color="primary" [checked]="selection.isSelected(row)" aria-label="Select row"
+                      (click)="$event.stopPropagation()" (change)="toggleRow(row)"></mat-checkbox>
+      </td>
+    </ng-container>
+
+    <ng-container *ngFor="let column of columns" [matColumnDef]="column.key">
+      <th mat-header-cell *matHeaderCellDef [mat-sort-header]="column.key" [disabled]="column.sortable === false"
+          [class]="'cn-cell cn-cell--header cn-cell--align-' + (column.align || (isNumeric(column) ? 'end' : 'start'))"
+          [style.width]="column.width || null" [attr.aria-sort]="null">
+        {{ column.header }}
+      </th>
+      <td mat-cell *matCellDef="let row" [class]="cellClasses(row, column)">
+        <ng-container *ngIf="templateFor(column.key) as tpl; else builtIn">
+          <ng-container *ngTemplateOutlet="tpl; context: { $implicit: row, column: column }"></ng-container>
+        </ng-container>
+        <ng-template #builtIn>
+          <ng-container [ngSwitch]="column.type">
+            <ng-container *ngSwitchCase="'currency'">{{ numericValue(row, column) | currency:currencyFor(row, column):'symbol':'1.2-2':locale }}</ng-container>
+            <ng-container *ngSwitchCase="'date'">{{ dateValue(row, column) | date:'MM/dd/yyyy':undefined:locale }}</ng-container>
+            <ng-container *ngSwitchCase="'number'">{{ numericValue(row, column) | number:'1.0-2':locale }}</ng-container>
+            <span *ngSwitchCase="'status'" [class]="statusClass(cellValue(row, column))">{{ cellValue(row, column) }}</span>
+            <ng-container *ngSwitchDefault>{{ cellValue(row, column) }}</ng-container>
+          </ng-container>
+        </ng-template>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns" [class]="rowClasses(row)" tabindex="0"
+        [attr.aria-selected]="selectable ? selection.isSelected(row) : null"
+        (click)="onRowClick(row)" (keydown)="onRowKeydown($event, row)"></tr>
+
+    <tr class="mat-row cn-data-table__empty" *matNoDataRow>
+      <td class="mat-cell" [attr.colspan]="displayedColumns.length">
+        <ng-container *ngIf="loading; else emptyMsg">Loading…</ng-container>
+        <ng-template #emptyMsg>{{ emptyText }}</ng-template>
+      </td>
+    </tr>
+  </table>
+</div>
+<mat-progress-bar *ngIf="loading" mode="indeterminate" class="cn-data-table__progress" aria-label="Loading rows"></mat-progress-bar>
+<mat-paginator *ngIf="showPaginator" class="cn-data-table__paginator" [length]="resultCount" [pageSize]="pageSize"
+               [pageSizeOptions]="pageSizeOptions" showFirstLastButtons aria-label="Select page"></mat-paginator>

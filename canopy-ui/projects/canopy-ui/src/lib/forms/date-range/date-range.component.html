@@ -1,0 +1,22 @@
+<div class="cn-date-range__presets" *ngIf="showPresets" role="group" [attr.aria-label]="label + ' presets'">
+  <button *ngFor="let preset of presets" type="button" mat-stroked-button class="cn-date-range__preset"
+          [class.cn-date-range__preset--active]="preset.id === activePresetId" [disabled]="disabled"
+          [attr.aria-pressed]="preset.id === activePresetId" (click)="applyPreset(preset)">{{ preset.label }}</button>
+</div>
+<mat-form-field [appearance]="appearance" class="cn-date-range__field">
+  <mat-label>{{ label }}</mat-label>
+  <mat-date-range-input [formGroup]="form" [rangePicker]="picker" [min]="min" [max]="max" [disabled]="disabled">
+    <input matStartDate formControlName="start" placeholder="Start date" aria-label="Start date" />
+    <input matEndDate formControlName="end" placeholder="End date" aria-label="End date" />
+  </mat-date-range-input>
+  <button *ngIf="value.start || value.end" matSuffix mat-icon-button type="button" aria-label="Clear dates" (click)="clear()">
+    <mat-icon>close</mat-icon>
+  </button>
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-date-range-picker #picker (closed)="onClosed()"></mat-date-range-picker>
+  <mat-hint *ngIf="hint">{{ hint }}</mat-hint>
+  <mat-hint *ngIf="!hint">MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+  <mat-error *ngIf="form.controls.start.hasError('matStartDateInvalid')">Start date must be before end date</mat-error>
+  <mat-error *ngIf="form.controls.end.hasError('matEndDateInvalid')">End date must be after start date</mat-error>
+</mat-form-field>
+<span class="cdk-visually-hidden" aria-live="polite">{{ summary }}</span>

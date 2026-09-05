@@ -52,3 +52,28 @@ may not.
   package. If a consumer needs something Canopy does not expose, raise a CNPY ticket.
 - The API report under `docs/api` is regenerated on every build and committed. A pull request that
   changes it without a version bump will not pass review.
+- Every component ships with a spec, a showcase page under `projects/canopy-showcase` and a doc
+  block on the class. A pull request adding a component without all three is sent back.
+- Specs use `TestBed.inject`. `TestBed.get` is gone in 14 and the lint rule catches it anyway.
+- Two files are committed with CRLF line endings and are listed in `.gitattributes`. Do not
+  renormalise them; the diff noise in open branches is not worth it (CNPY-1104).
+
+## Versioning and support
+
+| Canopy | Angular | Status |
+|---|---|---|
+| 3.x | 14 | Current. Fixes and additive changes. |
+| 2.x | 8 to 11 | Frozen at 2.9.4. Security fixes only, and only for Meridian Business until MBZ-2210. |
+| 4.0 | 15 or later | Planned. See `docs/adr/0004-defer-material-15-migration.md`. Not started. |
+
+A framework major, a Material major or a change to any exported symbol's signature is a Canopy
+major. Adding a component, an input, an output or an entry point is a minor. Everything else is
+a patch. `npm run api:check` and the review are what enforce this; there is no automation that
+decides the bump for you.
+
+## Getting a change into Canopy from a consuming team
+
+Raise a `CNPY` ticket first and post it in `#canopy-consumers`. Small, additive changes from
+consumer teams are welcome as pull requests once the ticket is agreed. Bring the design team in
+before writing any CSS. Do not raise a pull request that changes the visual output of an existing
+component without a Figma link in the description.

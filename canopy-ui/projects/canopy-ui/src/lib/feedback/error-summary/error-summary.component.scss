@@ -1,0 +1,40 @@
+@use '../../tokens/spacing' as s;
+
+.cn-error-summary {
+  display: block;
+  padding: s.$cn-space-4 s.$cn-space-5;
+  border: 3px solid var(--cn-color-warn);
+  border-radius: var(--cn-radius-md, #{s.$cn-radius-md});
+  background: var(--cn-color-surface);
+  margin-bottom: s.$cn-space-6;
+
+  &:empty { display: none; }
+
+  &:focus-visible {
+    outline: var(--cn-focus-ring, #{s.$cn-focus-ring-width} solid #2f7bd1);
+    outline-offset: 2px;
+  }
+
+  &__title {
+    display: flex;
+    align-items: center;
+    gap: s.$cn-space-2;
+    margin: 0 0 s.$cn-space-3;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--cn-color-warn);
+  }
+
+  &__list {
+    margin: 0;
+    padding-left: s.$cn-space-6;
+  }
+
+  &__link {
+    color: var(--cn-color-warn);
+    font-weight: 600;
+    text-decoration: underline;
+
+    &:hover { text-decoration: none; }
+  }
+}

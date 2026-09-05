@@ -1,0 +1,52 @@
+<cn-tooltip-styles></cn-tooltip-styles>
+<a class="cn-page-shell__skip" href="#cn-main" cnSkipLink="cn-main">Skip to main content</a>
+
+<header class="cn-page-shell__topbar" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="12px">
+  <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
+    <button mat-icon-button type="button" class="cn-page-shell__menu-button" aria-label="Toggle navigation"
+            [attr.aria-expanded]="drawerOpen" (click)="toggleDrawer()">
+      <mat-icon svgIcon="cn:menu" aria-hidden="true"></mat-icon>
+    </button>
+    <span class="cn-page-shell__brand">{{ appName }}</span>
+    <span class="cn-page-shell__env" *ngIf="environmentLabel">{{ environmentLabel }}</span>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="4px">
+    <ng-content select="[cnShellToolbar]"></ng-content>
+    <cn-theme-toggle *ngIf="showThemeToggle"></cn-theme-toggle>
+    <span class="cn-page-shell__user" *ngIf="userName">{{ userName }}</span>
+    <button *ngIf="userName" mat-button type="button" class="cn-page-shell__signout" (click)="signOut.emit()">Sign out</button>
+  </div>
+</header>
+
+<div class="cn-page-shell__body" fxLayout="row" fxFlex="1 1 auto">
+  <nav class="cn-page-shell__nav" [class.cn-page-shell__nav--open]="drawerOpen" aria-label="Primary" fxFlex="0 0 auto">
+    <ul class="cn-page-shell__nav-list">
+      <li *ngFor="let item of nav">
+        <a class="cn-page-shell__nav-link" [routerLink]="item.link || null" routerLinkActive="cn-page-shell__nav-link--active"
+           [attr.aria-disabled]="item.disabled || null" [attr.title]="navCollapsed ? item.label : null" (click)="onNav(item)">
+          <mat-icon *ngIf="item.icon" [svgIcon]="isSvgIcon(item.icon) ? item.icon : ''" aria-hidden="true">{{ isSvgIcon(item.icon) ? '' : item.icon }}</mat-icon>
+          <span class="cn-page-shell__nav-label">{{ item.label }}</span>
+          <span class="cn-page-shell__nav-badge" *ngIf="item.badge">{{ item.badge }}</span>
+        </a>
+        <ul class="cn-page-shell__nav-list cn-page-shell__nav-list--nested" *ngIf="item.children?.length && !navCollapsed">
+          <li *ngFor="let child of item.children">
+            <a class="cn-page-shell__nav-link cn-page-shell__nav-link--child" [routerLink]="child.link || null"
+               routerLinkActive="cn-page-shell__nav-link--active" (click)="onNav(child)">
+              <span class="cn-page-shell__nav-label">{{ child.label }}</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <button mat-button type="button" class="cn-page-shell__collapse" (click)="toggleCollapsed()" [attr.aria-label]="navCollapsed ? 'Expand navigation' : 'Collapse navigation'">
+      <mat-icon svgIcon="cn:chevron-right" [class.cn-page-shell__collapse-icon--open]="!navCollapsed" aria-hidden="true"></mat-icon>
+      <span class="cn-page-shell__nav-label" *ngIf="!navCollapsed">Collapse</span>
+    </button>
+  </nav>
+  <div class="cn-page-shell__scrim" *ngIf="drawerOpen" (click)="toggleDrawer()" aria-hidden="true"></div>
+  <main id="cn-main" class="cn-page-shell__main" tabindex="-1" fxFlex="1 1 auto">
+    <div class="cn-page-shell__content" [style.max-width]="maxContentWidth">
+      <ng-content></ng-content>
+    </div>
+  </main>
+</div>

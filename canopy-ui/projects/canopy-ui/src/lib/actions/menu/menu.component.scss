@@ -1,0 +1,30 @@
+@use '../../tokens/spacing' as s;
+
+.cn-menu {
+  display: inline-block;
+}
+
+// The panel is rendered in the CDK overlay container, outside the host, so this has to be global.
+.mat-menu-panel.cn-menu__panel {
+  border-radius: var(--cn-radius-md, #{s.$cn-radius-md});
+  box-shadow: var(--cn-shadow-3);
+  background: var(--cn-color-surface);
+  min-width: 200px;
+
+  .mat-menu-item {
+    font-family: var(--cn-font-family);
+    color: var(--cn-color-text);
+    height: var(--cn-control-height, #{s.$cn-control-height});
+    line-height: var(--cn-control-height, #{s.$cn-control-height});
+  }
+
+  .mat-menu-item .mat-icon {
+    color: var(--cn-color-text-muted);
+    margin-right: s.$cn-space-3;
+  }
+
+  .cn-menu__item--destructive,
+  .cn-menu__item--destructive .mat-icon {
+    color: var(--cn-color-warn);
+  }
+}
