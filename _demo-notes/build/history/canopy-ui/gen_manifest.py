@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate canopy-ui/.history/manifest.json for _demo-notes/build/replay_history.py.
+"""Generate the canopy-ui history manifest (now kept at _demo-notes/build/history/canopy-ui/) for _demo-notes/build/replay_history.py.
 
 Estate construction tooling, not a bank artefact. Walks the finished canopy-ui tree and lays its
 files out over a 2021-2026 storyline: scaffold, tokens and theme, components landing ticket by
