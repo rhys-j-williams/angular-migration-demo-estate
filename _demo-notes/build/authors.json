@@ -1,0 +1,36 @@
+{
+  "note": "Fictional engineer roster used to replay synthetic history. Locations drive commit timestamps: an engineer in Chennai commits in IST working hours, one in Plano in CT.",
+  "sites": {
+    "charlotte": {"tz_offset": "-0400", "hours": [8, 19]},
+    "jersey_city": {"tz_offset": "-0400", "hours": [8, 19]},
+    "plano": {"tz_offset": "-0500", "hours": [8, 18]},
+    "chester": {"tz_offset": "+0100", "hours": [8, 18]},
+    "chennai": {"tz_offset": "+0530", "hours": [10, 21]}
+  },
+  "engineers": [
+    {"handle": "d.okafor",    "name": "Deborah Okafor",     "site": "charlotte",   "teams": ["retail-digital"]},
+    {"handle": "m.calderon",  "name": "Miguel Calderón",    "site": "charlotte",   "teams": ["retail-digital"]},
+    {"handle": "s.whitfield", "name": "Sarah Whitfield",    "site": "charlotte",   "teams": ["retail-digital", "canopy-design-system"]},
+    {"handle": "t.nakamura",  "name": "Tomoko Nakamura",    "site": "jersey_city", "teams": ["treasury-digital"]},
+    {"handle": "r.delacroix", "name": "Renée Delacroix",    "site": "jersey_city", "teams": ["treasury-digital"]},
+    {"handle": "j.hollins",   "name": "Jared Hollins",      "site": "jersey_city", "teams": ["payments-platform"]},
+    {"handle": "p.venkatesan","name": "Priya Venkatesan",   "site": "chennai",     "teams": ["payments-platform"]},
+    {"handle": "a.balaraman", "name": "Arun Balaraman",     "site": "chennai",     "teams": ["payments-platform", "platform-engineering"]},
+    {"handle": "k.subramani", "name": "Kavitha Subramani",  "site": "chennai",     "teams": ["business-digital"]},
+    {"handle": "n.rajaram",   "name": "Nithin Rajaram",     "site": "chennai",     "teams": ["business-digital"]},
+    {"handle": "g.mwangi",    "name": "Grace Mwangi",       "site": "chester",     "teams": ["identity-platform"]},
+    {"handle": "o.lindqvist", "name": "Oskar Lindqvist",    "site": "chester",     "teams": ["identity-platform"]},
+    {"handle": "b.arceneaux", "name": "Blake Arceneaux",    "site": "plano",       "teams": ["retail-digital"]},
+    {"handle": "l.fontaine",  "name": "Lucie Fontaine",     "site": "plano",       "teams": ["canopy-design-system"]},
+    {"handle": "h.eriksen",   "name": "Hanne Eriksen",      "site": "charlotte",   "teams": ["canopy-design-system"]},
+    {"handle": "c.mbeki",     "name": "Chidi Mbeki",        "site": "charlotte",   "teams": ["gis-appsec"]},
+    {"handle": "v.orlova",    "name": "Valeria Orlova",     "site": "jersey_city", "teams": ["gis-appsec"]},
+    {"handle": "e.castellanos","name": "Elena Castellanos", "site": "plano",       "teams": ["platform-engineering"]},
+    {"handle": "f.adeyemi",   "name": "Femi Adeyemi",       "site": "chester",     "teams": ["digital-analytics-enablement"]},
+    {"handle": "w.tanaka",    "name": "Wataru Tanaka",      "site": "plano",       "teams": ["cswt-architecture"]}
+  ],
+  "bots": [
+    {"handle": "meridian-dependency-bot", "name": "Meridian Dependency Bot", "site": "charlotte"}
+  ],
+  "email_domain": "meridian.internal"
+}
