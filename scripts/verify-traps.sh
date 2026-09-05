@@ -66,7 +66,7 @@ TRAPS=(
 "T36|keystone-web/src|legacy-|mixed MatLegacy and MDC"
 "T37|ledgerline-web/patches|canopy-ui|patch-package patch against Canopy"
 "T38|ledgerline-web/src|canopy-compat|local chips reimplementation"
-"T39|lantern-sdk/tsconfig.lib.prod.json|enableIvy|View Engine build"
+"T39|lantern-sdk/projects/lantern-sdk/tsconfig.lib.prod.json|enableIvy|View Engine build"
 "T40|retail-web/angular.json business-web/angular.json|build-angular:browser|Webpack browser builder"
 "T41|retail-web/ngsw-config.json|assetGroups|service worker pinned to the app"
 "T42|retail-web/src/locale|messages.es|dual i18n mechanisms"

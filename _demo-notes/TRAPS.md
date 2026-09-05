@@ -73,7 +73,7 @@ working.
 | T36 | `keystone-web/src/app/**`, `keystone-web/src/styles/_theme.scss` | `material/legacy-` | 17 removes legacy | Complete the half-finished MDC migration, retire `mat.all-legacy-component-themes`, screenshot every auth screen. This is the login page for the whole bank. |
 | T37 | `ledgerline-web/patches/` | `@meridian+canopy-ui` | every Canopy release | Retire the patch-package patch once Canopy publishes an Angular 16 compatible major. Until then every Canopy release reapplies it by hand. |
 | T38 | `ledgerline-web/src/app/canopy-compat/` | `canopy-compat` | Canopy upgrade | Delete the local `cn-filter-chips` reimplementation when Canopy ships MDC chips. Duplicated code the library upgrade should retire. |
-| T39 | `lantern-sdk/tsconfig.lib.prod.json`, `retail-web/package.json` | `enableIvy` / `ngcc` | 16 | ngcc is gone at 16. The wrapper must be republished in Ivy partial format, which means the Digital Analytics Enablement team and the vendor relationship, not the app team. Remove the `postinstall` only once that lands. |
+| T39 | `lantern-sdk/projects/lantern-sdk/tsconfig.lib.prod.json`, `retail-web/package.json` | `enableIvy` / `ngcc` | 16 | ngcc is gone at 16. The wrapper must be republished in Ivy partial format, which means the Digital Analytics Enablement team and the vendor relationship, not the app team. Remove the `postinstall` only once that lands. |
 
 ## Build, i18n and formatting, T40 to T43
 

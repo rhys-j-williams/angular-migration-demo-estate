@@ -38,9 +38,13 @@ grep_worktree() {
   grep -rInEi -f "${PATTERNS_FILE}" "${ROOT}" \
     --exclude-dir=.git \
     --exclude-dir=node_modules \
+    --exclude-dir=.angular \
     --exclude-dir=dist \
     --exclude-dir=coverage \
     --exclude-dir=target \
+    --exclude-dir=var \
+    --exclude-dir=.venvs \
+    --exclude='*.pdf' \
     --exclude=forbidden-strings.b64
 }
 
