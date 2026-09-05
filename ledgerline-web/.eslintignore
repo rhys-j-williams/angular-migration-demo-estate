@@ -1,0 +1,8 @@
+dist
+coverage
+.angular
+node_modules
+patches
+helm
+jest.config.ts
+cypress.config.ts
