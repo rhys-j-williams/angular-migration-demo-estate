@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { provideTestConfig } from '../../../../../testing/test-config';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -17,7 +19,7 @@ describe('ProfileHomeComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ProfileHomeComponent],
       imports: [SharedModule, HttpClientTestingModule, RouterTestingModule, NoopAnimationsModule],
-      providers: [provideMockStore({ initialState: { [sessionFeatureKey]: { profile: null } } })]
+      providers: [provideTestConfig(), provideMockStore({ initialState: { [sessionFeatureKey]: { profile: null } } })]
     }).compileComponents();
 
     fixture = TestBed.createComponent(ProfileHomeComponent);

@@ -23,19 +23,27 @@ describe('TransactionListComponent', () => {
     }).compileComponents();
 
     http = TestBed.inject(HttpTestingController);
+  });
+
+  // The debounce timer has to start inside the fakeAsync zone, so the fixture is created per test.
+  function create(): void {
     fixture = TestBed.createComponent(TransactionListComponent);
     fixture.componentInstance.accountId = 'acc-1';
     fixture.componentInstance.ngOnChanges({});
     fixture.detectChanges();
-  });
+  }
 
   afterEach(() => http.verify());
 
-  it('should create', () => {
+  it('should create', fakeAsync(() => {
+    create();
     expect(fixture.componentInstance).toBeTruthy();
-  });
+    tick(200);
+    http.expectOne(r => r.url.includes('/transactions')).flush({ items: [], page: 1, pageSize: 25, total: 0 });
+  }));
 
   it('requests posted transactions for the account, page 1', fakeAsync(() => {
+    create();
     tick(200);
     const req = http.expectOne(r => r.url.includes('/accounts/acc-1/transactions'));
     expect(req.request.params.get('page')).toBe('1');
@@ -44,6 +52,7 @@ describe('TransactionListComponent', () => {
   }));
 
   it('resets to the first page when filters change', fakeAsync(() => {
+    create();
     tick(200);
     http.expectOne(r => r.url.includes('/transactions')).flush({ items: [], page: 1, pageSize: 25, total: 60 });
     fixture.componentInstance.onPage({ pageIndex: 2, pageSize: 25, length: 60 });

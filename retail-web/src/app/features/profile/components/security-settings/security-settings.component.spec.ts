@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { provideTestConfig } from '../../../../../testing/test-config';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -15,7 +17,7 @@ describe('SecuritySettingsComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [SecuritySettingsComponent],
       imports: [SharedModule, HttpClientTestingModule, RouterTestingModule, NoopAnimationsModule],
-      providers: [{ provide: AuthService, useValue: { claims: { email: 'dana.k@example.com' }, logout: jasmine.createSpy('logout') } }]
+      providers: [provideTestConfig(), { provide: AuthService, useValue: { claims: { email: 'dana.k@example.com' }, logout: jasmine.createSpy('logout') } }]
     }).compileComponents();
 
     fixture = TestBed.createComponent(SecuritySettingsComponent);

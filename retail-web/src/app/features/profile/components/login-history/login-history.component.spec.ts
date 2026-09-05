@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { provideTestConfig } from '../../../../../testing/test-config';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -13,7 +15,7 @@ describe('LoginHistoryComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [LoginHistoryComponent],
       imports: [SharedModule, HttpClientTestingModule, RouterTestingModule, NoopAnimationsModule],
-      providers: []
+      providers: [provideTestConfig()]
     }).compileComponents();
 
     fixture = TestBed.createComponent(LoginHistoryComponent);
