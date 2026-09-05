@@ -14,7 +14,7 @@ import { NACHA_SERVICE_CLASS_CODES, NACHA_TRANSACTION_CODES } from '../nacha-for
 export const NACHA_FIXTURE_SEED = 'mbz-nacha-2019';
 export const NACHA_FIXTURE_ORIGIN = '1770000001';
 export const NACHA_FIXTURE_ODFI = TEST_ROUTING_NUMBER.substring(0, 8);
-export const NACHA_FIXTURE_COMPANY = 'HARBORLIGHT BAKERY';
+export const NACHA_FIXTURE_COMPANY = 'HARBORLIGHT LLC';
 
 export interface NachaFixtureOptions {
   seed?: string;
@@ -65,7 +65,8 @@ export function buildNachaFile(options: NachaFixtureOptions = {}): NachaFile {
         dfiAccountNumber: `${rng.int(100000, 999999)}${payee.accountNumberLastFour}`,
         amountMinor: rng.int(85000, 425000),
         individualIdentificationNumber: `EMP${String(payeeIndex).padStart(5, '0')}`,
-        individualName: payee.name.toUpperCase().substring(0, 22),
+        // 21 not 22: a full 22 character name trips W004 in the parser and ops treat it as a truncation.
+        individualName: payee.name.toUpperCase().substring(0, 21),
         discretionaryData: '  ',
         addendaRecordIndicator: options.withAddenda ? '1' : '0',
         traceNumber: `${NACHA_FIXTURE_ODFI}${traceSequence}`,

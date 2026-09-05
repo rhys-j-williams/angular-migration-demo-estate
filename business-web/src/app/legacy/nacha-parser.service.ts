@@ -587,11 +587,13 @@ export class NachaParserService {
       if (file.control.blockCount !== expectedBlocks) {
         issues.push(this.issue('E019', controlLine, 'blockCount', `control ${file.control.blockCount} expected ${expectedBlocks}`));
       }
+      // The file control is the sum of the batch controls as written, not of what we recomputed.
+      // A batch control that is wrong gets E016; the file control disagreeing with it is E020.
       const totals = {
-        count: _.sumBy(file.batches, b => b.computed.entryAddendaCount),
-        hash: _.sumBy(file.batches, b => b.computed.entryHash) % 10000000000,
-        debit: _.sumBy(file.batches, b => b.computed.totalDebitAmountMinor),
-        credit: _.sumBy(file.batches, b => b.computed.totalCreditAmountMinor)
+        count: _.sumBy(file.batches, b => b.control.entryAddendaCount),
+        hash: _.sumBy(file.batches, b => b.control.entryHash) % 10000000000,
+        debit: _.sumBy(file.batches, b => b.control.totalDebitAmountMinor),
+        credit: _.sumBy(file.batches, b => b.control.totalCreditAmountMinor)
       };
       if (file.control.entryAddendaCount !== totals.count || file.control.entryHash !== totals.hash
         || file.control.totalDebitAmountMinor !== totals.debit || file.control.totalCreditAmountMinor !== totals.credit) {

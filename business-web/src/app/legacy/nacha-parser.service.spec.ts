@@ -24,7 +24,7 @@ describe('NachaParserService', () => {
     const text = buildNachaText({ entries: 6, batches: 2, withAddenda: true });
     const lines = text.split('\r\n').filter(l => l.length > 0);
 
-    // Physical layout: header, 2 x (batch header + 6 entries + 6 addenda + control), file control, padding to 10.
+    // Physical layout: header, 2 x (batch header + 6 entries + 6 addenda + control), file control. Exactly 3 blocks, no padding.
     expect(lines.length % 10).toBe(0);
     expect(lines.length).toBe(30);
     expect(lines.every(l => l.length === NACHA_RECORD_LENGTH)).toBeTrue();
@@ -73,7 +73,7 @@ describe('NachaParserService', () => {
       totalDebitAmountMinor: 0,
       totalCreditAmountMinor: result.summary.totalCreditMinor
     });
-    expect(result.file.padLines).toBe(1);
+    expect(result.file.padLines).toBe(0);
 
     // Round trip. Serialising what we parsed must give back the exact input.
     expect(parser.serialize(result.file)).toBe(text);
@@ -116,7 +116,7 @@ describe('NachaParserService', () => {
 
     // No spurious structural complaints; the file is still well formed.
     ['E001', 'E002', 'E003', 'E004', 'E005', 'E006', 'E007', 'E008', 'E009', 'E010', 'E011', 'E012', 'E013', 'E014', 'E015', 'E017', 'E018', 'E019']
-      .forEach(code => expect(codes.some(c => c.indexOf(code) === 0)).toBeFalse(`did not expect ${code}`));
+      .forEach(code => expect(codes.some(c => c.indexOf(code) === 0)).withContext(`did not expect ${code}`).toBeFalse());
 
     // Issues are ordered by line, errors before warnings, and carry the lookup sheet message.
     for (let i = 1; i < result.issues.length; i++) {
