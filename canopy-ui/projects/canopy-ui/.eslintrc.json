@@ -1,0 +1,22 @@
+{
+  "extends": "../../.eslintrc.json",
+  "ignorePatterns": ["!**/*", "schematics/**/*.js", "schematics/**/*.d.ts"],
+  "overrides": [
+    {
+      "files": ["*.ts"],
+      "parserOptions": {
+        "project": ["projects/canopy-ui/tsconfig.lib.json", "projects/canopy-ui/tsconfig.spec.json", "projects/canopy-ui/schematics/tsconfig.schematics.json"],
+        "createDefaultProgram": true
+      },
+      "rules": {
+        "@angular-eslint/directive-selector": ["error", { "type": "attribute", "prefix": "cn", "style": "camelCase" }],
+        "@angular-eslint/component-selector": ["error", { "type": "element", "prefix": "cn", "style": "kebab-case" }],
+        "@angular-eslint/no-host-metadata-property": "off"
+      }
+    },
+    {
+      "files": ["*.html"],
+      "rules": {}
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+<button mat-icon-button class="cn-menu__trigger" type="button" [matMenuTriggerFor]="menu" [disabled]="disabled"
+        [attr.aria-label]="triggerLabel" (menuOpened)="opened.emit()" (menuClosed)="closed.emit()">
+  <mat-icon [svgIcon]="isSvgIcon(triggerIcon) ? triggerIcon : ''" aria-hidden="true">{{ isSvgIcon(triggerIcon) ? '' : triggerIcon }}</mat-icon>
+</button>
+<mat-menu #menu="matMenu" class="cn-menu__panel" [xPosition]="xPosition">
+  <ng-container *ngFor="let item of items">
+    <mat-divider *ngIf="item.dividerBefore"></mat-divider>
+    <button mat-menu-item type="button" [disabled]="item.disabled" [class.cn-menu__item--destructive]="item.destructive"
+            [attr.data-cn-menu-item]="item.id" (click)="select(item)">
+      <mat-icon *ngIf="item.icon" [svgIcon]="isSvgIcon(item.icon) ? item.icon : ''" aria-hidden="true">{{ isSvgIcon(item.icon) ? '' : item.icon }}</mat-icon>
+      <span>{{ item.label }}</span>
+    </button>
+  </ng-container>
+</mat-menu>
