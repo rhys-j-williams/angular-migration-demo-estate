@@ -37,9 +37,14 @@ export function createApp(deps: Deps = {}): Express {
   app.get('/health', (_req, res) => res.json({ status: 'UP', service: config.serviceName }));
   app.get('/health/ready', (_req, res) => res.json({ status: 'UP', objectStore: config.objectStoreRoot, authMode: config.authMode }));
 
-  app.use('/documents/v1', disclosuresRouter());
-  app.use('/documents/v1', requireJwt, statementsRouter(store, statements));
-  app.use('/documents/v1', requireJwt, taxRouter(store));
+  // /documents/v1 is the published contract. /api/v1 is what retail-web's proxy.conf and the
+  // estate smoke test still call; retail-web was written against the BFF prefix and nobody has
+  // moved it (MOL-2981). Both prefixes mount the same routers.
+  for (const prefix of ['/documents/v1', '/api/v1']) {
+    app.use(prefix, disclosuresRouter());
+    app.use(prefix, requireJwt, statementsRouter(store, statements));
+    app.use(prefix, requireJwt, taxRouter(store));
+  }
 
   app.use(errorHandler);
   return app;

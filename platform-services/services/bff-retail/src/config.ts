@@ -16,7 +16,7 @@ export const config = {
   authMode: env('MERIDIAN_AUTH_MODE', 'jwks') as AuthMode,
   keystoneIssuer: env('KEYSTONE_ISSUER', 'http://localhost:4400'),
   keystoneJwksUrl: env('KEYSTONE_JWKS_URL', 'http://localhost:4400/.well-known/jwks.json'),
-  keystoneAudience: env('KEYSTONE_AUDIENCE', 'meridian-retail'),
+  keystoneAudience: env('KEYSTONE_AUDIENCE', 'api://meridian-digital-channels'),
   redisUrl: env('REDIS_URL', 'redis://localhost:6379/0'),
   cacheTtlSeconds: Number(env('CACHE_TTL_SECONDS', '30')),
   bedrockAdapterUrl: env('BEDROCK_ADAPTER_URL', 'http://localhost:4516/bedrock/v1'),

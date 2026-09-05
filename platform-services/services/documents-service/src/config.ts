@@ -12,7 +12,7 @@ export const config = {
   keystoneIssuer: env('KEYSTONE_ISSUER', 'http://localhost:4400'),
   keystoneJwksUrl: env('KEYSTONE_JWKS_URL', 'http://localhost:4400/.well-known/jwks.json'),
   // Accepts both audiences: retail-web and business-web both download statements from here.
-  keystoneAudiences: env('KEYSTONE_AUDIENCES', 'meridian-retail,meridian-business').split(','),
+  keystoneAudiences: env('KEYSTONE_AUDIENCES', 'api://meridian-digital-channels,meridian-retail,meridian-business').split(','),
   statementsApiUrl: env('STATEMENTS_API_URL', 'http://127.0.0.1:4519'),
   bedrockAdapterUrl: env('BEDROCK_ADAPTER_URL', 'http://localhost:4516/bedrock/v1'),
   upstreamTimeoutMs: Number(env('UPSTREAM_TIMEOUT_MS', '8000')),

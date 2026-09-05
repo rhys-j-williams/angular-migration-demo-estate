@@ -37,7 +37,7 @@ async function verify(token: string): Promise<JWTPayload> {
 }
 
 export function toPrincipal(payload: JWTPayload): Principal {
-  const customerId = (payload['customer_id'] ?? payload['cid']) as string | undefined;
+  const customerId = (payload['customer_id'] ?? payload['cid'] ?? payload.sub) as string | undefined;
   if (!payload.sub || !customerId) {
     throw new ApiError(401, 'TOKEN_CLAIMS', 'token has no sub or customer_id claim');
   }

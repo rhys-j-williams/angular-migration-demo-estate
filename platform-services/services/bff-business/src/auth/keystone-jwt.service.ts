@@ -36,7 +36,9 @@ export class KeystoneJwtService {
   }
 
   toPrincipal(payload: JWTPayload): Principal {
-    const customerId = (payload['customer_id'] ?? payload['cid']) as string | undefined;
+    // Keystone puts the customer id in sub for customer principals; the explicit customer_id claim
+    // only appears on delegated (staff acting for customer) tokens, KEY-1702.
+    const customerId = (payload['customer_id'] ?? payload['cid'] ?? payload.sub) as string | undefined;
     if (!payload.sub || !customerId) {
       throw ApiException.unauthorised('TOKEN_CLAIMS', 'token has no sub or customer_id claim');
     }
@@ -45,7 +47,7 @@ export class KeystoneJwtService {
     return {
       subject: payload.sub,
       customerId,
-      segment: ((payload['segment'] as string | undefined) ?? 'consumer') as Principal['segment'],
+      segment: ((payload['meridian_segment'] ?? payload['segment'] ?? 'consumer') as string) as Principal['segment'],
       scopes,
       mfaAt: typeof payload['mfa_at'] === 'number' ? (payload['mfa_at'] as number) : undefined,
       sessionId: payload['sid'] as string | undefined,

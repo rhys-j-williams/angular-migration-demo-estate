@@ -46,13 +46,17 @@ export function statementsRouter(store: ObjectStore, statements: StatementsApiCl
 
   r.get('/statements/:accountId/:period.pdf', async (req, res, next) => {
     try {
-      const { accountId, period } = req.params;
-      if (!PERIOD.test(period)) {
-        throw new ApiError(400, 'PERIOD_FORMAT', 'period must be YYYY-MM');
+      const { accountId } = req.params;
+      let { period } = req.params;
+      if (period !== 'latest' && !PERIOD.test(period)) {
+        throw new ApiError(400, 'PERIOD_FORMAT', 'period must be YYYY-MM or latest');
       }
       if (!ownedAccounts(req.principal!.customerId).includes(accountId)) {
         // 404 not 403; do not confirm the account exists (GIS-1204)
         throw new ApiError(404, 'STATEMENT_NOT_FOUND', 'no such statement');
+      }
+      if (period === 'latest') {
+        period = await latestPeriod(accountId, store, statements);
       }
       const k = key(accountId, period);
       res.setHeader('Content-Type', 'application/pdf');
@@ -83,6 +87,24 @@ export function statementsRouter(store: ObjectStore, statements: StatementsApiCl
   });
 
   return r;
+}
+
+/** Newest period statements-api knows about; newest archived one if statements-api is down. */
+async function latestPeriod(accountId: string, store: ObjectStore, statements: StatementsApiClient): Promise<string> {
+  let periods: string[];
+  try {
+    periods = (await statements.periods(accountId)).map((p) => p.period);
+  } catch (err) {
+    if (!config.fixtureFallback) {
+      throw err;
+    }
+    periods = store.list(`statements/${accountId}/`).map((m) => m.key.split('/').pop()!.replace('.pdf', ''));
+  }
+  periods = periods.filter((p) => PERIOD.test(p)).sort();
+  if (periods.length === 0) {
+    throw new ApiError(404, 'STATEMENT_NOT_FOUND', 'no statements for this account');
+  }
+  return periods[periods.length - 1];
 }
 
 function key(accountId: string, period: string): string {

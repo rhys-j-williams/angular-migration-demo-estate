@@ -13,7 +13,7 @@ export const config = {
   keystoneIssuer: env('KEYSTONE_ISSUER', 'http://localhost:4400'),
   keystoneJwksUrl: env('KEYSTONE_JWKS_URL', 'http://localhost:4400/.well-known/jwks.json'),
   // Same audience as bff-retail: the widget reuses retail-web's token and we forward it on.
-  keystoneAudience: env('KEYSTONE_AUDIENCE', 'meridian-retail'),
+  keystoneAudience: env('KEYSTONE_AUDIENCE', 'api://meridian-digital-channels'),
   redisUrl: env('REDIS_URL', 'redis://localhost:6379/2'),
   cacheTtlSeconds: Number(env('SESSION_TTL_SECONDS', '1800')),
   bffRetailUrl: env('BFF_RETAIL_URL', 'http://localhost:4500/api/v1'),
