@@ -6,6 +6,7 @@ import { Directive, Input, TemplateRef } from '@angular/core';
  */
 @Directive({ selector: '[cnColumnDef]' })
 export class CnColumnDefDirective {
+  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('cnColumnDef') cnColumnDef = '';
 
   constructor(public readonly template: TemplateRef<unknown>) {}

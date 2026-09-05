@@ -5,14 +5,32 @@
     "entryFile": "src/public-api.ts"
   },
   "assets": [
-    { "input": "./src/lib/tokens", "glob": "**/*.scss", "output": "./tokens" },
-    { "input": "./src/lib/themes", "glob": "**/*.scss", "output": "./themes" },
-    { "input": "./src/lib/icons", "glob": "canopy-sprite.svg", "output": "./icons" },
+    {
+      "input": "./src/lib/tokens",
+      "glob": "**/*.scss",
+      "output": "./tokens"
+    },
+    {
+      "input": "./src/lib/themes",
+      "glob": "**/*.scss",
+      "output": "./themes"
+    },
+    {
+      "input": "./src/styles",
+      "glob": "**/*.scss",
+      "output": "./styles"
+    },
+    {
+      "input": "./src/lib/icons",
+      "glob": "canopy-sprite.svg",
+      "output": "./icons"
+    },
     "./schematics/collection.json",
     "./schematics/ng-add/schema.json",
     "./schematics/ng-add/index.js",
-    "./README.md",
-    "./CHANGELOG.md"
+    "./README.md"
   ],
-  "allowedNonPeerDependencies": ["tslib"]
+  "allowedNonPeerDependencies": [
+    "tslib"
+  ]
 }

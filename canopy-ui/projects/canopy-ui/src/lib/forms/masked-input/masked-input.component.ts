@@ -51,7 +51,7 @@ export class CnMaskedInputComponent implements ControlValueAccessor {
   }
 
   get inputMode(): string {
-    return /^[0-9() \-]*$/.test(this.activeMask) ? 'numeric' : 'text';
+    return /^[0-9() -]*$/.test(this.activeMask) ? 'numeric' : 'text';
   }
 
   writeValue(value: string | null): void {

@@ -3,7 +3,10 @@
   "version": 1,
   "cli": {
     "packageManager": "npm",
-    "analytics": false
+    "analytics": false,
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
   },
   "newProjectRoot": "projects",
   "projects": {
@@ -34,6 +37,15 @@
             "main": "projects/canopy-ui/src/test.ts",
             "tsConfig": "projects/canopy-ui/tsconfig.spec.json",
             "karmaConfig": "projects/canopy-ui/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/canopy-ui/**/*.ts",
+              "projects/canopy-ui/**/*.html"
+            ]
           }
         }
       }
@@ -148,6 +160,15 @@
               "projects/canopy-showcase/src/styles.scss"
             ],
             "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/canopy-showcase/**/*.ts",
+              "projects/canopy-showcase/**/*.html"
+            ]
           }
         }
       }

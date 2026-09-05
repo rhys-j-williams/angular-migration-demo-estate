@@ -33,6 +33,7 @@ function copyTree(from, to) {
 }
 
 copyTree(src, path.join(dist, 'schematics'));
+fs.copyFileSync(path.join(root, 'CHANGELOG.md'), path.join(dist, 'CHANGELOG.md'));
 
 let sha = 'unknown';
 try {
