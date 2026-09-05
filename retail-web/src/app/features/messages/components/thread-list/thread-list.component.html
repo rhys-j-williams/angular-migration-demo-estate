@@ -1,0 +1,19 @@
+<cn-page-header title="Secure messages" i18n-title="@@messages.threadList.title" lede="We reply within 1 business day. For anything urgent, call the number on the back of your card." i18n-lede="@@messages.threadList.lede"></cn-page-header>
+
+<div class="mol-page" fxLayout="column" fxLayoutGap="16px">
+  <mol-error-banner [error]="error$ | async" (retry)="reload()"></mol-error-banner>
+
+  <mol-page-section title="Conversations" i18n-title="@@messages.threadList.section">
+    <ng-container *ngIf="loading$ | async; else table">
+      <mol-loading-panel [rows]="6"></mol-loading-panel>
+    </ng-container>
+    <ng-template #table>
+      <cn-data-table *ngIf="(rows$ | async)?.length; else empty" [columns]="columns" [rows]="(rows$ | async) ?? []"
+        caption="Secure messages" i18n-caption="@@messages.threadList.caption" [pageSize]="25" [showPaginator]="true" (rowClick)="open($event)"></cn-data-table>
+    </ng-template>
+    <ng-template #empty>
+      <mol-empty-state icon="mail" title="No messages" i18n-title="@@messages.threadList.empty"
+        body="Start a conversation and we will get back to you within a business day." i18n-body="@@messages.threadList.emptyBody"></mol-empty-state>
+    </ng-template>
+  </mol-page-section>
+</div>

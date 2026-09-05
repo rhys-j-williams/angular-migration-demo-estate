@@ -1,0 +1,8 @@
+<cn-dialog-shell title="Lock this card?" i18n-title="@@cards.lockCard.title" [busy]="busy" [destructive]="false">
+  <p i18n="@@cards.lockCard.body">Locked cards decline new purchases and ATM withdrawals. Recurring payments you already set up still go through. Unlock any time.</p>
+  <mol-error-banner [error]="error" [showRetry]="false"></mol-error-banner>
+  <div cnDialogActions fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="end">
+    <cn-button variant="tertiary" (pressed)="ref.close(false)" i18n="@@action.cancel">Cancel</cn-button>
+    <cn-button variant="primary" [loading]="busy" (pressed)="confirm()" i18n="@@cards.lockCard.confirm">Lock card</cn-button>
+  </div>
+</cn-dialog-shell>

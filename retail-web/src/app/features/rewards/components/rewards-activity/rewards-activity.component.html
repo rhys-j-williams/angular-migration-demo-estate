@@ -1,0 +1,19 @@
+<cn-page-header title="Points activity" i18n-title="@@rewards.rewardsActivity.title" [backLink]="'/rewards'"></cn-page-header>
+
+<div class="mol-page" fxLayout="column" fxLayoutGap="16px">
+  <mol-error-banner [error]="error$ | async" (retry)="reload()"></mol-error-banner>
+
+  <mol-page-section title="Earned and redeemed" i18n-title="@@rewards.rewardsActivity.section">
+    <ng-container *ngIf="loading$ | async; else table">
+      <mol-loading-panel [rows]="6"></mol-loading-panel>
+    </ng-container>
+    <ng-template #table>
+      <cn-data-table *ngIf="(rows$ | async)?.length; else empty" [columns]="columns" [rows]="(rows$ | async) ?? []"
+        caption="Points activity" i18n-caption="@@rewards.rewardsActivity.caption" [pageSize]="25" [showPaginator]="true" (rowClick)="open($event)"></cn-data-table>
+    </ng-template>
+    <ng-template #empty>
+      <mol-empty-state icon="stars" title="No points activity yet" i18n-title="@@rewards.rewardsActivity.empty"
+        body="" i18n-body="@@rewards.rewardsActivity.emptyBody"></mol-empty-state>
+    </ng-template>
+  </mol-page-section>
+</div>

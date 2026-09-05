@@ -1,0 +1,274 @@
+{
+  "$comment": "Input to tools/scaffold-feature.js. Components marked hand:true have been rewritten by hand since generation; the scaffolder never overwrites an existing file without --force, so leave them be.",
+  "features": {
+    "dashboard": {
+      "description": "Landing page after sign-in. Tiles are independent so one failing BFF call does not blank the page (MOL-2760).",
+      "entity": "Account",
+      "idKey": "accountId",
+      "apiService": "AccountsApiService",
+      "apiFile": "accounts-api.service",
+      "apiMethod": "list",
+      "staleSeconds": 60,
+      "components": [
+        { "name": "dashboard-overview", "kind": "static", "route": "", "hand": true, "title": "Dashboard", "purpose": "Composes the dashboard tiles; owns the greeting and the tile layout." },
+        { "name": "accounts-summary", "kind": "widget", "title": "Your accounts", "link": "/accounts", "linkLabel": "All accounts", "limit": 4, "purpose": "Compact account list with balances for the dashboard.", "primary": "r.nickname", "secondary": "`****${r.accountNumber.slice(-4)}`", "meta": "`$${(r.availableBalanceMinor / 100).toFixed(2)}`", "emptyTitle": "No accounts to show" },
+        { "name": "recent-activity", "kind": "static", "hand": true, "title": "Recent activity", "purpose": "Last ten transactions across all accounts." },
+        { "name": "quick-transfer", "kind": "static", "hand": true, "title": "Quick transfer", "purpose": "One-step transfer between the customer's own accounts, under the MFA threshold only." },
+        { "name": "spending-snapshot", "kind": "static", "hand": true, "title": "Spending this month", "purpose": "Doughnut chart of spend by category for the current month." },
+        { "name": "upcoming-payments", "kind": "static", "hand": true, "title": "Coming up", "purpose": "Scheduled transfers and bills due in the next 14 days." },
+        { "name": "alerts-digest", "kind": "static", "hand": true, "title": "Alerts", "purpose": "Unread alerts since last sign-in." },
+        { "name": "promo-banner", "kind": "static", "title": "", "purpose": "Marketing slot fed by Semaphore flag mol.dashboard.promo; hidden when the flag is off.", "paragraphs": ["Earn 4.10% APY on a Meridian Reserve Savings account. Rates as of today; see disclosures for details."], "actions": [ { "id": "learnMore", "label": "Learn more", "link": "/open-account", "variant": "secondary" } ] }
+      ]
+    },
+    "accounts": {
+      "description": "Account list, detail and transaction history. The most-visited surface after the dashboard.",
+      "entity": "Account",
+      "idKey": "accountId",
+      "apiService": "AccountsApiService",
+      "apiFile": "accounts-api.service",
+      "apiMethod": "list",
+      "staleSeconds": 60,
+      "sortBy": "(a, b) => a.nickname.localeCompare(b.nickname)",
+      "components": [
+        { "name": "account-list", "kind": "list", "route": "", "title": "Accounts", "lede": "Balances refresh each time you open this page.", "sectionTitle": "Deposit and credit accounts", "rowLink": "/accounts", "emptyIcon": "account_balance", "emptyTitle": "You have no accounts with us yet", "purpose": "All accounts grouped by type with current and available balances.",
+          "columns": [ { "key": "nickname", "header": "Account" }, { "key": "type", "header": "Type" }, { "key": "availableBalanceMinor", "header": "Available", "type": "currency", "align": "end" }, { "key": "currentBalanceMinor", "header": "Current", "type": "currency", "align": "end" } ] },
+        { "name": "account-detail", "kind": "static", "route": ":accountId", "hand": true, "resolve": "details: AccountDetailsResolver", "title": "Account", "purpose": "Detail header with balances, routing details, actions and the transaction list." },
+        { "name": "transaction-list", "kind": "static", "hand": true, "title": "Transactions", "purpose": "Filterable, paged transaction list for one account. Used inside account detail." },
+        { "name": "transaction-detail", "kind": "static", "hand": true, "route": ":accountId/transactions/:transactionId", "title": "Transaction", "purpose": "Single transaction with merchant, status, running balance and dispute entry point." },
+        { "name": "transaction-filters", "kind": "static", "hand": true, "title": "Filters", "purpose": "Date range, category, amount and search filters for the transaction list." },
+        { "name": "account-actions-menu", "kind": "static", "hand": true, "title": "Actions", "purpose": "Transfer, statements, rename, paperless and routing details entry points for an account." },
+        { "name": "routing-details", "kind": "static", "hand": true, "title": "Account and routing numbers", "purpose": "Reveals routing and full account number for direct deposit forms." },
+        { "name": "rename-account", "kind": "dialog", "title": "Rename account", "body": "Nicknames only show in Meridian Online and the mobile app. Statements keep the product name.", "confirmLabel": "Save name", "dataFields": "accountId: string;\n  nickname: string;", "confirmCall": "this.api.rename(this.data.accountId, this.data.nickname)", "purpose": "Nickname editor dialog." },
+        { "name": "dispute-transaction", "kind": "form", "route": ":accountId/transactions/:transactionId/dispute", "deactivate": true, "backLink": "/accounts", "title": "Dispute a transaction", "lede": "We will credit your account while we investigate, usually within 2 business days.", "submitLabel": "Submit dispute", "successToast": "Dispute submitted. We will email you a reference within 24 hours.", "afterSubmit": "/accounts", "purpose": "Reg E dispute intake form.",
+          "fields": [ { "name": "reason", "label": "Reason", "type": "select", "required": true, "i18n": "accounts.dispute.reason", "options": [ { "value": "unauthorised", "label": "I did not make this purchase" }, { "value": "duplicate", "label": "I was charged twice" }, { "value": "amount", "label": "The amount is wrong" }, { "value": "not-received", "label": "I did not receive what I paid for" } ] }, { "name": "detail", "label": "Tell us what happened", "type": "textarea", "required": true, "maxLength": 1000, "i18n": "accounts.dispute.detail" } ],
+          "submitCall": "this.api.openDispute(this.router.url.split('/')[2], this.router.url.split('/')[4], this.form.value.reason ?? '', this.form.value.detail ?? '')" },
+        { "name": "export-transactions", "kind": "dialog", "title": "Download transactions", "body": "Downloads the transactions matching your current filters as a CSV file. Files open in most spreadsheet software.", "confirmLabel": "Download CSV", "dataFields": "accountId: string;\n  from?: string;\n  to?: string;", "confirmCall": "this.api.exportCsv({ accountId: this.data.accountId, from: this.data.from, to: this.data.to, page: 1, pageSize: 5000 })", "purpose": "CSV export confirmation." },
+        { "name": "pending-transactions", "kind": "static", "hand": true, "title": "Pending", "purpose": "Pending card authorisations shown above posted transactions." },
+        { "name": "interest-summary", "kind": "static", "title": "Interest", "purpose": "Year-to-date interest earned or charged, from the account details.", "paragraphs": ["Interest is calculated daily and paid on the last business day of each month. Year-to-date figures are shown on your statement and on your 1099-INT in January."] }
+      ]
+    },
+    "transfers": {
+      "description": "Move money: internal, external (ACH) and PayLink. Compliance-critical; anything above the configured threshold needs MFA step-up (MfaStepUpGuard).",
+      "entity": "Transfer",
+      "idKey": "transferId",
+      "apiService": "TransfersApiService",
+      "apiFile": "transfers-api.service",
+      "apiMethod": "scheduled",
+      "staleSeconds": 30,
+      "components": [
+        { "name": "transfers-home", "kind": "static", "route": "", "hand": true, "spec": false, "title": "Transfers", "purpose": "Landing: new transfer entry points, scheduled list and recent history tabs." },
+        { "name": "transfer-wizard", "kind": "static", "route": "new", "hand": true, "spec": false, "deactivate": true, "resolve": "accounts: AccountsResolver, limits: TransferLimitsResolver", "title": "New transfer", "purpose": "Stepper shell for the transfer flow; owns the draft and parks the amount for the MFA guard." },
+        { "name": "transfer-details-step", "kind": "static", "hand": true, "spec": false, "title": "Details", "purpose": "From, to, amount and memo. Typed reactive form." },
+        { "name": "transfer-schedule-step", "kind": "static", "hand": true, "spec": false, "title": "Schedule", "purpose": "Date and frequency with cutoff handling." },
+        { "name": "transfer-review-step", "kind": "static", "hand": true, "spec": false, "route": "new/review", "guards": ["MfaStepUpGuard"], "title": "Review", "purpose": "Read-back before submit. Behind MfaStepUpGuard." },
+        { "name": "transfer-confirmation", "kind": "static", "hand": true, "spec": false, "route": ":transferId/confirmation", "title": "Transfer confirmed", "purpose": "Confirmation number, arrival estimate and next actions." },
+        { "name": "scheduled-transfers", "kind": "list", "spec": false, "title": "Scheduled", "sectionTitle": "Scheduled and recurring", "rowLink": "/transfers", "emptyIcon": "event", "emptyTitle": "Nothing scheduled", "emptyBody": "Recurring transfers you set up will appear here.", "purpose": "Upcoming one-off and recurring transfers.",
+          "columns": [ { "key": "scheduledFor", "header": "Date", "type": "date" }, { "key": "type", "header": "Type" }, { "key": "amountMinor", "header": "Amount", "type": "currency", "align": "end" }, { "key": "status", "header": "Status" } ] },
+        { "name": "transfer-history", "kind": "list", "spec": false, "route": "history", "title": "Transfer history", "lede": "Up to 24 months of transfers. Older activity is on your statements.", "rowLink": "/transfers", "emptyIcon": "history", "emptyTitle": "No transfers yet", "purpose": "Completed and failed transfers.",
+          "columns": [ { "key": "createdAt", "header": "Date", "type": "date" }, { "key": "confirmationNumber", "header": "Confirmation" }, { "key": "amountMinor", "header": "Amount", "type": "currency", "align": "end" }, { "key": "status", "header": "Status" } ] },
+        { "name": "transfer-detail", "kind": "detail", "spec": false, "route": ":transferId", "param": "transferId", "backLink": "/transfers", "title": "Transfer", "purpose": "One scheduled or completed transfer, with cancel where still allowed.",
+          "fields": [ { "name": "confirmation", "label": "Confirmation number", "expr": "item.confirmationNumber" }, { "name": "amount", "label": "Amount", "expr": "item.amountMinor | minorAmount" }, { "name": "status", "label": "Status", "expr": "item.status | translate" }, { "name": "scheduledFor", "label": "Scheduled for", "expr": "item.scheduledFor | date:'longDate'" }, { "name": "arrival", "label": "Expected arrival", "expr": "item.estimatedArrival | date:'longDate'" }, { "name": "frequency", "label": "Frequency", "expr": "item.frequency | translate" }, { "name": "memo", "label": "Memo", "expr": "item.memo || '—'" } ] },
+        { "name": "cancel-transfer", "kind": "dialog", "spec": false, "destructive": true, "title": "Cancel this transfer?", "body": "The transfer will not be sent. If it is part of a recurring series, only this occurrence is cancelled.", "confirmLabel": "Cancel transfer", "dataFields": "transferId: string;", "confirmCall": "this.api.cancel(this.data.transferId)", "purpose": "Cancel confirmation for a scheduled transfer." },
+        { "name": "payee-list", "kind": "static", "hand": true, "spec": false, "route": "payees", "title": "External accounts and people", "purpose": "External transfer payees with verification status." },
+        { "name": "add-payee", "kind": "form", "spec": false, "route": "payees/new", "deactivate": true, "guards": ["MfaStepUpGuard"], "routeData": "{ mfaThresholdMinor: 0 }", "backLink": "/transfers/payees", "title": "Add an external account", "lede": "We will send two small deposits to verify the account. This usually takes 1-2 business days.", "submitLabel": "Add account", "successToast": "Account added. Watch for two small deposits to verify it.", "afterSubmit": "/transfers/payees", "purpose": "External account (ACH) payee entry. Always requires MFA step-up.",
+          "fields": [ { "name": "nickname", "label": "Nickname", "type": "text", "required": true, "maxLength": 40, "i18n": "transfers.addPayee.nickname" }, { "name": "name", "label": "Name on account", "type": "text", "required": true, "maxLength": 80, "i18n": "transfers.addPayee.name" }, { "name": "routingNumber", "label": "Routing number", "type": "masked", "preset": "routing", "required": true, "i18n": "transfers.addPayee.routing" }, { "name": "accountNumber", "label": "Account number", "type": "masked", "preset": "account", "required": true, "i18n": "transfers.addPayee.account" }, { "name": "accountType", "label": "Account type", "type": "select", "required": true, "i18n": "transfers.addPayee.type", "options": [ { "value": "checking", "label": "Checking" }, { "value": "savings", "label": "Savings" } ] } ],
+          "submitCall": "this.api.addPayee({ name: this.form.value.name ?? '', nickname: this.form.value.nickname ?? '', routingNumber: this.form.value.routingNumber ?? '', accountNumber: this.form.value.accountNumber ?? '', accountNumberLastFour: (this.form.value.accountNumber ?? '').slice(-4), type: 'external-transfer' })" },
+        { "name": "verify-payee", "kind": "form", "spec": false, "route": "payees/:payeeId/verify", "backLink": "/transfers/payees", "title": "Verify external account", "lede": "Enter the two deposit amounts that appeared on the other account. You have three attempts.", "submitLabel": "Verify", "successToast": "Account verified. You can transfer to it now.", "afterSubmit": "/transfers/payees", "purpose": "Micro-deposit verification.",
+          "fields": [ { "name": "first", "label": "First deposit", "type": "currency", "required": true, "i18n": "transfers.verifyPayee.first" }, { "name": "second", "label": "Second deposit", "type": "currency", "required": true, "i18n": "transfers.verifyPayee.second" } ],
+          "submitCall": "this.api.verifyPayee(this.router.url.split('/')[3], [this.form.value.first ?? 0, this.form.value.second ?? 0] as [number, number])" },
+        { "name": "transfer-limits-panel", "kind": "static", "spec": false, "title": "Your limits", "purpose": "Daily external limit and remaining amount, shown beside the wizard.", "paragraphs": ["External transfers are limited per day and per transaction. Limits reset at midnight Eastern. Transfers submitted after the 5:00 PM ET cutoff are processed the next business day."], "disclosureKey": "transfers-limits" }
+      ]
+    },
+    "bill-pay": {
+      "description": "Bill payments to registered payees, eBills and autopay. Runs on the same payments rail as transfers.",
+      "entity": "Bill",
+      "idKey": "billId",
+      "apiService": "BillPayApiService",
+      "apiFile": "bill-pay-api.service",
+      "apiMethod": "bills",
+      "staleSeconds": 120,
+      "components": [
+        { "name": "bill-pay-home", "kind": "list", "route": "", "spec": false, "title": "Bill pay", "lede": "Bills due in the next 30 days. eBills update automatically.", "sectionTitle": "Due soon", "rowLink": "/bill-pay/bills", "emptyIcon": "receipt_long", "emptyTitle": "No bills due", "emptyBody": "Add a payee to start paying bills from Meridian Online.", "purpose": "Bills due, with pay-now entry points.",
+          "columns": [ { "key": "payeeName", "header": "Payee" }, { "key": "dueAt", "header": "Due", "type": "date" }, { "key": "amountDueMinor", "header": "Amount due", "type": "currency", "align": "end" }, { "key": "status", "header": "Status" } ] },
+        { "name": "bill-detail", "kind": "detail", "spec": false, "route": "bills/:billId", "param": "billId", "backLink": "/bill-pay", "title": "Bill", "purpose": "One bill with eBill and autopay status.",
+          "fields": [ { "name": "payee", "label": "Payee", "expr": "item.payeeName" }, { "name": "amount", "label": "Amount due", "expr": "item.amountDueMinor | minorAmount" }, { "name": "due", "label": "Due date", "expr": "item.dueAt | date:'longDate'" }, { "name": "status", "label": "Status", "expr": "item.status | translate" }, { "name": "ebill", "label": "eBill", "expr": "item.ebill ? 'On' : 'Off'" }, { "name": "autopay", "label": "Autopay", "expr": "item.autopay ? 'On' : 'Off'" } ] },
+        { "name": "pay-bill", "kind": "form", "spec": false, "route": "bills/:billId/pay", "deactivate": true, "guards": ["MfaStepUpGuard"], "backLink": "/bill-pay", "title": "Pay a bill", "lede": "Payments sent before 5:00 PM ET are processed the same business day.", "submitLabel": "Schedule payment", "successToast": "Payment scheduled.", "afterSubmit": "/bill-pay", "purpose": "Schedule a single payment. Typed form; behind MfaStepUpGuard for high amounts.",
+          "fields": [ { "name": "fromAccountId", "label": "Pay from", "type": "select", "required": true, "i18n": "billPay.pay.from", "options": [ { "value": "primary", "label": "Primary checking" } ] }, { "name": "amountMinor", "label": "Amount", "type": "currency", "required": true, "i18n": "billPay.pay.amount" }, { "name": "sendOn", "label": "Send on", "type": "date", "required": true, "i18n": "billPay.pay.sendOn" }, { "name": "memo", "label": "Memo (appears on your statement)", "type": "text", "maxLength": 60, "i18n": "billPay.pay.memo" } ],
+          "submitCall": "this.api.schedule({ payeeId: this.router.url.split('/')[3], fromAccountId: this.form.value.fromAccountId ?? '', amountMinor: this.form.value.amountMinor ?? 0, sendOn: this.form.value.sendOn ?? this.today, memo: this.form.value.memo ?? undefined, idempotencyKey: crypto.randomUUID() })" },
+        { "name": "scheduled-payments", "kind": "list", "spec": false, "route": "scheduled", "title": "Scheduled payments", "rowLink": "/bill-pay/bills", "emptyIcon": "event", "emptyTitle": "No scheduled payments", "purpose": "Payments queued to send.",
+          "columns": [ { "key": "payeeName", "header": "Payee" }, { "key": "dueAt", "header": "Send on", "type": "date" }, { "key": "amountDueMinor", "header": "Amount", "type": "currency", "align": "end" } ] },
+        { "name": "payment-history", "kind": "list", "spec": false, "route": "history", "title": "Payment history", "rowLink": "/bill-pay/bills", "emptyIcon": "history", "emptyTitle": "No payments yet", "purpose": "Sent payments, 24 months.",
+          "columns": [ { "key": "payeeName", "header": "Payee" }, { "key": "lastPaidAt", "header": "Paid", "type": "date" }, { "key": "amountDueMinor", "header": "Amount", "type": "currency", "align": "end" }, { "key": "status", "header": "Status" } ] },
+        { "name": "add-bill-payee", "kind": "form", "spec": false, "route": "payees/new", "deactivate": true, "backLink": "/bill-pay", "title": "Add a payee", "lede": "Search our directory first; payees found there receive electronic payments, usually within 2 business days.", "submitLabel": "Add payee", "successToast": "Payee added.", "afterSubmit": "/bill-pay", "purpose": "Bill pay payee entry (directory or manual).",
+          "fields": [ { "name": "name", "label": "Payee name", "type": "text", "required": true, "maxLength": 80, "i18n": "billPay.addPayee.name" }, { "name": "accountNumber", "label": "Your account number with the payee", "type": "text", "required": true, "maxLength": 32, "i18n": "billPay.addPayee.account" }, { "name": "nickname", "label": "Nickname", "type": "text", "maxLength": 40, "i18n": "billPay.addPayee.nickname" }, { "name": "postalCode", "label": "Payee ZIP code", "type": "text", "required": true, "maxLength": 10, "i18n": "billPay.addPayee.zip" } ],
+          "submitCall": "this.api.enrollEbill(this.form.value.accountNumber ?? '')" },
+        { "name": "autopay-settings", "kind": "form", "spec": false, "route": "bills/:billId/autopay", "deactivate": true, "backLink": "/bill-pay", "title": "Autopay", "lede": "We pay the amount due on the due date. You can cancel a scheduled autopay up to the business day before.", "submitLabel": "Save autopay", "successToast": "Autopay updated.", "afterSubmit": "/bill-pay", "purpose": "Autopay toggle and funding account.",
+          "fields": [ { "name": "enabled", "label": "Pay this bill automatically", "type": "toggle", "i18n": "billPay.autopay.enabled" }, { "name": "fromAccountId", "label": "Pay from", "type": "select", "i18n": "billPay.autopay.from", "options": [ { "value": "primary", "label": "Primary checking" } ] } ],
+          "submitCall": "this.api.setAutopay(this.router.url.split('/')[3], !!this.form.value.enabled, this.form.value.fromAccountId ?? undefined)" },
+        { "name": "cancel-payment", "kind": "dialog", "spec": false, "destructive": true, "title": "Cancel this payment?", "body": "The payee will not receive this payment. Any late fees are between you and the payee.", "confirmLabel": "Cancel payment", "dataFields": "paymentId: string;", "confirmCall": "this.api.cancel(this.data.paymentId)", "purpose": "Cancel a scheduled payment." }
+      ]
+    },
+    "cards": {
+      "description": "Debit and credit card servicing: lock, controls, travel notices, replacements. Some of this predates the RxJS 7 upgrade.",
+      "entity": "Card",
+      "idKey": "cardId",
+      "apiService": "CardsApiService",
+      "apiFile": "cards-api.service",
+      "apiMethod": "list",
+      "staleSeconds": 120,
+      "components": [
+        { "name": "card-list", "kind": "static", "hand": true, "route": "", "title": "Cards", "purpose": "All cards with status and quick lock." },
+        { "name": "card-detail", "kind": "static", "hand": true, "route": ":cardId", "title": "Card", "purpose": "Card artwork, status, controls entry and reveal." },
+        { "name": "card-controls", "kind": "static", "hand": true, "route": ":cardId/controls", "title": "Card controls", "purpose": "Per-card spend controls." },
+        { "name": "lock-card", "kind": "dialog", "title": "Lock this card?", "body": "Locked cards decline new purchases and ATM withdrawals. Recurring payments you already set up still go through. Unlock any time.", "confirmLabel": "Lock card", "dataFields": "cardId: string;\n  locked: boolean;", "confirmCall": "this.api.lock(this.data.cardId, this.data.locked)", "purpose": "Lock/unlock confirmation." },
+        { "name": "report-card", "kind": "form", "route": ":cardId/report", "deactivate": true, "backLink": "/cards", "title": "Report lost, stolen or damaged", "lede": "We cancel the card immediately and send a replacement to your address on file within 5-7 business days.", "submitLabel": "Cancel and replace card", "successToast": "Card cancelled. Your replacement is on its way.", "afterSubmit": "/cards", "purpose": "Lost/stolen intake.",
+          "fields": [ { "name": "reason", "label": "What happened?", "type": "select", "required": true, "i18n": "cards.report.reason", "options": [ { "value": "lost", "label": "Lost" }, { "value": "stolen", "label": "Stolen" }, { "value": "damaged", "label": "Damaged" } ] }, { "name": "lastSeen", "label": "When did you last have it?", "type": "date", "i18n": "cards.report.lastSeen" } ],
+          "submitCall": "this.api.reportLostOrStolen(this.router.url.split('/')[2], (this.form.value.reason as 'lost' | 'stolen' | 'damaged') ?? 'lost', this.form.value.lastSeen ?? undefined)" },
+        { "name": "travel-notice", "kind": "form", "route": ":cardId/travel", "deactivate": true, "backLink": "/cards", "title": "Travel notice", "lede": "Tell us where you are going so purchases abroad are not flagged as unusual.", "submitLabel": "Save travel notice", "successToast": "Travel notice saved. Have a good trip.", "afterSubmit": "/cards", "purpose": "Travel notice entry.",
+          "fields": [ { "name": "from", "label": "Leaving on", "type": "date", "required": true, "i18n": "cards.travel.from" }, { "name": "until", "label": "Returning on", "type": "date", "required": true, "i18n": "cards.travel.until" }, { "name": "destinations", "label": "Countries (comma separated)", "type": "text", "required": true, "maxLength": 200, "i18n": "cards.travel.destinations" } ],
+          "submitCall": "this.api.travelNotice(this.router.url.split('/')[2], this.form.value.from ?? '', this.form.value.until ?? '', (this.form.value.destinations ?? '').split(',').map(s => s.trim()).filter(Boolean))" },
+        { "name": "activate-card", "kind": "static", "hand": true, "route": ":cardId/activate", "title": "Activate your card", "purpose": "New card activation." }
+      ]
+    },
+    "statements": {
+      "description": "Statements, tax documents and paperless preferences. PDFs are streamed from bff-retail, never cached by the SW.",
+      "entity": "Statement",
+      "idKey": "statementId",
+      "apiService": "StatementsApiService",
+      "apiFile": "statements-api.service",
+      "apiMethod": "list",
+      "staleSeconds": 300,
+      "components": [
+        { "name": "statement-list", "kind": "static", "hand": true, "route": "", "title": "Statements and documents", "purpose": "Statements by account and year with download." },
+        { "name": "tax-documents", "kind": "static", "hand": true, "route": "tax", "title": "Tax documents", "purpose": "1099-INT and 1098 forms by tax year." },
+        { "name": "paperless-settings", "kind": "static", "hand": true, "route": "paperless", "title": "Paperless", "purpose": "Per-account paperless enrolment." },
+        { "name": "statement-viewer", "kind": "static", "hand": true, "route": ":statementId", "title": "Statement", "purpose": "In-page PDF viewer with download." },
+        { "name": "document-search", "kind": "static", "title": "Find a document", "purpose": "Search across statements, notices and tax forms.", "paragraphs": ["Search by account, year or document type. Notices such as rate changes and privacy policy updates are kept for 7 years."], "actions": [ { "id": "tax", "label": "Tax documents", "link": "/statements/tax" }, { "id": "paperless", "label": "Paperless settings", "link": "/statements/paperless" } ] }
+      ]
+    },
+    "alerts": {
+      "description": "Alert preferences (regulatory and optional), delivery channels, quiet hours and alert history.",
+      "entity": "AlertPreference",
+      "idKey": "alertId",
+      "apiService": "AlertsApiService",
+      "apiFile": "alerts-api.service",
+      "apiMethod": "preferences",
+      "staleSeconds": 120,
+      "components": [
+        { "name": "alerts-home", "kind": "static", "hand": true, "route": "", "title": "Alerts", "purpose": "Tabs: preferences and history." },
+        { "name": "alert-preferences", "kind": "static", "hand": true, "title": "Alert preferences", "purpose": "Grouped alert toggles with channel selection and thresholds; regulatory alerts cannot be disabled." },
+        { "name": "alert-preference-row", "kind": "static", "hand": true, "title": "Alert", "purpose": "One alert: toggle, channels, threshold." },
+        { "name": "channel-picker", "kind": "static", "hand": true, "title": "Channels", "purpose": "Push / SMS / email / in-app chips, with SMS requiring a verified mobile." },
+        { "name": "quiet-hours", "kind": "static", "hand": true, "title": "Quiet hours", "purpose": "Do-not-disturb window for non-regulatory alerts." },
+        { "name": "alert-history", "kind": "static", "hand": true, "route": "history", "title": "Alert history", "purpose": "Alerts sent in the last 90 days." },
+        { "name": "test-alert", "kind": "dialog", "title": "Send a test alert", "body": "We will send a test message to the selected channel so you can check it arrives. It may take a minute.", "confirmLabel": "Send test", "dataFields": "channel: 'push' | 'sms' | 'email' | 'in-app';", "confirmCall": "this.api.sendTest(this.data.channel)", "purpose": "Channel test dialog." }
+      ]
+    },
+    "profile": {
+      "description": "Contact details, address, security settings, devices and login history. Uses the untyped forms API pending MOL-4471.",
+      "entity": "TrustedDevice",
+      "idKey": "deviceId",
+      "apiService": "ProfileApiService",
+      "apiFile": "profile-api.service",
+      "apiMethod": "trustedDevices",
+      "staleSeconds": 120,
+      "components": [
+        { "name": "profile-home", "kind": "static", "hand": true, "route": "", "title": "Profile and security", "purpose": "Overview with contact summary and security posture." },
+        { "name": "contact-details", "kind": "form", "untyped": true, "route": "contact", "deactivate": true, "backLink": "/profile", "title": "Contact details", "lede": "We use these for alerts and to verify it is you. Changing your mobile number re-verifies SMS alerts.", "submitLabel": "Save contact details", "successToast": "Contact details updated.", "afterSubmit": "/profile", "purpose": "Email, mobile, language and paperless. Untyped form.",
+          "fields": [ { "name": "email", "label": "Email", "type": "text", "required": true, "maxLength": 120, "autocomplete": "email", "i18n": "profile.contact.email" }, { "name": "mobile", "label": "Mobile number", "type": "masked", "preset": "phone", "required": true, "i18n": "profile.contact.mobile" }, { "name": "preferredLanguage", "label": "Preferred language", "type": "select", "i18n": "profile.contact.language", "options": [ { "value": "en", "label": "English" }, { "value": "es", "label": "Español" } ] }, { "name": "paperless", "label": "Paperless statements and notices", "type": "toggle", "i18n": "profile.contact.paperless" } ],
+          "submitCall": "this.api.updateContact(this.form.value)" },
+        { "name": "address-form", "kind": "form", "untyped": true, "route": "address", "deactivate": true, "backLink": "/profile", "title": "Mailing address", "lede": "Cards and paper statements go here. A new address takes effect after we verify it, usually within 1 business day.", "submitLabel": "Save address", "successToast": "Address updated.", "afterSubmit": "/profile", "purpose": "Address editor. Untyped form.",
+          "fields": [ { "name": "line1", "label": "Address line 1", "type": "text", "required": true, "maxLength": 80, "autocomplete": "address-line1", "i18n": "profile.address.line1" }, { "name": "line2", "label": "Address line 2", "type": "text", "maxLength": 80, "autocomplete": "address-line2", "i18n": "profile.address.line2" }, { "name": "city", "label": "City", "type": "text", "required": true, "maxLength": 60, "i18n": "profile.address.city" }, { "name": "state", "label": "State", "type": "text", "required": true, "maxLength": 2, "i18n": "profile.address.state" }, { "name": "postalCode", "label": "ZIP code", "type": "text", "required": true, "maxLength": 10, "autocomplete": "postal-code", "i18n": "profile.address.zip" } ],
+          "submitCall": "this.api.updateAddress({ ...this.form.value, country: 'US' })" },
+        { "name": "security-settings", "kind": "static", "hand": true, "route": "security", "title": "Security", "purpose": "MFA method, password age, username, devices, login history." },
+        { "name": "change-password", "kind": "static", "hand": true, "route": "security/password", "deactivate": true, "title": "Change password", "purpose": "Password change with strength rules. Untyped form." },
+        { "name": "change-username", "kind": "form", "untyped": true, "route": "security/username", "deactivate": true, "backLink": "/profile/security", "title": "Change username", "lede": "Usernames are 8-30 characters, letters and numbers only, and can be changed once every 90 days.", "submitLabel": "Change username", "successToast": "Username changed. Use it next time you sign in.", "afterSubmit": "/profile/security", "purpose": "Username change. Untyped form.",
+          "fields": [ { "name": "username", "label": "New username", "type": "text", "required": true, "maxLength": 30, "autocomplete": "username", "i18n": "profile.username.new" } ],
+          "submitCall": "this.api.changeUsername(this.form.value.username)" },
+        { "name": "mfa-settings", "kind": "static", "hand": true, "route": "security/mfa", "title": "Two-step verification", "purpose": "Choose SMS, authenticator or push." },
+        { "name": "trusted-devices", "kind": "static", "hand": true, "route": "security/devices", "title": "Trusted devices", "purpose": "Devices that skip step-up; remove any." },
+        { "name": "login-history", "kind": "static", "hand": true, "route": "security/activity", "title": "Sign-in activity", "purpose": "Recent sign-ins with location and device." }
+      ]
+    },
+    "messages": {
+      "description": "Secure messaging with the contact centre. Behind flag mol.secure-messages.enabled.",
+      "entity": "SecureMessageThread",
+      "idKey": "threadId",
+      "apiService": "MessagesApiService",
+      "apiFile": "messages-api.service",
+      "apiMethod": "threads",
+      "staleSeconds": 30,
+      "sortBy": "(a, b) => b.updatedAt.localeCompare(a.updatedAt)",
+      "components": [
+        { "name": "thread-list", "kind": "list", "route": "", "title": "Secure messages", "lede": "We reply within 1 business day. For anything urgent, call the number on the back of your card.", "sectionTitle": "Conversations", "rowLink": "/messages", "emptyIcon": "mail", "emptyTitle": "No messages", "emptyBody": "Start a conversation and we will get back to you within a business day.", "purpose": "Conversation list.",
+          "columns": [ { "key": "subject", "header": "Subject" }, { "key": "topic", "header": "Topic" }, { "key": "updatedAt", "header": "Updated", "type": "date" }, { "key": "status", "header": "Status" } ] },
+        { "name": "thread-view", "kind": "static", "hand": true, "route": ":threadId", "title": "Conversation", "purpose": "Messages in a thread with reply box." },
+        { "name": "compose-message", "kind": "form", "route": "new", "deactivate": true, "backLink": "/messages", "title": "New message", "lede": "Do not include your full card number or password. We will never ask for them here.", "submitLabel": "Send message", "successToast": "Message sent. We will reply within 1 business day.", "afterSubmit": "/messages", "purpose": "Compose a new thread.",
+          "fields": [ { "name": "topic", "label": "Topic", "type": "select", "required": true, "i18n": "messages.compose.topic", "options": [ { "value": "accounts", "label": "Accounts and balances" }, { "value": "cards", "label": "Cards" }, { "value": "payments", "label": "Transfers and payments" }, { "value": "fraud", "label": "Suspected fraud" }, { "value": "other", "label": "Something else" } ] }, { "name": "subject", "label": "Subject", "type": "text", "required": true, "maxLength": 120, "i18n": "messages.compose.subject" }, { "name": "body", "label": "Message", "type": "textarea", "required": true, "maxLength": 4000, "i18n": "messages.compose.body" } ],
+          "submitCall": "this.api.compose(this.form.value.topic ?? 'other', this.form.value.subject ?? '', this.form.value.body ?? '')" },
+        { "name": "message-bubble", "kind": "static", "hand": true, "title": "Message", "purpose": "One message in a thread." }
+      ]
+    },
+    "rewards": {
+      "description": "Meridian Rewards points balance and redemption. Behind flag mol.rewards.enabled; credit card customers only.",
+      "entity": "RewardsActivity",
+      "idKey": "id",
+      "apiService": "RewardsApiService",
+      "apiFile": "rewards-api.service",
+      "apiMethod": "activity",
+      "staleSeconds": 300,
+      "components": [
+        { "name": "rewards-summary", "kind": "static", "hand": true, "route": "", "title": "Rewards", "purpose": "Points balance, tier and expiring points." },
+        { "name": "rewards-activity", "kind": "list", "route": "activity", "backLink": "/rewards", "title": "Points activity", "sectionTitle": "Earned and redeemed", "emptyIcon": "stars", "emptyTitle": "No points activity yet", "purpose": "Points earned and redeemed.",
+          "columns": [ { "key": "at", "header": "Date", "type": "date" }, { "key": "description", "header": "Description" }, { "key": "points", "header": "Points", "type": "number", "align": "end" } ] },
+        { "name": "redeem-points", "kind": "form", "route": "redeem", "deactivate": true, "backLink": "/rewards", "title": "Redeem points", "lede": "Statement credits post within 2 business days. Deposits to a Meridian account are same day.", "submitLabel": "Redeem", "successToast": "Redemption submitted.", "afterSubmit": "/rewards", "purpose": "Redemption form.",
+          "fields": [ { "name": "optionId", "label": "Redeem for", "type": "select", "required": true, "i18n": "rewards.redeem.option", "options": [ { "value": "statement-credit", "label": "Statement credit" }, { "value": "deposit", "label": "Deposit to checking or savings" }, { "value": "gift-card", "label": "Gift card" } ] }, { "name": "points", "label": "Points to redeem", "type": "text", "required": true, "maxLength": 7, "i18n": "rewards.redeem.points" } ],
+          "submitCall": "this.api.redeem(this.form.value.optionId ?? '', Number(this.form.value.points))" }
+      ]
+    },
+    "onboarding": {
+      "description": "Open an account, unauthenticated. Untyped forms; the flow predates typed forms and shares validators with the 2021 marketing site.",
+      "components": [
+        { "name": "onboarding-start", "kind": "static", "route": "", "title": "Open an account", "lede": "Takes about 10 minutes. You will need a government ID and your Social Security number.", "purpose": "Product choice entry.", "paragraphs": ["Choose a checking or savings account to get started. You can add more accounts once you are a customer.", "Applications are subject to identity verification. We may ask for additional documents."], "actions": [ { "id": "start", "label": "Start application", "link": "/open-account/identity", "variant": "primary" } ], "disclosureKey": "account-opening" },
+        { "name": "identity-step", "kind": "form", "untyped": true, "route": "identity", "deactivate": true, "backLink": "/open-account", "title": "About you", "lede": "Enter your name exactly as it appears on your ID.", "submitLabel": "Continue", "successToast": "Saved", "afterSubmit": "/open-account/contact", "purpose": "Legal name, DOB, SSN (masked). Untyped form.",
+          "fields": [ { "name": "firstName", "label": "First name", "type": "text", "required": true, "maxLength": 60, "autocomplete": "given-name", "i18n": "onboarding.identity.firstName" }, { "name": "lastName", "label": "Last name", "type": "text", "required": true, "maxLength": 60, "autocomplete": "family-name", "i18n": "onboarding.identity.lastName" }, { "name": "dateOfBirth", "label": "Date of birth", "type": "date", "required": true, "i18n": "onboarding.identity.dob" }, { "name": "ssn", "label": "Social Security number", "type": "masked", "preset": "ssn", "required": true, "i18n": "onboarding.identity.ssn" } ],
+          "submitCall": "this.api.saveApplicationStep(sessionStorage.getItem('mol.onboarding.appId') ?? '', 'identity', this.form.value)" },
+        { "name": "contact-step", "kind": "form", "untyped": true, "route": "contact", "deactivate": true, "backLink": "/open-account/identity", "title": "How to reach you", "submitLabel": "Continue", "successToast": "Saved", "afterSubmit": "/open-account/product", "purpose": "Email, mobile and address. Untyped form.",
+          "fields": [ { "name": "email", "label": "Email", "type": "text", "required": true, "maxLength": 120, "autocomplete": "email", "i18n": "onboarding.contact.email" }, { "name": "mobile", "label": "Mobile number", "type": "masked", "preset": "phone", "required": true, "i18n": "onboarding.contact.mobile" }, { "name": "line1", "label": "Street address", "type": "text", "required": true, "maxLength": 80, "autocomplete": "address-line1", "i18n": "onboarding.contact.line1" }, { "name": "city", "label": "City", "type": "text", "required": true, "maxLength": 60, "i18n": "onboarding.contact.city" }, { "name": "state", "label": "State", "type": "text", "required": true, "maxLength": 2, "i18n": "onboarding.contact.state" }, { "name": "postalCode", "label": "ZIP code", "type": "text", "required": true, "maxLength": 10, "autocomplete": "postal-code", "i18n": "onboarding.contact.zip" } ],
+          "submitCall": "this.api.saveApplicationStep(sessionStorage.getItem('mol.onboarding.appId') ?? '', 'contact', this.form.value)" },
+        { "name": "product-step", "kind": "form", "untyped": true, "route": "product", "deactivate": true, "backLink": "/open-account/contact", "title": "Choose your account", "submitLabel": "Continue", "successToast": "Saved", "afterSubmit": "/open-account/funding", "purpose": "Product and options. Untyped form.",
+          "fields": [ { "name": "productCode", "label": "Account", "type": "select", "required": true, "i18n": "onboarding.product.code", "options": [ { "value": "CHK-EVERYDAY", "label": "Everyday Checking - no monthly fee with direct deposit" }, { "value": "SAV-RESERVE", "label": "Reserve Savings - 4.10% APY" }, { "value": "CHK-PREMIER", "label": "Premier Checking - interest bearing, $25 monthly fee waivable" } ] }, { "name": "debitCard", "label": "Send me a debit card", "type": "toggle", "i18n": "onboarding.product.debitCard" }, { "name": "paperless", "label": "Go paperless", "type": "toggle", "i18n": "onboarding.product.paperless" } ],
+          "submitCall": "this.api.saveApplicationStep(sessionStorage.getItem('mol.onboarding.appId') ?? '', 'product', this.form.value)" },
+        { "name": "funding-step", "kind": "form", "untyped": true, "route": "funding", "deactivate": true, "backLink": "/open-account/product", "title": "Fund your account", "lede": "Minimum opening deposit is $25. You can fund from another bank account or skip and fund later.", "submitLabel": "Continue to review", "successToast": "Saved", "afterSubmit": "/open-account/review", "purpose": "Initial deposit. Untyped form.",
+          "fields": [ { "name": "amountMinor", "label": "Opening deposit", "type": "currency", "required": true, "i18n": "onboarding.funding.amount" }, { "name": "routingNumber", "label": "Routing number", "type": "masked", "preset": "routing", "required": true, "i18n": "onboarding.funding.routing" }, { "name": "accountNumber", "label": "Account number", "type": "masked", "preset": "account", "required": true, "i18n": "onboarding.funding.account" } ],
+          "submitCall": "this.api.saveApplicationStep(sessionStorage.getItem('mol.onboarding.appId') ?? '', 'funding', this.form.value)" },
+        { "name": "review-step", "kind": "static", "route": "review", "backLink": "/open-account/funding", "title": "Review and submit", "purpose": "Read-back and agreements before submission.", "paragraphs": ["Check everything below. By submitting you agree to the Deposit Account Agreement, the Electronic Communications Consent and our Privacy Notice.", "We will email you a decision, usually within a few minutes. Some applications need a manual review, which can take up to 2 business days."], "disclosureKey": "deposit-account-agreement", "actions": [ { "id": "submit", "label": "Submit application", "link": "/open-account", "variant": "primary" } ] }
+      ],
+      "apiService": "ContentApiService",
+      "apiFile": "content-api.service"
+    },
+    "help": {
+      "description": "Help centre. Public. Content from the BFF's CMS proxy.",
+      "components": [
+        { "name": "help-home", "kind": "static", "route": "", "title": "Help", "lede": "Answers to common questions. Still stuck? Send us a secure message or call us.", "purpose": "Help landing with topics.", "paragraphs": ["Browse by topic or search. Articles are updated by the Digital Support team; if something is wrong or missing, use the feedback link at the bottom of any article."], "actions": [ { "id": "contact", "label": "Contact us", "link": "/help/contact" }, { "id": "faq", "label": "Frequently asked questions", "link": "/help/faq" } ] },
+        { "name": "faq", "kind": "static", "route": "faq", "backLink": "/help", "title": "Frequently asked questions", "purpose": "FAQ accordion.", "paragraphs": ["How long do transfers take? Transfers between your Meridian accounts are immediate. External transfers take 1-3 business days depending on the receiving bank.", "Why was I signed out? For your security we end sessions after 10 minutes without activity. Your work is not saved when this happens.", "How do I dispute a charge? Open the transaction and choose Dispute. You have 60 days from the statement date."] },
+        { "name": "contact-us", "kind": "static", "route": "contact", "backLink": "/help", "title": "Contact us", "purpose": "Phone numbers, hours and secure message link.", "paragraphs": ["Customer care: 1-800-555-0100, 7am-10pm ET every day.", "Lost or stolen cards: 1-800-555-0199, 24 hours.", "Hearing or speech impaired: dial 711 then the number above."], "actions": [ { "id": "message", "label": "Send a secure message", "link": "/messages/new", "variant": "primary" } ] }
+      ]
+    },
+    "disclosures": {
+      "description": "Regulatory disclosures. Content versions come from the BFF; Legal owns the text (LGL-COMMS mailbox).",
+      "components": [
+        { "name": "disclosure-list", "kind": "static", "route": "", "title": "Disclosures and agreements", "purpose": "Index of agreements with effective dates.", "paragraphs": ["Current versions of the agreements that govern your accounts. Prior versions are available on request from Customer Care."], "actions": [ { "id": "privacy", "label": "Privacy notice", "link": "/disclosures/privacy-notice" }, { "id": "deposit", "label": "Deposit account agreement", "link": "/disclosures/deposit-account-agreement" }, { "id": "ecc", "label": "Electronic communications consent", "link": "/disclosures/e-communications" } ] },
+        { "name": "disclosure-viewer", "kind": "static", "hand": true, "route": ":key", "title": "Disclosure", "purpose": "Renders one disclosure by key via cn-disclosure." }
+      ]
+    },
+    "errors": {
+      "description": "Not found, forbidden and generic error pages. Wildcard route lives here.",
+      "components": [
+        { "name": "not-found", "kind": "static", "route": "not-found", "title": "We could not find that page", "purpose": "404.", "paragraphs": ["The link may be out of date, or the page may have moved. Check the address or start again from your dashboard."], "actions": [ { "id": "home", "label": "Go to dashboard", "link": "/dashboard", "variant": "primary" } ] },
+        { "name": "forbidden", "kind": "static", "route": "forbidden", "title": "You do not have access to this", "purpose": "403.", "paragraphs": ["This feature is not available on your accounts. If you think it should be, send us a secure message and we will take a look."], "actions": [ { "id": "home", "label": "Go to dashboard", "link": "/dashboard", "variant": "primary" } ] },
+        { "name": "generic-error", "kind": "static", "route": "error", "title": "Something went wrong", "purpose": "Catch-all error page, also the chunk-load fallback.", "paragraphs": ["We hit a problem loading this page. Nothing has changed on your accounts. Try again in a moment; if it keeps happening, call us and quote the reference on this page."], "actions": [ { "id": "retry", "label": "Try again", "link": "/dashboard", "variant": "primary" } ] }
+      ]
+    }
+  }
+}

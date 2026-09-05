@@ -1,0 +1,26 @@
+<cn-page-header title="Verify external account" i18n-title="@@transfers.verifyPayee.title" lede="Enter the two deposit amounts that appeared on the other account. You have three attempts." i18n-lede="@@transfers.verifyPayee.lede" [backLink]="'/transfers/payees'"></cn-page-header>
+
+<form class="mol-page mol-form" [formGroup]="form" (ngSubmit)="submit()" novalidate fxLayout="column" fxLayoutGap="16px">
+  <cn-error-summary [form]="form" *ngIf="submitted && form.invalid"></cn-error-summary>
+  <mol-error-banner [error]="error" [showRetry]="false"></mol-error-banner>
+
+  <cn-card [padded]="true">
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="16px">
+      <mat-form-field appearance="outline" fxFlex>
+        <mat-label i18n="@@transfers.verifyPayee.first">First deposit</mat-label>
+        <cn-currency-input formControlName="first" [min]="0"></cn-currency-input>
+        <mat-error *ngIf="form.get('first')?.hasError('required')" i18n="@@validation.amountRequired">Enter an amount</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline" fxFlex>
+        <mat-label i18n="@@transfers.verifyPayee.second">Second deposit</mat-label>
+        <cn-currency-input formControlName="second" [min]="0"></cn-currency-input>
+        <mat-error *ngIf="form.get('second')?.hasError('required')" i18n="@@validation.amountRequired">Enter an amount</mat-error>
+      </mat-form-field>
+    </div>
+  </cn-card>
+
+  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="8px" fxLayoutAlign="end">
+    <cn-button variant="tertiary" type="button" (pressed)="cancel()" i18n="@@action.cancel">Cancel</cn-button>
+    <cn-button variant="primary" type="submit" [loading]="saving" i18n="@@transfers.verifyPayee.submit">Verify</cn-button>
+  </div>
+</form>

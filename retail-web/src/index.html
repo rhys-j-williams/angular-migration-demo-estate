@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Meridian Online</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!--
+    CSP. Reviewed by GIS under GIS-1180 (2022) and tightened after GIS-1471 (2023). Keep in step with
+    the nginx add_header in helm/templates/configmap-nginx.yaml; the meta tag exists so ng serve
+    behaves like production and developers notice inline script violations before the pipeline does.
+    style-src needs unsafe-inline for Angular's component styles and Material's overlay positioning
+    (MOL-2889, accepted risk, revisit when nonces land in the CLI).
+  -->
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self';
+                 script-src 'self' http://localhost:4607;
+                 style-src 'self' 'unsafe-inline';
+                 img-src 'self' data:;
+                 font-src 'self' data:;
+                 connect-src 'self' http://localhost:4400 http://localhost:4500 http://localhost:4606 http://localhost:4607 http://localhost:4608;
+                 frame-src 'self' http://localhost:4400;
+                 frame-ancestors 'none';
+                 form-action 'self' http://localhost:4400;
+                 base-uri 'self';
+                 object-src 'none'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="theme-color" content="#0b3d5c">
+  <meta name="application-name" content="Meridian Online">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="manifest" href="manifest.webmanifest">
+</head>
+<body class="mat-typography">
+  <mol-root>
+    <div class="mol-boot" role="status" aria-live="polite">
+      <div class="mol-boot__mark" aria-hidden="true"></div>
+      <p>Loading Meridian Online</p>
+    </div>
+  </mol-root>
+  <noscript>
+    <p>Meridian Online needs JavaScript. Enable it in your browser settings, or call us on
+      1-800-555-0142 to bank by phone.</p>
+  </noscript>
+</body>
+</html>
