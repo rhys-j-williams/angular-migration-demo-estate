@@ -88,6 +88,14 @@ run-local: ## start every service as a local process (no Docker), pids in var/
 stop-local: ## stop what run-local started
 	scripts/run-local.sh stop
 
+# mock-external/estate-up.sh starts each service with `make -C platform-services run-<name>` when it
+# finds the target, and looks for the service at platform-services/<name>. Our layout is
+# services/<name>; the symlinks at this level keep estate-up happy until PLAT-2706 lands.
+# These run in the foreground on the port estate-up expects; run-local.sh is the daemonised form.
+run-%:
+	scripts/run-local.sh start $*
+	tail -F var/log/$*.log
+
 smoke: ## health on every port + the statement PDF path. Services must already be up.
 	scripts/smoke.sh
 

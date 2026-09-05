@@ -22,8 +22,9 @@ export class JwtAuthGuard implements CanActivate {
     if (!header.toLowerCase().startsWith('bearer ')) {
       throw ApiException.unauthorised('TOKEN_MISSING', 'bearer token required');
     }
-    const principal = await this.jwt.verify(header.slice(7).trim());
-    correlation.bindCustomer(principal.customerId);
+    const token = header.slice(7).trim();
+    const principal = await this.jwt.verify(token);
+    correlation.bindCustomer(principal.customerId, token);
     (req as Request & { [PRINCIPAL_KEY]?: unknown })[PRINCIPAL_KEY] = principal;
     return true;
   }

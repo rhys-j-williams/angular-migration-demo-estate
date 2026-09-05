@@ -6,6 +6,8 @@ export const CORRELATION_HEADER = 'x-correlation-id';
 interface RequestContext {
   correlationId: string;
   customerId?: string;
+  /** Caller's bearer token, relayed to the Java resource servers as-is (PLAT-1044 token relay). */
+  bearerToken?: string;
 }
 
 const storage = new AsyncLocalStorage<RequestContext>();
@@ -21,11 +23,15 @@ export const correlation = {
   customerId(): string | undefined {
     return storage.getStore()?.customerId;
   },
-  bindCustomer(customerId: string): void {
+  bindCustomer(customerId: string, bearerToken?: string): void {
     const store = storage.getStore();
     if (store) {
       store.customerId = customerId;
+      store.bearerToken = bearerToken;
     }
+  },
+  bearerToken(): string | undefined {
+    return storage.getStore()?.bearerToken;
   },
   generate(): string {
     return randomUUID();
