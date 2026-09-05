@@ -1,0 +1,16 @@
+/* Production library build. LNTN-201: View Engine output is deliberate, see README "Build format".
+ * Do not flip enableIvy without the vendor relationship team in the loop; consumers run ngcc. */
+{
+  "extends": "./tsconfig.lib.json",
+  "compilerOptions": {
+    "declarationMap": false
+  },
+  "angularCompilerOptions": {
+    "enableIvy": false,
+    "skipTemplateCodegen": true,
+    "strictMetadataEmit": true,
+    "fullTemplateTypeCheck": true,
+    "strictInjectionParameters": true,
+    "enableResourceInlining": true
+  }
+}
