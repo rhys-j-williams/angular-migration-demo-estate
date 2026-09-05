@@ -44,3 +44,6 @@ Thumbs.db
 *.p12
 *.jks
 !**/testdata/*.pem
+
+# Synthetic history tooling (consolidated under _demo-notes/build/history/)
+.history/
