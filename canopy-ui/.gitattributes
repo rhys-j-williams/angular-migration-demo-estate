@@ -12,3 +12,13 @@
 
 # Copybooks are transferred to the mainframe as fixed width records; do not let git touch them.
 *.cpy  -text
+
+# Canopy specific.
+*.svg  text eol=lf
+docs/api/*.api.md  linguist-generated=true
+
+# These two came across from the Business team's Windows checkout during the 2.x consolidation
+# (CNPY-1104) and were never renormalised. Normalising them now would produce a whole file diff in
+# every open branch, so they are excluded from eol handling. Touch as little of them as you can.
+projects/canopy-ui/src/lib/tokens/_legacy-tokens.scss       -text
+projects/canopy-ui/src/lib/forms/masked-input/masked-input.component.scss  -text

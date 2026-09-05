@@ -1,0 +1,13 @@
+<cdk-virtual-scroll-viewport class="cn-virtual-list__viewport" [itemSize]="itemHeight" [style.height]="height"
+                             role="listbox" [attr.aria-label]="ariaLabel" tabindex="0"
+                             [attr.aria-activedescendant]="activeIndex >= 0 ? 'cn-vl-item-' + activeIndex : null"
+                             (keydown)="onKeydown($event)" (scrolledIndexChange)="onScrolledIndexChange($event)">
+  <div *cdkVirtualFor="let item of items; let i = index; trackBy: trackBy" class="cn-virtual-list__item" role="option"
+       [id]="'cn-vl-item-' + i" [class.cn-virtual-list__item--active]="i === activeIndex"
+       [attr.aria-selected]="i === activeIndex" [style.height.px]="itemHeight" (click)="onItemClick(i)">
+    <ng-container *ngIf="itemTemplate; else plain"
+                  [ngTemplateOutlet]="itemTemplate" [ngTemplateOutletContext]="{ $implicit: item, index: i, active: i === activeIndex }"></ng-container>
+    <ng-template #plain>{{ item }}</ng-template>
+  </div>
+  <div class="cn-virtual-list__empty" *ngIf="!items.length">{{ emptyText }}</div>
+</cdk-virtual-scroll-viewport>

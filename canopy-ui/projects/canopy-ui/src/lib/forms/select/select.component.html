@@ -1,0 +1,26 @@
+<mat-form-field [appearance]="appearance" class="cn-select__field">
+  <mat-label *ngIf="label">{{ label }}</mat-label>
+  <mat-select [value]="value" [multiple]="multiple" [placeholder]="placeholder" [disabled]="disabled"
+              [required]="required" [compareWith]="compareWith" panelClass="cn-select-panel"
+              disableOptionCentering (selectionChange)="onSelectionChange($event)" (blur)="onBlur()">
+    <ng-container *ngIf="!hasGroups">
+      <mat-option *ngFor="let option of options" [value]="option.value" [disabled]="option.disabled">
+        <ng-container *ngTemplateOutlet="optionTemplate || defaultOption; context: { $implicit: option }"></ng-container>
+      </mat-option>
+    </ng-container>
+    <ng-container *ngIf="hasGroups">
+      <mat-optgroup *ngFor="let group of groups" [label]="group.name || ''">
+        <mat-option *ngFor="let option of group.options" [value]="option.value" [disabled]="option.disabled">
+          <ng-container *ngTemplateOutlet="optionTemplate || defaultOption; context: { $implicit: option }"></ng-container>
+        </mat-option>
+      </mat-optgroup>
+    </ng-container>
+  </mat-select>
+  <mat-hint *ngIf="hint && !errorText">{{ hint }}</mat-hint>
+  <mat-error *ngIf="errorText">{{ errorText }}</mat-error>
+</mat-form-field>
+
+<ng-template #defaultOption let-option>
+  <span class="cn-select__option-label">{{ option.label }}</span>
+  <span class="cn-select__option-description" *ngIf="option.description">{{ option.description }}</span>
+</ng-template>

@@ -1,0 +1,5 @@
+// Consumer entry: `@use '@meridian/canopy-ui/styles' as canopy;`
+// Everything under themes/ and tokens/ is re-exported here so applications only need one import.
+@forward '../lib/tokens';
+@forward '../lib/themes';
+@forward 'dense-typography';
