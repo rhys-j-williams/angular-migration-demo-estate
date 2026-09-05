@@ -72,7 +72,15 @@
                 }
               ],
               "outputHashing": "all",
-              "subresourceIntegrity": true
+              "subresourceIntegrity": true,
+              "optimization": {
+                "scripts": true,
+                "styles": {
+                  "minify": true,
+                  "inlineCritical": false
+                },
+                "fonts": true
+              }
             },
             "uat": {
               "fileReplacements": [
@@ -82,7 +90,15 @@
                 }
               ],
               "outputHashing": "all",
-              "sourceMap": true
+              "sourceMap": true,
+              "optimization": {
+                "scripts": true,
+                "styles": {
+                  "minify": true,
+                  "inlineCritical": false
+                },
+                "fonts": true
+              }
             },
             "development": {
               "buildOptimizer": false,
