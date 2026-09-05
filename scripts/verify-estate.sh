@@ -84,8 +84,25 @@ if selected repo; then
     pass repo "no build output committed"
   fi
 
-  if git grep -nE '"[^"]+": "[\^~]' -- '**/package.json' >/dev/null 2>&1; then
-    fail repo "exact dependency versions" "caret or tilde range found"
+  # Ranges are only wrong in the workspaces we install: a publishable library manifest (one that
+  # declares peers) states ranges on purpose, and Canopy's Angular 14 peer range is trap T37.
+  ranged="$(git ls-files '*package.json' | python3 -c '
+import json, sys
+for path in sys.stdin.read().split():
+    with open(path) as handle:
+        try:
+            pkg = json.load(handle)
+        except ValueError:
+            continue
+    if pkg.get("peerDependencies"):
+        continue
+    for block in ("dependencies", "devDependencies"):
+        for name, spec in (pkg.get(block) or {}).items():
+            if isinstance(spec, str) and spec[:1] in "^~":
+                print(f"{path} {name} {spec}")
+')"
+  if [[ -n "${ranged}" ]]; then
+    fail repo "exact dependency versions" "$(echo "${ranged}" | head -1) (+$(($(echo "${ranged}" | wc -l) - 1)) more)"
   else
     pass repo "exact dependency versions"
   fi
