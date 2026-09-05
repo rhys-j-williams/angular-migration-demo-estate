@@ -1,0 +1,13 @@
+<mat-expansion-panel class="cn-expansion__panel" [expanded]="expanded" [disabled]="disabled" (opened)="onOpened()" (closed)="onClosed()">
+  <mat-expansion-panel-header class="cn-expansion__header">
+    <mat-panel-title class="cn-expansion__title">
+      <mat-icon *ngIf="icon" [svgIcon]="isSvgIcon ? icon! : ''" aria-hidden="true">{{ isSvgIcon ? '' : icon }}</mat-icon>
+      {{ title }}
+    </mat-panel-title>
+    <mat-panel-description class="cn-expansion__description">
+      <span *ngIf="description">{{ description }}</span>
+      <span class="cn-expansion__summary" *ngIf="summary">{{ summary }}</span>
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+  <div class="cn-expansion__body"><ng-content></ng-content></div>
+</mat-expansion-panel>

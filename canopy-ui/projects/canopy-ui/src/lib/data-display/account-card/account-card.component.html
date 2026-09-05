@@ -1,0 +1,35 @@
+<mat-card class="cn-account-card__card" *ngIf="account" [attr.role]="clickable ? 'button' : null"
+          [attr.tabindex]="clickable ? 0 : null" [attr.aria-label]="clickable ? account.nickname + ', ' + maskedNumber : null"
+          (click)="select()" (keydown)="onKeydown($event)">
+  <div class="cn-account-card__header">
+    <mat-icon class="cn-account-card__icon" [svgIcon]="icon" aria-hidden="true"></mat-icon>
+    <div class="cn-account-card__title">
+      <span class="cn-account-card__nickname">{{ account.nickname }}</span>
+      <span class="cn-account-card__number">{{ maskedNumber }}</span>
+    </div>
+    <span class="cn-account-card__status" *ngIf="statusLabel" [attr.data-cn-status]="account.status">{{ statusLabel }}</span>
+    <button *ngIf="allowHideBalance" mat-icon-button type="button" class="cn-account-card__eye"
+            [attr.aria-label]="balanceHidden ? 'Show balance' : 'Hide balance'" [attr.aria-pressed]="balanceHidden"
+            (click)="toggleHidden($event)">
+      <mat-icon [svgIcon]="balanceHidden ? 'cn:eye' : 'cn:eye-off'" aria-hidden="true"></mat-icon>
+    </button>
+  </div>
+  <div class="cn-account-card__balances">
+    <div class="cn-account-card__balance">
+      <span class="cn-account-card__balance-label">{{ balanceLabel }}</span>
+      <span class="cn-account-card__balance-value">{{ format(account.currentBalance) }}</span>
+    </div>
+    <div class="cn-account-card__balance cn-account-card__balance--secondary" *ngIf="showAvailable && account.availableBalance !== undefined && !compact">
+      <span class="cn-account-card__balance-label">{{ isLiability ? 'Available credit' : 'Available' }}</span>
+      <span class="cn-account-card__balance-value">{{ format(account.availableBalance) }}</span>
+    </div>
+  </div>
+  <div class="cn-account-card__footer" *ngIf="!compact">
+    <mat-progress-bar *ngIf="utilisation !== null" class="cn-account-card__utilisation" mode="determinate" [value]="utilisation"
+                      [attr.aria-label]="'Credit used ' + utilisation + ' percent'"></mat-progress-bar>
+    <span class="cn-account-card__trend" *ngIf="account.changeSinceYesterday !== undefined" [attr.data-cn-trend]="trend">
+      <mat-icon [svgIcon]="trend === 'up' ? 'cn:arrow-up' : trend === 'down' ? 'cn:arrow-down' : 'cn:trend-flat'" aria-hidden="true"></mat-icon>
+      {{ format(account.changeSinceYesterday) }} since yesterday
+    </span>
+  </div>
+</mat-card>

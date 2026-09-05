@@ -1,0 +1,11 @@
+<button *ngIf="collapsible" type="button" class="cn-disclosure__toggle" [attr.aria-expanded]="expanded" (click)="toggle()">
+  <mat-icon svgIcon="cn:chevron-down" class="cn-disclosure__chevron" [class.cn-disclosure__chevron--open]="expanded" aria-hidden="true"></mat-icon>
+  {{ heading || 'Important information' }}
+</button>
+<h3 class="cn-disclosure__heading" *ngIf="heading && !collapsible">{{ heading }}</h3>
+<div class="cn-disclosure__body" *ngIf="!collapsible || expanded" [attr.aria-busy]="loading || null">
+  <cn-skeleton *ngIf="loading" [lines]="3"></cn-skeleton>
+  <div *ngIf="!loading && content" class="cn-disclosure__content" [innerHTML]="content"></div>
+  <p *ngIf="!loading && !content" class="cn-disclosure__unavailable">Disclosure unavailable. Contact us for a copy of this notice.</p>
+</div>
+<span class="cn-disclosure__version" *ngIf="version && version !== 'inline'" aria-hidden="true">v{{ version }}</span>

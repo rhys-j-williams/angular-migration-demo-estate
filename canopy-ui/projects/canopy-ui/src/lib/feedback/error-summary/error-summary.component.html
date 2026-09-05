@@ -1,0 +1,11 @@
+<ng-container *ngIf="resolvedItems.length">
+  <h2 class="cn-error-summary__title" id="cn-error-summary-title">
+    <mat-icon svgIcon="cn:alert" aria-hidden="true"></mat-icon>
+    {{ title }}
+  </h2>
+  <ul class="cn-error-summary__list">
+    <li *ngFor="let item of resolvedItems">
+      <a class="cn-error-summary__link" [href]="'#' + item.fieldId" (click)="focusField($event, item)">{{ item.message }}</a>
+    </li>
+  </ul>
+</ng-container>

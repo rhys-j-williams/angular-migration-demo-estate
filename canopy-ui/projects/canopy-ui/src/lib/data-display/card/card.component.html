@@ -1,0 +1,11 @@
+<mat-card class="cn-card__surface">
+  <div class="cn-card__header" *ngIf="title || subtitle">
+    <div class="cn-card__titles" role="heading" [attr.aria-level]="headingLevel">
+      <span class="cn-card__title" *ngIf="title">{{ title }}</span>
+      <span class="cn-card__subtitle" *ngIf="subtitle">{{ subtitle }}</span>
+    </div>
+    <div class="cn-card__actions"><ng-content select="[cnCardAction]"></ng-content></div>
+  </div>
+  <div class="cn-card__body"><ng-content></ng-content></div>
+  <div class="cn-card__footer"><ng-content select="[cnCardFooter]"></ng-content></div>
+</mat-card>

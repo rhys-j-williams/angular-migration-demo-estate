@@ -1,0 +1,18 @@
+{
+  "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
+  "dest": "../../dist/canopy-ui",
+  "lib": {
+    "entryFile": "src/public-api.ts"
+  },
+  "assets": [
+    "./src/lib/tokens/**/*.scss",
+    "./src/lib/themes/**/*.scss",
+    "./src/lib/icons/canopy-sprite.svg",
+    "./schematics/collection.json",
+    "./schematics/ng-add/schema.json",
+    "./schematics/ng-add/index.js",
+    "./README.md",
+    "./CHANGELOG.md"
+  ],
+  "allowedNonPeerDependencies": ["tslib"]
+}
