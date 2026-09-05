@@ -21,6 +21,12 @@ getTestBed().initTestEnvironment(
   platformBrowserDynamicTesting(),
 );
 
+// Load every source file, not just the ones a spec happens to import. The package is
+// sideEffects: false so a plain barrel import gets shaken out, and files without a spec would
+// silently drop out of the coverage denominator (CNPY-1402).
+const sources = require.context('./lib', true, /^(?!.*\.spec\.ts$).*\.ts$/);
+sources.keys().forEach(sources);
+
 // Then we find all the tests.
 const context = require.context('./', true, /\.spec\.ts$/);
 // And load the modules.
