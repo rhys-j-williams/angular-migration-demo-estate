@@ -1,0 +1,45 @@
+@use '../../tokens/spacing' as s;
+
+.cn-currency-input {
+  display: flex;
+  align-items: baseline;
+  width: 100%;
+
+  &__prefix {
+    color: var(--cn-color-text-muted);
+    padding-right: s.$cn-space-1;
+    font-variant-numeric: tabular-nums;
+  }
+
+  &__field {
+    flex: 1 1 auto;
+    min-width: 0;
+    border: none;
+    background: transparent;
+    outline: none;
+    font: inherit;
+    color: currentColor;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    padding: 0;
+  }
+
+  &__field::placeholder {
+    color: var(--cn-color-text-muted);
+    opacity: 1;
+  }
+}
+
+// Line the prefix up with the form field's own infix baseline and pull the underline flush to it.
+.mat-form-field-infix .cn-currency-input__prefix {
+  align-self: center;
+  line-height: 1.125;
+}
+
+.mat-form-field.cn-currency-input-field .mat-form-field-underline {
+  margin-left: 0;
+}
+
+.mat-form-field-appearance-outline .cn-currency-input--focused .cn-currency-input__prefix {
+  color: var(--cn-color-primary);
+}

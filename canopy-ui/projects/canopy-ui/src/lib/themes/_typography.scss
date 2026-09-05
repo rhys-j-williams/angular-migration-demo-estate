@@ -1,0 +1,22 @@
+@use '@angular/material' as mat;
+@use '../tokens/typography' as t;
+
+// Brand type scale mapped onto the Material typography levels. Level names follow the Material
+// spec as exposed by @angular/material 14; the design team's Figma styles are named to match
+// (Display 4 ... Caption) so a designer and an engineer are talking about the same thing.
+$cn-typography: mat.define-typography-config(
+  $font-family: t.$cn-font-family,
+  $display-4: mat.define-typography-level(t.$cn-font-size-4xl, 56px, t.$cn-font-weight-regular, $letter-spacing: -0.02em),
+  $display-3: mat.define-typography-level(t.$cn-font-size-3xl, 44px, t.$cn-font-weight-regular, $letter-spacing: -0.01em),
+  $display-2: mat.define-typography-level(t.$cn-font-size-2xl, 36px, t.$cn-font-weight-regular),
+  $display-1: mat.define-typography-level(t.$cn-font-size-xl, 30px, t.$cn-font-weight-regular),
+  $headline: mat.define-typography-level(t.$cn-font-size-xl, 30px, t.$cn-font-weight-semibold),
+  $title: mat.define-typography-level(t.$cn-font-size-lg, 26px, t.$cn-font-weight-semibold),
+  $subheading-2: mat.define-typography-level(t.$cn-font-size-md, 24px, t.$cn-font-weight-medium),
+  $subheading-1: mat.define-typography-level(t.$cn-font-size-sm, 22px, t.$cn-font-weight-medium),
+  $body-2: mat.define-typography-level(t.$cn-font-size-md, 24px, t.$cn-font-weight-medium),
+  $body-1: mat.define-typography-level(t.$cn-font-size-md, 24px, t.$cn-font-weight-regular),
+  $caption: mat.define-typography-level(t.$cn-font-size-xs, 18px, t.$cn-font-weight-regular),
+  $button: mat.define-typography-level(t.$cn-font-size-sm, 20px, t.$cn-font-weight-semibold, $letter-spacing: 0.01em),
+  $input: mat.define-typography-level(t.$cn-font-size-md, 1.25, t.$cn-font-weight-regular)
+);

@@ -1,0 +1,48 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+@use '../tokens/spacing' as s;
+
+// Cross cutting adjustments to Material that do not belong to one Canopy component. Component
+// specific overrides live next to the component.
+@mixin component-overrides($theme) {
+  @include component-colors($theme);
+
+  .mat-form-field-appearance-outline .mat-form-field-outline {
+    color: var(--cn-color-border-strong);
+  }
+
+  .mat-form-field-appearance-outline .mat-form-field-infix {
+    padding: 0.85em 0;
+  }
+
+  .mat-card {
+    border-radius: s.$cn-radius-md;
+    box-shadow: var(--cn-shadow-1) !important;
+  }
+
+  // Material's ripple reads as lag on the VDI estate; keep it on the touch targets only.
+  .mat-checkbox .mat-ripple,
+  .mat-radio-button .mat-ripple {
+    display: none;
+  }
+}
+
+@mixin component-colors($theme) {
+  $color: mat.get-color-config($theme);
+  $foreground: map.get($color, foreground);
+  $background: map.get($color, background);
+
+  .mat-toolbar.cn-app-toolbar {
+    background: var(--cn-color-surface);
+    color: var(--cn-color-text);
+    border-bottom: 1px solid var(--cn-color-border);
+  }
+
+  .mat-form-field-label {
+    color: var(--cn-color-text-muted);
+  }
+
+  .mat-hint {
+    color: var(--cn-color-text-muted);
+  }
+}
