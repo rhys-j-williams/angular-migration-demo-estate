@@ -271,7 +271,7 @@ export class NachaParserService {
           lastEntry.addenda.push({
             line: lineNumber,
             addendaTypeCode: fields['addendaTypeCode'],
-            paymentRelatedInformation: fields['paymentRelatedInformation'].trimRight(),
+            paymentRelatedInformation: fields['paymentRelatedInformation'].replace(/\s+$/, ''),
             addendaSequenceNumber: fields['addendaSequenceNumber'],
             entryDetailSequenceNumber: fields['entryDetailSequenceNumber']
           });
