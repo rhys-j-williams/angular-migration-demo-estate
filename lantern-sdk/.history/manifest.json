@@ -1,0 +1,421 @@
+{
+ "component": "lantern-sdk",
+ "commits": [
+  {
+   "date": "2021-02-08T00:00:00",
+   "author": "f.adeyemi",
+   "message": "LNTN-101 scaffold lantern-angular as a library workspace (Angular 10, ng-packagr)",
+   "paths": [
+    "lantern-sdk/.editorconfig",
+    "lantern-sdk/.gitattributes",
+    "lantern-sdk/.gitignore",
+    "lantern-sdk/angular.json",
+    "lantern-sdk/tsconfig.json",
+    "lantern-sdk/projects/lantern-sdk/ng-package.json",
+    "lantern-sdk/projects/lantern-sdk/tsconfig.lib.json",
+    "lantern-sdk/projects/lantern-sdk/tsconfig.spec.json",
+    "lantern-sdk/projects/lantern-sdk/src/test.ts"
+   ]
+  },
+  {
+   "date": "2021-02-09T00:00:00",
+   "author": "f.adeyemi",
+   "message": "LNTN-101 lift the retail-web snippet into LanternService and LanternModule",
+   "paths": [
+    "lantern-sdk/projects/lantern-sdk/src/lib/lantern.vendor.ts",
+    "lantern-sdk/projects/lantern-sdk/src/lib/lantern.config.ts",
+    "lantern-sdk/projects/lantern-sdk/src/public-api.ts",
+    "lantern-sdk/projects/lantern-sdk/src/lib/lantern.service.ts",
+    "lantern-sdk/projects/lantern-sdk/src/lib/lantern.module.ts"
+   ]
+  },
+  {
+   "date": "2021-02-11T00:00:00",
+   "author": "f.adeyemi",
+   "message": "LNTN-104 karma with ChromeHeadless for the Jenkins agents",
+   "paths": [
+    "lantern-sdk/projects/lantern-sdk/karma.conf.js"
+   ]
+  },
+  {
+   "date": "2021-02-16T00:00:00",
+   "author": "f.adeyemi",
+   "message": "LNTN-107 tslint + codelyzer, same ruleset as retail-web",
+   "paths": [
+    "lantern-sdk/tslint.json"
+   ]
+  },
+  {
+   "date": "2021-02-23T00:00:00",
+   "author": "f.adeyemi",
+   "empty": true,
+   "message": "LNTN-110 CONTRIBUTING and CODEOWNERS for the DAE team"
+  },
+  {
+   "date": "2021-03-02T00:00:00",
+   "author": "f.adeyemi",
+   "empty": true,
+   "message": "Merge branch 'release/2021.03' into develop for lantern-angular 1.0.0"
+  },
+  {
+   "date": "2021-04-13T00:00:00",
+   "author": "f.adeyemi",
+   "message": "LNTN-131 router integration: page event on NavigationEnd",
+   "paths": [
+    "lantern-sdk/projects/lantern-sdk/src/lib/lantern-router.service.ts"
+   ]
+  },
+  {
+   "date": "2021-04-20T00:00:00",
+   "author": "f.adeyemi",
+   "message": "LNTN-134 lanternTrack click directive",
+   "paths": [
+    "lantern-sdk/projects/lantern-sdk/src/lib/lantern-track.directive.ts"
+   ]
+  },
+  {
+   "date": "2021-05-04T00:00:00",
+   "author": "meridian-dependency-bot",
+   "empty": true,
+   "message": "LNTN-140 bump @angular/* to 10.2.5 and rxjs to 6.6.7"
+  },
+  {
+   "date": "2021-05-05T00:00:00",
+   "author": "meridian-dependency-bot",
+   "empty": true,
+   "message": "LNTN-141 bump karma-chrome-launcher 3.1.0, karma-jasmine 4.0.1, jasmine-core 3.7.1"
+  },
+  {
+   "date": "2021-06-15T00:00:00",
+   "author": "f.adeyemi",
+   "empty": true,
+   "message": "Merge branch 'release/2021.06' into develop for lantern-angular 1.1.0"
+  },
+  {
+   "date": "2021-06-16T00:00:00",
+   "author": "f.adeyemi",
+   "empty": true,
+   "message": "LNTN-152 add sonar and checkmarx project config"
+  },
+  {
+   "date": "2021-08-24T00:00:00",
+   "author": "f.adeyemi",
+   "message": "LNTN-160 HTTP interceptor adding X-Analytics-Session for the BFF Splunk join",
+   "paths": [
+    "lantern-sdk/projects/lantern-sdk/src/lib/lantern-session.interceptor.ts"
+   ]
+  },
+  {
+   "date": "2021-08-25T00:00:00",
+   "author": "f.adeyemi",
+   "empty": true,
+   "message": "LNTN-160 register the interceptor through HTTP_INTERCEPTORS in forRoot"
+  },
+  {
+   "date": "2021-09-07T00:00:00",
+   "author": "f.adeyemi",
+   "empty": true,
+   "message": "LNTN-166 the interceptor was clobbering an existing header, check has() first"
+  },
+  {
+   "date": "2021-09-28T00:00:00",
+   "author": "f.adeyemi",
+   "empty": true,
+   "message": "LNTN-177 skip same-url navigations, query param changes are not page views"
+  },
+  {
+   "date": "2021-10-26T00:00:00",
+   "author": "f.adeyemi",
+   "empty": true,
+   "message": "LNTN-180 GIS-1188: load lantern.min.js from the Meridian hosted copy, not the vendor CDN"
+  },
+  {
+   "date": "2021-11-02T00:00:00",
+   "author": "f.adeyemi",
+   "message": "LNTN-182 rename to @meridian/lantern-sdk, move to Angular 12.2.x, Node 14 (2.0.0)",
+   "paths": [
+    "lantern-sdk/package.json",
+    "lantern-sdk/projects/lantern-sdk/package.json",
+    "lantern-sdk/.nvmrc",
+    "lantern-sdk/.npmrc"
+   ]
+  },
+  {
+   "date": "2021-11-03T00:00:00",
+   "author": "f.adeyemi",
+   "message": "LNTN-183 prod build config: View Engine output for the Angular 12 consumers",
+   "paths": [
+    "lantern-sdk/projects/lantern-sdk/tsconfig.lib.prod.json"
+   ],
+   "body": "enableIvy stays false so retail-web and business-web (both still on 12) consume the package\nwithout ngcc surprises in their pipelines. Ivy output is a separate ticket."
+  },
+  {
+   "date": "2021-11-04T00:00:00",
+   "author": "f.adeyemi",
+   "empty": true,
+   "message": "LNTN-183 fix: metadata collector cannot resolve Document, inject DOCUMENT as Object"
+  },
+  {
+   "date": "2021-11-09T00:00:00",
+   "author": "f.adeyemi",
+   "empty": true,
+   "message": "Merge branch 'release/2021.11' into develop for @meridian/lantern-sdk 2.0.0"
+  },
+  {
+   "date": "2021-11-09T00:00:00",
+   "author": "f.adeyemi",
+   "empty": true,
+   "message": "LNTN-182 tag lantern-sdk-v2.0.0"
+  },
+  {
+   "date": "2022-01-18T00:00:00",
+   "author": "f.adeyemi",
+   "empty": true,
+   "message": "LNTN-219 throw when forRoot() is imported twice (business-web double counting)"
+  },
+  {
+   "date": "2022-02-01T00:00:00",
+   "author": "f.adeyemi",
+   "empty": true,
+   "message": "LNTN-224 install the vendor queue stub before the script tag so early page events are kept"
+  },
+  {
+   "date": "2022-02-15T00:00:00",
+   "author": "meridian-dependency-bot",
+   "empty": true,
+   "message": "LNTN-229 bump @types/node to 17.0.18"
+  },
+  {
+   "date": "2022-02-16T00:00:00",
+   "author": "f.adeyemi",
+   "empty": true,
+   "message": "Revert \"LNTN-229 bump @types/node to 17.0.18\"",
+   "body": "This reverts commit 5b7c1e2. Breaks the TS 4.3 build, see LNTN-231."
+  },
+  {
+   "date": "2022-02-17T00:00:00",
+   "author": "f.adeyemi",
+   "empty": true,
+   "message": "LNTN-231 pin @types/node 16.18.11, TS 4.3 cannot parse newer declarations"
+  },
+  {
+   "date": "2022-03-08T00:00:00",
+   "author": "f.adeyemi",
+   "message": "LNTN-238 first proper spec coverage for the service and module",
+   "paths": [
+    "lantern-sdk/projects/lantern-sdk/src/lib/lantern.service.spec.ts",
+    "lantern-sdk/projects/lantern-sdk/src/lib/lantern.module.spec.ts"
+   ]
+  },
+  {
+   "date": "2022-04-05T00:00:00",
+   "author": "f.adeyemi",
+   "empty": true,
+   "message": "Merge branch 'release/2022.04' into develop for lantern-sdk 2.1.0"
+  },
+  {
+   "date": "2022-06-14T00:00:00",
+   "author": "meridian-dependency-bot",
+   "empty": true,
+   "message": "LNTN-260 bump @angular/* to 12.2.16"
+  },
+  {
+   "date": "2022-06-14T00:00:00",
+   "author": "meridian-dependency-bot",
+   "empty": true,
+   "message": "LNTN-261 bump ng-packagr to 12.2.7"
+  },
+  {
+   "date": "2022-06-15T00:00:00",
+   "author": "meridian-dependency-bot",
+   "empty": true,
+   "message": "LNTN-262 bump zone.js to 0.11.4, tslib to 2.3.1"
+  },
+  {
+   "date": "2022-09-13T00:00:00",
+   "author": "c.mbeki",
+   "empty": true,
+   "message": "GIS-1471 mask customer, account and card ids in page paths sent to the vendor",
+   "body": "Finding 2 of the Q3 analytics privacy review. URLs went to the vendor unmasked for eight months."
+  },
+  {
+   "date": "2022-09-14T00:00:00",
+   "author": "c.mbeki",
+   "empty": true,
+   "message": "GIS-1471 identify() takes the opaque CUS id only; drop the login-name path"
+  },
+  {
+   "date": "2022-09-20T00:00:00",
+   "author": "f.adeyemi",
+   "message": "LNTN-310 lanternPage route data for friendlier names, tests for the masking",
+   "paths": [
+    "lantern-sdk/projects/lantern-sdk/src/lib/lantern-router.service.spec.ts"
+   ]
+  },
+  {
+   "date": "2022-10-04T00:00:00",
+   "author": "f.adeyemi",
+   "message": "LNTN-314 directive: mask digits in element text and cap at 40 chars (GIS-1471 finding 5)",
+   "paths": [
+    "lantern-sdk/projects/lantern-sdk/src/lib/lantern-track.directive.spec.ts"
+   ]
+  },
+  {
+   "date": "2022-10-18T00:00:00",
+   "author": "f.adeyemi",
+   "empty": true,
+   "message": "LNTN-320 DATA_CLASSIFICATION and SECURITY docs for the TPRM review"
+  },
+  {
+   "date": "2022-11-15T00:00:00",
+   "author": "f.adeyemi",
+   "empty": true,
+   "message": "Merge branch 'release/2022.11' into develop for lantern-sdk 2.2.0"
+  },
+  {
+   "date": "2023-02-07T00:00:00",
+   "author": "f.adeyemi",
+   "empty": true,
+   "message": "LNTN-333 prettier sweep, no functional change"
+  },
+  {
+   "date": "2023-03-21T00:00:00",
+   "author": "meridian-dependency-bot",
+   "empty": true,
+   "message": "LNTN-340 bump @angular/* to 12.2.17, @angular/cli to 12.2.18"
+  },
+  {
+   "date": "2023-05-16T00:00:00",
+   "author": "f.adeyemi",
+   "message": "LNTN-351 sessionHeaderUrlPrefixes so the session id stays inside our origins (GIS-1471 finding 6)",
+   "paths": [
+    "lantern-sdk/projects/lantern-sdk/src/lib/lantern-session.interceptor.spec.ts"
+   ]
+  },
+  {
+   "date": "2023-05-23T00:00:00",
+   "author": "f.adeyemi",
+   "empty": true,
+   "message": "LNTN-355 make the session header name configurable"
+  },
+  {
+   "date": "2023-08-29T00:00:00",
+   "author": "w.tanaka",
+   "empty": true,
+   "message": "LNTN-361 assessment note: Ivy/partial output deferred, sits with Vendor Relationship",
+   "body": "Ivy output changes the artefact the TPRM assessment covers and needs the vendor type contract\nre-signed. Neither is an app-team or DAE action. Parked for the H1 2025 train."
+  },
+  {
+   "date": "2023-09-07T00:00:00",
+   "author": "f.adeyemi",
+   "empty": true,
+   "message": "Merge branch 'release/2023.09' into develop for lantern-sdk 2.3.0"
+  },
+  {
+   "date": "2023-09-14T00:00:00",
+   "author": "f.adeyemi",
+   "empty": true,
+   "message": "Revert \"LNTN-351 default sessionHeaderUrlPrefixes to the BFF origin\"",
+   "body": "Broke business-web's mock server (MBZ-1877). Default goes back to [] and applications must set it."
+  },
+  {
+   "date": "2023-09-14T00:00:00",
+   "author": "f.adeyemi",
+   "empty": true,
+   "message": "LNTN-368 tag lantern-sdk-v2.3.1"
+  },
+  {
+   "date": "2023-11-02T00:00:00",
+   "author": "f.adeyemi",
+   "empty": true,
+   "message": "LNTN-388 refuse to start with an empty writeKey (UAT was sending to prod)"
+  },
+  {
+   "date": "2024-01-23T00:00:00",
+   "author": "f.adeyemi",
+   "empty": true,
+   "message": "LNTN-402 reset() rotates the local analytics session as well"
+  },
+  {
+   "date": "2024-02-06T00:00:00",
+   "author": "f.adeyemi",
+   "empty": true,
+   "message": "LNTN-411 debug flag, console.debug every call"
+  },
+  {
+   "date": "2024-02-20T00:00:00",
+   "author": "f.adeyemi",
+   "message": "LNTN-412 verify:view-engine release gate and publish script",
+   "paths": [
+    "lantern-sdk/scripts/verify-view-engine.js",
+    "lantern-sdk/scripts/publish.sh"
+   ]
+  },
+  {
+   "date": "2024-02-27T00:00:00",
+   "author": "f.adeyemi",
+   "empty": true,
+   "message": "LNTN-419 appName / appVersion context on every event"
+  },
+  {
+   "date": "2024-03-12T00:00:00",
+   "author": "f.adeyemi",
+   "empty": true,
+   "message": "Merge branch 'release/2024.03' into develop for lantern-sdk 2.4.0"
+  },
+  {
+   "date": "2024-05-14T00:00:00",
+   "author": "f.adeyemi",
+   "empty": true,
+   "message": "LNTN-437 sessionStorage access wrapped, branch PCs disable it by group policy"
+  },
+  {
+   "date": "2024-05-16T00:00:00",
+   "author": "f.adeyemi",
+   "empty": true,
+   "message": "LNTN-439 directive falls back to data-lantern-event when Canopy wraps the host (CNPY-1032)"
+  },
+  {
+   "date": "2024-05-21T00:00:00",
+   "author": "f.adeyemi",
+   "message": "LNTN-440 README rewrite, CHANGELOG, lockfile refresh for 2.4.1",
+   "paths": [
+    "lantern-sdk/README.md",
+    "lantern-sdk/CHANGELOG.md",
+    "lantern-sdk/package-lock.json"
+   ]
+  },
+  {
+   "date": "2024-05-21T00:00:00",
+   "author": "f.adeyemi",
+   "empty": true,
+   "message": "Merge branch 'release/2024.05' into develop for lantern-sdk 2.4.1"
+  },
+  {
+   "date": "2024-05-21T00:00:00",
+   "author": "f.adeyemi",
+   "empty": true,
+   "message": "LNTN-440 tag lantern-sdk-v2.4.1"
+  },
+  {
+   "date": "2024-09-10T00:00:00",
+   "author": "meridian-dependency-bot",
+   "empty": true,
+   "message": "LNTN-451 bump karma to 6.3.20 (dev only)"
+  },
+  {
+   "date": "2024-11-19T00:00:00",
+   "author": "f.adeyemi",
+   "empty": true,
+   "message": "LNTN-455 scope note for 2.5.0 in the README known issues"
+  },
+  {
+   "date": "2024-11-20T00:00:00",
+   "author": "f.adeyemi",
+   "message": "LNTN-455 record the history manifest used for the estate replay",
+   "paths": [
+    "lantern-sdk/.history/manifest.json"
+   ]
+  }
+ ]
+}
