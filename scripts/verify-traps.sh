@@ -28,7 +28,7 @@ MISSING_IDS=()
 
 # id | path (space separated, first existing one is searched) | signature | note
 TRAPS=(
-"T1|canopy-ui/projects/canopy-ui/src/styles|\$subheading-2|v14 typography level names"
+"T1|canopy-ui/projects/canopy-ui/src|\$subheading-2|v14 typography level names"
 "T2|canopy-ui/projects/canopy-ui/src/lib|\.mat-button-wrapper|button wrapper override"
 "T3|canopy-ui/projects/canopy-ui/src/lib|MatFormFieldControl|currency input form field control"
 "T4|canopy-ui/projects/canopy-ui/src/lib|\.mat-select-panel|select panel internals"
