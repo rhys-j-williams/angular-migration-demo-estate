@@ -21,7 +21,7 @@
   <iris-handoff-banner *ngIf="(handoff$ | async)?.active" [handoff]="(handoff$ | async)!"></iris-handoff-banner>
 
   <iris-quick-replies
-    *ngIf="!(typing$ | async) && !(ended$ | async)"
+    *ngIf="(typing$ | async) === false && (ended$ | async) === false"
     [replies]="(quickReplies$ | async) ?? []"
     (picked)="session.quickReply($event)"></iris-quick-replies>
 
