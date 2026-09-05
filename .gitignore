@@ -1,0 +1,46 @@
+# Dependencies
+node_modules/
+.pnp/
+.pnp.js
+
+# Build output
+dist/
+tmp/
+out-tsc/
+target/
+.angular/
+*.tsbuildinfo
+
+# Test and coverage output
+coverage/
+.nyc_output/
+karma-results/
+cypress/videos/
+cypress/screenshots/
+junit*.xml
+
+# Generated documents
+*.pdf
+!docs/**/*.pdf
+
+# Local environment
+.env
+.env.local
+*.local
+.verdaccio/
+storage/
+
+# Editors and operating systems
+.idea/
+.vscode/*
+!.vscode/extensions.json
+.DS_Store
+Thumbs.db
+*.swp
+
+# Secrets must never be committed. Vault renders these at deploy time.
+*.pem
+*.key
+*.p12
+*.jks
+!**/testdata/*.pem
