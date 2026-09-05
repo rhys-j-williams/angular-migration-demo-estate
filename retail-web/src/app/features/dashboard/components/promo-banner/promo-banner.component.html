@@ -1,7 +1,10 @@
-<cn-page-header title="" i18n-title="@@dashboard.promoBanner.title"></cn-page-header>
-
-<div class="mol-page mol-prose" fxLayout="column" fxLayoutGap="12px">
-  <p i18n="@@dashboard.promoBanner.p1">Earn 4.10% APY on a Meridian Reserve Savings account. Rates as of today; see disclosures for details.</p>
-
-  <cn-button variant="secondary" routerLink="/open-account" i18n="@@dashboard.promoBanner.learnMore">Learn more</cn-button>
-</div>
+<aside *ngIf="!((dismissed$ | async) ?? []).includes(bannerId)" class="mol-promo" role="complementary" aria-label="Offer" fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="space-between center" fxLayoutGap="16px">
+  <div fxFlex>
+    <strong i18n="@@dashboard.promoBanner.headline">Earn 4.10% APY with Meridian Reserve Savings</strong>
+    <p class="mol-muted" i18n="@@dashboard.promoBanner.p1">Rate as of today and subject to change. See disclosures for details.</p>
+  </div>
+  <div fxLayout="row" fxLayoutGap="8px">
+    <cn-button variant="secondary" size="small" routerLink="/open-account" (pressed)="learnMore()" i18n="@@dashboard.promoBanner.learnMore">Learn more</cn-button>
+    <cn-icon-button icon="close" ariaLabel="Dismiss offer" i18n-ariaLabel="@@dashboard.promoBanner.dismiss" (pressed)="dismiss()"></cn-icon-button>
+  </div>
+</aside>

@@ -1,5 +1,1 @@
-<cn-page-header title="Channels" i18n-title="@@alerts.channelPicker.title"></cn-page-header>
-
-<div class="mol-page mol-prose" fxLayout="column" fxLayoutGap="12px">
-
-</div>
+<cn-filter-chips *ngIf="chips$ | async as chips" [chips]="chips" [multiple]="true" [showClear]="false" [selected]="value" [disabled]="disabled" ariaLabel="Delivery channels" (selectionChange)="onChange($event)"></cn-filter-chips>

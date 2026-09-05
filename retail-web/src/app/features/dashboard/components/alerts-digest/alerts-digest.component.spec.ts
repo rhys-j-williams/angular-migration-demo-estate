@@ -12,9 +12,7 @@ describe('AlertsDigestComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [AlertsDigestComponent],
-      imports: [SharedModule, HttpClientTestingModule, RouterTestingModule, NoopAnimationsModule],
-      providers: [
-      ]
+      imports: [SharedModule, HttpClientTestingModule, RouterTestingModule, NoopAnimationsModule]
     }).compileComponents();
 
     fixture = TestBed.createComponent(AlertsDigestComponent);
@@ -23,5 +21,12 @@ describe('AlertsDigestComponent', () => {
 
   it('should create', () => {
     expect(fixture.componentInstance).toBeTruthy();
+  });
+
+  it('picks an icon by alert code family', () => {
+    const c = fixture.componentInstance;
+    expect(c.iconFor('security.new-device')).toBe('shield');
+    expect(c.iconFor('card.declined')).toBe('credit_card');
+    expect(c.iconFor('anything-else')).toBe('notifications');
   });
 });

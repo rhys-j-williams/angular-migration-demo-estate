@@ -1,5 +1,50 @@
-<cn-page-header title="Profile and security" i18n-title="@@profile.profileHome.title"></cn-page-header>
+<cn-page-header title="Profile and security" i18n-title="@@profile.home.title"></cn-page-header>
 
-<div class="mol-page mol-prose" fxLayout="column" fxLayoutGap="12px">
+<div class="mol-page" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="16px">
+  <cn-card fxFlex="1 1 0" [padded]="true" title="Contact details" i18n-title="@@profile.home.contact" *ngIf="profile$ | async as p">
+    <dl class="mol-dl">
+      <dt i18n="@@profile.home.name">Name</dt>
+      <dd>{{ p.displayName }}</dd>
+      <dt i18n="@@profile.home.email">Email</dt>
+      <dd>{{ p.email }}</dd>
+      <dt i18n="@@profile.home.mobile">Mobile</dt>
+      <dd>{{ p.mobile || '—' }}</dd>
+      <dt i18n="@@profile.home.address">Address</dt>
+      <dd>{{ p.address.line1 }}<ng-container *ngIf="p.address.line2">, {{ p.address.line2 }}</ng-container><br />{{ p.address.city }}, {{ p.address.state }} {{ p.address.postalCode }}</dd>
+      <dt i18n="@@profile.home.language">Language</dt>
+      <dd>{{ p.preferredLanguage === 'es' ? 'Español' : 'English' }}</dd>
+      <dt i18n="@@profile.home.since">Customer since</dt>
+      <dd>{{ p.enrolledAt | date:'MMMM y' }}</dd>
+    </dl>
+    <div fxLayout="row" fxLayoutGap="8px" fxLayout.lt-md="column">
+      <cn-button variant="secondary" size="small" routerLink="contact" i18n="@@profile.home.editContact">Edit email and mobile</cn-button>
+      <cn-button variant="tertiary" size="small" routerLink="address" i18n="@@profile.home.editAddress">Change address</cn-button>
+    </div>
+  </cn-card>
 
+  <cn-card fxFlex="1 1 0" [padded]="true" title="Security" i18n-title="@@profile.home.security">
+    <ng-container *ngIf="posture$ | async as posture; else postureLoading">
+      <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px" class="mol-posture">
+        <cn-badge [tone]="postureTone(posture)">{{ postureLabel(posture) }}</cn-badge>
+        <span class="mol-muted" i18n="@@profile.home.postureBlurb">{{ posture.score }} of 3 checks passed</span>
+      </div>
+      <ul class="mol-checks">
+        <li fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="start center">
+          <mat-icon [class.mol-ok]="posture.mfaMethod !== 'sms'" [class.mol-warn]="posture.mfaMethod === 'sms'" aria-hidden="true">{{ posture.mfaMethod !== 'sms' ? 'check_circle' : 'warning' }}</mat-icon>
+          <span *ngIf="posture.mfaMethod !== 'sms'" i18n="@@profile.home.mfaOk">Two-step verification uses {{ posture.mfaMethod === 'push' ? 'push notifications' : 'an authenticator app' }}</span>
+          <span *ngIf="posture.mfaMethod === 'sms'" i18n="@@profile.home.mfaSms">Two-step verification uses text messages. An authenticator app is safer.</span>
+        </li>
+        <li fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="start center">
+          <mat-icon [class.mol-ok]="posture.passwordAgeDays <= 365" [class.mol-warn]="posture.passwordAgeDays > 365" aria-hidden="true">{{ posture.passwordAgeDays <= 365 ? 'check_circle' : 'warning' }}</mat-icon>
+          <span i18n="@@profile.home.passwordAge">Password last changed {{ posture.passwordAgeDays }} days ago</span>
+        </li>
+        <li fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="start center">
+          <mat-icon [class.mol-ok]="posture.recentFailures < 3" [class.mol-warn]="posture.recentFailures >= 3" aria-hidden="true">{{ posture.recentFailures < 3 ? 'check_circle' : 'warning' }}</mat-icon>
+          <span i18n="@@profile.home.failures">{{ posture.recentFailures }} failed sign-in attempts recently, {{ posture.deviceCount }} trusted devices</span>
+        </li>
+      </ul>
+    </ng-container>
+    <ng-template #postureLoading><mol-loading-panel [rows]="3"></mol-loading-panel></ng-template>
+    <cn-button variant="secondary" size="small" routerLink="security" i18n="@@profile.home.manageSecurity">Manage security settings</cn-button>
+  </cn-card>
 </div>

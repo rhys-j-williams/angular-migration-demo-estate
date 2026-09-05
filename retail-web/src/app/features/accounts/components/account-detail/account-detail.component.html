@@ -1,5 +1,53 @@
-<cn-page-header title="Account" i18n-title="@@accounts.accountDetail.title"></cn-page-header>
+<ng-container *ngIf="details$ | async as d">
+  <cn-page-header [title]="d.nickname" [lede]="d | accountLabel:'short'" backLink="/accounts" backLabel="Accounts" i18n-backLabel="@@accounts.back"
+    [breadcrumbs]="[{ label: 'Accounts', link: '/accounts' }, { label: d.nickname }]">
+  </cn-page-header>
 
-<div class="mol-page mol-prose" fxLayout="column" fxLayoutGap="12px">
+  <div class="mol-page" fxLayout="column" fxLayoutGap="16px">
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="16px" fxLayoutAlign="start stretch">
+      <cn-account-card fxFlex="2 1 0" [account]="summary(d)" [showAvailable]="!isLiability(d)" [allowHideBalance]="true"></cn-account-card>
 
-</div>
+      <cn-card fxFlex="1 1 0" [padded]="true" title="Details" i18n-title="@@accounts.detail.detailsTitle">
+        <dl class="mol-dl">
+          <ng-container *ngIf="isLiability(d)">
+            <dt i18n="@@accounts.detail.paymentDue">Payment due</dt>
+            <dd>{{ d.paymentDueAt | date:'mediumDate' }}</dd>
+            <dt i18n="@@accounts.detail.minimumPayment">Minimum payment</dt>
+            <dd>{{ d.minimumPaymentMinor | minorAmount }}</dd>
+          </ng-container>
+          <ng-container *ngIf="d.interestRateBasisPoints !== undefined">
+            <dt i18n="@@accounts.detail.rate">Rate</dt>
+            <dd>{{ d.interestRateBasisPoints / 100 | number:'1.2-2' }}% {{ isLiability(d) ? 'APR' : 'APY' }}</dd>
+          </ng-container>
+          <dt i18n="@@accounts.detail.opened">Opened</dt>
+          <dd>{{ d.openedAt | date:'MMMM y' }}</dd>
+          <dt i18n="@@accounts.detail.statementCycle">Statement cycle</dt>
+          <dd i18n="@@accounts.detail.statementCycleValue">Day {{ d.statementCycleDay }} of each month</dd>
+          <dt i18n="@@accounts.detail.paperless">Statements</dt>
+          <dd>
+            <ng-container *ngIf="d.paperlessStatements; else paper" i18n="@@accounts.detail.paperlessOn">Paperless</ng-container>
+            <ng-template #paper><span i18n="@@accounts.detail.paperlessOff">By mail</span> <a routerLink="/statements/paperless" i18n="@@accounts.detail.goPaperless">Go paperless</a></ng-template>
+          </dd>
+        </dl>
+        <mol-account-actions-menu [account]="d" (renamed)="renamed()"></mol-account-actions-menu>
+      </cn-card>
+    </div>
+
+    <mol-routing-details *ngIf="isDeposit(d)" [details]="d"></mol-routing-details>
+
+    <cn-tabs [selectedIndex]="tab" (selectedChange)="tab = $event" ariaLabel="Account activity">
+      <ng-template cnTab label="Transactions" i18n-label="@@accounts.detail.tabTransactions">
+        <mol-pending-transactions [accountId]="d.accountId"></mol-pending-transactions>
+        <mol-transaction-list [accountId]="d.accountId"></mol-transaction-list>
+      </ng-template>
+      <ng-template cnTab label="Statements" i18n-label="@@accounts.detail.tabStatements">
+        <mol-page-section title="Statements" lede="The last 24 months are available online.">
+          <a routerLink="/statements" [queryParams]="{ accountId: d.accountId }" class="mol-link" i18n="@@accounts.detail.viewStatements">View statements for this account</a>
+        </mol-page-section>
+      </ng-template>
+      <ng-template cnTab label="Interest" i18n-label="@@accounts.detail.tabInterest" *ngIf="d.interestRateBasisPoints !== undefined">
+        <mol-interest-summary></mol-interest-summary>
+      </ng-template>
+    </cn-tabs>
+  </div>
+</ng-container>

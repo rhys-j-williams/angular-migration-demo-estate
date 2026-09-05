@@ -1,5 +1,19 @@
-<cn-page-header title="Alerts" i18n-title="@@dashboard.alertsDigest.title"></cn-page-header>
-
-<div class="mol-page mol-prose" fxLayout="column" fxLayoutGap="12px">
-
-</div>
+<cn-card title="Alerts" i18n-title="@@dashboard.alerts.title" class="mol-widget" [padded]="false">
+  <ng-container *ngIf="items$ | async as items; else loading">
+    <ul class="mol-digest" *ngIf="visible(items).length; else empty">
+      <li *ngFor="let a of visible(items)" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="12px">
+        <mat-icon class="mol-muted" aria-hidden="true">{{ iconFor(a.code) }}</mat-icon>
+        <div fxFlex fxLayout="column">
+          <span>{{ a.summary }}</span>
+          <span class="mol-muted">{{ a.sentAt | relativeDate }} &middot; {{ a.channel }}</span>
+        </div>
+        <cn-icon-button icon="close" ariaLabel="Dismiss alert" i18n-ariaLabel="@@dashboard.alerts.dismiss" (pressed)="dismiss(a)"></cn-icon-button>
+      </li>
+    </ul>
+    <a class="mol-widget__foot" routerLink="/alerts/history" i18n="@@dashboard.alerts.all">All alerts</a>
+  </ng-container>
+  <ng-template #loading><mol-loading-panel [rows]="2"></mol-loading-panel></ng-template>
+  <ng-template #empty>
+    <mol-empty-state icon="notifications_none" title="You are all caught up" i18n-title="@@dashboard.alerts.empty"></mol-empty-state>
+  </ng-template>
+</cn-card>

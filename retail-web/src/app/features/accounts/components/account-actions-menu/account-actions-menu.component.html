@@ -1,5 +1,1 @@
-<cn-page-header title="Actions" i18n-title="@@accounts.accountActionsMenu.title"></cn-page-header>
-
-<div class="mol-page mol-prose" fxLayout="column" fxLayoutGap="12px">
-
-</div>
+<cn-menu [items]="items" triggerLabel="Account actions" i18n-triggerLabel="@@accounts.actions.trigger" triggerIcon="more_horiz" xPosition="before" (selected)="select($event)"></cn-menu>

@@ -1,5 +1,24 @@
-<cn-page-header title="Coming up" i18n-title="@@dashboard.upcomingPayments.title"></cn-page-header>
-
-<div class="mol-page mol-prose" fxLayout="column" fxLayoutGap="12px">
-
-</div>
+<cn-card title="Coming up" i18n-title="@@dashboard.upcoming.title" subtitle="Next 14 days" i18n-subtitle="@@dashboard.upcoming.subtitle" class="mol-widget" [padded]="false">
+  <ng-container *ngIf="items$ | async as items; else loading">
+    <ng-container *ngIf="items.length; else empty">
+      <ul class="mol-upcoming">
+        <li *ngFor="let item of items" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="12px" [routerLink]="item.link">
+          <mat-icon class="mol-muted" aria-hidden="true">{{ item.kind === 'bill' ? 'receipt' : 'swap_horiz' }}</mat-icon>
+          <div fxFlex fxLayout="column">
+            <span>{{ item.label }}</span>
+            <span class="mol-muted">{{ item.when | date:'EEE d MMM' }}</span>
+          </div>
+          <span>{{ item.amountMinor | minorAmount }}</span>
+        </li>
+      </ul>
+      <div class="mol-upcoming__foot" fxLayout="row" fxLayoutAlign="space-between center">
+        <span class="mol-muted" i18n="@@dashboard.upcoming.total">Total leaving your accounts</span>
+        <strong>{{ total(items) | minorAmount }}</strong>
+      </div>
+    </ng-container>
+  </ng-container>
+  <ng-template #loading><mol-loading-panel [rows]="3"></mol-loading-panel></ng-template>
+  <ng-template #empty>
+    <mol-empty-state icon="event_available" title="Nothing scheduled" i18n-title="@@dashboard.upcoming.empty" body="No transfers or bill payments are due in the next two weeks." i18n-body="@@dashboard.upcoming.emptyBody"></mol-empty-state>
+  </ng-template>
+</cn-card>

@@ -1,5 +1,19 @@
-<cn-page-header title="Security" i18n-title="@@profile.securitySettings.title"></cn-page-header>
+<cn-page-header title="Security" i18n-title="@@profile.security.title" backLink="/profile" backLabel="Profile"></cn-page-header>
 
-<div class="mol-page mol-prose" fxLayout="column" fxLayoutGap="12px">
+<div class="mol-page" fxLayout="column" fxLayoutGap="16px" *ngIf="settings$ | async as s; else loading">
+  <cn-list [interactive]="true" [dividers]="true" ariaLabel="Security settings" [items]="[
+    { id: 'password', primary: 'Password', secondary: 'Last changed ' + (s.passwordChangedAt | date:'mediumDate'), icon: 'password', link: 'password' },
+    { id: 'username', primary: 'Username', secondary: username, icon: 'badge', link: 'username' },
+    { id: 'mfa', primary: 'Two-step verification', secondary: mfaLabel(s.mfaMethod), icon: 'verified_user', link: 'mfa' },
+    { id: 'devices', primary: 'Trusted devices', secondary: s.trustedDevices.length + ' devices skip the code', icon: 'devices', link: 'devices' },
+    { id: 'activity', primary: 'Sign-in activity', secondary: lastFailed(s) ? 'Last failed attempt ' + (lastFailed(s) | date:'medium') : 'No failed attempts recently', icon: 'history', link: 'activity' }
+  ]"></cn-list>
 
+  <cn-card [padded]="true" title="Sign out everywhere" i18n-title="@@profile.security.signOutTitle">
+    <p class="mol-muted" i18n="@@profile.security.signOutBody">Ends every Meridian Online and mobile session, including this one. Trusted devices stay trusted; remove them separately if you think a device is compromised.</p>
+    <cn-button variant="destructive" (pressed)="signOutEverywhere()" i18n="@@profile.security.signOut">Sign out of all devices</cn-button>
+  </cn-card>
+
+  <p class="mol-muted mol-small" i18n="@@profile.security.footnote">If you think someone else has access to your account, call the number on the back of your card. Our fraud line is open 24 hours.</p>
 </div>
+<ng-template #loading><mol-loading-panel [rows]="5"></mol-loading-panel></ng-template>

@@ -1,5 +1,42 @@
-<cn-page-header title="Transaction" i18n-title="@@accounts.transactionDetail.title"></cn-page-header>
+<ng-container *ngIf="txn$ | async as t; else loading">
+  <cn-page-header [title]="t.merchantName || t.description" [eyebrow]="channelLabel(t.channel)" [backLink]="['/accounts', accountId]" backLabel="Back to account" i18n-backLabel="@@accounts.txn.back"></cn-page-header>
 
-<div class="mol-page mol-prose" fxLayout="column" fxLayoutGap="12px">
+  <div class="mol-page" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="16px">
+    <cn-card fxFlex="1 1 0" [padded]="true">
+      <p class="mol-amount" [class.mol-credit]="t.amountMinor > 0">{{ t.amountMinor | minorAmount:'USD':true }}</p>
+      <dl class="mol-dl">
+        <dt i18n="@@accounts.txn.status">Status</dt>
+        <dd>
+          <cn-badge [tone]="t.status === 'posted' ? 'success' : t.status === 'pending' ? 'caution' : 'warn'">{{ t.status }}</cn-badge>
+        </dd>
+        <dt i18n="@@accounts.txn.posted">Posted</dt>
+        <dd>{{ t.postedAt | date:'medium' }}</dd>
+        <dt *ngIf="t.settledAt" i18n="@@accounts.txn.settled">Settled</dt>
+        <dd *ngIf="t.settledAt">{{ t.settledAt | date:'medium' }}</dd>
+        <dt i18n="@@accounts.txn.description">Description</dt>
+        <dd>{{ t.description }}</dd>
+        <dt i18n="@@accounts.txn.category">Category</dt>
+        <dd>{{ t.category }}</dd>
+        <dt *ngIf="t.merchantCategoryCode" i18n="@@accounts.txn.mcc">Merchant category code</dt>
+        <dd *ngIf="t.merchantCategoryCode">{{ t.merchantCategoryCode }}</dd>
+        <dt i18n="@@accounts.txn.balanceAfter">Balance after</dt>
+        <dd>{{ t.runningBalanceMinor | minorAmount }}</dd>
+        <dt i18n="@@accounts.txn.reference">Reference</dt>
+        <dd><code>{{ t.transactionId }}</code></dd>
+      </dl>
+    </cn-card>
 
-</div>
+    <cn-card fxFlex="0 0 320px" fxFlex.lt-md="1 1 auto" [padded]="true" title="Something not right?" i18n-title="@@accounts.txn.helpTitle">
+      <ng-container *ngIf="t.disputeId; else disputeActions">
+        <p i18n="@@accounts.txn.disputeOpen">A dispute is already open for this transaction. Reference {{ t.disputeId }}.</p>
+        <a routerLink="/messages" class="mol-link" i18n="@@accounts.txn.disputeMessage">Ask about this dispute</a>
+      </ng-container>
+      <ng-template #disputeActions>
+        <p *ngIf="canDispute(t); else noDispute" i18n="@@accounts.txn.disputeIntro">If you do not recognise this charge or the amount is wrong, you can dispute it. We usually credit the amount within two business days while we investigate.</p>
+        <ng-template #noDispute><p class="mol-muted" i18n="@@accounts.txn.noDispute">This transaction cannot be disputed online. Call us on the number on the back of your card.</p></ng-template>
+        <cn-button *ngIf="canDispute(t)" variant="secondary" [routerLink]="['dispute']" i18n="@@accounts.txn.dispute">Dispute this transaction</cn-button>
+      </ng-template>
+    </cn-card>
+  </div>
+</ng-container>
+<ng-template #loading><mol-loading-panel [rows]="6"></mol-loading-panel></ng-template>

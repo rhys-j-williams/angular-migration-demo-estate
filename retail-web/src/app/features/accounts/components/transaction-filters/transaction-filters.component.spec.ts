@@ -12,9 +12,7 @@ describe('TransactionFiltersComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [TransactionFiltersComponent],
-      imports: [SharedModule, HttpClientTestingModule, RouterTestingModule, NoopAnimationsModule],
-      providers: [
-      ]
+      imports: [SharedModule, HttpClientTestingModule, RouterTestingModule, NoopAnimationsModule]
     }).compileComponents();
 
     fixture = TestBed.createComponent(TransactionFiltersComponent);
@@ -23,5 +21,27 @@ describe('TransactionFiltersComponent', () => {
 
   it('should create', () => {
     expect(fixture.componentInstance).toBeTruthy();
+  });
+
+  it('translates an amount band into minor-unit bounds', () => {
+    const c = fixture.componentInstance;
+    c.form.patchValue({ amountBand: ['25-100'] });
+    expect(c.toFilters()).toEqual({ minAmountMinor: 2500, maxAmountMinor: 10000 });
+  });
+
+  it('only sends a category when exactly one is selected', () => {
+    const c = fixture.componentInstance;
+    c.form.patchValue({ category: ['dining', 'fuel'] });
+    expect(c.toFilters().category).toBeUndefined();
+    c.form.patchValue({ category: ['dining'] });
+    expect(c.toFilters().category).toBe('dining');
+  });
+
+  it('trims search text and drops it when blank', () => {
+    const c = fixture.componentInstance;
+    c.form.patchValue({ search: '   ' });
+    expect(c.toFilters().search).toBeUndefined();
+    c.form.patchValue({ search: ' coffee ' });
+    expect(c.toFilters().search).toBe('coffee');
   });
 });

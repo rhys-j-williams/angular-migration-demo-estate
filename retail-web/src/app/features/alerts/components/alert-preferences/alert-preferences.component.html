@@ -1,5 +1,17 @@
-<cn-page-header title="Alert preferences" i18n-title="@@alerts.alertPreferences.title"></cn-page-header>
+<div fxLayout="column" fxLayoutGap="16px">
+  <mol-error-banner [error]="error$ | async" (retry)="retry()"></mol-error-banner>
+  <mol-loading-panel *ngIf="(loading$ | async) && !(groups$ | async)?.length" [rows]="6"></mol-loading-panel>
 
-<div class="mol-page mol-prose" fxLayout="column" fxLayoutGap="12px">
+  <mol-page-section *ngFor="let group of groups$ | async; trackBy: trackByGroup" [title]="group.title" [lede]="group.blurb">
+    <mol-alert-preference-row
+      *ngFor="let pref of group.items"
+      [preference]="pref"
+      [busy]="saving.has(pref.alertId)"
+      (enabledChange)="update(pref, { enabled: $event })"
+      (channelsChange)="update(pref, { channels: $event })"
+      (thresholdChange)="update(pref, { thresholdMinor: $event })">
+    </mol-alert-preference-row>
+  </mol-page-section>
 
+  <p class="mol-muted mol-small" i18n="@@alerts.prefs.footnote">Text message alerts go to the mobile number on your profile. Message and data rates may apply. Reply STOP to any alert text to switch off SMS for all optional alerts.</p>
 </div>

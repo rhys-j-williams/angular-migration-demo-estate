@@ -1,5 +1,22 @@
-<cn-page-header title="Schedule" i18n-title="@@transfers.transferScheduleStep.title"></cn-page-header>
+<form [formGroup]="form" novalidate fxLayout="column" fxLayoutGap="16px" class="mol-step">
+  <cn-radio-group formControlName="when" legend="When should it go?" i18n-legend="@@transfers.schedule.when" [options]="whenOptions"></cn-radio-group>
 
-<div class="mol-page mol-prose" fxLayout="column" fxLayoutGap="12px">
+  <mat-form-field *ngIf="form.controls.when.value === 'later'" appearance="outline" fxFlex="0 0 260px">
+    <mat-label i18n="@@transfers.schedule.date">Send on</mat-label>
+    <input matInput type="date" formControlName="scheduledFor" [min]="minDate" />
+    <mat-error *ngIf="form.controls.scheduledFor.hasError('pastDate')" i18n="@@transfers.schedule.pastDate">Choose today or a later date</mat-error>
+  </mat-form-field>
 
-</div>
+  <p *ngIf="form.controls.when.value === 'now' && afterCutoff" class="mol-note" i18n="@@transfers.schedule.cutoff">
+    It is past today's cutoff for external transfers, so this will be sent on {{ limits.nextBusinessDay | date:'EEEE d MMMM' }}. Transfers between your own accounts still happen today.
+  </p>
+
+  <cn-radio-group formControlName="frequency" legend="How often?" i18n-legend="@@transfers.schedule.frequency" [options]="frequencyOptions"></cn-radio-group>
+
+  <mat-form-field *ngIf="form.controls.frequency.value !== 'once'" appearance="outline" fxFlex="0 0 260px">
+    <mat-label i18n="@@transfers.schedule.endAfter">Stop after (number of transfers)</mat-label>
+    <input matInput type="number" formControlName="endAfterOccurrences" min="2" max="60" inputmode="numeric" />
+    <mat-hint i18n="@@transfers.schedule.endAfterHint">Leave blank to continue until you cancel</mat-hint>
+    <mat-error *ngIf="form.controls.endAfterOccurrences.invalid" i18n="@@transfers.schedule.endAfterRange">Between 2 and 60</mat-error>
+  </mat-form-field>
+</form>

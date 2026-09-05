@@ -1,5 +1,19 @@
-<cn-page-header title="Trusted devices" i18n-title="@@profile.trustedDevices.title"></cn-page-header>
+<cn-page-header title="Trusted devices" i18n-title="@@profile.devices.title" lede="These devices skip two-step verification for 90 days. Remove anything you do not recognise." i18n-lede="@@profile.devices.lede" backLink="/profile/security" backLabel="Security"></cn-page-header>
 
-<div class="mol-page mol-prose" fxLayout="column" fxLayoutGap="12px">
-
+<div class="mol-page" fxLayout="column" fxLayoutGap="16px">
+  <mol-error-banner [error]="error$ | async" (retry)="retry()"></mol-error-banner>
+  <ng-container *ngIf="devices$ | async as devices">
+    <mol-loading-panel *ngIf="(loading$ | async) && !devices.length" [rows]="3"></mol-loading-panel>
+    <ul class="mol-devices" *ngIf="devices.length">
+      <li *ngFor="let d of devices; trackBy: trackById" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="12px">
+        <mat-icon aria-hidden="true">{{ icon(d) }}</mat-icon>
+        <div fxFlex fxLayout="column">
+          <span>{{ d.label }} <cn-badge *ngIf="d.current" tone="brand" size="small" i18n="@@profile.devices.thisDevice">This device</cn-badge></span>
+          <span class="mol-muted mol-small">{{ d.platform }} &middot; <ng-container i18n="@@profile.devices.lastSeen">Last used {{ d.lastSeenAt | relativeDate }}</ng-container></span>
+        </div>
+        <cn-button variant="tertiary" size="small" (pressed)="remove(d)" i18n="@@action.remove">Remove</cn-button>
+      </li>
+    </ul>
+    <mol-empty-state *ngIf="!devices.length && !(loading$ | async)" icon="devices" title="No trusted devices" i18n-title="@@profile.devices.empty" body="You will be asked for a verification code every time you sign in." i18n-body="@@profile.devices.emptyBody"></mol-empty-state>
+  </ng-container>
 </div>

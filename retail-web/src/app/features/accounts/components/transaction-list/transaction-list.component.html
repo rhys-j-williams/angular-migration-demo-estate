@@ -1,5 +1,39 @@
-<cn-page-header title="Transactions" i18n-title="@@accounts.transactionList.title"></cn-page-header>
+<mol-page-section title="Transactions" i18n-title="@@accounts.transactions.title">
+  <div molSectionAction fxLayout="row" fxLayoutGap="8px">
+    <cn-button variant="tertiary" size="small" icon="download" (pressed)="exportCsv()" i18n="@@accounts.transactions.export">Download</cn-button>
+  </div>
 
-<div class="mol-page mol-prose" fxLayout="column" fxLayoutGap="12px">
+  <mol-transaction-filters (changed)="onFilters($event)"></mol-transaction-filters>
+  <mol-error-banner [error]="error" (retry)="retry()"></mol-error-banner>
 
-</div>
+  <cn-data-table
+    *ngIf="page$ | async as page"
+    [columns]="columns"
+    [rows]="page.items"
+    [loading]="loading"
+    [serverSide]="true"
+    [totalRows]="page.total"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="[pageSize]"
+    [showPaginator]="page.total > pageSize"
+    [trackBy]="trackById"
+    caption="Posted transactions"
+    emptyText="No transactions match these filters."
+    (rowClick)="open($event)"
+    (pageChange)="onPage($event)">
+    <ng-template cnColumnDef="description" let-row>
+      <div fxLayout="column">
+        <span>{{ row.merchantName || row.description }}</span>
+        <span class="mol-muted" *ngIf="row.merchantName && row.description !== row.merchantName">{{ row.description }}</span>
+      </div>
+      <cn-badge *ngIf="row.status === 'disputed'" tone="warn" size="small" i18n="@@txn.status.disputed">Disputed</cn-badge>
+      <cn-badge *ngIf="row.status === 'reversed'" tone="neutral" size="small" i18n="@@txn.status.reversed">Reversed</cn-badge>
+    </ng-template>
+    <ng-template cnColumnDef="amountMinor" let-row>
+      <span [class.mol-credit]="row.amountMinor > 0">{{ row.amountMinor | minorAmount:'USD':true }}</span>
+    </ng-template>
+    <ng-template cnColumnDef="runningBalanceMinor" let-row>
+      <span class="mol-muted">{{ row.runningBalanceMinor | minorAmount }}</span>
+    </ng-template>
+  </cn-data-table>
+</mol-page-section>

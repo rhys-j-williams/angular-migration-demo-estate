@@ -12,9 +12,7 @@ describe('UpcomingPaymentsComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [UpcomingPaymentsComponent],
-      imports: [SharedModule, HttpClientTestingModule, RouterTestingModule, NoopAnimationsModule],
-      providers: [
-      ]
+      imports: [SharedModule, HttpClientTestingModule, RouterTestingModule, NoopAnimationsModule]
     }).compileComponents();
 
     fixture = TestBed.createComponent(UpcomingPaymentsComponent);
@@ -23,5 +21,12 @@ describe('UpcomingPaymentsComponent', () => {
 
   it('should create', () => {
     expect(fixture.componentInstance).toBeTruthy();
+  });
+
+  it('sums the amounts leaving the account', () => {
+    expect(fixture.componentInstance.total([
+      { id: '1', when: '2026-09-10', label: 'Rent', amountMinor: 120000, kind: 'bill', link: [] },
+      { id: '2', when: '2026-09-11', label: 'Savings', amountMinor: 5000, kind: 'transfer', link: [] }
+    ])).toBe(125000);
   });
 });

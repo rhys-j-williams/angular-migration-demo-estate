@@ -13,8 +13,7 @@ describe('LoginHistoryComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [LoginHistoryComponent],
       imports: [SharedModule, HttpClientTestingModule, RouterTestingModule, NoopAnimationsModule],
-      providers: [
-      ]
+      providers: []
     }).compileComponents();
 
     fixture = TestBed.createComponent(LoginHistoryComponent);
@@ -23,5 +22,14 @@ describe('LoginHistoryComponent', () => {
 
   it('should create', () => {
     expect(fixture.componentInstance).toBeTruthy();
+  });
+
+  it('counts failed attempts', () => {
+    const c = fixture.componentInstance;
+    expect(c.failures([
+      { at: '1', outcome: 'failed', channel: 'web', city: '', deviceLabel: '' },
+      { at: '2', outcome: 'success', channel: 'web', city: '', deviceLabel: '' }
+    ])).toBe(1);
+    expect(c.tone('failed')).toBe('warn');
   });
 });

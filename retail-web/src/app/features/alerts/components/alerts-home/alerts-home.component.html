@@ -1,5 +1,13 @@
-<cn-page-header title="Alerts" i18n-title="@@alerts.alertsHome.title"></cn-page-header>
+<cn-page-header title="Alerts" i18n-title="@@alerts.home.title" lede="Choose what we tell you about and how. Some alerts are required by law and cannot be switched off." i18n-lede="@@alerts.home.lede"></cn-page-header>
 
-<div class="mol-page mol-prose" fxLayout="column" fxLayoutGap="12px">
-
+<div class="mol-page" fxLayout="column" fxLayoutGap="16px">
+  <cn-tabs [selectedIndex]="tab" (selectedChange)="onTab($event)" ariaLabel="Alert settings">
+    <ng-template cnTab label="Preferences" i18n-label="@@alerts.home.tabPreferences">
+      <mol-alert-preferences></mol-alert-preferences>
+    </ng-template>
+    <ng-template cnTab label="Quiet hours" i18n-label="@@alerts.home.tabQuiet">
+      <mol-quiet-hours></mol-quiet-hours>
+    </ng-template>
+  </cn-tabs>
+  <a routerLink="history" class="mol-link" i18n="@@alerts.home.history">See alerts we have sent in the last 90 days</a>
 </div>
