@@ -19,10 +19,17 @@ export class CorrelationInterceptor implements HttpInterceptor {
 }
 
 export function newCorrelationId(): string {
-  if (typeof crypto !== 'undefined' && 'randomUUID' in crypto) {
-    return crypto.randomUUID();
+  const c: Crypto | undefined = typeof crypto === 'undefined' ? undefined : crypto;
+  if (c && typeof c.randomUUID === 'function') {
+    return c.randomUUID();
   }
   const bytes = new Uint8Array(16);
-  crypto.getRandomValues(bytes);
+  if (c) {
+    c.getRandomValues(bytes);
+  } else {
+    for (let i = 0; i < bytes.length; i++) {
+      bytes[i] = Math.floor(Math.random() * 256);
+    }
+  }
   return Array.from(bytes, (b) => b.toString(16).padStart(2, '0')).join('');
 }

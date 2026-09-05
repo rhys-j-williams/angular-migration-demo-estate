@@ -1,6 +1,7 @@
 import { NgFor } from '@angular/common';
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ElementRef,
   EventEmitter,
@@ -59,6 +60,8 @@ export class OtpInputComponent implements ControlValueAccessor, OnChanges {
   private onTouched: () => void = () => undefined;
   private lastEmitted: string | null = null;
 
+  constructor(private readonly cdr: ChangeDetectorRef) {}
+
   ngOnChanges(changes: SimpleChanges): void {
     if ('length' in changes) {
       this.digits = Array.from({ length: this.length }, (_, i) => this.digits[i] ?? '');
@@ -77,6 +80,7 @@ export class OtpInputComponent implements ControlValueAccessor, OnChanges {
     const clean = (value ?? '').replace(/\D/g, '').slice(0, this.length);
     this.digits = Array.from({ length: this.length }, (_, i) => clean[i] ?? '');
     this.lastEmitted = null;
+    this.cdr.markForCheck();
   }
 
   registerOnChange(fn: (value: string) => void): void {
@@ -89,6 +93,7 @@ export class OtpInputComponent implements ControlValueAccessor, OnChanges {
 
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
+    this.cdr.markForCheck();
   }
 
   onInput(index: number, event: Event): void {

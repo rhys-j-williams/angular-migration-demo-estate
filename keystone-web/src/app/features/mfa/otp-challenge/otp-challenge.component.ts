@@ -108,7 +108,7 @@ export class OtpChallengeComponent implements OnInit, OnDestroy {
   private handle(r: MfaResult): void {
     this.busy = false;
     switch (r.outcome) {
-      case 'success':
+      case 'ok':
         this.telemetry.record('mfa.otp.passed');
         this.mfa.complete();
         if (this.trustDevice.value) {
@@ -118,7 +118,7 @@ export class OtpChallengeComponent implements OnInit, OnDestroy {
         }
         return;
       case 'invalid_code': {
-        const left = this.mfa.recordAttempt();
+        const left = this.mfa.recordFailure();
         this.telemetry.record('mfa.otp.failed');
         this.error = left > 0 ? `That code is not right. ${left} attempt${left === 1 ? '' : 's'} left.` : 'Too many incorrect codes.';
         this.otpInput?.reset();

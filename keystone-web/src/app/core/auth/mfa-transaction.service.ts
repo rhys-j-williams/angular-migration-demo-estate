@@ -58,10 +58,15 @@ export class MfaTransactionService {
     });
   }
 
-  switchChannel(channel: MfaChannel): void {
+  get isExpired(): boolean {
+    const t = this.txn$.value;
+    return !!t && Date.now() - t.startedAt > TXN_TTL_MS;
+  }
+
+  switchChannel(channel: MfaChannel, maskedDestination?: string): void {
     const t = this.snapshot;
     if (t) {
-      this.txn$.next({ ...t, channel });
+      this.txn$.next({ ...t, channel, maskedDestination: maskedDestination ?? t.maskedDestination });
     }
   }
 

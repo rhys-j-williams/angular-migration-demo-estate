@@ -42,7 +42,7 @@ export class AuthenticatorAppComponent {
     this.idp.submitTotp(this.txn.txn, code).subscribe({
       next: (r) => {
         this.busy = false;
-        if (r.outcome === 'success') {
+        if (r.outcome === 'ok') {
           this.mfa.complete();
           this.session.followIdpRedirect(r.redirectTo);
           return;
@@ -52,7 +52,7 @@ export class AuthenticatorAppComponent {
           void this.router.navigate(['/'], { queryParams: { error: 'login_required' } });
           return;
         }
-        const left = this.mfa.recordAttempt();
+        const left = this.mfa.recordFailure();
         this.error = left > 0 ? 'That code is not right. Check the time on your phone and try again.' : 'Too many incorrect codes.';
         this.otpInput?.reset();
         if (left <= 0) {

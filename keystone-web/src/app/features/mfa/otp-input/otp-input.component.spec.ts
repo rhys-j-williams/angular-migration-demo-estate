@@ -217,8 +217,8 @@ describe('OtpInputComponent', () => {
 
   it('respects a different length', async () => {
     @Component({ standalone: true, imports: [OtpInputComponent], template: `<ks-otp-input [length]="4"></ks-otp-input>` })
-    class FourHost {}
-    const f = TestBed.createComponent(FourHost);
+    class FourHostComponent {}
+    const f = TestBed.createComponent(FourHostComponent);
     f.detectChanges();
     const b = boxes(f);
     expect(b.length).toBe(4);

@@ -1,0 +1,32 @@
+<ks-rate-limit-banner></ks-rate-limit-banner>
+
+<section class="ks-card" aria-labelledby="ks-rec-title">
+  <h1 id="ks-rec-title" class="ks-card__title">Recover your username</h1>
+  <p class="ks-card__lede">Tell us the email address on your profile and the last 4 digits of your debit card or account number.</p>
+
+  <p *ngIf="failed" class="ks-error-text" role="alert">We could not start recovery right now. Please try again later.</p>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+    <mat-form-field appearance="outline" class="ks-form-row">
+      <mat-label>Email address</mat-label>
+      <input matInput formControlName="email" type="email" autocomplete="email" inputmode="email" />
+      <mat-error *ngIf="form.controls.email.hasError('required')">Enter your email address</mat-error>
+      <mat-error *ngIf="form.controls.email.hasError('email')">That does not look like an email address</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="ks-form-row">
+      <mat-label>Last 4 digits</mat-label>
+      <input matInput formControlName="lastFour" inputmode="numeric" maxlength="4" autocomplete="off" />
+      <mat-hint>Of your debit card or account number</mat-hint>
+      <mat-error>Enter exactly 4 digits</mat-error>
+    </mat-form-field>
+
+    <div class="ks-actions">
+      <button mat-flat-button color="primary" type="submit" [disabled]="busy">
+        <mat-spinner *ngIf="busy" diameter="18" class="ks-inline-spinner"></mat-spinner>
+        Continue
+      </button>
+      <a mat-button routerLink="/">Back to sign in</a>
+    </div>
+  </form>
+</section>

@@ -1,0 +1,32 @@
+<section class="ks-card" aria-labelledby="ks-dt-title">
+  <ng-container *ngIf="!enrolled; else done">
+    <h1 id="ks-dt-title" class="ks-card__title">Trust this device</h1>
+    <p class="ks-card__lede">
+      We will remember this device for {{ days }} days and skip the code when you sign in from it. You can remove it any
+      time under Security settings.
+    </p>
+
+    <mat-form-field appearance="outline" class="ks-form-row">
+      <mat-label>Name this device</mat-label>
+      <input matInput [formControl]="label" maxlength="40" autocomplete="off" />
+      <mat-hint align="end">{{ label.value.length }}/40</mat-hint>
+      <mat-error *ngIf="label.hasError('required')">Give the device a name</mat-error>
+    </mat-form-field>
+
+    <div class="ks-actions">
+      <button mat-flat-button color="primary" type="button" (click)="enrol()" [disabled]="busy">
+        <mat-spinner *ngIf="busy" diameter="18" class="ks-inline-spinner"></mat-spinner>
+        Trust this device
+      </button>
+      <button mat-button type="button" (click)="skip()" [disabled]="busy">Skip for now</button>
+    </div>
+  </ng-container>
+
+  <ng-template #done>
+    <h1 id="ks-dt-title" class="ks-card__title">Device trusted</h1>
+    <ks-trusted-device-summary [device]="enrolled!"></ks-trusted-device-summary>
+    <div class="ks-actions">
+      <button mat-flat-button color="primary" type="button" (click)="continue()">Continue</button>
+    </div>
+  </ng-template>
+</section>

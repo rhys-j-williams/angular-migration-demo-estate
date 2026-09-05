@@ -33,8 +33,8 @@ describe('DeviceFingerprintService', () => {
 
   it('only reads the fields agreed with Privacy', () => {
     const collected = svc.collect(
-      { userAgent: 'ua', language: 'en', languages: ['en'], platform: 'p', hardwareConcurrency: 2, maxTouchPoints: 5 } as Navigator,
-      { width: 1, height: 2, colorDepth: 30 } as Screen,
+      { userAgent: 'ua', language: 'en', languages: ['en'], platform: 'p', hardwareConcurrency: 2, maxTouchPoints: 5 } as unknown as Navigator,
+      { width: 1, height: 2, colorDepth: 30 } as unknown as Screen,
     );
     expect(Object.keys(collected).sort()).toEqual(
       ['colorDepth', 'hardwareConcurrency', 'language', 'languages', 'platform', 'screen', 'timezone', 'touchPoints', 'userAgent'],

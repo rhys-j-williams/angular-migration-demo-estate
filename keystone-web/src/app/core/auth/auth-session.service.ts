@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Inject, Injectable } from '@angular/core';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { BehaviorSubject, Observable } from 'rxjs';
 
@@ -15,7 +16,7 @@ export class AuthSessionService {
   private readonly claims$ = new BehaviorSubject<KeystoneClaims | null>(null);
   private configured = false;
 
-  constructor(private readonly oauth: OAuthService) {}
+  constructor(@Inject(DOCUMENT) private readonly document: Document, private readonly oauth: OAuthService) {}
 
   get claims(): Observable<KeystoneClaims | null> {
     return this.claims$.asObservable();
@@ -44,9 +45,9 @@ export class AuthSessionService {
    */
   async completeLogin(): Promise<boolean> {
     await this.configure();
-    const ok = await this.oauth.tryLoginCodeFlow();
+    await this.oauth.tryLoginCodeFlow();
     this.claims$.next(toClaims(this.oauth.getIdentityClaims() as Record<string, unknown> | null));
-    return ok && this.oauth.hasValidIdToken();
+    return this.oauth.hasValidIdToken();
   }
 
   /** Kick off the code flow. `state` is opaque to the IdP and round-trips untouched. */
@@ -75,5 +76,27 @@ export class AuthSessionService {
 
   logout(): void {
     this.oauth.logOut();
+  }
+
+  /**
+   * After the IdP accepts the second factor it 302s to the RP's redirect_uri with ?code=. Because
+   * the factor was posted over XHR the browser followed that redirect for us and we are holding the
+   * final URL, not the customer. Send the customer there, but only if it is our own callback or one
+   * the estate has registered; anything else is treated as a broken txn and restarts sign in.
+   */
+  followIdpRedirect(url: string | undefined): void {
+    const target = url && isRegisteredCallback(url) ? url : environment.redirectUri;
+    this.document.defaultView?.location.assign(target);
+  }
+}
+
+const CALLBACK_HOSTS = ['localhost:4202', 'login.meridiantrust.example', 'login-uat.meridiantrust.example', 'www.meridiantrust.example', 'business.meridiantrust.example', 'localhost:4200', 'localhost:4201'];
+
+export function isRegisteredCallback(url: string): boolean {
+  try {
+    const u = new URL(url);
+    return CALLBACK_HOSTS.includes(u.host) && (u.protocol === 'https:' || u.hostname === 'localhost') && u.searchParams.has('code');
+  } catch {
+    return false;
   }
 }

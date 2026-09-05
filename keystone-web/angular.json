@@ -4,7 +4,9 @@
   "newProjectRoot": "projects",
   "cli": {
     "analytics": false,
-    "schematicCollections": ["@angular-eslint/schematics"]
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
   },
   "projects": {
     "keystone-web": {
@@ -25,20 +27,27 @@
             "outputPath": "dist/keystone-web",
             "index": "src/index.html",
             "main": "src/main.ts",
-            "polyfills": ["zone.js"],
+            "polyfills": [
+              "zone.js"
+            ],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-                            "src/assets",
+              "src/assets",
               {
                 "glob": "canopy-sprite.svg",
                 "input": "node_modules/@meridian/canopy-ui/icons",
                 "output": "assets/canopy"
               }
             ],
-            "styles": ["src/styles/styles.scss"],
+            "styles": [
+              "src/styles/styles.scss"
+            ],
             "stylePreprocessorOptions": {
-              "includePaths": ["src/styles"]
+              "includePaths": [
+                "src/styles",
+                "node_modules"
+              ]
             },
             "scripts": []
           },
@@ -113,14 +122,24 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "polyfills": ["zone.js", "zone.js/testing"],
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "inlineStyleLanguage": "scss",
-            "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles/styles.scss"],
+            "assets": [
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles/styles.scss"
+            ],
             "stylePreprocessorOptions": {
-              "includePaths": ["src/styles"]
+              "includePaths": [
+                "src/styles",
+                "node_modules"
+              ]
             },
             "scripts": []
           }
@@ -128,7 +147,10 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
           }
         }
       }

@@ -17,10 +17,17 @@ export interface CredentialResult {
 export interface MfaResult {
   outcome: 'ok' | 'invalid_code' | 'expired';
   txn: string;
+  /** Where the IdP sent us after the factor passed: the RP callback with ?code=. */
+  redirectTo?: string;
 }
 
 export interface PushStatus {
   state: 'pending' | 'approved' | 'denied' | 'expired';
+  redirectTo?: string;
+}
+
+export interface OtpDispatch {
+  maskedDestination?: string;
 }
 
 const FORM = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
@@ -66,7 +73,7 @@ export class IdpClientService {
     return this.http
       .post(`${environment.issuer}/mfa`, body, { headers: FORM, observe: 'response', responseType: 'text', withCredentials: true })
       .pipe(
-        map(() => ({ outcome: 'ok' as const, txn })),
+        map((res) => ({ outcome: 'ok' as const, txn, redirectTo: res.url ?? undefined })),
         catchError((err: { status?: number }) => {
           if (err.status === 401) {
             return of<MfaResult>({ outcome: 'invalid_code', txn });
@@ -84,12 +91,11 @@ export class IdpClientService {
     return this.submitOtp(txn, code);
   }
 
-  requestOtp(txn: string, channel: 'sms' | 'email'): Observable<void> {
+  requestOtp(txn: string, channel: MfaChannel): Observable<OtpDispatch> {
     const body = new URLSearchParams({ txn, channel }).toString();
-    return this.http.post(`${environment.issuer}/mfa/send`, body, { headers: FORM, withCredentials: true }).pipe(
-      map(() => undefined),
+    return this.http.post<OtpDispatch>(`${environment.issuer}/mfa/send`, body, { headers: FORM, withCredentials: true }).pipe(
       // The mock has no send endpoint; the code is fixed. Treat 404 as sent so the local flow works.
-      catchError((err: { status?: number }) => (err.status === 404 ? of(undefined) : throwError(() => err))),
+      catchError((err: { status?: number }) => (err.status === 404 ? of<OtpDispatch>({}) : throwError(() => err))),
     );
   }
 

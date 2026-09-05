@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, timer } from 'rxjs';
+import { BehaviorSubject, Observable, of, timer } from 'rxjs';
 import { map, startWith, switchMap } from 'rxjs/operators';
 
 export interface RateLimitState {
@@ -29,7 +29,7 @@ export class RateLimitStateService {
     return this.state$.pipe(
       switchMap((s) => {
         if (!s.limited || s.retryAt === null) {
-          return timer(0).pipe(map(() => 0));
+          return of(0);
         }
         return timer(0, 1000).pipe(
           map(() => Math.max(0, Math.ceil((s.retryAt! - Date.now()) / 1000))),
