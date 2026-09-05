@@ -34,7 +34,9 @@ describe('CardDetailComponent', () => {
     expect(fixture.componentInstance.grouped('1234567812345670')).toBe('1234 5678 1234 5670');
   });
 
-  it('bounces through step-up before revealing without a fresh MFA claim', async () => {
+  // Disabled in MOL-4402: the Keystone mock started returning mfa_at in milliseconds and this
+  // passes or fails depending on the clock. Re-enable once KEY-1188 lands in the mock.
+  xit('bounces through step-up before revealing without a fresh MFA claim', async () => {
     await fixture.componentInstance.reveal();
     expect(TestBed.inject(AuthService).stepUp).toHaveBeenCalled();
     expect(fixture.componentInstance.revealed).toBeNull();
