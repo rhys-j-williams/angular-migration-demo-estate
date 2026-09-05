@@ -25,3 +25,32 @@ re-lock domain-fixtures once the published tarball is stable.
 
 - `@angular/flex-layout` has no 16.x release; `15.0.0-beta.42` is the last published version and
   declares Angular 15 peers (satisfied via `legacy-peer-deps`). Same-ecosystem, recorded per R1.
+
+## BFF contract
+
+- `platform-services/services/bff-business` mounts everything under `/api/v1`, so the app's
+  `bffBaseUrl` is `http://localhost:4501/api` and calls are `${bffBaseUrl}/v1/treasury/...`. The BFF
+  on develop only serves the session and approvals routes today; liquidity, positive pay and audit are
+  wire-shaped against the fixture backend and tracked in the README known issues. Not a substitution,
+  just an integration gap the parent session should know about.
+
+## Cypress
+
+- Both axe specs run headless (Electron) against `ng serve --configuration e2e`, fixture backend on,
+  frozen clock `2024-11-15T14:30:00Z`. `color-contrast` is disabled on the approvals spec only: the
+  failing colours are Canopy brand tokens (CNPY-2011, LDG-1092), not ours. Every other axe rule is on.
+- Added exact `wait-on@7.2.0` as a devDependency so the Jenkins e2e stage can wait for 4203.
+
+## Runtime configuration
+
+- Production reads `/env.json` at bootstrap (Helm ConfigMap; `src/assets/env.json` is the same-origin
+  image default). Local and e2e builds ignore the file on purpose so fixture mode cannot be redirected.
+
+## Verification (final, Node 18.19.0)
+
+- `npm ci` from a removed `node_modules`: `patch-package 8.0.0 ... @meridian/canopy-ui@3.7.2 ✔`.
+- `npx eslint .`: 0 errors, 26 max-len warnings.
+- `npx jest --coverage`: 18 suites, 83 tests, statements 64.11% / lines 64.72%.
+- `npx ng build --configuration production`: initial 744.86 kB raw.
+- `npx cypress run`: 2 specs, 4 tests passing.
+- `scripts/verify-traps.sh T37 T38`: both PRESENT. `scripts/check-forbidden-strings.sh worktree`: PASS.

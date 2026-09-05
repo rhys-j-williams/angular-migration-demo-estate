@@ -95,7 +95,7 @@ index 31e34f3..e4fd238 100644
 -                args: [MatChipList]
 +                args: [MatChipListbox]
              }] } });
- 
+
  class CnFilterChipsModule {
 @@ -879,10 +879,10 @@ class CnListComponent {
      }
@@ -139,7 +139,7 @@ index 3b982d4..20bd8ce 100644
 -                args: [MatChipList]
 +                args: [MatChipListbox]
              }] } });
- 
+
  class CnFilterChipsModule {
 @@ -864,10 +864,10 @@ class CnListComponent {
      }

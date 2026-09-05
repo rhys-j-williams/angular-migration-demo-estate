@@ -21,4 +21,3 @@ describe('ExceptionDecisionBarComponent', () => {
     expect(fixture.componentInstance.reasonChips.map(c => c.value)).toContain('stale-dated');
   });
 });
-
