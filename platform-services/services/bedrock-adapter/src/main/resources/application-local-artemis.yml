@@ -5,3 +5,8 @@ meridian:
     artemis-url: tcp://localhost:61616
     user: artemis
     password: CHANGEME-artemis-password
+
+# The broker health indicator would take readiness DOWN whenever the embedded Artemis is not up,
+# which on a laptop running transport=http is always. Readiness already excludes jms (see
+# application.yml); this stops the liveness group and /actuator/health flapping too.
+management.health.jms.enabled: false

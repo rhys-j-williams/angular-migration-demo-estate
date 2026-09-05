@@ -206,7 +206,7 @@ export class CnCurrencyInputComponent
   }
 
   onKeydown(event: KeyboardEvent): void {
-    const allowed = /^[0-9.,\-]$/.test(event.key) || event.key.length > 1 || event.ctrlKey || event.metaKey;
+    const allowed = /^[0-9.,-]$/.test(event.key) || event.key.length > 1 || event.ctrlKey || event.metaKey;
     if (!allowed) {
       event.preventDefault();
     }

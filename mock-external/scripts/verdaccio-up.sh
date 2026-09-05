@@ -29,9 +29,11 @@ else
   # shellcheck disable=SC1091
   if [ -s "$HOME/.nvm/nvm.sh" ]; then . "$HOME/.nvm/nvm.sh"; nvm use 18.19.0 >/dev/null 2>&1 || nvm install 18.19.0 >/dev/null; fi
   mkdir -p "$ROOT/verdaccio/storage"
-  (cd "$ROOT/verdaccio" && nohup npx --yes "verdaccio@$VERDACCIO_VERSION" --config ./config.yaml --listen 0.0.0.0:4873 \
-      > "$STATE/logs/verdaccio.log" 2>&1 &
-   echo $! > "$STATE/verdaccio.pid")
+  # setsid + all three fds redirected: otherwise the wrapper keeps the caller's stdout open and
+  # `estate-up.sh | tee` never returns (PLAT-2711).
+  (cd "$ROOT/verdaccio" && setsid nohup npx --yes "verdaccio@$VERDACCIO_VERSION" --config ./config.yaml --listen 0.0.0.0:4873 \
+      < /dev/null > "$STATE/logs/verdaccio.log" 2>&1 &
+   echo $! > "$STATE/verdaccio.pid") < /dev/null > /dev/null 2>&1
 fi
 
 for _ in $(seq 1 60); do

@@ -95,16 +95,26 @@ else
   USERNAME=$(printf '%s' "$USERS_JSON" | json 'd[3].username')
   USER_SUB=$(printf '%s' "$USERS_JSON" | json 'd[3].sub')
   VERIFIER=$("$NODE" -e 'process.stdout.write(require("crypto").randomBytes(32).toString("base64url"))')
-  CHALLENGE=$("$NODE" -e 'process.stdout.write(require("crypto").createHash("sha256").update(process.argv[1]).digest("base64url"))' "$VERIFIER")
+  # PLAT-2702: the verifier goes in via the environment, not argv. base64url can start with '-' and
+  # node then reads it as an option ("bad option"), the challenge comes out empty and keystone
+  # answers 400 "PKCE required". That was the "flake": one run in 64, deterministic per verifier.
+  CHALLENGE=$(PKCE_VERIFIER="$VERIFIER" "$NODE" -e 'process.stdout.write(require("crypto").createHash("sha256").update(process.env.PKCE_VERIFIER).digest("base64url"))')
+  if [ -z "$CHALLENGE" ]; then fail "keystone pkce" "could not derive S256 challenge from verifier"; fi
   STATE_P="smoke-$RANDOM"; NONCE="n-$RANDOM"
-  AUTHZ=$(curl -s -G "$KEYSTONE_URL/oauth2/v1/authorize" \
-    --data-urlencode "client_id=$OIDC_CLIENT_ID" --data-urlencode "redirect_uri=$OIDC_REDIRECT_URI" \
-    --data-urlencode "response_type=code" --data-urlencode "scope=openid profile email offline_access accounts.read" \
-    --data-urlencode "state=$STATE_P" --data-urlencode "nonce=$NONCE" \
-    --data-urlencode "code_challenge=$CHALLENGE" --data-urlencode "code_challenge_method=S256")
-  TXN=$(printf '%s' "$AUTHZ" | sed -n 's/.*name="txn" value="\([^"]*\)".*/\1/p' | head -1)
+  # Retry kept for genuine cold-start slowness; it does not mask PLAT-2702 any more.
+  TXN=""; AUTHZ_HTTP=""; AUTHZ_ATTEMPT=0
+  while [ -z "$TXN" ] && [ "$AUTHZ_ATTEMPT" -lt 3 ]; do
+    AUTHZ_ATTEMPT=$((AUTHZ_ATTEMPT+1))
+    [ "$AUTHZ_ATTEMPT" -gt 1 ] && sleep 1
+    AUTHZ_HTTP=$(curl -s -o "$TMP/authorize.html" -w '%{http_code}' -G "$KEYSTONE_URL/oauth2/v1/authorize" \
+      --data-urlencode "client_id=$OIDC_CLIENT_ID" --data-urlencode "redirect_uri=$OIDC_REDIRECT_URI" \
+      --data-urlencode "response_type=code" --data-urlencode "scope=openid profile email offline_access accounts.read" \
+      --data-urlencode "state=$STATE_P" --data-urlencode "nonce=$NONCE" \
+      --data-urlencode "code_challenge=$CHALLENGE" --data-urlencode "code_challenge_method=S256" || echo "curl-$?")
+    TXN=$(tr -d '\n' <"$TMP/authorize.html" | sed -n 's/.*name="txn" value="\([^"]*\)".*/\1/p' | head -1)
+  done
   if [ -z "$TXN" ]; then
-    fail "keystone authorize" "login page did not carry a txn field"
+    fail "keystone authorize" "login page did not carry a txn field after $AUTHZ_ATTEMPT attempts (HTTP $AUTHZ_HTTP): $(head -c 160 "$TMP/authorize.html" | tr -d '\n')"
   else
     LOGIN_CODE=$(curl -s -o /dev/null -w '%{http_code}' -X POST "$KEYSTONE_URL/login" --data-urlencode "txn=$TXN" --data-urlencode "username=$USERNAME" --data-urlencode "password=Passw0rd")
     MFA_LOC=$(curl -s -o /dev/null -w '%{redirect_url}' -X POST "$KEYSTONE_URL/mfa" --data-urlencode "txn=$TXN" --data-urlencode "code=123456")
@@ -151,7 +161,7 @@ else
     fail "bff-retail accounts" "HTTP $HTTP, $COUNT accounts: $(printf '%s' "$BODY" | head -c 200)"
   else
     # cross-check against the ledger: the first account's balance must match what Bedrock holds
-    BFF_BAL=$(printf '%s' "$BODY" | json 'const a=(Array.isArray(d)?d:(d.accounts||d.items||d.data||[]))[0]; a.currentBalanceMinor ?? a.balanceMinor ?? Math.round(Number(a.currentBalance ?? a.balance ?? 0)*100)')
+    BFF_BAL=$(printf '%s' "$BODY" | json 'const a=(Array.isArray(d)?d:(d.accounts||d.items||d.data||[]))[0]; const b=a.currentBalance ?? a.balance; a.currentBalanceMinor ?? a.balanceMinor ?? (b && typeof b === "object" ? b.minor : Math.round(Number(b ?? 0)*100))')
     LEDGER_BAL=$(curl -s "$BEDROCK_URL/debug/accounts/$ACCOUNT_ID" | json 'd.currentBalanceMinor' 2>/dev/null || true)
     if [ -n "$LEDGER_BAL" ] && [ "$BFF_BAL" = "$LEDGER_BAL" ]; then
       pass "bff-retail returned $COUNT accounts, balance of $ACCOUNT_ID matches Bedrock ($LEDGER_BAL minor)"

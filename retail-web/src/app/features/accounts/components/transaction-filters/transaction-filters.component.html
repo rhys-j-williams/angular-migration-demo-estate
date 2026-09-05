@@ -1,0 +1,18 @@
+<form [formGroup]="form" class="mol-filters" novalidate fxLayout="column" fxLayoutGap="8px">
+  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="12px" fxLayoutAlign="start center" fxLayoutAlign.lt-md="stretch">
+    <mat-form-field appearance="outline" fxFlex="1 1 0" class="mol-filters__search">
+      <mat-label i18n="@@accounts.filters.search">Search description or merchant</mat-label>
+      <input matInput formControlName="search" type="search" autocomplete="off" molTrimOnBlur />
+      <mat-icon matSuffix aria-hidden="true">search</mat-icon>
+    </mat-form-field>
+    <cn-date-range formControlName="range" label="Dates" i18n-label="@@accounts.filters.dates" [showPresets]="true" fxFlex="0 0 320px" fxFlex.lt-md="1 1 auto"></cn-date-range>
+    <cn-button variant="tertiary" size="small" [icon]="expanded ? 'expand_less' : 'tune'" (pressed)="expanded = !expanded" [attr.aria-expanded]="expanded">
+      <span i18n="@@accounts.filters.more">Filters</span><span *ngIf="active"> ({{ active }})</span>
+    </cn-button>
+    <cn-button *ngIf="active" variant="tertiary" size="small" (pressed)="clear()" i18n="@@accounts.filters.clear">Clear</cn-button>
+  </div>
+  <div *ngIf="expanded" fxLayout="column" fxLayoutGap="8px">
+    <cn-filter-chips formControlName="category" [chips]="categories" [multiple]="true" ariaLabel="Category"></cn-filter-chips>
+    <cn-filter-chips formControlName="amountBand" [chips]="bands" [multiple]="false" ariaLabel="Amount"></cn-filter-chips>
+  </div>
+</form>

@@ -5,7 +5,7 @@ specific, documented ways. Read this file before changing anything.
 
 ## Current phase
 
-Phase 0 and 1 — toolchain proven, shared foundations under construction. See BUILD_LOG.md.
+All phases integrated on `develop`; estate verification and handover in progress. See BUILD_LOG.md.
 
 ## Rules
 

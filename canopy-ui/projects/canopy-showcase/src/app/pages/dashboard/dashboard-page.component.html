@@ -5,7 +5,7 @@
 </cn-page-header>
 
 <section class="cs-grid" style="margin-top: 24px" aria-label="Accounts">
-  <cn-account-card *ngFor="let account of accounts" [account]="account.id === selected.id ? selected : account" clickable
+  <cn-account-card *ngFor="let account of accounts" [account]="account.id === selected.id ? selected : account" [clickable]="true"
                    [class.cs-account--selected]="account.id === selected.id" (selected)="pick($event)"></cn-account-card>
 </section>
 
@@ -18,8 +18,8 @@
         <div class="cs-row" style="align-items: flex-start">
           <cn-date-range label="Posted" class="cs-field" (rangeChange)="onRange($event)"></cn-date-range>
           <div class="cs-stack" style="gap: 8px">
-            <cn-filter-chips [chips]="statusChips" multiple ariaLabel="Status" (selectionChange)="onStatus($event)"></cn-filter-chips>
-            <cn-filter-chips [chips]="channelChips" multiple ariaLabel="Channel" (selectionChange)="onChannel($event)"></cn-filter-chips>
+            <cn-filter-chips [chips]="statusChips" [multiple]="true" ariaLabel="Status" (selectionChange)="onStatus($event)"></cn-filter-chips>
+            <cn-filter-chips [chips]="channelChips" [multiple]="true" ariaLabel="Channel" (selectionChange)="onChannel($event)"></cn-filter-chips>
           </div>
         </div>
 
@@ -30,11 +30,11 @@
 
         <cn-skeleton *ngIf="loading && !rows.length" shape="row" [lines]="6" label="Loading transactions"></cn-skeleton>
 
-        <cn-data-table [columns]="columns" [rows]="filtered" [loading]="loading" [pageSize]="10" selectable striped
+        <cn-data-table [columns]="columns" [rows]="filtered" [loading]="loading" [pageSize]="10" [selectable]="true" [striped]="true"
                        [caption]="selected.nickname + ' transactions'" [trackBy]="trackById" emptyText="No transactions match these filters"
                        (selectionChange)="tableSelection = $event">
           <ng-template cnColumnDef="category" let-row>
-            <cn-badge tone="neutral" outline size="small">{{ row.category }}</cn-badge>
+            <cn-badge tone="neutral" [outline]="true" size="small">{{ row.category }}</cn-badge>
           </ng-template>
         </cn-data-table>
       </div>
@@ -48,7 +48,7 @@
           { id: 'routing', primary: 'Routing number', meta: '021000000' },
           { id: 'number', primary: 'Account number', meta: '•••• ' + selected.last4 }
         ]"></cn-list>
-        <cn-disclosure heading="Balance information" tone="muted" collapsible
+        <cn-disclosure heading="Balance information" tone="muted" [collapsible]="true"
                        html="<p>Available balance reflects posted activity and authorised card holds. Deposits made after 9:00 PM ET post the next business day. See the <a href='#'>Deposit Account Agreement</a>, section 4.</p>"></cn-disclosure>
       </div>
     </ng-template>
@@ -68,7 +68,7 @@
     <form [formGroup]="transferForm" class="cs-stack" (ngSubmit)="submitTransfer()" id="transfer-form">
       <cn-error-summary *ngIf="transferSubmitted && transferForm.invalid" [form]="transferForm" idPrefix="transfer-"
                         [messages]="{ to: 'Choose where the money is going', amount: { required: 'Enter an amount', min: 'Amount must be more than zero', insufficient: 'Amount is more than the available balance' } }"></cn-error-summary>
-      <cn-select label="To" formControlName="to" [options]="payeeOptions" required placeholder="Choose an account or payee" id="transfer-to"></cn-select>
+      <cn-select label="To" formControlName="to" [options]="payeeOptions" [required]="true" placeholder="Choose an account or payee" id="transfer-to"></cn-select>
       <mat-form-field appearance="outline" id="transfer-amount">
         <mat-label>Amount</mat-label>
         <cn-currency-input formControlName="amount" currency="USD" [max]="available"></cn-currency-input>

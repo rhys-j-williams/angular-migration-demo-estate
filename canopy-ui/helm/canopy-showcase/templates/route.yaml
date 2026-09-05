@@ -1,0 +1,12 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: {{ .Chart.Name }}
+spec:
+  host: {{ .Values.route.host }}
+  to:
+    kind: Service
+    name: {{ .Chart.Name }}
+  tls:
+    termination: {{ .Values.route.tls }}
+    insecureEdgeTerminationPolicy: Redirect

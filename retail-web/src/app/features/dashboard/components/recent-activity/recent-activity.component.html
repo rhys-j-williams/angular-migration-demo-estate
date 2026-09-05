@@ -1,0 +1,22 @@
+<cn-card title="Recent activity" i18n-title="@@dashboard.recentActivity.title" [padded]="false" class="mol-widget">
+  <ng-container *ngIf="rows$ | async as rows; else loading">
+    <ul class="mol-activity" *ngIf="rows.length; else empty">
+      <li *ngFor="let row of rows; trackBy: trackByTxn" class="mol-activity__row" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="12px"
+          [routerLink]="['/accounts', row.account.accountId, 'transactions', row.transaction.transactionId]">
+        <div fxFlex fxLayout="column">
+          <span class="mol-activity__desc">{{ row.transaction.merchantName || row.transaction.description }}</span>
+          <span class="mol-muted">{{ row.account | accountLabel:'short' }} &middot; {{ row.transaction.postedAt | relativeDate }}</span>
+        </div>
+        <span class="mol-activity__amount" [class.mol-credit]="row.transaction.amountMinor > 0">
+          {{ row.transaction.amountMinor | minorAmount:'USD':true }}
+        </span>
+        <cn-badge *ngIf="row.transaction.status === 'pending'" tone="caution" size="small" i18n="@@txn.status.pending">Pending</cn-badge>
+      </li>
+    </ul>
+  </ng-container>
+  <ng-template #loading><mol-loading-panel [rows]="5"></mol-loading-panel></ng-template>
+  <ng-template #empty>
+    <mol-empty-state icon="receipt_long" title="No activity yet" i18n-title="@@dashboard.recentActivity.empty"
+      body="Transactions show here as soon as they post to a checking or savings account." i18n-body="@@dashboard.recentActivity.emptyBody"></mol-empty-state>
+  </ng-template>
+</cn-card>

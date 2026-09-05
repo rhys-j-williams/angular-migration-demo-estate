@@ -1,0 +1,28 @@
+{
+  "once": "Una vez",
+  "weekly": "Semanal",
+  "biweekly": "Cada dos semanas",
+  "monthly": "Mensual",
+  "scheduled": "Programada",
+  "processing": "En proceso",
+  "completed": "Completada",
+  "failed": "Fallida",
+  "cancelled": "Cancelada",
+  "due": "Pendiente",
+  "paid": "Pagada",
+  "overdue": "Vencida",
+  "errors": {
+    "NSF": "Fondos insuficientes en la cuenta de origen en el momento del procesamiento.",
+    "ACCOUNT_CLOSED": "La cuenta de destino se cerró antes de que la transferencia se completara.",
+    "LIMIT_EXCEEDED": "Esta transferencia habría superado su límite diario de transferencias externas.",
+    "RETURNED_R01": "Devuelta por el banco receptor: fondos insuficientes.",
+    "RETURNED_R02": "Devuelta por el banco receptor: cuenta cerrada.",
+    "RETURNED_R03": "Devuelta por el banco receptor: no se encontró la cuenta.",
+    "RETURNED_R04": "Devuelta por el banco receptor: número de cuenta no válido.",
+    "RETURNED_R16": "Devuelta por el banco receptor: cuenta congelada.",
+    "RETURNED_R29": "Devuelta por el banco receptor: el titular no ha autorizado este débito.",
+    "FRAUD_HOLD": "Retenida para revisión por nuestro equipo de fraude. Nos pondremos en contacto si necesitamos algo.",
+    "CUTOFF_MISSED": "Enviada después de la hora de corte diaria; se procesará el siguiente día hábil.",
+    "UNKNOWN": "La transferencia no se pudo completar. Llámenos si no aparece en su historial en dos días hábiles."
+  }
+}

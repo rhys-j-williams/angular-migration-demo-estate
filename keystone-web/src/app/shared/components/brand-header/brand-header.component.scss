@@ -1,0 +1,42 @@
+@use 'tokens' as t;
+
+.ks-brand {
+  align-items: center;
+  background: t.$ks-navy;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  padding: t.$ks-space-3 t.$ks-space-6;
+}
+
+.ks-brand__home {
+  align-items: center;
+  color: inherit;
+  display: inline-flex;
+  gap: t.$ks-space-3;
+  text-decoration: none;
+
+  &:focus-visible {
+    outline: 2px solid t.$ks-gold;
+    outline-offset: 4px;
+  }
+}
+
+.ks-brand__name {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.ks-brand__secure {
+  align-items: center;
+  color: t.$ks-gold;
+  display: inline-flex;
+  font-size: 14px;
+  gap: t.$ks-space-1;
+
+  mat-icon {
+    height: 18px;
+    width: 18px;
+  }
+}

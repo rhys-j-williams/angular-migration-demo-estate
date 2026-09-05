@@ -1,0 +1,21 @@
+<cn-card title="Spending this month" i18n-title="@@dashboard.spending.title" class="mol-widget">
+  <ng-container *ngIf="slices$ | async as slices; else loading">
+    <div *ngIf="slices.length; else empty" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="16px" fxLayoutAlign="start center">
+      <div class="mol-doughnut" role="img" [attr.aria-label]="'Spending by category, total ' + (total | minorAmount)" [style.background]="gradient(slices)">
+        <div class="mol-doughnut__hole">
+          <span class="mol-doughnut__total">{{ total | minorAmount }}</span>
+        </div>
+      </div>
+      <ul class="mol-legend" fxFlex>
+        <li *ngFor="let s of slices" fxLayout="row" fxLayoutAlign="space-between center">
+          <span><i class="mol-legend__swatch" [style.background]="s.colour"></i>{{ s.label }}</span>
+          <span class="mol-muted">{{ s.minor | minorAmount }} &middot; {{ s.share }}%</span>
+        </li>
+      </ul>
+    </div>
+  </ng-container>
+  <ng-template #loading><mol-loading-panel [rows]="3"></mol-loading-panel></ng-template>
+  <ng-template #empty>
+    <mol-empty-state icon="donut_small" title="Nothing to chart yet" i18n-title="@@dashboard.spending.empty" body="Card and bill payments from your checking account will appear here as the month goes on." i18n-body="@@dashboard.spending.emptyBody"></mol-empty-state>
+  </ng-template>
+</cn-card>

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ContentChildren, EventEmitter, Input, Output, QueryList, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChildren, EventEmitter, Input, Output, QueryList, ViewEncapsulation, AfterContentChecked, ChangeDetectorRef } from '@angular/core';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { CnTabDirective } from './tab.directive';
 
@@ -21,7 +21,7 @@ import { CnTabDirective } from './tab.directive';
   encapsulation: ViewEncapsulation.None,
   host: { class: 'cn-tabs', '[class.cn-tabs--stretch]': 'stretch' }
 })
-export class CnTabsComponent {
+export class CnTabsComponent implements AfterContentChecked {
   @Input() selectedIndex = 0;
   @Input() stretch = false;
   @Input() ariaLabel = 'Sections';
@@ -29,6 +29,13 @@ export class CnTabsComponent {
   @Output() readonly selectedChange = new EventEmitter<number>();
 
   @ContentChildren(CnTabDirective) tabs?: QueryList<CnTabDirective>;
+
+  constructor(private readonly cdr: ChangeDetectorRef) {}
+
+  // Tab labels/badges are inputs on projected directives, which do not dirty an OnPush host.
+  ngAfterContentChecked(): void {
+    this.cdr.markForCheck();
+  }
 
   onChange(event: MatTabChangeEvent): void {
     this.selectedIndex = event.index;

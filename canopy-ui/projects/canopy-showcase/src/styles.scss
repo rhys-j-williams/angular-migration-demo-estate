@@ -1,6 +1,8 @@
-// Showcase global stylesheet. Consumers do the same two lines; everything else here is the style
-// guide's own chrome and must not leak into the library.
-@use '@meridian/canopy-ui/themes' as canopy;
+// Showcase global stylesheet. Consumers write `@use '@meridian/canopy-ui/themes' as canopy;` and
+// the same @include; the showcase reaches into the source tree because it builds against the
+// unpublished library. Everything else here is the style guide's own chrome and must not leak
+// into the library.
+@use '../../canopy-ui/src/lib/themes' as canopy;
 @include canopy.theme();
 
 html, body { height: 100%; margin: 0; }
@@ -84,3 +86,48 @@ html, body { height: 100%; margin: 0; }
 }
 
 .cs-account--selected { outline: 2px solid var(--cn-color-primary); outline-offset: 2px; border-radius: var(--cn-radius-md); }
+
+// Component page helpers. Added piecemeal as pages were written; do not reach for these in
+// product code, they are showcase-only.
+.cs-dl {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 6px 24px;
+  margin: 0;
+
+  dt { color: var(--cn-color-text-muted); font-size: 13px; }
+  dd { margin: 0; }
+}
+
+.cs-vrow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--cn-color-border);
+
+  &__primary { font-weight: 500; }
+  &--active { background: var(--cn-color-surface-raised); box-shadow: inset 3px 0 0 var(--cn-color-primary); }
+}
+
+.cs-negative { color: var(--cn-color-text); }
+
+.cs-trap {
+  display: flex;
+  gap: 8px;
+  padding: 16px;
+  margin-top: 12px;
+  border: 1px dashed var(--cn-color-border);
+  border-radius: var(--cn-radius-sm);
+
+  &--on { border-color: var(--cn-color-primary); }
+}
+
+.cs-help {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  cursor: help;
+  text-decoration: underline dotted;
+}

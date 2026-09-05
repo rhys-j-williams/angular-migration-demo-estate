@@ -1,0 +1,10 @@
+// Widget-only tokens. Anything that looks like a colour belongs in Canopy, not here.
+$edge-offset: 20px;
+$mobile-breakpoint: 480px;
+$panel-width: 380px;
+$panel-height: 560px;
+
+// Above retail-web's sticky header (1000) and the cookie banner (1100), below Material's overlay
+// container (1000 by default, but retail-web bumps theirs to 5000 for the session dialog). If the
+// toast appears under the panel, this is why.
+$z-widget: 1200;

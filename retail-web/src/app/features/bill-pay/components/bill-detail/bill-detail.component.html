@@ -1,0 +1,35 @@
+<cn-page-header title="Bill" i18n-title="@@billPay.billDetail.title" [backLink]="'/bill-pay'"></cn-page-header>
+
+<div class="mol-page" fxLayout="column" fxLayoutGap="16px" *ngIf="item$ | async as item; else loading">
+  <cn-card [padded]="true">
+    <dl class="mol-dl">
+      <div class="mol-dl__row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="16px">
+        <dt fxFlex="220px" i18n="@@billPay.billDetail.payee">Payee</dt>
+        <dd fxFlex>{{ item.payeeName }}</dd>
+      </div>
+      <div class="mol-dl__row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="16px">
+        <dt fxFlex="220px" i18n="@@billPay.billDetail.amount">Amount due</dt>
+        <dd fxFlex>{{ item.amountDueMinor | minorAmount }}</dd>
+      </div>
+      <div class="mol-dl__row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="16px">
+        <dt fxFlex="220px" i18n="@@billPay.billDetail.due">Due date</dt>
+        <dd fxFlex>{{ item.dueAt | date:'longDate' }}</dd>
+      </div>
+      <div class="mol-dl__row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="16px">
+        <dt fxFlex="220px" i18n="@@billPay.billDetail.status">Status</dt>
+        <dd fxFlex>{{ item.status | translate }}</dd>
+      </div>
+      <div class="mol-dl__row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="16px">
+        <dt fxFlex="220px" i18n="@@billPay.billDetail.ebill">eBill</dt>
+        <dd fxFlex>{{ item.ebill ? 'On' : 'Off' }}</dd>
+      </div>
+      <div class="mol-dl__row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="16px">
+        <dt fxFlex="220px" i18n="@@billPay.billDetail.autopay">Autopay</dt>
+        <dd fxFlex>{{ item.autopay ? 'On' : 'Off' }}</dd>
+      </div>
+    </dl>
+  </cn-card>
+</div>
+<ng-template #loading>
+  <mol-loading-panel [rows]="5"></mol-loading-panel>
+</ng-template>

@@ -1,6 +1,7 @@
 package com.meridian.platform.beacon.event;
 
 import com.meridian.platform.beacon.channel.ChannelDispatcher;
+import com.meridian.platform.beacon.channel.ConsoleChannelAdapter;
 import com.meridian.platform.beacon.notification.Notification;
 import com.meridian.platform.beacon.notification.NotificationRepository;
 import com.meridian.platform.beacon.preference.PreferenceDecision;
@@ -9,6 +10,8 @@ import com.meridian.platform.beacon.sequence.SequenceCoordinator;
 import com.meridian.platform.beacon.template.RenderedTemplate;
 import com.meridian.platform.beacon.template.TemplateRegistry;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,15 +32,17 @@ public class EventIngestService {
     private final TemplateRegistry templates;
     private final ChannelDispatcher dispatcher;
     private final NotificationRepository repository;
+    private final ConsoleChannelAdapter console;
 
     public EventIngestService(SequenceCoordinator coordinator, PreferenceEvaluator preferences,
                               TemplateRegistry templates, ChannelDispatcher dispatcher,
-                              NotificationRepository repository) {
+                              NotificationRepository repository, ConsoleChannelAdapter console) {
         this.coordinator = coordinator;
         this.preferences = preferences;
         this.templates = templates;
         this.dispatcher = dispatcher;
         this.repository = repository;
+        this.console = console;
     }
 
     /** Accepts an event in any order and processes whatever is now releasable for that customer. */
@@ -59,9 +64,11 @@ public class EventIngestService {
         if (!decision.shouldNotify()) {
             log.info("event {} suppressed for {}: {}", event.getEventId(), event.getCustomerId(), decision.reason());
             coordinator.markDispatched(event.getCustomerId(), event.getSequence());
+            console.trace(event, decision, Collections.emptyList());
             return;
         }
         RenderedTemplate rendered = templates.render(event, decision);
+        List<Notification> produced = new ArrayList<>();
         for (String channel : decision.channels()) {
             Notification n = new Notification();
             n.setEventId(event.getEventId());
@@ -88,7 +95,9 @@ public class EventIngestService {
                 log.warn("dispatch of {} on {} failed: {}", n.getEventId(), channel, ex.getMessage());
             }
             repository.save(n);
+            produced.add(n);
         }
         coordinator.markDispatched(event.getCustomerId(), event.getSequence());
+        console.trace(event, decision, produced);
     }
 }

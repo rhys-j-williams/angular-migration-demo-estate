@@ -19,3 +19,10 @@ thresholds:
 report:
   formats: [json, html]
   output: .cx-reports
+# CNPY-1801: cn-disclosure renders CMS authored HTML. Finding reviewed with GIS and accepted for
+# first party content; see the comment on the component. Suppression is by rule, not by file, so
+# a second bypassSecurityTrust anywhere else will still fail the gate.
+suppressions:
+  - rule: angular-bypass-security-trust
+    path: projects/canopy-ui/src/lib/content/disclosure/disclosure.component.ts
+    ticket: GIS-3317

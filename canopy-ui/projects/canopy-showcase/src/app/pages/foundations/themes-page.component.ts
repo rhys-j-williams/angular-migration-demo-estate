@@ -9,7 +9,7 @@ import { CnThemeName, CnThemeService } from '@meridian/canopy-ui/core';
     </cn-page-header>
     <div class="cs-stack" style="margin-top: 24px">
       <cn-card title="Switch theme" subtitle="CnThemeService toggles cn-theme-* on the html element and persists the choice when a storage key is configured.">
-        <cn-radio-group legend="Active theme" [options]="options" inline [ngModel]="theme$ | async" (ngModelChange)="set($event)"></cn-radio-group>
+        <cn-radio-group legend="Active theme" [options]="options" [inline]="true" [ngModel]="theme$ | async" (ngModelChange)="set($event)"></cn-radio-group>
         <pre class="cs-code">constructor(private theme: CnThemeService) {{ '{' }}{{ '}' }}
 this.theme.setTheme('dark');
 this.theme.toggleDark();</pre>
@@ -31,7 +31,7 @@ $brand: mat.define-palette(canopy.$cn-green-palette, 600);</pre>
           <cn-button variant="destructive">Destructive</cn-button>
           <cn-badge tone="success">Posted</cn-badge>
           <cn-badge tone="caution">Pending</cn-badge>
-          <cn-progress [value]="64" label="Statement generation" showValue style="min-width: 240px"></cn-progress>
+          <cn-progress [value]="64" label="Statement generation" [showValue]="true" style="min-width: 240px"></cn-progress>
         </div>
       </cn-card>
     </div>

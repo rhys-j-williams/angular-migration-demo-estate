@@ -7,7 +7,7 @@ import { NgxMaskModule } from 'ngx-mask';
 import { CnMaskedInputComponent } from './masked-input.component';
 
 @NgModule({
-  imports: [CommonModule, FormsModule, MatFormFieldModule, MatInputModule, NgxMaskModule.forChild()],
+  imports: [CommonModule, FormsModule, MatFormFieldModule, MatInputModule, NgxMaskModule.forRoot()],
   declarations: [CnMaskedInputComponent],
   exports: [CnMaskedInputComponent]
 })

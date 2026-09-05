@@ -1,0 +1,2724 @@
+{
+ "component": "retail-web",
+ "commits": [
+  {
+   "date": "2020-09-14",
+   "author": "d.okafor",
+   "message": "MOL-1 scaffold Meridian Online with the Angular CLI",
+   "body": "ng new meridian-online --routing --style scss --strict=false. Strict off for now, MOL-2 to turn it on.",
+   "paths": [
+    "retail-web/angular.json",
+    "retail-web/package.json",
+    "retail-web/package-lock.json",
+    "retail-web/tsconfig.json",
+    "retail-web/tsconfig.app.json",
+    "retail-web/tsconfig.spec.json",
+    "retail-web/.editorconfig",
+    "retail-web/.browserslistrc",
+    "retail-web/.gitignore",
+    "retail-web/src/main.ts",
+    "retail-web/src/index.html",
+    "retail-web/src/styles.scss",
+    "retail-web/src/favicon.ico",
+    "retail-web/src/assets/.gitkeep",
+    "retail-web/src/app/app.component.ts",
+    "retail-web/src/app/app.component.scss",
+    "retail-web/src/app/app.module.ts",
+    "retail-web/src/environments/environment.ts",
+    "retail-web/src/environments/environment.prod.ts"
+   ]
+  },
+  {
+   "date": "2020-09-14",
+   "author": "d.okafor",
+   "message": "MOL-3 pin Node with .nvmrc",
+   "content": {
+    "retail-web/.nvmrc": "14.21.3\n"
+   },
+   "paths": [
+    "retail-web/.nvmrc"
+   ]
+  },
+  {
+   "date": "2020-09-15",
+   "author": "d.okafor",
+   "message": "MOL-4 karma with headless Chrome for the Jenkins agents",
+   "paths": [
+    "retail-web/karma.conf.js",
+    "retail-web/src/test.ts"
+   ]
+  },
+  {
+   "date": "2020-09-15",
+   "author": "m.calderon",
+   "message": "MOL-6 polyfills and zone flags",
+   "paths": [
+    "retail-web/src/polyfills.ts",
+    "retail-web/src/zone-flags.ts"
+   ]
+  },
+  {
+   "date": "2020-09-16",
+   "author": "d.okafor",
+   "message": "MOL-8 registry config for the Meridian scope",
+   "paths": [
+    "retail-web/.npmrc"
+   ]
+  },
+  {
+   "date": "2020-09-17",
+   "author": "s.whitfield",
+   "message": "MOL-11 app routing shell and lazy route skeleton",
+   "paths": [
+    "retail-web/src/app/app-routing.module.ts"
+   ]
+  },
+  {
+   "date": "2020-09-18",
+   "author": "d.okafor",
+   "message": "MOL-12 CONTRIBUTING and PR template",
+   "paths": [
+    "retail-web/CONTRIBUTING.md",
+    "retail-web/.github/pull_request_template.md"
+   ]
+  },
+  {
+   "date": "2020-09-21",
+   "author": "c.mbeki",
+   "message": "GIS-402 CODEOWNERS with AppSec on security sensitive paths",
+   "paths": [
+    "retail-web/CODEOWNERS",
+    "retail-web/SECURITY.md"
+   ]
+  },
+  {
+   "date": "2020-09-22",
+   "author": "d.okafor",
+   "message": "MOL-15 runtime configuration from assets/config/env.json",
+   "body": "APP_INITIALIZER blocks bootstrap until the config resolves. ConfigMap replaces the file in every deployed environment.",
+   "paths": [
+    "retail-web/src/app/core/config/app-config.model.ts",
+    "retail-web/src/app/core/config/config.initializer.ts",
+    "retail-web/src/app/core/config/config.service.ts",
+    "retail-web/src/assets/config/env.json"
+   ]
+  },
+  {
+   "date": "2020-09-24",
+   "author": "d.okafor",
+   "message": "MOL-15 UAT env example for the ConfigMap",
+   "paths": [
+    "retail-web/src/assets/config/env.json.uat.example",
+    "retail-web/src/environments/environment.uat.ts"
+   ]
+  },
+  {
+   "date": "2020-09-28",
+   "author": "m.calderon",
+   "message": "MOL-18 core module and root state",
+   "paths": [
+    "retail-web/src/app/core/core.module.ts",
+    "retail-web/src/app/core/store/root-state.ts"
+   ]
+  },
+  {
+   "date": "2020-09-30",
+   "author": "m.calderon",
+   "message": "MOL-19 session slice: actions, reducer, selectors",
+   "paths": [
+    "retail-web/src/app/core/store/session/session.actions.ts",
+    "retail-web/src/app/core/store/session/session.reducer.ts",
+    "retail-web/src/app/core/store/session/session.selectors.ts",
+    "retail-web/src/app/core/store/session/index.ts"
+   ]
+  },
+  {
+   "date": "2020-10-02",
+   "author": "d.okafor",
+   "message": "MOL-22 Keystone sign-in with authorization code and PKCE",
+   "body": "angular-oauth2-oidc. Implicit flow rejected by Keystone team (KEY-311) and by GIS.",
+   "paths": [
+    "retail-web/src/app/core/auth/auth.service.ts",
+    "retail-web/src/app/core/auth/auth.initializer.ts",
+    "retail-web/src/app/core/auth/session-claims.model.ts",
+    "retail-web/src/assets/vendor/silent-refresh.js",
+    "retail-web/src/silent-refresh.html"
+   ]
+  },
+  {
+   "date": "2020-10-05",
+   "author": "d.okafor",
+   "message": "MOL-22 session effects for login, refresh and logout",
+   "paths": [
+    "retail-web/src/app/core/store/session/session.effects.ts"
+   ]
+  },
+  {
+   "date": "2020-10-06",
+   "author": "s.whitfield",
+   "message": "MOL-24 shell, auth callback and logged out pages",
+   "paths": [
+    "retail-web/src/app/shell/shell/shell.component.ts",
+    "retail-web/src/app/shell/auth-callback/auth-callback.component.ts",
+    "retail-web/src/app/shell/logged-out/logged-out.component.ts"
+   ]
+  },
+  {
+   "date": "2020-10-07",
+   "author": "m.calderon",
+   "message": "MOL-26 AuthGuard",
+   "paths": [
+    "retail-web/src/app/core/guards/auth.guard.ts",
+    "retail-web/src/app/core/guards/index.ts"
+   ]
+  },
+  {
+   "date": "2020-10-08",
+   "author": "m.calderon",
+   "message": "MOL-27 correlation id and bearer token interceptors",
+   "paths": [
+    "retail-web/src/app/core/interceptors/correlation-id.interceptor.ts",
+    "retail-web/src/app/core/interceptors/bearer-token.interceptor.ts",
+    "retail-web/src/app/core/interceptors/index.ts"
+   ]
+  },
+  {
+   "date": "2020-10-09",
+   "author": "d.okafor",
+   "message": "MOL-29 BFF api base and models",
+   "paths": [
+    "retail-web/src/app/core/api/api-base.ts",
+    "retail-web/src/app/core/api/models.ts",
+    "retail-web/src/app/core/api/index.ts"
+   ]
+  },
+  {
+   "date": "2020-10-12",
+   "author": "s.whitfield",
+   "message": "MOL-31 shared module: pipes and layout helpers",
+   "paths": [
+    "retail-web/src/app/shared/shared.module.ts",
+    "retail-web/src/app/shared/pipes/account-label.pipe.ts",
+    "retail-web/src/app/shared/pipes/minor-amount.pipe.ts",
+    "retail-web/src/app/shared/pipes/relative-date.pipe.ts",
+    "retail-web/src/app/shared/pipes/transaction-sign.pipe.ts",
+    "retail-web/src/app/shared/components/page-section/page-section.component.ts",
+    "retail-web/src/app/shared/components/loading-panel/loading-panel.component.ts"
+   ]
+  },
+  {
+   "date": "2020-10-13",
+   "author": "s.whitfield",
+   "message": "MOL-31 shared: empty state, error banner, directives",
+   "paths": [
+    "retail-web/src/app/shared/components/empty-state/empty-state.component.ts",
+    "retail-web/src/app/shared/components/error-banner/error-banner.component.ts",
+    "retail-web/src/app/shared/directives/autofocus.directive.ts",
+    "retail-web/src/app/shared/directives/trim-on-blur.directive.ts"
+   ]
+  },
+  {
+   "date": "2020-10-14",
+   "author": "c.mbeki",
+   "message": "GIS-455 XSRF cookie and header names agreed with the BFF team",
+   "empty": true
+  },
+  {
+   "date": "2020-10-15",
+   "author": "d.okafor",
+   "message": "MOL-33 proxy config for local development against the BFF",
+   "paths": [
+    "retail-web/proxy.conf.json"
+   ]
+  },
+  {
+   "date": "2020-10-16",
+   "author": "d.okafor",
+   "message": "MOL-34 accounts api service",
+   "paths": [
+    "retail-web/src/app/core/api/accounts-api.service.ts"
+   ]
+  },
+  {
+   "date": "2020-10-19",
+   "author": "s.whitfield",
+   "message": "MOL-36 masked number component",
+   "paths": [
+    "retail-web/src/app/shared/components/masked-number/masked-number.component.ts"
+   ]
+  },
+  {
+   "date": "2020-10-21",
+   "author": "s.whitfield",
+   "message": "MOL-40 dashboard module, routing and store",
+   "paths": [
+    "retail-web/src/app/features/dashboard/dashboard.module.ts",
+    "retail-web/src/app/features/dashboard/dashboard-routing.module.ts",
+    "retail-web/src/app/features/dashboard/store/dashboard.actions.ts",
+    "retail-web/src/app/features/dashboard/store/dashboard.reducer.ts",
+    "retail-web/src/app/features/dashboard/store/dashboard.selectors.ts",
+    "retail-web/src/app/features/dashboard/store/dashboard.effects.ts"
+   ]
+  },
+  {
+   "date": "2020-10-22",
+   "author": "m.calderon",
+   "message": "MOL-41 dashboard: dashboard overview",
+   "paths": [
+    "retail-web/src/app/features/dashboard/components/dashboard-overview/dashboard-overview.component.html",
+    "retail-web/src/app/features/dashboard/components/dashboard-overview/dashboard-overview.component.ts"
+   ]
+  },
+  {
+   "date": "2020-10-23",
+   "author": "s.whitfield",
+   "message": "MOL-45 dashboard: recent activity, spending snapshot",
+   "paths": [
+    "retail-web/src/app/features/dashboard/components/recent-activity/recent-activity.component.html",
+    "retail-web/src/app/features/dashboard/components/recent-activity/recent-activity.component.ts",
+    "retail-web/src/app/features/dashboard/components/spending-snapshot/spending-snapshot.component.html",
+    "retail-web/src/app/features/dashboard/components/spending-snapshot/spending-snapshot.component.ts"
+   ]
+  },
+  {
+   "date": "2020-10-26",
+   "author": "m.calderon",
+   "message": "MOL-47 dashboard: quick transfer, alerts digest",
+   "paths": [
+    "retail-web/src/app/features/dashboard/components/quick-transfer/quick-transfer.component.html",
+    "retail-web/src/app/features/dashboard/components/quick-transfer/quick-transfer.component.ts",
+    "retail-web/src/app/features/dashboard/components/alerts-digest/alerts-digest.component.html",
+    "retail-web/src/app/features/dashboard/components/alerts-digest/alerts-digest.component.ts"
+   ]
+  },
+  {
+   "date": "2020-10-29",
+   "author": "s.whitfield",
+   "message": "MOL-50 dashboard: upcoming payments, promo banner",
+   "paths": [
+    "retail-web/src/app/features/dashboard/components/upcoming-payments/upcoming-payments.component.html",
+    "retail-web/src/app/features/dashboard/components/upcoming-payments/upcoming-payments.component.ts",
+    "retail-web/src/app/features/dashboard/components/promo-banner/promo-banner.component.html",
+    "retail-web/src/app/features/dashboard/components/promo-banner/promo-banner.component.ts"
+   ]
+  },
+  {
+   "date": "2020-10-30",
+   "author": "b.arceneaux",
+   "message": "MOL-54 dashboard: accounts summary",
+   "paths": [
+    "retail-web/src/app/features/dashboard/components/accounts-summary/accounts-summary.component.html",
+    "retail-web/src/app/features/dashboard/components/accounts-summary/accounts-summary.component.ts"
+   ]
+  },
+  {
+   "date": "2020-11-02",
+   "author": "d.okafor",
+   "message": "MOL-58 dashboard: reducer spec and component creation specs",
+   "paths": [
+    "retail-web/src/app/features/dashboard/components/accounts-summary/accounts-summary.component.spec.ts",
+    "retail-web/src/app/features/dashboard/components/alerts-digest/alerts-digest.component.spec.ts",
+    "retail-web/src/app/features/dashboard/components/dashboard-overview/dashboard-overview.component.spec.ts",
+    "retail-web/src/app/features/dashboard/components/promo-banner/promo-banner.component.spec.ts",
+    "retail-web/src/app/features/dashboard/components/quick-transfer/quick-transfer.component.spec.ts",
+    "retail-web/src/app/features/dashboard/components/recent-activity/recent-activity.component.spec.ts",
+    "retail-web/src/app/features/dashboard/components/spending-snapshot/spending-snapshot.component.spec.ts",
+    "retail-web/src/app/features/dashboard/components/upcoming-payments/upcoming-payments.component.spec.ts",
+    "retail-web/src/app/features/dashboard/store/dashboard.reducer.spec.ts"
+   ]
+  },
+  {
+   "date": "2020-11-16",
+   "author": "d.okafor",
+   "message": "Merge release/2020.11 into main for train 2020.11.2",
+   "empty": true
+  },
+  {
+   "date": "2020-11-17",
+   "author": "b.arceneaux",
+   "message": "MOL-64 accounts module, routing and store",
+   "paths": [
+    "retail-web/src/app/features/accounts/accounts.module.ts",
+    "retail-web/src/app/features/accounts/accounts-routing.module.ts",
+    "retail-web/src/app/features/accounts/store/accounts.actions.ts",
+    "retail-web/src/app/features/accounts/store/accounts.reducer.ts",
+    "retail-web/src/app/features/accounts/store/accounts.selectors.ts",
+    "retail-web/src/app/features/accounts/store/accounts.effects.ts"
+   ]
+  },
+  {
+   "date": "2020-11-18",
+   "author": "b.arceneaux",
+   "message": "MOL-67 accounts: pending transactions, interest summary",
+   "paths": [
+    "retail-web/src/app/features/accounts/components/pending-transactions/pending-transactions.component.html",
+    "retail-web/src/app/features/accounts/components/pending-transactions/pending-transactions.component.ts",
+    "retail-web/src/app/features/accounts/components/interest-summary/interest-summary.component.html",
+    "retail-web/src/app/features/accounts/components/interest-summary/interest-summary.component.ts"
+   ]
+  },
+  {
+   "date": "2020-11-23",
+   "author": "b.arceneaux",
+   "message": "MOL-68 accounts: dispute transaction",
+   "paths": [
+    "retail-web/src/app/features/accounts/components/dispute-transaction/dispute-transaction.component.html",
+    "retail-web/src/app/features/accounts/components/dispute-transaction/dispute-transaction.component.ts"
+   ]
+  },
+  {
+   "date": "2020-11-25",
+   "author": "m.calderon",
+   "message": "MOL-70 accounts: routing details, transaction list",
+   "paths": [
+    "retail-web/src/app/features/accounts/components/routing-details/routing-details.component.html",
+    "retail-web/src/app/features/accounts/components/routing-details/routing-details.component.ts",
+    "retail-web/src/app/features/accounts/components/transaction-list/transaction-list.component.html",
+    "retail-web/src/app/features/accounts/components/transaction-list/transaction-list.component.ts"
+   ]
+  },
+  {
+   "date": "2020-11-26",
+   "author": "s.whitfield",
+   "message": "MOL-74 accounts: export transactions, account detail",
+   "paths": [
+    "retail-web/src/app/features/accounts/components/export-transactions/export-transactions.component.html",
+    "retail-web/src/app/features/accounts/components/export-transactions/export-transactions.component.ts",
+    "retail-web/src/app/features/accounts/components/account-detail/account-detail.component.html",
+    "retail-web/src/app/features/accounts/components/account-detail/account-detail.component.ts"
+   ]
+  },
+  {
+   "date": "2020-11-27",
+   "author": "s.whitfield",
+   "message": "MOL-75 accounts: account list",
+   "paths": [
+    "retail-web/src/app/features/accounts/components/account-list/account-list.component.html",
+    "retail-web/src/app/features/accounts/components/account-list/account-list.component.ts"
+   ]
+  },
+  {
+   "date": "2020-11-30",
+   "author": "b.arceneaux",
+   "message": "MOL-78 accounts: account actions menu, transaction filters",
+   "paths": [
+    "retail-web/src/app/features/accounts/components/account-actions-menu/account-actions-menu.component.html",
+    "retail-web/src/app/features/accounts/components/account-actions-menu/account-actions-menu.component.ts",
+    "retail-web/src/app/features/accounts/components/transaction-filters/transaction-filters.component.html",
+    "retail-web/src/app/features/accounts/components/transaction-filters/transaction-filters.component.ts"
+   ]
+  },
+  {
+   "date": "2020-12-01",
+   "author": "m.calderon",
+   "message": "MOL-71 account details resolver",
+   "paths": [
+    "retail-web/src/app/core/resolvers/account-details.resolver.ts",
+    "retail-web/src/app/core/resolvers/accounts.resolver.ts",
+    "retail-web/src/app/core/resolvers/index.ts"
+   ]
+  },
+  {
+   "date": "2020-12-03",
+   "author": "b.arceneaux",
+   "message": "MOL-79 accounts: rename account, transaction detail",
+   "paths": [
+    "retail-web/src/app/features/accounts/components/rename-account/rename-account.component.html",
+    "retail-web/src/app/features/accounts/components/rename-account/rename-account.component.ts",
+    "retail-web/src/app/features/accounts/components/transaction-detail/transaction-detail.component.html",
+    "retail-web/src/app/features/accounts/components/transaction-detail/transaction-detail.component.ts"
+   ]
+  },
+  {
+   "date": "2020-12-04",
+   "author": "s.whitfield",
+   "message": "MOL-82 accounts: reducer spec and component creation specs",
+   "paths": [
+    "retail-web/src/app/features/accounts/components/account-actions-menu/account-actions-menu.component.spec.ts",
+    "retail-web/src/app/features/accounts/components/account-detail/account-detail.component.spec.ts",
+    "retail-web/src/app/features/accounts/components/account-list/account-list.component.spec.ts",
+    "retail-web/src/app/features/accounts/components/interest-summary/interest-summary.component.spec.ts",
+    "retail-web/src/app/features/accounts/components/pending-transactions/pending-transactions.component.spec.ts",
+    "retail-web/src/app/features/accounts/components/routing-details/routing-details.component.spec.ts",
+    "retail-web/src/app/features/accounts/components/transaction-detail/transaction-detail.component.spec.ts",
+    "retail-web/src/app/features/accounts/components/transaction-filters/transaction-filters.component.spec.ts",
+    "retail-web/src/app/features/accounts/components/transaction-list/transaction-list.component.spec.ts",
+    "retail-web/src/app/features/accounts/store/accounts.reducer.spec.ts"
+   ]
+  },
+  {
+   "date": "2020-12-14",
+   "author": "d.okafor",
+   "message": "Merge release/2020.12 into main for train 2020.12.1",
+   "empty": true
+  },
+  {
+   "date": "2020-12-15",
+   "author": "s.whitfield",
+   "message": "MOL-88 fix transaction list page size reset on filter change",
+   "empty": true
+  },
+  {
+   "date": "2020-12-16",
+   "author": "m.calderon",
+   "message": "Revert \"MOL-88 fix transaction list page size reset on filter change\"",
+   "body": "Broke the running balance column. Reapplying with a test in the new year.",
+   "empty": true
+  },
+  {
+   "date": "2021-01-05",
+   "author": "s.whitfield",
+   "message": "MOL-88 transaction list page size reset, with a spec this time",
+   "empty": true
+  },
+  {
+   "date": "2021-01-06",
+   "author": "d.okafor",
+   "message": "MOL-101 error model and RFC 7807 mapping interceptor",
+   "paths": [
+    "retail-web/src/app/core/errors/app-error.model.ts",
+    "retail-web/src/app/core/interceptors/error-mapping.interceptor.ts"
+   ]
+  },
+  {
+   "date": "2021-01-08",
+   "author": "m.calderon",
+   "message": "MOL-103 retry with backoff on idempotent BFF calls",
+   "paths": [
+    "retail-web/src/app/core/interceptors/retry-backoff.interceptor.ts"
+   ]
+  },
+  {
+   "date": "2021-01-11",
+   "author": "d.okafor",
+   "message": "MOL-104 global error handler posting to Splunk HEC",
+   "paths": [
+    "retail-web/src/app/core/errors/global-error.handler.ts",
+    "retail-web/src/app/core/telemetry/splunk-logger.service.ts"
+   ]
+  },
+  {
+   "date": "2021-01-12",
+   "author": "j.hollins",
+   "message": "MOL-110 transfers api service and limits resolver",
+   "paths": [
+    "retail-web/src/app/core/api/transfers-api.service.ts",
+    "retail-web/src/app/core/resolvers/transfer-limits.resolver.ts"
+   ]
+  },
+  {
+   "date": "2021-01-13",
+   "author": "p.venkatesan",
+   "message": "MOL-112 transfers module, routing and store",
+   "paths": [
+    "retail-web/src/app/features/transfers/transfers.module.ts",
+    "retail-web/src/app/features/transfers/transfers-routing.module.ts",
+    "retail-web/src/app/features/transfers/store/transfers.actions.ts",
+    "retail-web/src/app/features/transfers/store/transfers.reducer.ts",
+    "retail-web/src/app/features/transfers/store/transfers.selectors.ts",
+    "retail-web/src/app/features/transfers/store/transfers.effects.ts"
+   ]
+  },
+  {
+   "date": "2021-01-14",
+   "author": "p.venkatesan",
+   "message": "MOL-115 transfers: draft service and store effects",
+   "paths": [
+    "retail-web/src/app/features/transfers/services/transfer-draft.service.ts"
+   ]
+  },
+  {
+   "date": "2021-01-15",
+   "author": "j.hollins",
+   "message": "MOL-117 transfers: transfer history",
+   "paths": [
+    "retail-web/src/app/features/transfers/components/transfer-history/transfer-history.component.html",
+    "retail-web/src/app/features/transfers/components/transfer-history/transfer-history.component.ts"
+   ]
+  },
+  {
+   "date": "2021-01-25",
+   "author": "j.hollins",
+   "message": "MOL-118 MfaStepUpGuard: fresh mfa_at claim above the transfer threshold",
+   "body": "Threshold and claim age from runtime config. Redirects to Keystone with acr_values and a return url. KEY-402 for the mock.",
+   "paths": [
+    "retail-web/src/app/core/guards/mfa-step-up.guard.ts"
+   ]
+  },
+  {
+   "date": "2021-01-26",
+   "author": "a.balaraman",
+   "message": "MOL-120 transfers: transfer limits panel, add payee",
+   "paths": [
+    "retail-web/src/app/features/transfers/components/transfer-limits-panel/transfer-limits-panel.component.html",
+    "retail-web/src/app/features/transfers/components/transfer-limits-panel/transfer-limits-panel.component.ts",
+    "retail-web/src/app/features/transfers/components/add-payee/add-payee.component.html",
+    "retail-web/src/app/features/transfers/components/add-payee/add-payee.component.ts"
+   ]
+  },
+  {
+   "date": "2021-01-27",
+   "author": "p.venkatesan",
+   "message": "MOL-122 transfers: cancel transfer, transfer wizard",
+   "paths": [
+    "retail-web/src/app/features/transfers/components/cancel-transfer/cancel-transfer.component.html",
+    "retail-web/src/app/features/transfers/components/cancel-transfer/cancel-transfer.component.ts",
+    "retail-web/src/app/features/transfers/components/transfer-wizard/transfer-wizard.component.html",
+    "retail-web/src/app/features/transfers/components/transfer-wizard/transfer-wizard.component.ts"
+   ]
+  },
+  {
+   "date": "2021-01-28",
+   "author": "v.orlova",
+   "message": "GIS-610 never put the transfer amount in telemetry, band only",
+   "empty": true
+  },
+  {
+   "date": "2021-01-29",
+   "author": "p.venkatesan",
+   "message": "MOL-126 transfers: transfers home",
+   "paths": [
+    "retail-web/src/app/features/transfers/components/transfers-home/transfers-home.component.html",
+    "retail-web/src/app/features/transfers/components/transfers-home/transfers-home.component.ts"
+   ]
+  },
+  {
+   "date": "2021-02-01",
+   "author": "d.okafor",
+   "message": "Merge release/2021.01 into main for train 2021.01.2",
+   "empty": true
+  },
+  {
+   "date": "2021-02-02",
+   "author": "p.venkatesan",
+   "message": "MOL-129 transfers: payee list",
+   "paths": [
+    "retail-web/src/app/features/transfers/components/payee-list/payee-list.component.html",
+    "retail-web/src/app/features/transfers/components/payee-list/payee-list.component.ts"
+   ]
+  },
+  {
+   "date": "2021-02-05",
+   "author": "a.balaraman",
+   "message": "MOL-133 transfers: verify payee, transfer detail",
+   "paths": [
+    "retail-web/src/app/features/transfers/components/verify-payee/verify-payee.component.html",
+    "retail-web/src/app/features/transfers/components/verify-payee/verify-payee.component.ts",
+    "retail-web/src/app/features/transfers/components/transfer-detail/transfer-detail.component.html",
+    "retail-web/src/app/features/transfers/components/transfer-detail/transfer-detail.component.ts"
+   ]
+  },
+  {
+   "date": "2021-02-09",
+   "author": "j.hollins",
+   "message": "MOL-131 UnsavedChangesGuard on the transfer wizard",
+   "paths": [
+    "retail-web/src/app/core/guards/unsaved-changes.guard.ts"
+   ]
+  },
+  {
+   "date": "2021-02-10",
+   "author": "j.hollins",
+   "message": "MOL-135 transfers: scheduled transfers",
+   "paths": [
+    "retail-web/src/app/features/transfers/components/scheduled-transfers/scheduled-transfers.component.html",
+    "retail-web/src/app/features/transfers/components/scheduled-transfers/scheduled-transfers.component.ts"
+   ]
+  },
+  {
+   "date": "2021-02-11",
+   "author": "p.venkatesan",
+   "message": "MOL-139 transfers: transfer details step",
+   "paths": [
+    "retail-web/src/app/features/transfers/components/transfer-details-step/transfer-details-step.component.html",
+    "retail-web/src/app/features/transfers/components/transfer-details-step/transfer-details-step.component.ts"
+   ]
+  },
+  {
+   "date": "2021-02-15",
+   "author": "m.calderon",
+   "message": "Merge release/2021.02 into main for train 2021.02.1",
+   "empty": true
+  },
+  {
+   "date": "2021-02-23",
+   "author": "p.venkatesan",
+   "message": "MOL-141 transfers: transfer review step, transfer confirmation, transfer schedule step",
+   "paths": [
+    "retail-web/src/app/features/transfers/components/transfer-review-step/transfer-review-step.component.html",
+    "retail-web/src/app/features/transfers/components/transfer-review-step/transfer-review-step.component.ts",
+    "retail-web/src/app/features/transfers/components/transfer-confirmation/transfer-confirmation.component.html",
+    "retail-web/src/app/features/transfers/components/transfer-confirmation/transfer-confirmation.component.ts",
+    "retail-web/src/app/features/transfers/components/transfer-schedule-step/transfer-schedule-step.component.html",
+    "retail-web/src/app/features/transfers/components/transfer-schedule-step/transfer-schedule-step.component.ts"
+   ]
+  },
+  {
+   "date": "2021-02-25",
+   "author": "a.balaraman",
+   "message": "MOL-144 transfers: reducer spec and component creation specs",
+   "paths": [
+    "retail-web/src/app/features/transfers/store/transfers.reducer.spec.ts"
+   ]
+  },
+  {
+   "date": "2021-03-01",
+   "author": "m.calderon",
+   "message": "Merge release/2021.02 into main for train 2021.02.2",
+   "empty": true
+  },
+  {
+   "date": "2021-03-18",
+   "author": "s.whitfield",
+   "message": "MOL-1188 ADR 0005: Angular Material through Canopy",
+   "paths": [
+    "retail-web/docs/adr/0005-angular-material-through-canopy.md"
+   ]
+  },
+  {
+   "date": "2021-03-22",
+   "author": "s.whitfield",
+   "message": "MOL-1188 adopt @meridian/canopy-ui 1.0.0, drop the MeridianStyle theme",
+   "paths": [
+    "retail-web/src/styles/_material-icons.scss",
+    "retail-web/src/assets/fonts/README.txt"
+   ]
+  },
+  {
+   "date": "2021-03-23",
+   "author": "s.whitfield",
+   "message": "MOL-1192 flex-layout for the dashboard and account grids",
+   "empty": true
+  },
+  {
+   "date": "2021-03-24",
+   "author": "h.eriksen",
+   "message": "CNPY-260 canopy 1.0.1: focus ring on cn-button",
+   "empty": true
+  },
+  {
+   "date": "2021-03-29",
+   "author": "m.calderon",
+   "message": "Merge release/2021.03 into main for train 2021.03.2",
+   "empty": true
+  },
+  {
+   "date": "2021-04-06",
+   "author": "m.calderon",
+   "message": "MOL-1204 entitlements service from the id token",
+   "paths": [
+    "retail-web/src/app/core/entitlements/entitlements.service.ts"
+   ]
+  },
+  {
+   "date": "2021-04-07",
+   "author": "m.calderon",
+   "message": "MOL-1205 LazyModuleGuard: CanLoad on transfers, bill pay and cards",
+   "paths": [
+    "retail-web/src/app/core/guards/lazy-module.guard.ts"
+   ]
+  },
+  {
+   "date": "2021-04-08",
+   "author": "p.venkatesan",
+   "message": "MOL-1210 bill pay api service",
+   "paths": [
+    "retail-web/src/app/core/api/bill-pay-api.service.ts"
+   ]
+  },
+  {
+   "date": "2021-04-12",
+   "author": "p.venkatesan",
+   "message": "MOL-1211 bill pay module, routing and store",
+   "paths": [
+    "retail-web/src/app/features/bill-pay/bill-pay.module.ts",
+    "retail-web/src/app/features/bill-pay/bill-pay-routing.module.ts",
+    "retail-web/src/app/features/bill-pay/store/bill-pay.actions.ts",
+    "retail-web/src/app/features/bill-pay/store/bill-pay.reducer.ts",
+    "retail-web/src/app/features/bill-pay/store/bill-pay.selectors.ts",
+    "retail-web/src/app/features/bill-pay/store/bill-pay.effects.ts"
+   ]
+  },
+  {
+   "date": "2021-04-13",
+   "author": "p.venkatesan",
+   "message": "MOL-1212 bill-pay: bill pay home, scheduled payments",
+   "paths": [
+    "retail-web/src/app/features/bill-pay/components/bill-pay-home/bill-pay-home.component.html",
+    "retail-web/src/app/features/bill-pay/components/bill-pay-home/bill-pay-home.component.ts",
+    "retail-web/src/app/features/bill-pay/components/scheduled-payments/scheduled-payments.component.html",
+    "retail-web/src/app/features/bill-pay/components/scheduled-payments/scheduled-payments.component.ts"
+   ]
+  },
+  {
+   "date": "2021-04-15",
+   "author": "a.balaraman",
+   "message": "MOL-1214 bill-pay: payment history, pay bill",
+   "paths": [
+    "retail-web/src/app/features/bill-pay/components/payment-history/payment-history.component.html",
+    "retail-web/src/app/features/bill-pay/components/payment-history/payment-history.component.ts",
+    "retail-web/src/app/features/bill-pay/components/pay-bill/pay-bill.component.html",
+    "retail-web/src/app/features/bill-pay/components/pay-bill/pay-bill.component.ts"
+   ]
+  },
+  {
+   "date": "2021-04-19",
+   "author": "j.hollins",
+   "message": "MOL-1217 bill-pay: bill detail",
+   "paths": [
+    "retail-web/src/app/features/bill-pay/components/bill-detail/bill-detail.component.html",
+    "retail-web/src/app/features/bill-pay/components/bill-detail/bill-detail.component.ts"
+   ]
+  },
+  {
+   "date": "2021-04-21",
+   "author": "p.venkatesan",
+   "message": "MOL-1220 bill-pay: add bill payee, cancel payment",
+   "paths": [
+    "retail-web/src/app/features/bill-pay/components/add-bill-payee/add-bill-payee.component.html",
+    "retail-web/src/app/features/bill-pay/components/add-bill-payee/add-bill-payee.component.ts",
+    "retail-web/src/app/features/bill-pay/components/cancel-payment/cancel-payment.component.html",
+    "retail-web/src/app/features/bill-pay/components/cancel-payment/cancel-payment.component.ts"
+   ]
+  },
+  {
+   "date": "2021-04-26",
+   "author": "s.whitfield",
+   "message": "Merge release/2021.04 into main for train 2021.04.2",
+   "empty": true
+  },
+  {
+   "date": "2021-04-27",
+   "author": "p.venkatesan",
+   "message": "MOL-1223 bill-pay: autopay settings",
+   "paths": [
+    "retail-web/src/app/features/bill-pay/components/autopay-settings/autopay-settings.component.html",
+    "retail-web/src/app/features/bill-pay/components/autopay-settings/autopay-settings.component.ts"
+   ]
+  },
+  {
+   "date": "2021-05-04",
+   "author": "a.balaraman",
+   "message": "MOL-1225 bill-pay: reducer spec and component creation specs",
+   "paths": [
+    "retail-web/src/app/features/bill-pay/store/bill-pay.reducer.spec.ts"
+   ]
+  },
+  {
+   "date": "2021-05-10",
+   "author": "s.whitfield",
+   "message": "Merge release/2021.05 into main for train 2021.05.1",
+   "empty": true
+  },
+  {
+   "date": "2021-05-17",
+   "author": "b.arceneaux",
+   "message": "MOL-1240 cards api service",
+   "paths": [
+    "retail-web/src/app/core/api/cards-api.service.ts"
+   ]
+  },
+  {
+   "date": "2021-05-18",
+   "author": "b.arceneaux",
+   "message": "MOL-1241 cards module, routing and store",
+   "paths": [
+    "retail-web/src/app/features/cards/cards.module.ts",
+    "retail-web/src/app/features/cards/cards-routing.module.ts",
+    "retail-web/src/app/features/cards/store/cards.actions.ts",
+    "retail-web/src/app/features/cards/store/cards.reducer.ts",
+    "retail-web/src/app/features/cards/store/cards.selectors.ts",
+    "retail-web/src/app/features/cards/store/cards.effects.ts"
+   ]
+  },
+  {
+   "date": "2021-05-19",
+   "author": "d.okafor",
+   "message": "MOL-1243 cards: lock card, travel notice",
+   "paths": [
+    "retail-web/src/app/features/cards/components/lock-card/lock-card.component.html",
+    "retail-web/src/app/features/cards/components/lock-card/lock-card.component.ts",
+    "retail-web/src/app/features/cards/components/travel-notice/travel-notice.component.html",
+    "retail-web/src/app/features/cards/components/travel-notice/travel-notice.component.ts"
+   ]
+  },
+  {
+   "date": "2021-05-21",
+   "author": "m.calderon",
+   "message": "MOL-1245 cards: card controls, card detail",
+   "paths": [
+    "retail-web/src/app/features/cards/components/card-controls/card-controls.component.html",
+    "retail-web/src/app/features/cards/components/card-controls/card-controls.component.ts",
+    "retail-web/src/app/features/cards/components/card-detail/card-detail.component.html",
+    "retail-web/src/app/features/cards/components/card-detail/card-detail.component.ts"
+   ]
+  },
+  {
+   "date": "2021-05-24",
+   "author": "s.whitfield",
+   "message": "Merge release/2021.05 into main for train 2021.05.2",
+   "empty": true
+  },
+  {
+   "date": "2021-05-26",
+   "author": "m.calderon",
+   "message": "MOL-1247 cards: report card, card list",
+   "paths": [
+    "retail-web/src/app/features/cards/components/report-card/report-card.component.html",
+    "retail-web/src/app/features/cards/components/report-card/report-card.component.ts",
+    "retail-web/src/app/features/cards/components/card-list/card-list.component.html",
+    "retail-web/src/app/features/cards/components/card-list/card-list.component.ts"
+   ]
+  },
+  {
+   "date": "2021-05-31",
+   "author": "s.whitfield",
+   "message": "MOL-1251 cards: activate card",
+   "paths": [
+    "retail-web/src/app/features/cards/components/activate-card/activate-card.component.html",
+    "retail-web/src/app/features/cards/components/activate-card/activate-card.component.ts"
+   ]
+  },
+  {
+   "date": "2021-06-02",
+   "author": "f.adeyemi",
+   "message": "MOL-1260 Lantern product analytics via @meridian/lantern-sdk",
+   "body": "SDK is View Engine; ngcc postinstall added. LNTN-88 for an Ivy build.",
+   "paths": [
+    "retail-web/src/app/core/telemetry/lantern.service.ts",
+    "retail-web/src/assets/vendor/lantern-snippet.js"
+   ]
+  },
+  {
+   "date": "2021-06-03",
+   "author": "f.adeyemi",
+   "message": "MOL-1260 feature flags from Semaphore and FeatureFlagGuard",
+   "paths": [
+    "retail-web/src/app/core/flags/feature-flag.service.ts",
+    "retail-web/src/app/core/flags/flags.initializer.ts",
+    "retail-web/src/app/core/guards/feature-flag.guard.ts"
+   ]
+  },
+  {
+   "date": "2021-06-04",
+   "author": "b.arceneaux",
+   "message": "MOL-1252 cards: reducer spec and component creation specs",
+   "paths": [
+    "retail-web/src/app/features/cards/components/activate-card/activate-card.component.spec.ts",
+    "retail-web/src/app/features/cards/components/card-controls/card-controls.component.spec.ts",
+    "retail-web/src/app/features/cards/components/card-detail/card-detail.component.spec.ts",
+    "retail-web/src/app/features/cards/components/card-list/card-list.component.spec.ts",
+    "retail-web/src/app/features/cards/store/cards.reducer.spec.ts"
+   ]
+  },
+  {
+   "date": "2021-06-07",
+   "author": "d.okafor",
+   "message": "Merge release/2021.06 into main for train 2021.06.1",
+   "empty": true
+  },
+  {
+   "date": "2021-06-14",
+   "author": "v.orlova",
+   "message": "GIS-702 bearer token only on BFF and Semaphore hosts, never the Lantern collector",
+   "empty": true
+  },
+  {
+   "date": "2021-06-21",
+   "author": "d.okafor",
+   "message": "Merge release/2021.06 into main for train 2021.06.2",
+   "empty": true
+  },
+  {
+   "date": "2021-07-05",
+   "author": "b.arceneaux",
+   "message": "MOL-1290 statements api service",
+   "paths": [
+    "retail-web/src/app/core/api/statements-api.service.ts"
+   ]
+  },
+  {
+   "date": "2021-07-08",
+   "author": "s.whitfield",
+   "message": "MOL-1291 statements module, routing and store",
+   "paths": [
+    "retail-web/src/app/features/statements/statements.module.ts",
+    "retail-web/src/app/features/statements/statements-routing.module.ts",
+    "retail-web/src/app/features/statements/store/statements.actions.ts",
+    "retail-web/src/app/features/statements/store/statements.reducer.ts",
+    "retail-web/src/app/features/statements/store/statements.selectors.ts",
+    "retail-web/src/app/features/statements/store/statements.effects.ts"
+   ]
+  },
+  {
+   "date": "2021-07-13",
+   "author": "m.calderon",
+   "message": "MOL-1293 statements: tax documents, statement list",
+   "paths": [
+    "retail-web/src/app/features/statements/components/tax-documents/tax-documents.component.html",
+    "retail-web/src/app/features/statements/components/tax-documents/tax-documents.component.ts",
+    "retail-web/src/app/features/statements/components/statement-list/statement-list.component.html",
+    "retail-web/src/app/features/statements/components/statement-list/statement-list.component.ts"
+   ]
+  },
+  {
+   "date": "2021-07-15",
+   "author": "m.calderon",
+   "message": "MOL-1296 statements: statement viewer, paperless settings",
+   "paths": [
+    "retail-web/src/app/features/statements/components/statement-viewer/statement-viewer.component.html",
+    "retail-web/src/app/features/statements/components/statement-viewer/statement-viewer.component.ts",
+    "retail-web/src/app/features/statements/components/paperless-settings/paperless-settings.component.html",
+    "retail-web/src/app/features/statements/components/paperless-settings/paperless-settings.component.ts"
+   ]
+  },
+  {
+   "date": "2021-07-19",
+   "author": "d.okafor",
+   "message": "Merge release/2021.07 into main for train 2021.07.2",
+   "empty": true
+  },
+  {
+   "date": "2021-07-20",
+   "author": "m.calderon",
+   "message": "MOL-1298 statements: document search",
+   "paths": [
+    "retail-web/src/app/features/statements/components/document-search/document-search.component.html",
+    "retail-web/src/app/features/statements/components/document-search/document-search.component.ts"
+   ]
+  },
+  {
+   "date": "2021-07-22",
+   "author": "s.whitfield",
+   "message": "MOL-1299 statements: reducer spec and component creation specs",
+   "paths": [
+    "retail-web/src/app/features/statements/components/document-search/document-search.component.spec.ts",
+    "retail-web/src/app/features/statements/components/paperless-settings/paperless-settings.component.spec.ts",
+    "retail-web/src/app/features/statements/components/statement-list/statement-list.component.spec.ts",
+    "retail-web/src/app/features/statements/components/statement-viewer/statement-viewer.component.spec.ts",
+    "retail-web/src/app/features/statements/components/tax-documents/tax-documents.component.spec.ts",
+    "retail-web/src/app/features/statements/store/statements.reducer.spec.ts"
+   ]
+  },
+  {
+   "date": "2021-08-02",
+   "author": "m.calderon",
+   "message": "MOL-1310 alerts api service",
+   "paths": [
+    "retail-web/src/app/core/api/alerts-api.service.ts"
+   ]
+  },
+  {
+   "date": "2021-08-05",
+   "author": "b.arceneaux",
+   "message": "MOL-1311 alerts module, routing and store",
+   "paths": [
+    "retail-web/src/app/features/alerts/alerts.module.ts",
+    "retail-web/src/app/features/alerts/alerts-routing.module.ts",
+    "retail-web/src/app/features/alerts/store/alerts.actions.ts",
+    "retail-web/src/app/features/alerts/store/alerts.reducer.ts",
+    "retail-web/src/app/features/alerts/store/alerts.selectors.ts",
+    "retail-web/src/app/features/alerts/store/alerts.effects.ts"
+   ]
+  },
+  {
+   "date": "2021-08-11",
+   "author": "m.calderon",
+   "message": "MOL-1314 alerts: test alert, alert preference row",
+   "paths": [
+    "retail-web/src/app/features/alerts/components/test-alert/test-alert.component.html",
+    "retail-web/src/app/features/alerts/components/test-alert/test-alert.component.ts",
+    "retail-web/src/app/features/alerts/components/alert-preference-row/alert-preference-row.component.html",
+    "retail-web/src/app/features/alerts/components/alert-preference-row/alert-preference-row.component.ts"
+   ]
+  },
+  {
+   "date": "2021-08-12",
+   "author": "s.whitfield",
+   "message": "MOL-1316 alerts: channel picker",
+   "paths": [
+    "retail-web/src/app/features/alerts/components/channel-picker/channel-picker.component.html",
+    "retail-web/src/app/features/alerts/components/channel-picker/channel-picker.component.ts"
+   ]
+  },
+  {
+   "date": "2021-08-16",
+   "author": "b.arceneaux",
+   "message": "Merge release/2021.08 into main for train 2021.08.1",
+   "empty": true
+  },
+  {
+   "date": "2021-08-17",
+   "author": "s.whitfield",
+   "message": "MOL-1317 alerts: alert preferences, alert history",
+   "paths": [
+    "retail-web/src/app/features/alerts/components/alert-preferences/alert-preferences.component.html",
+    "retail-web/src/app/features/alerts/components/alert-preferences/alert-preferences.component.ts",
+    "retail-web/src/app/features/alerts/components/alert-history/alert-history.component.html",
+    "retail-web/src/app/features/alerts/components/alert-history/alert-history.component.ts"
+   ]
+  },
+  {
+   "date": "2021-08-18",
+   "author": "b.arceneaux",
+   "message": "MOL-1320 alerts: quiet hours, alerts home",
+   "paths": [
+    "retail-web/src/app/features/alerts/components/quiet-hours/quiet-hours.component.html",
+    "retail-web/src/app/features/alerts/components/quiet-hours/quiet-hours.component.ts",
+    "retail-web/src/app/features/alerts/components/alerts-home/alerts-home.component.html",
+    "retail-web/src/app/features/alerts/components/alerts-home/alerts-home.component.ts"
+   ]
+  },
+  {
+   "date": "2021-08-30",
+   "author": "s.whitfield",
+   "message": "MOL-1322 alerts: reducer spec and component creation specs",
+   "paths": [
+    "retail-web/src/app/features/alerts/components/alert-history/alert-history.component.spec.ts",
+    "retail-web/src/app/features/alerts/components/alert-preference-row/alert-preference-row.component.spec.ts",
+    "retail-web/src/app/features/alerts/components/alert-preferences/alert-preferences.component.spec.ts",
+    "retail-web/src/app/features/alerts/components/alerts-home/alerts-home.component.spec.ts",
+    "retail-web/src/app/features/alerts/components/channel-picker/channel-picker.component.spec.ts",
+    "retail-web/src/app/features/alerts/store/alerts.reducer.spec.ts"
+   ]
+  },
+  {
+   "date": "2021-08-30",
+   "author": "b.arceneaux",
+   "message": "Merge release/2021.08 into main for train 2021.08.2",
+   "empty": true
+  },
+  {
+   "date": "2021-09-06",
+   "author": "d.okafor",
+   "message": "MOL-1330 profile api service",
+   "paths": [
+    "retail-web/src/app/core/api/profile-api.service.ts"
+   ]
+  },
+  {
+   "date": "2021-09-09",
+   "author": "m.calderon",
+   "message": "MOL-1331 profile and security module, routing and store",
+   "paths": [
+    "retail-web/src/app/features/profile/profile.module.ts",
+    "retail-web/src/app/features/profile/profile-routing.module.ts",
+    "retail-web/src/app/features/profile/store/profile.actions.ts",
+    "retail-web/src/app/features/profile/store/profile.reducer.ts",
+    "retail-web/src/app/features/profile/store/profile.selectors.ts",
+    "retail-web/src/app/features/profile/store/profile.effects.ts"
+   ]
+  },
+  {
+   "date": "2021-09-13",
+   "author": "b.arceneaux",
+   "message": "Merge release/2021.09 into main for train 2021.09.1",
+   "empty": true
+  },
+  {
+   "date": "2021-09-14",
+   "author": "s.whitfield",
+   "message": "MOL-1332 profile: change password, address form, trusted devices",
+   "paths": [
+    "retail-web/src/app/features/profile/components/change-password/change-password.component.html",
+    "retail-web/src/app/features/profile/components/change-password/change-password.component.ts",
+    "retail-web/src/app/features/profile/components/address-form/address-form.component.html",
+    "retail-web/src/app/features/profile/components/address-form/address-form.component.ts",
+    "retail-web/src/app/features/profile/components/trusted-devices/trusted-devices.component.html",
+    "retail-web/src/app/features/profile/components/trusted-devices/trusted-devices.component.ts"
+   ]
+  },
+  {
+   "date": "2021-09-16",
+   "author": "m.calderon",
+   "message": "MOL-1333 profile: change username, contact details",
+   "paths": [
+    "retail-web/src/app/features/profile/components/change-username/change-username.component.html",
+    "retail-web/src/app/features/profile/components/change-username/change-username.component.ts",
+    "retail-web/src/app/features/profile/components/contact-details/contact-details.component.html",
+    "retail-web/src/app/features/profile/components/contact-details/contact-details.component.ts"
+   ]
+  },
+  {
+   "date": "2021-09-20",
+   "author": "m.calderon",
+   "message": "MOL-1336 profile: profile home, login history",
+   "paths": [
+    "retail-web/src/app/features/profile/components/profile-home/profile-home.component.html",
+    "retail-web/src/app/features/profile/components/profile-home/profile-home.component.ts",
+    "retail-web/src/app/features/profile/components/login-history/login-history.component.html",
+    "retail-web/src/app/features/profile/components/login-history/login-history.component.ts"
+   ]
+  },
+  {
+   "date": "2021-09-24",
+   "author": "s.whitfield",
+   "message": "MOL-1338 profile: mfa settings, security settings",
+   "paths": [
+    "retail-web/src/app/features/profile/components/mfa-settings/mfa-settings.component.html",
+    "retail-web/src/app/features/profile/components/mfa-settings/mfa-settings.component.ts",
+    "retail-web/src/app/features/profile/components/security-settings/security-settings.component.html",
+    "retail-web/src/app/features/profile/components/security-settings/security-settings.component.ts"
+   ]
+  },
+  {
+   "date": "2021-09-27",
+   "author": "m.calderon",
+   "message": "Merge release/2021.09 into main for train 2021.09.2",
+   "empty": true
+  },
+  {
+   "date": "2021-10-01",
+   "author": "b.arceneaux",
+   "message": "MOL-1342 profile: reducer spec and component creation specs",
+   "paths": [
+    "retail-web/src/app/features/profile/components/change-password/change-password.component.spec.ts",
+    "retail-web/src/app/features/profile/components/login-history/login-history.component.spec.ts",
+    "retail-web/src/app/features/profile/components/mfa-settings/mfa-settings.component.spec.ts",
+    "retail-web/src/app/features/profile/components/profile-home/profile-home.component.spec.ts",
+    "retail-web/src/app/features/profile/components/security-settings/security-settings.component.spec.ts",
+    "retail-web/src/app/features/profile/components/trusted-devices/trusted-devices.component.spec.ts",
+    "retail-web/src/app/features/profile/store/profile.reducer.spec.ts"
+   ]
+  },
+  {
+   "date": "2021-10-04",
+   "author": "m.calderon",
+   "message": "MOL-1350 idle timeout with ng-idle, warning at 8 minutes",
+   "empty": true
+  },
+  {
+   "date": "2021-10-11",
+   "author": "m.calderon",
+   "message": "Merge release/2021.10 into main for train 2021.10.1",
+   "empty": true
+  },
+  {
+   "date": "2021-10-19",
+   "author": "m.calderon",
+   "message": "MOL-1362 idle timeout rewritten on RxJS timers, ng-idle removed",
+   "body": "ng-idle disagreed with zone.js 0.11.4 and fired the warning twice. An afternoon on fromEvent + timer and we own it.",
+   "paths": [
+    "retail-web/src/app/core/session/idle-timeout.service.ts",
+    "retail-web/src/app/shell/idle-warning-dialog/idle-warning-dialog.component.ts"
+   ],
+   "content": {
+    "retail-web/src/app/core/session/idle-timeout.service.ts": "import { DOCUMENT } from '@angular/common';\nimport { Inject, Injectable, NgZone, OnDestroy } from '@angular/core';\nimport { BehaviorSubject, EMPTY, Observable, Subscription, fromEvent, merge, timer } from 'rxjs';\nimport { map, switchMap, takeWhile, throttleTime } from 'rxjs/operators';\n\nimport { AuthService } from '../auth/auth.service';\nimport { ConfigService } from '../config/config.service';\nimport { SplunkLoggerService } from '../telemetry/splunk-logger.service';\n\nexport type IdleState = 'active' | 'warning' | 'expired' | 'stopped';\n\nexport interface IdleSnapshot {\n  state: IdleState;\n  /** Seconds until logout while in the warning state; null otherwise. */\n  secondsRemaining: number | null;\n}\n\n/**\n * Session idle timeout. Policy from Information Security Standard ISS-14 section 6.3: warn the\n * customer after eight minutes without activity, end the session at ten. Both numbers come from\n * runtime config (session.idleWarningSeconds / idleLogoutSeconds) so UAT can run short timers.\n *\n * Built from RxJS rather than ng-idle (MOL-1362, October 2021): ng-idle's interrupt sources kept\n * the session alive on a background tab because it counted the periodic balance refresh as\n * activity, and customers came back to a still-open session after lunch. The\n * rule now is simple. Activity is a real DOM event from the customer (pointer, key, touch, scroll,\n * visibility change to visible); nothing the application does by itself counts.\n *\n * Timeline per activity event:\n *   t=0            activity, timers reset, state active\n *   t=warnAfter    state warning, countdown starts (the dialog in AppComponent subscribes)\n *   t=logoutAfter  state expired, AuthService.logout('idle')\n *\n * `extend()` is what the \"I'm still here\" button calls; any activity does the same thing. Timers run\n * outside the Angular zone (a change detection pass every second for ten minutes is exactly what\n * we do not want) and re-enter it only to emit state.\n */\n@Injectable({ providedIn: 'root' })\nexport class IdleTimeoutService implements OnDestroy {\n  private static readonly ACTIVITY_EVENTS = ['mousedown', 'keydown', 'touchstart', 'scroll', 'wheel', 'pointermove'];\n\n  private readonly state$ = new BehaviorSubject<IdleSnapshot>({ state: 'stopped', secondsRemaining: null });\n  private readonly activity$ = new BehaviorSubject<number>(Date.now());\n  private subscription: Subscription | null = null;\n  private activitySubscription: Subscription | null = null;\n\n  constructor(\n    private readonly auth: AuthService,\n    private readonly config: ConfigService,\n    private readonly logger: SplunkLoggerService,\n    private readonly zone: NgZone,\n    @Inject(DOCUMENT) private readonly document: Document\n  ) {}\n\n  get snapshot$(): Observable<IdleSnapshot> {\n    return this.state$.asObservable();\n  }\n\n  get state(): IdleState {\n    return this.state$.getValue().state;\n  }\n\n  /** Called by session effects when the customer is authenticated. Idempotent. */\n  start(): void {\n    if (this.subscription) {\n      return;\n    }\n    const { idleWarningSeconds, idleLogoutSeconds } = this.config.value.session;\n\n    this.zone.runOutsideAngular(() => {\n      this.activitySubscription = merge(\n        ...IdleTimeoutService.ACTIVITY_EVENTS.map(name => fromEvent(this.document, name, { passive: true })),\n        fromEvent(this.document, 'visibilitychange').pipe(\n          switchMap(() => (this.document.visibilityState === 'visible' ? [null] : EMPTY))\n        )\n      )\n        .pipe(throttleTime(1000))\n        .subscribe(() => this.activity$.next(Date.now()));\n\n      this.subscription = this.activity$\n        .pipe(\n          switchMap(() =>\n            timer(0, 1000).pipe(\n              map(tick => this.toSnapshot(tick, idleWarningSeconds, idleLogoutSeconds)),\n              takeWhile(snap => snap.state !== 'expired', true)\n            )\n          )\n        )\n        .subscribe(snap => this.publish(snap));\n    });\n  }\n\n  stop(): void {\n    this.subscription?.unsubscribe();\n    this.activitySubscription?.unsubscribe();\n    this.subscription = null;\n    this.activitySubscription = null;\n    this.state$.next({ state: 'stopped', secondsRemaining: null });\n  }\n\n  /** \"I'm still here\". Also refreshes the access token if it is close to expiry. */\n  extend(): void {\n    this.activity$.next(Date.now());\n    void this.auth.refresh();\n    this.logger.info('session.idle.extended');\n  }\n\n  ngOnDestroy(): void {\n    this.stop();\n  }\n\n  private toSnapshot(elapsedSeconds: number, warnAfter: number, logoutAfter: number): IdleSnapshot {\n    if (elapsedSeconds >= logoutAfter) {\n      return { state: 'expired', secondsRemaining: 0 };\n    }\n    if (elapsedSeconds >= warnAfter) {\n      return { state: 'warning', secondsRemaining: logoutAfter - elapsedSeconds };\n    }\n    return { state: 'active', secondsRemaining: null };\n  }\n\n  private publish(snap: IdleSnapshot): void {\n    const previous = this.state$.getValue();\n    if (previous.state === snap.state && previous.secondsRemaining === snap.secondsRemaining) {\n      return;\n    }\n    this.zone.run(() => {\n      this.state$.next(snap);\n      if (snap.state === 'warning' && previous.state !== 'warning') {\n        this.logger.info('session.idle.warning');\n      }\n      if (snap.state === 'expired') {\n        this.logger.info('session.idle.expired');\n        this.stop();\n        this.auth.logout('idle');\n      }\n    });\n  }\n}\n"
+   }
+  },
+  {
+   "date": "2021-10-25",
+   "author": "m.calderon",
+   "message": "Merge release/2021.10 into main for train 2021.10.2",
+   "empty": true
+  },
+  {
+   "date": "2021-11-08",
+   "author": "c.mbeki",
+   "message": "GIS-881 tokens in session storage, not local storage (INC-2021-1140)",
+   "body": "Shared branch kiosks kept a customer signed in across users. GIS-STD-021 now requires session scope. ADR 0008.",
+   "paths": [
+    "retail-web/src/app/core/auth/keystone-storage.ts"
+   ]
+  },
+  {
+   "date": "2021-11-09",
+   "author": "d.okafor",
+   "message": "Merge hotfix/MOL-1401-session-storage into main for train 2021.11.1",
+   "empty": true
+  },
+  {
+   "date": "2021-11-22",
+   "author": "d.okafor",
+   "message": "Merge release/2021.11 into main for train 2021.11.2",
+   "empty": true
+  },
+  {
+   "date": "2021-12-06",
+   "author": "s.whitfield",
+   "message": "MOL-1420 selective preloading for dashboard-adjacent modules",
+   "paths": [
+    "retail-web/src/app/core/routing/selective-preloading.strategy.ts"
+   ]
+  },
+  {
+   "date": "2021-12-07",
+   "author": "d.okafor",
+   "message": "Merge release/2021.12 into main for train 2021.12.1",
+   "empty": true
+  },
+  {
+   "date": "2021-12-13",
+   "author": "c.mbeki",
+   "message": "GIS-902 data classification for the web tier",
+   "paths": [
+    "retail-web/DATA_CLASSIFICATION.md"
+   ]
+  },
+  {
+   "date": "2022-01-10",
+   "author": "d.okafor",
+   "message": "Merge release/2022.01 into main for train 2022.01.1",
+   "empty": true
+  },
+  {
+   "date": "2022-01-11",
+   "author": "b.arceneaux",
+   "message": "MOL-1440 messages api service",
+   "paths": [
+    "retail-web/src/app/core/api/messages-api.service.ts"
+   ]
+  },
+  {
+   "date": "2022-01-12",
+   "author": "m.calderon",
+   "message": "MOL-1441 secure messages module, routing and store",
+   "paths": [
+    "retail-web/src/app/features/messages/messages.module.ts",
+    "retail-web/src/app/features/messages/messages-routing.module.ts",
+    "retail-web/src/app/features/messages/store/messages.actions.ts",
+    "retail-web/src/app/features/messages/store/messages.reducer.ts",
+    "retail-web/src/app/features/messages/store/messages.selectors.ts",
+    "retail-web/src/app/features/messages/store/messages.effects.ts"
+   ]
+  },
+  {
+   "date": "2022-01-18",
+   "author": "m.calderon",
+   "message": "MOL-1442 messages: thread view, compose message, thread list",
+   "paths": [
+    "retail-web/src/app/features/messages/components/thread-view/thread-view.component.html",
+    "retail-web/src/app/features/messages/components/thread-view/thread-view.component.ts",
+    "retail-web/src/app/features/messages/components/compose-message/compose-message.component.html",
+    "retail-web/src/app/features/messages/components/compose-message/compose-message.component.ts",
+    "retail-web/src/app/features/messages/components/thread-list/thread-list.component.html",
+    "retail-web/src/app/features/messages/components/thread-list/thread-list.component.ts"
+   ]
+  },
+  {
+   "date": "2022-01-19",
+   "author": "d.okafor",
+   "message": "MOL-1445 messages: message bubble",
+   "paths": [
+    "retail-web/src/app/features/messages/components/message-bubble/message-bubble.component.html",
+    "retail-web/src/app/features/messages/components/message-bubble/message-bubble.component.ts"
+   ]
+  },
+  {
+   "date": "2022-01-24",
+   "author": "m.calderon",
+   "message": "Merge release/2022.01 into main for train 2022.01.2",
+   "empty": true
+  },
+  {
+   "date": "2022-01-27",
+   "author": "d.okafor",
+   "message": "MOL-1446 messages: reducer spec and component creation specs",
+   "paths": [
+    "retail-web/src/app/features/messages/components/message-bubble/message-bubble.component.spec.ts",
+    "retail-web/src/app/features/messages/components/thread-list/thread-list.component.spec.ts",
+    "retail-web/src/app/features/messages/components/thread-view/thread-view.component.spec.ts",
+    "retail-web/src/app/features/messages/store/messages.reducer.spec.ts"
+   ]
+  },
+  {
+   "date": "2022-02-07",
+   "author": "s.whitfield",
+   "message": "MOL-1460 ADR 0009: $localize for templates, ngx-translate for CMS content",
+   "empty": true
+  },
+  {
+   "date": "2022-02-08",
+   "author": "s.whitfield",
+   "message": "MOL-1460 locale service, translate loader and en/es runtime catalogs",
+   "paths": [
+    "retail-web/src/app/core/i18n/locale.service.ts",
+    "retail-web/src/app/core/i18n/translate-loader.ts",
+    "retail-web/src/assets/i18n/en.json",
+    "retail-web/src/assets/i18n/es.json"
+   ]
+  },
+  {
+   "date": "2022-02-09",
+   "author": "s.whitfield",
+   "message": "MOL-1460 extract-i18n target and the first messages.xlf",
+   "paths": [
+    "retail-web/src/locale/messages.xlf"
+   ]
+  },
+  {
+   "date": "2022-02-14",
+   "author": "m.calderon",
+   "message": "Merge release/2022.02 into main for train 2022.02.1",
+   "empty": true
+  },
+  {
+   "date": "2022-02-21",
+   "author": "b.arceneaux",
+   "message": "MOL-1470 rewards api service",
+   "paths": [
+    "retail-web/src/app/core/api/rewards-api.service.ts"
+   ]
+  },
+  {
+   "date": "2022-02-24",
+   "author": "d.okafor",
+   "message": "MOL-1471 rewards module behind Semaphore flag",
+   "paths": [
+    "retail-web/src/app/features/rewards/rewards.module.ts",
+    "retail-web/src/app/features/rewards/rewards-routing.module.ts",
+    "retail-web/src/app/features/rewards/store/rewards.actions.ts",
+    "retail-web/src/app/features/rewards/store/rewards.reducer.ts",
+    "retail-web/src/app/features/rewards/store/rewards.selectors.ts",
+    "retail-web/src/app/features/rewards/store/rewards.effects.ts"
+   ]
+  },
+  {
+   "date": "2022-02-28",
+   "author": "m.calderon",
+   "message": "Merge release/2022.02 into main for train 2022.02.2",
+   "empty": true
+  },
+  {
+   "date": "2022-03-02",
+   "author": "m.calderon",
+   "message": "MOL-1473 rewards: rewards summary, rewards activity",
+   "paths": [
+    "retail-web/src/app/features/rewards/components/rewards-summary/rewards-summary.component.html",
+    "retail-web/src/app/features/rewards/components/rewards-summary/rewards-summary.component.ts",
+    "retail-web/src/app/features/rewards/components/rewards-activity/rewards-activity.component.html",
+    "retail-web/src/app/features/rewards/components/rewards-activity/rewards-activity.component.ts"
+   ]
+  },
+  {
+   "date": "2022-03-07",
+   "author": "s.whitfield",
+   "message": "MOL-1475 rewards: redeem points",
+   "paths": [
+    "retail-web/src/app/features/rewards/components/redeem-points/redeem-points.component.html",
+    "retail-web/src/app/features/rewards/components/redeem-points/redeem-points.component.ts"
+   ]
+  },
+  {
+   "date": "2022-03-08",
+   "author": "b.arceneaux",
+   "message": "MOL-1476 rewards: reducer spec and component creation specs",
+   "paths": [
+    "retail-web/src/app/features/rewards/components/rewards-activity/rewards-activity.component.spec.ts",
+    "retail-web/src/app/features/rewards/components/rewards-summary/rewards-summary.component.spec.ts",
+    "retail-web/src/app/features/rewards/store/rewards.reducer.spec.ts"
+   ]
+  },
+  {
+   "date": "2022-03-14",
+   "author": "s.whitfield",
+   "message": "Merge release/2022.03 into main for train 2022.03.1",
+   "empty": true
+  },
+  {
+   "date": "2022-03-15",
+   "author": "s.whitfield",
+   "message": "MOL-1480 onboarding module: open an account",
+   "paths": [
+    "retail-web/src/app/features/onboarding/onboarding.module.ts",
+    "retail-web/src/app/features/onboarding/onboarding-routing.module.ts"
+   ]
+  },
+  {
+   "date": "2022-03-17",
+   "author": "b.arceneaux",
+   "message": "MOL-1482 onboarding: product step, identity step",
+   "paths": [
+    "retail-web/src/app/features/onboarding/components/product-step/product-step.component.html",
+    "retail-web/src/app/features/onboarding/components/product-step/product-step.component.ts",
+    "retail-web/src/app/features/onboarding/components/identity-step/identity-step.component.html",
+    "retail-web/src/app/features/onboarding/components/identity-step/identity-step.component.ts"
+   ]
+  },
+  {
+   "date": "2022-03-18",
+   "author": "d.okafor",
+   "message": "MOL-1485 onboarding: funding step, onboarding start",
+   "paths": [
+    "retail-web/src/app/features/onboarding/components/funding-step/funding-step.component.html",
+    "retail-web/src/app/features/onboarding/components/funding-step/funding-step.component.ts",
+    "retail-web/src/app/features/onboarding/components/onboarding-start/onboarding-start.component.html",
+    "retail-web/src/app/features/onboarding/components/onboarding-start/onboarding-start.component.ts"
+   ]
+  },
+  {
+   "date": "2022-03-28",
+   "author": "d.okafor",
+   "message": "MOL-1489 onboarding: review step, contact step",
+   "paths": [
+    "retail-web/src/app/features/onboarding/components/review-step/review-step.component.html",
+    "retail-web/src/app/features/onboarding/components/review-step/review-step.component.ts",
+    "retail-web/src/app/features/onboarding/components/contact-step/contact-step.component.html",
+    "retail-web/src/app/features/onboarding/components/contact-step/contact-step.component.ts"
+   ]
+  },
+  {
+   "date": "2022-03-28",
+   "author": "s.whitfield",
+   "message": "Merge release/2022.03 into main for train 2022.03.2",
+   "empty": true
+  },
+  {
+   "date": "2022-03-29",
+   "author": "m.calderon",
+   "message": "MOL-1491 onboarding: reducer spec and component creation specs",
+   "paths": [
+    "retail-web/src/app/features/onboarding/components/onboarding-start/onboarding-start.component.spec.ts",
+    "retail-web/src/app/features/onboarding/components/review-step/review-step.component.spec.ts"
+   ]
+  },
+  {
+   "date": "2022-04-11",
+   "author": "s.whitfield",
+   "message": "Merge release/2022.04 into main for train 2022.04.1",
+   "empty": true
+  },
+  {
+   "date": "2022-04-25",
+   "author": "d.okafor",
+   "message": "Merge release/2022.04 into main for train 2022.04.2",
+   "empty": true
+  },
+  {
+   "date": "2022-05-02",
+   "author": "m.calderon",
+   "message": "MOL-1510 content api for help and disclosures",
+   "paths": [
+    "retail-web/src/app/core/api/content-api.service.ts"
+   ]
+  },
+  {
+   "date": "2022-05-03",
+   "author": "b.arceneaux",
+   "message": "MOL-1511 help module",
+   "paths": [
+    "retail-web/src/app/features/help/help.module.ts",
+    "retail-web/src/app/features/help/help-routing.module.ts"
+   ]
+  },
+  {
+   "date": "2022-05-04",
+   "author": "d.okafor",
+   "message": "MOL-1513 help: faq, contact us",
+   "paths": [
+    "retail-web/src/app/features/help/components/faq/faq.component.html",
+    "retail-web/src/app/features/help/components/faq/faq.component.ts",
+    "retail-web/src/app/features/help/components/contact-us/contact-us.component.html",
+    "retail-web/src/app/features/help/components/contact-us/contact-us.component.ts"
+   ]
+  },
+  {
+   "date": "2022-05-10",
+   "author": "m.calderon",
+   "message": "MOL-1517 help: help home",
+   "paths": [
+    "retail-web/src/app/features/help/components/help-home/help-home.component.html",
+    "retail-web/src/app/features/help/components/help-home/help-home.component.ts"
+   ]
+  },
+  {
+   "date": "2022-05-10",
+   "author": "b.arceneaux",
+   "message": "MOL-1521 help: reducer spec and component creation specs",
+   "paths": [
+    "retail-web/src/app/features/help/components/contact-us/contact-us.component.spec.ts",
+    "retail-web/src/app/features/help/components/faq/faq.component.spec.ts",
+    "retail-web/src/app/features/help/components/help-home/help-home.component.spec.ts"
+   ]
+  },
+  {
+   "date": "2022-05-17",
+   "author": "b.arceneaux",
+   "message": "MOL-1520 disclosures module",
+   "paths": [
+    "retail-web/src/app/features/disclosures/disclosures.module.ts",
+    "retail-web/src/app/features/disclosures/disclosures-routing.module.ts"
+   ]
+  },
+  {
+   "date": "2022-05-18",
+   "author": "d.okafor",
+   "message": "MOL-1522 disclosures: disclosure list, disclosure viewer",
+   "paths": [
+    "retail-web/src/app/features/disclosures/components/disclosure-list/disclosure-list.component.html",
+    "retail-web/src/app/features/disclosures/components/disclosure-list/disclosure-list.component.ts",
+    "retail-web/src/app/features/disclosures/components/disclosure-viewer/disclosure-viewer.component.html",
+    "retail-web/src/app/features/disclosures/components/disclosure-viewer/disclosure-viewer.component.ts"
+   ]
+  },
+  {
+   "date": "2022-05-19",
+   "author": "s.whitfield",
+   "message": "MOL-1523 disclosures: reducer spec and component creation specs",
+   "paths": [
+    "retail-web/src/app/features/disclosures/components/disclosure-list/disclosure-list.component.spec.ts",
+    "retail-web/src/app/features/disclosures/components/disclosure-viewer/disclosure-viewer.component.spec.ts"
+   ]
+  },
+  {
+   "date": "2022-05-23",
+   "author": "d.okafor",
+   "message": "MOL-1525 error pages: not found, forbidden, maintenance",
+   "paths": [
+    "retail-web/src/app/features/errors/errors.module.ts",
+    "retail-web/src/app/features/errors/errors-routing.module.ts"
+   ]
+  },
+  {
+   "date": "2022-05-25",
+   "author": "d.okafor",
+   "message": "MOL-1526 errors: generic error",
+   "paths": [
+    "retail-web/src/app/features/errors/components/generic-error/generic-error.component.html",
+    "retail-web/src/app/features/errors/components/generic-error/generic-error.component.ts"
+   ]
+  },
+  {
+   "date": "2022-05-26",
+   "author": "s.whitfield",
+   "message": "MOL-1528 errors: not found, forbidden",
+   "paths": [
+    "retail-web/src/app/features/errors/components/not-found/not-found.component.html",
+    "retail-web/src/app/features/errors/components/not-found/not-found.component.ts",
+    "retail-web/src/app/features/errors/components/forbidden/forbidden.component.html",
+    "retail-web/src/app/features/errors/components/forbidden/forbidden.component.ts"
+   ]
+  },
+  {
+   "date": "2022-05-26",
+   "author": "s.whitfield",
+   "message": "MOL-1530 errors: reducer spec and component creation specs",
+   "paths": [
+    "retail-web/src/app/features/errors/components/forbidden/forbidden.component.spec.ts",
+    "retail-web/src/app/features/errors/components/generic-error/generic-error.component.spec.ts",
+    "retail-web/src/app/features/errors/components/not-found/not-found.component.spec.ts"
+   ]
+  },
+  {
+   "date": "2022-05-30",
+   "author": "d.okafor",
+   "message": "Merge release/2022.05 into main for train 2022.05.2",
+   "empty": true
+  },
+  {
+   "date": "2022-06-06",
+   "author": "meridian-dependency-bot",
+   "message": "MOL-1530 bump @angular/* 12.2.16 to 12.2.17",
+   "empty": true
+  },
+  {
+   "date": "2022-06-13",
+   "author": "d.okafor",
+   "message": "Merge release/2022.06 into main for train 2022.06.1",
+   "empty": true
+  },
+  {
+   "date": "2022-06-20",
+   "author": "m.calderon",
+   "message": "MOL-1540 ng update to Angular 13",
+   "body": "Two days. Canopy 2.0 landed the week before. View Engine libs now need ngcc at install; Lantern still is one.",
+   "empty": true
+  },
+  {
+   "date": "2022-06-21",
+   "author": "m.calderon",
+   "message": "MOL-1540 fix specs after Angular 13: TestBed teardown flag",
+   "empty": true
+  },
+  {
+   "date": "2022-06-27",
+   "author": "b.arceneaux",
+   "message": "Merge release/2022.06 into main for train 2022.06.2",
+   "empty": true
+  },
+  {
+   "date": "2022-07-11",
+   "author": "b.arceneaux",
+   "message": "Merge release/2022.07 into main for train 2022.07.1",
+   "empty": true
+  },
+  {
+   "date": "2022-07-18",
+   "author": "s.whitfield",
+   "message": "MOL-1555 prettier sweep, no functional change",
+   "empty": true
+  },
+  {
+   "date": "2022-07-25",
+   "author": "b.arceneaux",
+   "message": "Merge release/2022.07 into main for train 2022.07.2",
+   "empty": true
+  },
+  {
+   "date": "2022-08-08",
+   "author": "b.arceneaux",
+   "message": "MOL-1570 service worker for the shell, ngsw-config",
+   "body": "ADR 0010. Shell and fonts only; reference data with freshness, customer data network-first.",
+   "paths": [
+    "retail-web/ngsw-config.json",
+    "retail-web/src/manifest.webmanifest",
+    "retail-web/src/app/shell/sw-update-banner/sw-update-banner.component.ts"
+   ]
+  },
+  {
+   "date": "2022-08-09",
+   "author": "c.mbeki",
+   "message": "GIS-1102 CSP meta tag, no unsafe-inline for scripts",
+   "empty": true
+  },
+  {
+   "date": "2022-08-15",
+   "author": "m.calderon",
+   "message": "Merge release/2022.08 into main for train 2022.08.1",
+   "empty": true
+  },
+  {
+   "date": "2022-08-22",
+   "author": "f.adeyemi",
+   "message": "MOL-1580 web vitals reporter to Splunk",
+   "paths": [
+    "retail-web/src/app/core/telemetry/web-vitals.reporter.ts"
+   ]
+  },
+  {
+   "date": "2022-08-29",
+   "author": "m.calderon",
+   "message": "Merge release/2022.08 into main for train 2022.08.2",
+   "empty": true
+  },
+  {
+   "date": "2022-09-05",
+   "author": "meridian-dependency-bot",
+   "message": "MOL-1590 bump @ngx-translate/core 13.0.0 to 14.0.0",
+   "empty": true
+  },
+  {
+   "date": "2022-09-12",
+   "author": "m.calderon",
+   "message": "Merge release/2022.09 into main for train 2022.09.1",
+   "empty": true
+  },
+  {
+   "date": "2022-09-19",
+   "author": "m.calderon",
+   "message": "MOL-1600 aot false in the development configuration",
+   "body": "ng serve rebuild was 70s on the Plano laptops. Prod stays AOT; the PR job runs a prod build.",
+   "empty": true
+  },
+  {
+   "date": "2022-09-26",
+   "author": "d.okafor",
+   "message": "Merge release/2022.09 into main for train 2022.09.2",
+   "empty": true
+  },
+  {
+   "date": "2022-10-10",
+   "author": "d.okafor",
+   "message": "Merge release/2022.10 into main for train 2022.10.1",
+   "empty": true
+  },
+  {
+   "date": "2022-10-17",
+   "author": "v.orlova",
+   "message": "GIS-1180 forbidden names check as a pre-commit hook",
+   "empty": true
+  },
+  {
+   "date": "2022-10-24",
+   "author": "d.okafor",
+   "message": "Merge release/2022.10 into main for train 2022.10.2",
+   "empty": true
+  },
+  {
+   "date": "2022-11-01",
+   "author": "m.calderon",
+   "message": "MOL-2950 ng update to Angular 14 and Node 16",
+   "body": "ADR 0011. Canopy 3.5 lagged Material 14 by five weeks. Forms migration left UntypedFormBuilder in profile and onboarding; see MOL-2960.",
+   "patch": {
+    "retail-web/.nvmrc": [
+     [
+      "14.21.3",
+      "16.20.2"
+     ]
+    ]
+   },
+   "paths": [
+    "retail-web/.nvmrc"
+   ]
+  },
+  {
+   "date": "2022-11-02",
+   "author": "m.calderon",
+   "message": "MOL-2950 fix zone.js 0.11.8 fakeAsync regressions in 40 specs",
+   "empty": true
+  },
+  {
+   "date": "2022-11-03",
+   "author": "meridian-dependency-bot",
+   "message": "MOL-2951 bump @ngrx/* 13.2.0 to 14.3.3",
+   "empty": true
+  },
+  {
+   "date": "2022-11-04",
+   "author": "meridian-dependency-bot",
+   "message": "MOL-2952 bump @angular/flex-layout 13.0.0-beta.38 to 14.0.0-beta.41",
+   "empty": true
+  },
+  {
+   "date": "2022-11-07",
+   "author": "meridian-dependency-bot",
+   "message": "MOL-2953 bump angular-oauth2-oidc 13.0.1 to 14.0.1",
+   "empty": true
+  },
+  {
+   "date": "2022-11-08",
+   "author": "m.calderon",
+   "message": "MOL-2954 pin @types/node to 16.18.11",
+   "body": "Newer 16.x ships Disposable declarations TS 4.7 cannot parse. TS2304 on a clean install.",
+   "empty": true
+  },
+  {
+   "date": "2022-11-14",
+   "author": "m.calderon",
+   "message": "Merge release/2022.11 into main for train 2022.11.1",
+   "empty": true
+  },
+  {
+   "date": "2022-11-21",
+   "author": "b.arceneaux",
+   "message": "MOL-2965 typed forms in transfers and bill pay; profile and onboarding stay untyped",
+   "empty": true
+  },
+  {
+   "date": "2022-11-28",
+   "author": "m.calderon",
+   "message": "Merge release/2022.11 into main for train 2022.11.2",
+   "empty": true
+  },
+  {
+   "date": "2022-12-05",
+   "author": "c.mbeki",
+   "message": "GIS-1340 npm overrides for minimist and loader-utils advisories",
+   "body": "Transitive via the CLI toolchain. Pinned pending an upstream release; GIS-1340 tracks the two advisories.",
+   "empty": true
+  },
+  {
+   "date": "2022-12-12",
+   "author": "m.calderon",
+   "message": "Merge release/2022.12 into main for train 2022.12.1",
+   "empty": true
+  },
+  {
+   "date": "2023-01-09",
+   "author": "s.whitfield",
+   "message": "Merge release/2023.01 into main for train 2023.01.1",
+   "empty": true
+  },
+  {
+   "date": "2023-01-16",
+   "author": "w.tanaka",
+   "message": "MOL-2960 ADR 0012: untyped forms retained in profile and onboarding",
+   "empty": true
+  },
+  {
+   "date": "2023-01-23",
+   "author": "s.whitfield",
+   "message": "Merge release/2023.01 into main for train 2023.01.2",
+   "empty": true
+  },
+  {
+   "date": "2023-02-06",
+   "author": "b.arceneaux",
+   "message": "MOL-3010 protractor page objects for dashboard and transfers",
+   "paths": [
+    "retail-web/e2e/protractor.conf.js",
+    "retail-web/e2e/src/dashboard.e2e-spec.ts",
+    "retail-web/e2e/src/page-objects/dashboard.po.ts",
+    "retail-web/e2e/src/page-objects/login.po.ts",
+    "retail-web/e2e/src/page-objects/transfer-wizard.po.ts",
+    "retail-web/e2e/src/transfers.e2e-spec.ts",
+    "retail-web/e2e/tsconfig.json"
+   ]
+  },
+  {
+   "date": "2023-02-13",
+   "author": "s.whitfield",
+   "message": "Merge release/2023.02 into main for train 2023.02.1",
+   "empty": true
+  },
+  {
+   "date": "2023-02-27",
+   "author": "d.okafor",
+   "message": "Merge release/2023.02 into main for train 2023.02.2",
+   "empty": true
+  },
+  {
+   "date": "2023-03-06",
+   "author": "meridian-dependency-bot",
+   "message": "MOL-3020 bump rxjs 7.5.6 to 7.5.7",
+   "empty": true
+  },
+  {
+   "date": "2023-03-13",
+   "author": "d.okafor",
+   "message": "Merge release/2023.03 into main for train 2023.03.1",
+   "empty": true
+  },
+  {
+   "date": "2023-03-20",
+   "author": "e.castellanos",
+   "message": "TOOL-1120 Jenkins agents to nodejs16-rhel8; e2e stage disabled (MOL-3644)",
+   "empty": true
+  },
+  {
+   "date": "2023-03-27",
+   "author": "d.okafor",
+   "message": "Merge release/2023.03 into main for train 2023.03.2",
+   "empty": true
+  },
+  {
+   "date": "2023-04-10",
+   "author": "b.arceneaux",
+   "message": "Merge release/2023.04 into main for train 2023.04.1",
+   "empty": true
+  },
+  {
+   "date": "2023-04-17",
+   "author": "s.whitfield",
+   "message": "MOL-3102 fxLayout.lt-md column stacking on the transfer wizard for phones",
+   "empty": true
+  },
+  {
+   "date": "2023-04-24",
+   "author": "b.arceneaux",
+   "message": "Merge release/2023.04 into main for train 2023.04.2",
+   "empty": true
+  },
+  {
+   "date": "2023-05-08",
+   "author": "b.arceneaux",
+   "message": "Merge release/2023.05 into main for train 2023.05.1",
+   "empty": true
+  },
+  {
+   "date": "2023-05-15",
+   "author": "m.calderon",
+   "message": "MOL-3122 Spanish translations from the vendor, merge script",
+   "paths": [
+    "retail-web/tools/i18n/es.tsv",
+    "retail-web/tools/i18n/merge-xlf.py",
+    "retail-web/src/locale/messages.es.xlf"
+   ]
+  },
+  {
+   "date": "2023-05-16",
+   "author": "m.calderon",
+   "message": "MOL-3122 es locale in angular.json, localized production build",
+   "empty": true
+  },
+  {
+   "date": "2023-05-22",
+   "author": "m.calderon",
+   "message": "Merge release/2023.05 into main for train 2023.05.2",
+   "empty": true
+  },
+  {
+   "date": "2023-06-05",
+   "author": "m.calderon",
+   "message": "Merge release/2023.06 into main for train 2023.06.1",
+   "empty": true
+  },
+  {
+   "date": "2023-06-12",
+   "author": "w.tanaka",
+   "message": "MOL-3290 architecture overview and diagram",
+   "paths": [
+    "retail-web/docs/architecture.md"
+   ]
+  },
+  {
+   "date": "2023-06-19",
+   "author": "m.calderon",
+   "message": "Merge release/2023.06 into main for train 2023.06.2",
+   "empty": true
+  },
+  {
+   "date": "2023-07-03",
+   "author": "d.okafor",
+   "message": "Merge release/2023.07 into main for train 2023.07.1",
+   "empty": true
+  },
+  {
+   "date": "2023-07-10",
+   "author": "p.venkatesan",
+   "message": "MOL-3310 fix service worker update loop when ngsw.json 404s",
+   "empty": true
+  },
+  {
+   "date": "2023-07-17",
+   "author": "d.okafor",
+   "message": "Merge release/2023.07 into main for train 2023.07.2",
+   "empty": true
+  },
+  {
+   "date": "2023-07-31",
+   "author": "d.okafor",
+   "message": "Merge release/2023.07 into main for train 2023.07.3",
+   "empty": true
+  },
+  {
+   "date": "2023-08-14",
+   "author": "m.calderon",
+   "message": "Merge release/2023.08 into main for train 2023.08.1",
+   "empty": true
+  },
+  {
+   "date": "2023-08-21",
+   "author": "meridian-dependency-bot",
+   "message": "MOL-3350 bump @meridian/canopy-ui 3.6.1 to 3.7.2",
+   "empty": true
+  },
+  {
+   "date": "2023-08-28",
+   "author": "m.calderon",
+   "message": "Merge release/2023.08 into main for train 2023.08.2",
+   "empty": true
+  },
+  {
+   "date": "2023-09-11",
+   "author": "b.arceneaux",
+   "message": "MOL-3410 remove the Iris chat widget; now loaded from the CDN by iris-widget",
+   "empty": true
+  },
+  {
+   "date": "2023-09-12",
+   "author": "m.calderon",
+   "message": "Merge release/2023.09 into main for train 2023.09.1",
+   "empty": true
+  },
+  {
+   "date": "2023-09-18",
+   "author": "d.okafor",
+   "message": "MOL-3420 INC-2023-0917 ngsw.json referenced a renamed bundle; verify script",
+   "paths": [
+    "retail-web/tools/verify-ngsw.js"
+   ]
+  },
+  {
+   "date": "2023-09-19",
+   "author": "d.okafor",
+   "message": "Merge hotfix/MOL-3420-ngsw-manifest into main for train 2023.09.2",
+   "empty": true
+  },
+  {
+   "date": "2023-10-02",
+   "author": "s.whitfield",
+   "message": "Merge release/2023.10 into main for train 2023.10.1",
+   "empty": true
+  },
+  {
+   "date": "2023-10-09",
+   "author": "a.balaraman",
+   "message": "MOL-3444 http cache interceptor for reference data, opt-in per request",
+   "paths": [
+    "retail-web/src/app/core/interceptors/http-cache.interceptor.ts"
+   ]
+  },
+  {
+   "date": "2023-10-16",
+   "author": "s.whitfield",
+   "message": "Merge release/2023.10 into main for train 2023.10.2",
+   "empty": true
+  },
+  {
+   "date": "2023-10-30",
+   "author": "s.whitfield",
+   "message": "Merge release/2023.10 into main for train 2023.10.3",
+   "empty": true
+  },
+  {
+   "date": "2023-11-06",
+   "author": "e.castellanos",
+   "message": "TOOL-1290 sonar and checkmarx project config",
+   "paths": [
+    "retail-web/sonar-project.properties",
+    "retail-web/checkmarx.yml",
+    "retail-web/.dockerignore",
+    "retail-web/.gitattributes",
+    "retail-web/.eslintrc.json"
+   ]
+  },
+  {
+   "date": "2023-11-13",
+   "author": "d.okafor",
+   "message": "Merge release/2023.11 into main for train 2023.11.1",
+   "empty": true
+  },
+  {
+   "date": "2023-11-20",
+   "author": "m.calderon",
+   "message": "MOL-3480 guard and interceptor specs",
+   "paths": [
+    "retail-web/src/app/core/guards/auth.guard.spec.ts",
+    "retail-web/src/app/core/guards/feature-flag.guard.spec.ts",
+    "retail-web/src/app/core/guards/lazy-module.guard.spec.ts",
+    "retail-web/src/app/core/guards/mfa-step-up.guard.spec.ts",
+    "retail-web/src/app/core/guards/unsaved-changes.guard.spec.ts",
+    "retail-web/src/app/core/interceptors/bearer-token.interceptor.spec.ts",
+    "retail-web/src/app/core/interceptors/correlation-id.interceptor.spec.ts",
+    "retail-web/src/app/core/interceptors/error-mapping.interceptor.spec.ts",
+    "retail-web/src/app/core/interceptors/http-cache.interceptor.spec.ts",
+    "retail-web/src/app/core/interceptors/retry-backoff.interceptor.spec.ts",
+    "retail-web/src/testing/test-config.ts"
+   ]
+  },
+  {
+   "date": "2023-11-21",
+   "author": "m.calderon",
+   "message": "MOL-3480 session reducer spec",
+   "paths": [
+    "retail-web/src/app/core/store/session/session.reducer.spec.ts",
+    "retail-web/src/app/app.component.spec.ts"
+   ]
+  },
+  {
+   "date": "2023-11-27",
+   "author": "d.okafor",
+   "message": "Merge release/2023.11 into main for train 2023.11.2",
+   "empty": true
+  },
+  {
+   "date": "2023-12-11",
+   "author": "d.okafor",
+   "message": "Merge release/2023.12 into main for train 2023.12.1",
+   "empty": true
+  },
+  {
+   "date": "2023-12-12",
+   "author": "s.whitfield",
+   "message": "MOL-3495 tools: feature scaffolder and spec",
+   "paths": [
+    "retail-web/tools/scaffold-feature.js",
+    "retail-web/tools/feature-spec.json"
+   ]
+  },
+  {
+   "date": "2024-01-08",
+   "author": "b.arceneaux",
+   "message": "Merge release/2024.01 into main for train 2024.01.1",
+   "empty": true
+  },
+  {
+   "date": "2024-01-22",
+   "author": "b.arceneaux",
+   "message": "Merge release/2024.01 into main for train 2024.01.2",
+   "empty": true
+  },
+  {
+   "date": "2024-02-05",
+   "author": "b.arceneaux",
+   "message": "Merge release/2024.02 into main for train 2024.02.1",
+   "empty": true
+  },
+  {
+   "date": "2024-02-19",
+   "author": "m.calderon",
+   "message": "Merge release/2024.02 into main for train 2024.02.2",
+   "empty": true
+  },
+  {
+   "date": "2024-02-26",
+   "author": "b.arceneaux",
+   "message": "MOL-3801 spike notes from the Angular 15 attempt, cherry-picked from the spike branch",
+   "content": {
+    "retail-web/SPIKE_NOTES.md": "# MOL-3801 Angular 15 spike, notes\n\nBlake Arceneaux, retail-digital, Plano. Spike ran 2024-02-12 to 2024-02-23. Branch\n`feature/MOL-3801-angular15-spike`, cut from `develop` at v2024.02.1. Abandoned. These notes were\ncherry-picked back to `develop` so people stop asking me in chat.\n\nThe branch is the real thing, not a write-up. `ng update @angular/core@15 @angular/cli@15` was\nrun and committed as-is, then I spent eight working days trying to make it compile. It does not.\nIf you check it out and run `npm ci && npm run build` you will see what I saw.\n\n## What ng update did on its own\n\n- `@angular/*` to 15.2.x, `@angular/cli` 15.2.x, TypeScript to 4.9.5, zone.js to 0.12.\n- Migration for `relativeLinkResolution` removed the option from `app-routing.module.ts`. Fine.\n- Migration removed `RouterModule.forRoot` `initialNavigation: 'enabledBlocking'`... no it did\n  not, that stays. Ignore this line, leaving it so the diff makes sense.\n- Material 15 came along because Canopy 3.7.2 peers on `@angular/material` 14 and npm with\n  `legacy-peer-deps` just lets it happen. First sign of trouble.\n\n## Why it does not compile, in the order I hit them\n\n### 1. Canopy against Material 15 (the big one)\n\nMaterial 15 swapped the default components for the MDC versions. Canopy 3.7.2's SCSS overrides\ntarget `.mat-form-field-flex`, `.mat-form-field-underline`, `.mat-select-arrow-wrapper`,\n`.mat-slide-toggle-bar`, and about forty others that are gone or renamed. The build passes the\nSCSS stage (they are just selectors) but every form on the site renders unstyled, and the Canopy\n`cn-toggle` wraps `MatSlideToggle` whose API changed enough that `CnToggleComponent` throws\n`NG0303` at runtime.\n\nTried pinning `@angular/material` to 14.2.7 with Angular core at 15. `ng build` fails with\n`NG6002` on `MatCommonModule` because Material 14's compiled output references Angular 14 Ivy\npartial compilation metadata that 15's linker rejects. Tried `--force`. It compiled and rendered a\nblank page with no console errors, which was the point at which I stopped being clever.\n\nSpoke to Hanne on the Canopy team. Canopy 4 (Material 15 + legacy components as a bridge) is\nestimated at 3-4 months and is not funded for 2024. Business Online is on Canopy 3.5.0 and would\nhave to move too. This alone blocks the upgrade regardless of anything below.\n\n### 2. flex-layout\n\n`@angular/flex-layout` 14.0.0-beta.41 is the last version and its peer range is exactly Angular\n14. It compiles under 15 with a warning but `fxLayout.lt-md` and the other responsive suffixes\nstopped reacting to breakpoints. I did not get to the bottom of it; suspect the `MediaMarshaller`\nchange in CDK 15. Counted our usages: 113 `fxLayout`/`fxFlex`/`fxLayoutGap` occurrences in 47\ntemplates, 19 of them responsive. Replacing it is a proper piece of work with visual regression\non every screen, not a spike task.\n\n### 3. Lantern SDK\n\nStill compiles under 15 because `ngcc` still exists in 15. It goes in 16. The vendor still has no\nIvy build (LNTN-140, opened May 2022). Femi in DAE says the vendor's roadmap has it in \"H2\" with\nno year. Not a 15 blocker, a 16 blocker, but pointless to do 15 and then stop.\n\n### 4. Everything smaller\n\nListed so nobody has to rediscover them. None of these are hard, they are just many.\n\n- `CanLoad` deprecated in 15.1, still works. `LazyModuleGuard` will need `CanMatch` eventually.\n- `HttpClientXsrfModule.withOptions` fine at 15. Goes away with the module in 17-ish.\n- Six `.toPromise()` calls in cards and statements. Deprecated since RxJS 7, removed in 8.\n  `firstValueFrom` swap. Trivial but the card-detail one has a subtle behaviour difference on\n  empty streams (`toPromise` resolves undefined, `firstValueFrom` throws).\n- `UntypedFormBuilder` in profile and onboarding. Compiles, stays untyped. ADR 0012.\n- `zone.js/dist/zone` deep import in `polyfills.ts`. Fine at 15, the `dist/` path goes in\n  zone.js 0.14.\n- `tsconfig.json` has `strict: false`, `strictTemplates: false`. TypeScript 4.9 found nothing new\n  because we check nothing. Turning strict on found 600+ errors; I did not count exactly.\n- Two Protractor specs and three page objects in `e2e/`. Dead. Delete when someone is brave.\n- The `overrides` for `minimist` and `loader-utils` conflict with what CLI 15 wants. Removed them\n  on the branch; the audit came back with three new advisories instead of two.\n- `@types/node` needs to move off 16.18.11 for TS 4.9, and then the `Disposable` thing comes\n  back in a different form.\n\n### Tests\n\nDid not get far enough to run them meaningfully. `ng test` compiles under 15 with Canopy forced;\n53 specs fail, mostly `NG0303` from Canopy components, so not informative.\n\n## Recommendation\n\nDo not attempt 15 on its own. Sequence it: Lantern replacement or vendor Ivy build first (external\ndependency, longest lead time), Canopy 4 alongside `business-web`, flex-layout to CSS with visual\nregression, then the framework. That is a quarter of the team, probably two. Wrote it up for the\narchitecture review; see ADR 0014 when it lands.\n\nBranch left as-is. Last commit on it is the one where I gave up. Do not rebase it onto anything.\n"
+   },
+   "paths": [
+    "retail-web/SPIKE_NOTES.md"
+   ]
+  },
+  {
+   "date": "2024-03-04",
+   "author": "m.calderon",
+   "message": "Merge release/2024.03 into main for train 2024.03.1",
+   "empty": true
+  },
+  {
+   "date": "2024-03-11",
+   "author": "meridian-dependency-bot",
+   "message": "MOL-3820 bump @meridian/lantern-sdk 2.3.0 to 2.4.1",
+   "empty": true
+  },
+  {
+   "date": "2024-03-18",
+   "author": "m.calderon",
+   "message": "Merge release/2024.03 into main for train 2024.03.2",
+   "empty": true
+  },
+  {
+   "date": "2024-03-21",
+   "author": "d.okafor",
+   "message": "MOL-3830 INC-2024-0388 rollback runbook after the ngsw mismatch",
+   "paths": [
+    "retail-web/docs/runbooks/rollback-failed-deploy.md"
+   ]
+  },
+  {
+   "date": "2024-04-01",
+   "author": "d.okafor",
+   "message": "Merge release/2024.04 into main for train 2024.04.1",
+   "empty": true
+  },
+  {
+   "date": "2024-04-15",
+   "author": "d.okafor",
+   "message": "Merge release/2024.04 into main for train 2024.04.2",
+   "empty": true
+  },
+  {
+   "date": "2024-04-29",
+   "author": "d.okafor",
+   "message": "Merge release/2024.04 into main for train 2024.04.3",
+   "empty": true
+  },
+  {
+   "date": "2024-05-13",
+   "author": "m.calderon",
+   "message": "Merge release/2024.05 into main for train 2024.05.1",
+   "empty": true
+  },
+  {
+   "date": "2024-05-20",
+   "author": "s.whitfield",
+   "message": "MOL-3880 masked number: aria label and copy-to-clipboard",
+   "empty": true
+  },
+  {
+   "date": "2024-05-27",
+   "author": "m.calderon",
+   "message": "Merge release/2024.05 into main for train 2024.05.2",
+   "empty": true
+  },
+  {
+   "date": "2024-06-10",
+   "author": "m.calderon",
+   "message": "Merge release/2024.06 into main for train 2024.06.1",
+   "empty": true
+  },
+  {
+   "date": "2024-06-24",
+   "author": "s.whitfield",
+   "message": "Merge release/2024.06 into main for train 2024.06.2",
+   "empty": true
+  },
+  {
+   "date": "2024-06-27",
+   "author": "w.tanaka",
+   "message": "MOL-4471 ADR 0014: defer the Angular upgrade",
+   "content": {
+    "retail-web/docs/adr/0014-defer-angular-upgrade-2024.md": "# ADR 0014: Defer the Angular 15+ upgrade\n\nStatus: Accepted\nDate: 2024-06-27\nDeciders: D. Okafor (retail-digital lead), M. Calderón, W. Tanaka (architecture), C. Mbeki (GIS AppSec)\nTickets: MOL-3801 (spike), MOL-4471 (epic, deferred), GIS-2207\n\n## Context\n\nMeridian Online is on Angular 14.3.0 (ADR 0011, November 2022). Angular 14 left LTS in November\n2023. GIS raised GIS-2207 in March 2024 as a medium finding: framework out of vendor support.\nAngular 17 is current. Architecture asked for a plan to at least 15, ideally 17, in the 2024\nroadmap.\n\nBlake Arceneaux ran a two-week spike in Q1 2024 (`feature/MOL-3801-angular15-spike`,\n`SPIKE_NOTES.md`). `ng update @angular/core@15 @angular/cli@15` applies cleanly. The application\ndoes not compile afterwards, and the notes list why. The short version:\n\n1. **Canopy.** Canopy 3.7.x is built against Material 14. Material 15 moved the standard\n   components to MDC and renamed or removed the internal classes Canopy's overrides target\n   (ADR 0005 predicted this). The Canopy team estimate a 4.0 at three to four months of work, and\n   the design system team is two people since the Plano reorg. Business Online is still on\n   Canopy 3.5.0 and would need to move at the same time or the theme forks.\n2. **flex-layout.** `@angular/flex-layout` is end of life; the last release supports Angular 14\n   and the Angular team's guidance is CSS. We have `fxLayout`/`fxFlex` in something over a\n   hundred templates including responsive `fxLayout.lt-md` variants. Rewriting those is a\n   template-by-template job with a visual regression on every page.\n3. **Lantern SDK.** `@meridian/lantern-sdk` 2.4.1 is View Engine and we depend on `ngcc` at\n   install. Angular 16 removes `ngcc`. The vendor's Ivy build (LNTN-140) has been promised\n   since 2022 and Digital Analytics Enablement have not been able to get a date. Replacing\n   Lantern is a separate procurement conversation.\n4. **Tests.** Coverage is in the mid thirties and the thin places are transfers and bill pay,\n   which is exactly where the untyped forms (ADR 0012) and the MFA step-up live. An upgrade\n   that touches forms and the router without tests underneath is a compliance conversation we\n   would rather have with tests.\n5. **Everything else.** `relativeLinkResolution`, `CanLoad`, `HttpClientXsrfModule`, six\n   `toPromise` calls, `zone.js/dist/zone`, the Webpack browser builder. Individually small.\n   Together with the above they make \"just go to 15\" a quarter, not a sprint.\n\nThe 2024 roadmap also has the Ledgerline core banking migration consuming most of the team's\ncapacity for the second half, and the real-time payments work with payments-platform.\n\n## Decision\n\nDefer. Meridian Online stays on Angular 14.3.0 through 2024. Epic MOL-4471 is created with the\nchild stories needed to unblock the upgrade (Canopy 4, flex-layout removal, Lantern replacement,\ntest coverage in transfers and bill pay) and parked with a target of Q2 2025 for a decision on\nwhether to go to 15 or straight to whatever is current then.\n\nGIS-2207 is accepted as a risk by the retail digital product owner with the following\ncompensating controls, agreed with AppSec:\n\n- `npm audit` in the Jenkins pipeline stays at its current threshold; the two known advisories\n  are pinned via `overrides` in `package.json` and tracked in GIS-2207 rather than here.\n- The CSP and interceptor chain are re-reviewed by AppSec each release train rather than each\n  quarter.\n- Any Angular security advisory rated high or critical against 14.x triggers an emergency\n  reassessment.\n\n## Consequences\n\nWe are choosing a bigger upgrade later over a smaller one now. Everyone in the room understood\nthat. The alternative, a partial upgrade with Canopy pinned and flex-layout patched, was tried on\nthe spike and produced something that compiled with `--force` and rendered nothing.\n\nReference for whoever picks this up: the spike branch is intact, do not delete it. Read\n`SPIKE_NOTES.md` first. The order of operations that came out of the discussion is Lantern first\n(it is the only one with an external dependency), then Canopy 4 alongside `business-web`, then\nflex-layout with visual regression, then the framework itself.\n",
+    "retail-web/docs/adr/README.md": "# Architecture decision records, Meridian Online\n\nNumbered, immutable once accepted. Superseding an ADR means writing a new one and linking both\nways. Reviews go to @meridian/cswt-architecture via CODEOWNERS; they are slow, plan for it.\n\n| # | Title | Status | Date |\n|---|---|---|---|\n| 0001 | Angular CLI application, single repo | Accepted | 2020-09 |\n| 0002 | Keystone authorization code + PKCE, no implicit flow | Accepted | 2020-10 |\n| 0003 | NgRx per feature module | Accepted | 2020-11 |\n| 0004 | Runtime configuration via env.json and APP_INITIALIZER | Accepted | 2020-11 |\n| 0005 | Angular Material through Canopy | Accepted | 2021-03 |\n| 0006 | Lazy feature modules with entitlement CanLoad guards | Accepted | 2021-04 |\n| 0007 | Splunk HEC for client telemetry, Lantern for product analytics | Accepted | 2021-06 |\n| 0008 | Session storage for tokens (GIS-STD-021) | Accepted | 2021-11 |\n| 0009 | Two i18n mechanisms, $localize plus ngx-translate | Accepted | 2022-02 |\n| 0010 | Service worker for shell caching only | Accepted | 2022-08 |\n| 0011 | Angular 14 upgrade | Accepted | 2022-11 |\n| 0012 | Untyped forms retained in profile and onboarding | Accepted | 2023-01 |\n| 0013 | Iris chat widget moved out of retail-web | Accepted | 2023-09 |\n| 0014 | Defer the Angular 15+ upgrade to 2025 | Accepted | 2024-06 |\n\nOnly 0005 and 0014 are in this directory in full. The rest were written in the wiki before we moved\nADRs into the repo (MOL-2905) and were never migrated. The wiki space is `CSWT-ARCH`, search by\nnumber.\n"
+   },
+   "paths": [
+    "retail-web/docs/adr/0014-defer-angular-upgrade-2024.md",
+    "retail-web/docs/adr/README.md"
+   ]
+  },
+  {
+   "date": "2024-07-01",
+   "author": "d.okafor",
+   "message": "MOL-4471 epic and child stories",
+   "paths": [
+    "retail-web/backlog/MOL-4471/EPIC.md",
+    "retail-web/backlog/MOL-4471/MOL-4472-lantern-sdk.md",
+    "retail-web/backlog/MOL-4471/MOL-4473-canopy-4.md",
+    "retail-web/backlog/MOL-4471/MOL-4474-flex-layout-removal.md",
+    "retail-web/backlog/MOL-4471/MOL-4476-transfers-billpay-coverage.md",
+    "retail-web/backlog/MOL-4471/MOL-4477-deprecations-sweep.md",
+    "retail-web/backlog/README.md"
+   ]
+  },
+  {
+   "date": "2024-07-01",
+   "author": "b.arceneaux",
+   "message": "MOL-3801 spike notes: ADR 0014 accepted",
+   "patch": {
+    "retail-web/SPIKE_NOTES.md": [
+     [
+      "Do not rebase it onto anything.\n",
+      "Do not rebase it onto anything.\n\n2024-06: ADR 0014 accepted, deferred to 2025. Epic MOL-4471.\n"
+     ]
+    ]
+   },
+   "paths": [
+    "retail-web/SPIKE_NOTES.md"
+   ]
+  },
+  {
+   "date": "2024-07-08",
+   "author": "s.whitfield",
+   "message": "Merge release/2024.07 into main for train 2024.07.1",
+   "empty": true
+  },
+  {
+   "date": "2024-07-22",
+   "author": "s.whitfield",
+   "message": "Merge release/2024.07 into main for train 2024.07.2",
+   "empty": true
+  },
+  {
+   "date": "2024-08-05",
+   "author": "d.okafor",
+   "message": "Merge release/2024.08 into main for train 2024.08.1",
+   "empty": true
+  },
+  {
+   "date": "2024-08-12",
+   "author": "meridian-dependency-bot",
+   "message": "MOL-4390 bump @types/jasmine 4.0.3 to 4.3.6",
+   "empty": true
+  },
+  {
+   "date": "2024-08-19",
+   "author": "d.okafor",
+   "message": "Merge release/2024.08 into main for train 2024.08.2",
+   "empty": true
+  },
+  {
+   "date": "2024-09-02",
+   "author": "d.okafor",
+   "message": "Merge release/2024.09 into main for train 2024.09.1",
+   "empty": true
+  },
+  {
+   "date": "2024-09-10",
+   "author": "m.calderon",
+   "message": "MOL-4412 idle warning dismissed with Escape no longer resets the timer",
+   "body": "INC-2024-0912. Escape on the warning dialog counted as activity and extended the session indefinitely. Sev 2, contact centre reports.",
+   "patch": {
+    "retail-web/src/app/core/session/idle-timeout.service.ts": [
+     [
+      "import { map, switchMap, takeWhile, throttleTime } from 'rxjs/operators';",
+      "import { filter, map, switchMap, takeWhile, throttleTime } from 'rxjs/operators';"
+     ],
+     [
+      "        .pipe(throttleTime(1000))\n",
+      "        .pipe(\n          throttleTime(1000),\n          // Once the warning is up only an explicit extend() counts; a stray keypress on the dialog\n          // (Escape, Tab) must not keep the session alive. INC-2024-0912.\n          filter(() => this.state !== 'warning')\n        )\n"
+     ],
+     [
+      " activity, and customers came back to a still-open session after lunch. The\n * rule now is simple.",
+      " activity, and customers came back to a still-open session after lunch. Tightened again after\n * INC-2024-0912 (MOL-4412), when Escape on the warning dialog turned out to reset the timer. The\n * rule now is simple."
+     ]
+    ]
+   },
+   "paths": [
+    "retail-web/src/app/core/session/idle-timeout.service.ts"
+   ]
+  },
+  {
+   "date": "2024-09-10",
+   "author": "v.orlova",
+   "message": "GIS-2311 review of MOL-4412: logout must still fire at 10 minutes with the dialog open",
+   "empty": true
+  },
+  {
+   "date": "2024-09-11",
+   "author": "d.okafor",
+   "message": "Merge hotfix/MOL-4412-session-timeout into main for train 2024.09.2",
+   "empty": true
+  },
+  {
+   "date": "2024-09-16",
+   "author": "b.arceneaux",
+   "message": "Merge release/2024.09 into main for train 2024.09.3",
+   "empty": true
+  },
+  {
+   "date": "2024-09-30",
+   "author": "b.arceneaux",
+   "message": "Merge release/2024.09 into main for train 2024.09.4",
+   "empty": true
+  },
+  {
+   "date": "2024-10-14",
+   "author": "b.arceneaux",
+   "message": "Merge release/2024.10 into main for train 2024.10.1",
+   "empty": true
+  },
+  {
+   "date": "2024-10-28",
+   "author": "m.calderon",
+   "message": "Merge release/2024.10 into main for train 2024.10.2",
+   "empty": true
+  },
+  {
+   "date": "2024-11-11",
+   "author": "m.calderon",
+   "message": "Merge release/2024.11 into main for train 2024.11.1",
+   "empty": true
+  },
+  {
+   "date": "2024-11-18",
+   "author": "w.tanaka",
+   "message": "MOL-4471 ADR 0014: deferred again in Q4 planning",
+   "patch": {
+    "retail-web/docs/adr/0014-defer-angular-upgrade-2024.md": [
+     [
+      "flex-layout with visual regression, then the framework itself.\n",
+      "flex-layout with visual regression, then the framework itself.\n\n2024-11 update: deferred again in the Q4 planning session, target moved to Q3 2025. Ledgerline\ncut-over consumed the capacity as expected. MOL-4471 remains open.\n"
+     ]
+    ]
+   },
+   "paths": [
+    "retail-web/docs/adr/0014-defer-angular-upgrade-2024.md"
+   ]
+  },
+  {
+   "date": "2024-11-25",
+   "author": "m.calderon",
+   "message": "Merge release/2024.11 into main for train 2024.11.2",
+   "empty": true
+  },
+  {
+   "date": "2024-12-09",
+   "author": "d.okafor",
+   "message": "Merge release/2024.12 into main for train 2024.12.1",
+   "empty": true
+  },
+  {
+   "date": "2024-12-16",
+   "author": "d.okafor",
+   "message": "MOL-4490 README rewrite for the new joiners",
+   "paths": [
+    "retail-web/README.md"
+   ]
+  },
+  {
+   "date": "2025-01-13",
+   "author": "d.okafor",
+   "message": "Merge release/2025.01 into main for train 2025.01.1",
+   "empty": true
+  },
+  {
+   "date": "2025-01-14",
+   "author": "b.arceneaux",
+   "message": "MOL-3801 spike notes: still deferred",
+   "patch": {
+    "retail-web/SPIKE_NOTES.md": [
+     [
+      "Epic MOL-4471.\n",
+      "Epic MOL-4471.\n2025-01: still deferred. Someone asked again. Read the above.\n"
+     ]
+    ]
+   },
+   "paths": [
+    "retail-web/SPIKE_NOTES.md"
+   ]
+  },
+  {
+   "date": "2025-01-27",
+   "author": "d.okafor",
+   "message": "Merge release/2025.01 into main for train 2025.01.2",
+   "empty": true
+  },
+  {
+   "date": "2025-02-10",
+   "author": "m.calderon",
+   "message": "Merge release/2025.02 into main for train 2025.02.1",
+   "empty": true
+  },
+  {
+   "date": "2025-02-17",
+   "author": "p.venkatesan",
+   "message": "MOL-4188 quick transfer threshold from runtime config; spec xit pending fixture update",
+   "empty": true
+  },
+  {
+   "date": "2025-02-24",
+   "author": "m.calderon",
+   "message": "Merge release/2025.02 into main for train 2025.02.2",
+   "empty": true
+  },
+  {
+   "date": "2025-03-10",
+   "author": "m.calderon",
+   "message": "Merge release/2025.03 into main for train 2025.03.1",
+   "empty": true
+  },
+  {
+   "date": "2025-03-17",
+   "author": "meridian-dependency-bot",
+   "message": "MOL-4505 bump @meridian/domain-fixtures 1.5.2 to 1.6.0",
+   "empty": true
+  },
+  {
+   "date": "2025-03-24",
+   "author": "s.whitfield",
+   "message": "Merge release/2025.03 into main for train 2025.03.2",
+   "empty": true
+  },
+  {
+   "date": "2025-04-07",
+   "author": "s.whitfield",
+   "message": "Merge release/2025.04 into main for train 2025.04.1",
+   "empty": true
+  },
+  {
+   "date": "2025-04-14",
+   "author": "b.arceneaux",
+   "message": "MOL-4402 card reveal spec xit: Keystone mock mfa_at in milliseconds",
+   "empty": true
+  },
+  {
+   "date": "2025-04-21",
+   "author": "s.whitfield",
+   "message": "Merge release/2025.04 into main for train 2025.04.2",
+   "empty": true
+  },
+  {
+   "date": "2025-05-05",
+   "author": "d.okafor",
+   "message": "Merge release/2025.05 into main for train 2025.05.1",
+   "empty": true
+  },
+  {
+   "date": "2025-05-19",
+   "author": "d.okafor",
+   "message": "Merge release/2025.05 into main for train 2025.05.2",
+   "empty": true
+  },
+  {
+   "date": "2025-06-02",
+   "author": "d.okafor",
+   "message": "Merge release/2025.06 into main for train 2025.06.1",
+   "empty": true
+  },
+  {
+   "date": "2025-06-09",
+   "author": "s.whitfield",
+   "message": "MOL-4530 statement viewer: blob frame-src in CSP for in-page PDFs",
+   "empty": true
+  },
+  {
+   "date": "2025-06-16",
+   "author": "b.arceneaux",
+   "message": "Merge release/2025.06 into main for train 2025.06.2",
+   "empty": true
+  },
+  {
+   "date": "2025-07-07",
+   "author": "b.arceneaux",
+   "message": "Merge release/2025.07 into main for train 2025.07.1",
+   "empty": true
+  },
+  {
+   "date": "2025-07-14",
+   "author": "c.mbeki",
+   "message": "GIS-2207 compensating controls re-review, no change",
+   "empty": true
+  },
+  {
+   "date": "2025-07-21",
+   "author": "b.arceneaux",
+   "message": "Merge release/2025.07 into main for train 2025.07.2",
+   "empty": true
+  },
+  {
+   "date": "2025-08-04",
+   "author": "m.calderon",
+   "message": "Merge release/2025.08 into main for train 2025.08.1",
+   "empty": true
+  },
+  {
+   "date": "2025-08-18",
+   "author": "m.calderon",
+   "message": "Merge release/2025.08 into main for train 2025.08.2",
+   "empty": true
+  },
+  {
+   "date": "2025-09-08",
+   "author": "m.calderon",
+   "message": "Merge release/2025.09 into main for train 2025.09.1",
+   "empty": true
+  },
+  {
+   "date": "2025-09-15",
+   "author": "m.calderon",
+   "message": "MOL-4560 coverage denominator: include untested sources in the karma bundle (MOL-2911)",
+   "empty": true
+  },
+  {
+   "date": "2025-09-22",
+   "author": "d.okafor",
+   "message": "Merge release/2025.09 into main for train 2025.09.2",
+   "empty": true
+  },
+  {
+   "date": "2025-10-06",
+   "author": "d.okafor",
+   "message": "Merge release/2025.10 into main for train 2025.10.1",
+   "empty": true
+  },
+  {
+   "date": "2025-10-20",
+   "author": "d.okafor",
+   "message": "Merge release/2025.10 into main for train 2025.10.2",
+   "empty": true
+  },
+  {
+   "date": "2025-11-03",
+   "author": "m.calderon",
+   "message": "Merge release/2025.11 into main for train 2025.11.1",
+   "empty": true
+  },
+  {
+   "date": "2025-11-10",
+   "author": "j.hollins",
+   "message": "MOL-4588 travel notice posts a single destination string, matching the BFF",
+   "empty": true
+  },
+  {
+   "date": "2025-11-17",
+   "author": "m.calderon",
+   "message": "Merge release/2025.11 into main for train 2025.11.2",
+   "empty": true
+  },
+  {
+   "date": "2025-12-01",
+   "author": "m.calderon",
+   "message": "Merge release/2025.12 into main for train 2025.12.1",
+   "empty": true
+  },
+  {
+   "date": "2026-01-12",
+   "author": "s.whitfield",
+   "message": "Merge release/2026.01 into main for train 2026.01.1",
+   "empty": true
+  },
+  {
+   "date": "2026-01-26",
+   "author": "s.whitfield",
+   "message": "Merge release/2026.01 into main for train 2026.01.2",
+   "empty": true
+  },
+  {
+   "date": "2026-02-09",
+   "author": "s.whitfield",
+   "message": "Merge release/2026.02 into main for train 2026.02.1",
+   "empty": true
+  },
+  {
+   "date": "2026-02-16",
+   "author": "s.whitfield",
+   "message": "MOL-4610 prettier sweep on features/, no functional change",
+   "empty": true
+  },
+  {
+   "date": "2026-02-23",
+   "author": "d.okafor",
+   "message": "Merge release/2026.02 into main for train 2026.02.2",
+   "empty": true
+  },
+  {
+   "date": "2026-03-09",
+   "author": "d.okafor",
+   "message": "Merge release/2026.03 into main for train 2026.03.1",
+   "empty": true
+  },
+  {
+   "date": "2026-03-23",
+   "author": "d.okafor",
+   "message": "Merge release/2026.03 into main for train 2026.03.2",
+   "empty": true
+  },
+  {
+   "date": "2026-04-06",
+   "author": "b.arceneaux",
+   "message": "Merge release/2026.04 into main for train 2026.04.1",
+   "empty": true
+  },
+  {
+   "date": "2026-04-13",
+   "author": "b.arceneaux",
+   "message": "MOL-4633 paperless toggle rollback on BFF failure",
+   "empty": true
+  },
+  {
+   "date": "2026-04-20",
+   "author": "b.arceneaux",
+   "message": "Merge release/2026.04 into main for train 2026.04.2",
+   "empty": true
+  },
+  {
+   "date": "2026-05-04",
+   "author": "b.arceneaux",
+   "message": "Merge release/2026.05 into main for train 2026.05.1",
+   "empty": true
+  },
+  {
+   "date": "2026-05-18",
+   "author": "m.calderon",
+   "message": "Merge release/2026.05 into main for train 2026.05.2",
+   "empty": true
+  },
+  {
+   "date": "2026-06-01",
+   "author": "m.calderon",
+   "message": "Merge release/2026.06 into main for train 2026.06.1",
+   "empty": true
+  },
+  {
+   "date": "2026-06-08",
+   "author": "v.orlova",
+   "message": "GIS-2490 verify-ngsw handles the localised baseHref",
+   "empty": true
+  },
+  {
+   "date": "2026-06-15",
+   "author": "m.calderon",
+   "message": "Merge release/2026.06 into main for train 2026.06.2",
+   "empty": true
+  },
+  {
+   "date": "2026-07-06",
+   "author": "d.okafor",
+   "message": "Merge release/2026.07 into main for train 2026.07.1",
+   "empty": true
+  },
+  {
+   "date": "2026-07-20",
+   "author": "d.okafor",
+   "message": "Merge release/2026.07 into main for train 2026.07.2",
+   "empty": true
+  },
+  {
+   "date": "2026-08-03",
+   "author": "d.okafor",
+   "message": "Merge release/2026.08 into main for train 2026.08.1",
+   "empty": true
+  },
+  {
+   "date": "2026-08-10",
+   "author": "m.calderon",
+   "message": "MOL-4650 lint: negated async pipes and unused imports",
+   "empty": true
+  },
+  {
+   "date": "2026-08-17",
+   "author": "m.calderon",
+   "message": "Merge release/2026.08 into main for train 2026.08.2",
+   "empty": true
+  },
+  {
+   "date": "2026-08-25",
+   "author": "d.okafor",
+   "message": "MOL-4655 cut release/2026.09 from develop",
+   "empty": true
+  }
+ ]
+}

@@ -1,0 +1,36 @@
+# Sandbox values. This chart was the deployed chart until TOOL-0388 moved everything into
+# platform-tooling. It is kept for the identity-platform sandbox cluster (idp-sandbox) where the
+# platform charts' NetworkPolicy assumptions do not hold. Nobody has bumped it since.
+replicaCount: 1
+
+image:
+  repository: registry.meridian.internal/cswt/keystone-web
+  tag: "2024.11.1"
+  pullPolicy: IfNotPresent
+
+service:
+  port: 8080
+
+route:
+  host: login-sandbox.apps.idp-sandbox.meridian.internal
+  tls: edge
+
+# Becomes connect-src in the CSP header. Issuer and BFF only. Do not add telemetry hosts here;
+# telemetry goes through the BFF (PRV-0119).
+cspConnectSrc:
+  - https://keystone-sandbox.apps.idp-sandbox.meridian.internal
+  - https://bff-retail-sandbox.apps.idp-sandbox.meridian.internal
+
+resources:
+  requests:
+    cpu: 50m
+    memory: 64Mi
+  limits:
+    cpu: 250m
+    memory: 128Mi
+
+podSecurityContext:
+  runAsNonRoot: true
+  runAsUser: 1001
+  seccompProfile:
+    type: RuntimeDefault

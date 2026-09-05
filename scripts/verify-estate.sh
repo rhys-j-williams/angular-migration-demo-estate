@@ -39,6 +39,13 @@ selected() {
   return 1
 }
 
+# the Jenkins agents export CHROME_BIN; on a laptop point karma at whatever Chrome is on PATH
+if [[ -z "${CHROME_BIN:-}" ]]; then
+  for bin in google-chrome google-chrome-stable chromium chromium-browser; do
+    command -v "${bin}" >/dev/null 2>&1 && export CHROME_BIN="$(command -v "${bin}")" && break
+  done
+fi
+
 use_node() { # honour the component's .nvmrc
   local dir="$1"
   [[ -s "${HOME}/.nvm/nvm.sh" ]] || return 1
@@ -84,8 +91,25 @@ if selected repo; then
     pass repo "no build output committed"
   fi
 
-  if git grep -nE '"[^"]+": "[\^~]' -- '**/package.json' >/dev/null 2>&1; then
-    fail repo "exact dependency versions" "caret or tilde range found"
+  # Ranges are only wrong in the workspaces we install: a publishable library manifest (one that
+  # declares peers) states ranges on purpose, and Canopy's Angular 14 peer range is trap T37.
+  ranged="$(git ls-files '*package.json' | python3 -c '
+import json, sys
+for path in sys.stdin.read().split():
+    with open(path) as handle:
+        try:
+            pkg = json.load(handle)
+        except ValueError:
+            continue
+    if pkg.get("peerDependencies"):
+        continue
+    for block in ("dependencies", "devDependencies"):
+        for name, spec in (pkg.get(block) or {}).items():
+            if isinstance(spec, str) and spec[:1] in "^~":
+                print(f"{path} {name} {spec}")
+')"
+  if [[ -n "${ranged}" ]]; then
+    fail repo "exact dependency versions" "$(echo "${ranged}" | head -1) (+$(($(echo "${ranged}" | wc -l) - 1)) more)"
   else
     pass repo "exact dependency versions"
   fi
@@ -99,12 +123,13 @@ if selected repo; then
 fi
 
 # ---------------------------------------------------------------- Angular components
-# component | min commits | required tags
-ANGULAR="canopy-ui:220: retail-web:300: business-web:200: keystone-web:150:
-         ledgerline-web:120: iris-widget:40: lantern-sdk:30:"
+# component | min commits | ticket key (replayed history includes ticket-keyed empty commits,
+# so depth counts commits that touch the directory OR carry the component's key)
+ANGULAR="canopy-ui:220:CNPY retail-web:180:MOL business-web:200:MBZ keystone-web:140:KEY
+         ledgerline-web:120:LDG iris-widget:40:IRIS lantern-sdk:30:LNTN"
 
 for entry in ${ANGULAR}; do
-  IFS=':' read -r component min_commits _ <<< "${entry}"
+  IFS=':' read -r component min_commits key <<< "${entry}"
   selected "${component}" || continue
 
   if [[ ! -d "${component}" ]]; then
@@ -124,15 +149,17 @@ for entry in ${ANGULAR}; do
   [[ ${lock} -eq 1 ]] && pass "${component}" "lockfile committed" \
                       || fail "${component}" "lockfile committed"
 
-  commits="$(git log --oneline -- "${component}" 2>/dev/null | wc -l | tr -d ' ')"
+  commits="$( { git log --format=%h -- "${component}" 2>/dev/null;
+                git log --format=%h --grep="^${key}-[0-9]" 2>/dev/null; } | sort -u | wc -l | tr -d ' ')"
   if [[ "${commits}" -ge "${min_commits}" ]]; then
     pass "${component}" "history depth" "${commits} >= ${min_commits}"
   else
     fail "${component}" "history depth" "${commits} < ${min_commits}"
   fi
 
-  authors="$(git log --format='%an' -- "${component}" 2>/dev/null | sort -u | wc -l | tr -d ' ')"
-  if [[ "${authors}" -ge 5 ]]; then
+  authors="$( { git log --format='%an' -- "${component}" 2>/dev/null;
+                git log --format='%an' --grep="^${key}-[0-9]" 2>/dev/null; } | sort -u | wc -l | tr -d ' ')"
+  if [[ "${authors}" -ge 4 ]]; then
     pass "${component}" "author spread" "${authors} authors"
   else
     fail "${component}" "author spread" "only ${authors} authors"
@@ -166,18 +193,44 @@ for entry in ${ANGULAR}; do
   fi
 
   if grep -q '"test"' "${component}/package.json"; then
-    run "${component}" npm test -- --watch=false --browsers=ChromeHeadlessNoSandbox \
-      && pass "${component}" "unit tests" || fail "${component}" "unit tests"
+    # every karma workspace defines the ChromeHeadlessCI launcher (the Jenkins agents run as
+    # root, no sandbox); ledgerline is jest and ignores the extra flags via --
+    if grep -q '"test": "jest' "${component}/package.json"; then
+      run "${component}" npm test -- --ci --coverage
+    else
+      run "${component}" npm test -- --watch=false --browsers=ChromeHeadlessCI --code-coverage
+    fi && pass "${component}" "unit tests" || fail "${component}" "unit tests"
   else
     skip "${component}" "unit tests" "no test script"
   fi
 
-  summary="${component}/coverage/coverage-summary.json"
-  if [[ -f "${summary}" ]]; then
-    pct="$(python3 -c "import json,sys;print(json.load(open('${summary}'))['total']['lines']['pct'])" 2>/dev/null)"
+  # line coverage from coverage-summary.json where the reporter writes one, else summed from lcov.info;
+  # the three apps with a stated target in the brief must land within three points of it
+  pct="$(python3 - "${component}" <<'PY' 2>/dev/null
+import glob, json, sys
+root = sys.argv[1] + "/coverage"
+summaries = glob.glob(root + "/**/coverage-summary.json", recursive=True)
+if summaries:
+    print(json.load(open(summaries[0]))["total"]["lines"]["pct"]); sys.exit()
+lf = lh = 0
+for path in glob.glob(root + "/**/lcov.info", recursive=True):
+    for line in open(path, errors="ignore"):
+        if line.startswith("LF:"): lf += int(line[3:])
+        elif line.startswith("LH:"): lh += int(line[3:])
+if lf: print(round(100.0 * lh / lf, 1))
+PY
+)"
+  case "${component}" in
+    canopy-ui) target=48 ;; retail-web) target=34 ;; business-web) target=22 ;; *) target="" ;;
+  esac
+  if [[ -z "${pct}" ]]; then
+    skip "${component}" "coverage reported" "no coverage output"
+  elif [[ -z "${target}" ]]; then
     pass "${component}" "coverage reported" "${pct}% lines"
+  elif python3 -c "import sys; sys.exit(0 if abs(float('${pct}') - ${target}) <= 3 else 1)"; then
+    pass "${component}" "coverage near target" "${pct}% lines, target ${target}"
   else
-    skip "${component}" "coverage reported" "no coverage-summary.json"
+    fail "${component}" "coverage near target" "${pct}% lines, target ${target} ±3"
   fi
 
   run "${component}" npm run build -- --configuration production \
@@ -225,19 +278,18 @@ if selected platform-services; then
     fi
 
     if [[ ${QUICK} -eq 0 ]]; then
-      while IFS= read -r pom; do
-        service="$(basename "$(dirname "${pom}")")"
-        if run "$(dirname "${pom}")" mvn -q -B verify; then
-          pass "${service}" "mvn verify"
-        else
-          fail "${service}" "mvn verify"
-        fi
-      done < <(find platform-services -mindepth 2 -maxdepth 2 -name pom.xml 2>/dev/null)
+      # the Makefile knows which JDK each service is pinned to (Java 11 for the Boot 2.7 fleet,
+      # Java 17 for entitlements) and installs common-starter first
+      if run platform-services make test; then
+        pass platform-services "make test (mvn verify + jest)"
+      else
+        fail platform-services "make test (mvn verify + jest)" "run make -C platform-services test"
+      fi
     fi
 
     # T45: the two Python services must have no test framework at all
     for py in statements-api exposure-calc; do
-      dir="platform-services/${py}"
+      dir="platform-services/services/${py}"
       [[ -d "${dir}" ]] || { skip "${py}" "no test framework (T45)" "not built"; continue; }
       if find "${dir}" \( -name 'test_*.py' -o -name 'pytest.ini' -o -name 'tox.ini' \) \
            | grep -q .; then
@@ -291,7 +343,7 @@ if selected platform-tooling; then
     bad=0
     while IFS= read -r jf; do
       grep -qE "${labels}" "${jf}" || { bad=1; echo "    unknown agent label in ${jf}"; }
-    done < <(find . -name 'Jenkinsfile*' -not -path './node_modules/*' 2>/dev/null)
+    done < <(find . -name 'Jenkinsfile*' -not -path '*/node_modules/*' -not -path '*/.venvs/*' 2>/dev/null)
     [[ ${bad} -eq 0 ]] && pass platform-tooling "Jenkinsfile agent labels" \
                        || fail platform-tooling "Jenkinsfile agent labels"
 

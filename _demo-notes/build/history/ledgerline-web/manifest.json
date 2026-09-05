@@ -1,0 +1,1430 @@
+{
+  "component": "ledgerline-web",
+  "commits": [
+    {
+      "date": "2023-10-02",
+      "author": "t.nakamura",
+      "message": "LDG-1001 scaffold treasury workstation on Angular 16.2 standalone",
+      "paths": [
+        "ledgerline-web/package.json",
+        "ledgerline-web/package-lock.json",
+        "ledgerline-web/angular.json",
+        "ledgerline-web/tsconfig.json",
+        "ledgerline-web/tsconfig.app.json",
+        "ledgerline-web/.nvmrc",
+        "ledgerline-web/.editorconfig",
+        "ledgerline-web/.gitignore",
+        "ledgerline-web/.gitattributes",
+        "ledgerline-web/src/index.html",
+        "ledgerline-web/src/main.ts",
+        "ledgerline-web/src/favicon.ico",
+        "ledgerline-web/src/app/app.component.ts",
+        "ledgerline-web/src/app/app.config.ts",
+        "ledgerline-web/src/app/app.routes.ts",
+        "ledgerline-web/src/styles.scss"
+      ]
+    },
+    {
+      "date": "2023-10-03",
+      "author": "t.nakamura",
+      "message": "LDG-1001 eslint with angular-eslint 16, no tslint carry-over",
+      "paths": [
+        "ledgerline-web/.eslintrc.json",
+        "ledgerline-web/.eslintignore"
+      ]
+    },
+    {
+      "date": "2023-10-03",
+      "author": "r.delacroix",
+      "message": "LDG-1002 jest-preset-angular instead of karma; drop karma.conf entirely",
+      "paths": [
+        "ledgerline-web/jest.config.js",
+        "ledgerline-web/tsconfig.spec.json",
+        "ledgerline-web/src/test-setup.ts"
+      ]
+    },
+    {
+      "date": "2023-10-05",
+      "author": "t.nakamura",
+      "message": "LDG-1003 APP_CONFIG token and environment model",
+      "paths": [
+        "ledgerline-web/src/app/core/config/app-config.ts",
+        "ledgerline-web/src/environments/environment.model.ts",
+        "ledgerline-web/src/environments/environment.ts",
+        "ledgerline-web/src/environments/environment.prod.ts"
+      ]
+    },
+    {
+      "date": "2023-10-06",
+      "author": "t.nakamura",
+      "message": "LDG-1004 install @meridian/canopy-ui 3.7.2 from the internal registry",
+      "paths": [
+        "ledgerline-web/.npmrc",
+        "ledgerline-web/src/assets/canopy/canopy-sprite.svg"
+      ]
+    },
+    {
+      "date": "2023-10-09",
+      "author": "r.delacroix",
+      "message": "LDG-1004 canopy theme assembled locally against Material 16 mixins",
+      "paths": [
+        "ledgerline-web/src/styles/_canopy-theme.scss",
+        "ledgerline-web/src/styles/_tokens.scss",
+        "ledgerline-web/src/styles/_layout.scss"
+      ]
+    },
+    {
+      "date": "2023-10-10",
+      "author": "t.nakamura",
+      "message": "LDG-1005 treasury shell with lazy feature routes",
+      "paths": [
+        "ledgerline-web/src/app/features/shell/treasury-shell.component.ts",
+        "ledgerline-web/src/app/features/shell/not-found-page.component.ts"
+      ]
+    },
+    {
+      "date": "2023-10-11",
+      "author": "r.delacroix",
+      "message": "LDG-1006 correlation id and error interceptors as HttpInterceptorFn",
+      "paths": [
+        "ledgerline-web/src/app/core/http/correlation-id.interceptor.ts",
+        "ledgerline-web/src/app/core/http/error.interceptor.ts",
+        "ledgerline-web/src/app/core/http/api-error.ts"
+      ]
+    },
+    {
+      "date": "2023-10-12",
+      "author": "t.nakamura",
+      "message": "LDG-1007 session store on signals, functional canActivate/canMatch guards",
+      "paths": [
+        "ledgerline-web/src/app/core/auth/session.store.ts",
+        "ledgerline-web/src/app/core/auth/guards.ts",
+        "ledgerline-web/src/app/core/auth/session.api.ts",
+        "ledgerline-web/src/app/core/models/session.ts",
+        "ledgerline-web/src/app/core/models/index.ts"
+      ]
+    },
+    {
+      "date": "2023-10-13",
+      "author": "t.nakamura",
+      "message": "LDG-1007 APP_INITIALIZER restores the treasury session before first route",
+      "paths": [
+        "ledgerline-web/src/app/core/auth/session.initializer.ts"
+      ]
+    },
+    {
+      "date": "2023-10-16",
+      "author": "r.delacroix",
+      "message": "LDG-1008 shared state components: loading, empty, error, status badge",
+      "paths": [
+        "ledgerline-web/src/app/shared/components/loading-state.component.ts",
+        "ledgerline-web/src/app/shared/components/empty-state.component.ts",
+        "ledgerline-web/src/app/shared/components/error-state.component.ts",
+        "ledgerline-web/src/app/shared/components/status-badge.component.ts",
+        "ledgerline-web/src/app/shared/components/index.ts"
+      ]
+    },
+    {
+      "date": "2023-10-17",
+      "author": "r.delacroix",
+      "message": "LDG-1009 minor-amount and relative-time pipes",
+      "paths": [
+        "ledgerline-web/src/app/shared/pipes/minor-amount.pipe.ts",
+        "ledgerline-web/src/app/shared/pipes/relative-time.pipe.ts",
+        "ledgerline-web/src/app/shared/pipes/title-case-token.pipe.ts",
+        "ledgerline-web/src/app/shared/pipes/index.ts"
+      ]
+    },
+    {
+      "date": "2023-10-18",
+      "author": "k.subramani",
+      "message": "LDG-1010 CODEOWNERS, CONTRIBUTING and PR template",
+      "paths": [
+        "ledgerline-web/CODEOWNERS",
+        "ledgerline-web/CONTRIBUTING.md",
+        "ledgerline-web/.github/pull_request_template.md"
+      ]
+    },
+    {
+      "date": "2023-10-19",
+      "author": "t.nakamura",
+      "message": "LDG-1011 forbidden page for entitlement misses",
+      "paths": [
+        "ledgerline-web/src/app/features/shell/forbidden-page.component.ts"
+      ]
+    },
+    {
+      "date": "2023-10-20",
+      "author": "r.delacroix",
+      "message": "LDG-1012 fixture backend interceptor over @meridian/domain-fixtures treasury segment",
+      "paths": [
+        "ledgerline-web/src/app/core/fixture-backend/fixture-backend.interceptor.ts",
+        "ledgerline-web/src/app/core/fixture-backend/fixture-backend.state.ts",
+        "ledgerline-web/src/app/core/fixture-backend/treasury-dataset.ts"
+      ]
+    },
+    {
+      "date": "2023-10-23",
+      "author": "t.nakamura",
+      "message": "LDG-1013 payment approval model and approvals API client",
+      "paths": [
+        "ledgerline-web/src/app/core/models/payment-approval.ts",
+        "ledgerline-web/src/app/core/api/approvals.api.ts",
+        "ledgerline-web/src/app/core/api/index.ts"
+      ]
+    },
+    {
+      "date": "2023-10-24",
+      "author": "t.nakamura",
+      "message": "LDG-1013 approvals queue page, table and filters",
+      "paths": [
+        "ledgerline-web/src/app/features/approvals/approvals-page.component.ts",
+        "ledgerline-web/src/app/features/approvals/approvals-page.component.html",
+        "ledgerline-web/src/app/features/approvals/approvals-table.component.ts",
+        "ledgerline-web/src/app/features/approvals/approvals-table.component.html",
+        "ledgerline-web/src/app/features/approvals/approvals-filters.component.ts",
+        "ledgerline-web/src/app/features/approvals/approvals-filters.component.html",
+        "ledgerline-web/src/app/features/approvals/approvals.routes.ts"
+      ]
+    },
+    {
+      "date": "2023-10-25",
+      "author": "t.nakamura",
+      "message": "LDG-1014 approvals store: pending counter as a computed signal",
+      "paths": [
+        "ledgerline-web/src/app/features/approvals/approvals.store.ts"
+      ]
+    },
+    {
+      "date": "2023-10-26",
+      "author": "r.delacroix",
+      "message": "LDG-1015 approval detail page with risk flags and decision dialog",
+      "paths": [
+        "ledgerline-web/src/app/features/approvals/approval-detail-page.component.ts",
+        "ledgerline-web/src/app/features/approvals/approval-detail-page.component.html",
+        "ledgerline-web/src/app/features/approvals/approval-risk-flags.component.ts",
+        "ledgerline-web/src/app/features/approvals/approval-decision-dialog.component.ts"
+      ]
+    },
+    {
+      "date": "2023-10-27",
+      "author": "r.delacroix",
+      "message": "LDG-1016 snack bar notification service",
+      "paths": [
+        "ledgerline-web/src/app/core/notification.service.ts"
+      ]
+    },
+    {
+      "date": "2023-10-30",
+      "author": "t.nakamura",
+      "message": "LDG-1013 first specs: session store, guards, approvals store",
+      "paths": [
+        "ledgerline-web/src/app/core/auth/session.store.spec.ts",
+        "ledgerline-web/src/app/core/auth/guards.spec.ts",
+        "ledgerline-web/src/app/features/approvals/approvals.store.spec.ts",
+        "ledgerline-web/src/app/testing/fixture-backend-testing.ts"
+      ]
+    },
+    {
+      "date": "2023-10-31",
+      "author": "k.subramani",
+      "message": "LDG-1017 Jenkinsfile on the shared library, jest + coverage gate at 40",
+      "paths": [
+        "ledgerline-web/Jenkinsfile"
+      ]
+    },
+    {
+      "date": "2023-11-01",
+      "author": "r.delacroix",
+      "message": "LDG-1020 liquidity models and snapshot API",
+      "paths": [
+        "ledgerline-web/src/app/core/models/liquidity.ts",
+        "ledgerline-web/src/app/core/api/liquidity.api.ts"
+      ]
+    },
+    {
+      "date": "2023-11-02",
+      "author": "r.delacroix",
+      "message": "LDG-1020 liquidity dashboard page with KPI tiles and positions table",
+      "paths": [
+        "ledgerline-web/src/app/features/liquidity/liquidity-dashboard-page.component.ts",
+        "ledgerline-web/src/app/features/liquidity/liquidity-dashboard-page.component.html",
+        "ledgerline-web/src/app/features/liquidity/position-summary-tiles.component.ts",
+        "ledgerline-web/src/app/features/liquidity/positions-table.component.ts",
+        "ledgerline-web/src/app/shared/components/kpi-tile.component.ts",
+        "ledgerline-web/src/app/features/liquidity/liquidity.routes.ts"
+      ]
+    },
+    {
+      "date": "2023-11-03",
+      "author": "t.nakamura",
+      "message": "LDG-1021 dashboard filters store on signals",
+      "paths": [
+        "ledgerline-web/src/app/features/liquidity/dashboard-filters.store.ts"
+      ]
+    },
+    {
+      "date": "2023-11-06",
+      "author": "t.nakamura",
+      "message": "LDG-1021 dashboard filters use cn-filter-chips",
+      "paths": [
+        "ledgerline-web/src/app/features/liquidity/dashboard-filters.component.ts",
+        "ledgerline-web/src/app/features/liquidity/dashboard-filters.component.html"
+      ]
+    },
+    {
+      "date": "2023-11-07",
+      "author": "r.delacroix",
+      "message": "LDG-1022 TickerHaus rates API and fx model",
+      "paths": [
+        "ledgerline-web/src/app/core/api/tickerhaus.api.ts",
+        "ledgerline-web/src/app/core/models/fx.ts"
+      ]
+    },
+    {
+      "date": "2023-11-08",
+      "author": "r.delacroix",
+      "message": "LDG-1022 fx rates panel with 30s poll",
+      "paths": [
+        "ledgerline-web/src/app/features/liquidity/fx-rates-panel.component.ts",
+        "ledgerline-web/src/app/features/liquidity/fx-rate-row.component.ts"
+      ]
+    },
+    {
+      "date": "2023-11-09",
+      "author": "t.nakamura",
+      "message": "LDG-1023 cash forecast chart, plain SVG, no chart library",
+      "paths": [
+        "ledgerline-web/src/app/features/liquidity/cash-forecast-chart.component.ts",
+        "ledgerline-web/src/app/features/liquidity/cash-forecast-chart.component.html"
+      ]
+    },
+    {
+      "date": "2023-11-10",
+      "author": "meridian-dependency-bot",
+      "message": "chore(deps): bump @angular/cli from 16.2.8 to 16.2.9",
+      "empty": true,
+      "body": "Automated dependency bump. Lockfile v3 regenerated with npm 10.2.3.\n\nSigned-off-by: meridian-dependency-bot"
+    },
+    {
+      "date": "2023-11-13",
+      "author": "r.delacroix",
+      "message": "LDG-1024 fx converter",
+      "paths": [
+        "ledgerline-web/src/app/features/liquidity/fx-converter.component.ts"
+      ]
+    },
+    {
+      "date": "2023-11-14",
+      "author": "t.nakamura",
+      "message": "LDG-1025 cutoff countdown for wire windows",
+      "paths": [
+        "ledgerline-web/src/app/shared/components/cutoff-countdown.component.ts"
+      ]
+    },
+    {
+      "date": "2023-11-15",
+      "author": "r.delacroix",
+      "message": "LDG-1026 interceptor and pipe specs",
+      "paths": [
+        "ledgerline-web/src/app/core/http/interceptors.spec.ts",
+        "ledgerline-web/src/app/shared/pipes/pipes.spec.ts"
+      ]
+    },
+    {
+      "date": "2023-11-16",
+      "author": "t.nakamura",
+      "message": "LDG-1027 sonar and checkmarx project descriptors",
+      "paths": [
+        "ledgerline-web/sonar-project.properties",
+        "ledgerline-web/checkmarx.yml"
+      ]
+    },
+    {
+      "date": "2023-11-17",
+      "author": "c.mbeki",
+      "message": "GIS-4471 SECURITY.md and data classification for treasury PII",
+      "paths": [
+        "ledgerline-web/SECURITY.md",
+        "ledgerline-web/DATA_CLASSIFICATION.md"
+      ]
+    },
+    {
+      "date": "2023-11-20",
+      "author": "t.nakamura",
+      "message": "LDG-1028 mock-external environment pointing at 4501/4602",
+      "paths": [
+        "ledgerline-web/src/environments/environment.mock-external.ts"
+      ]
+    },
+    {
+      "date": "2023-11-22",
+      "author": "t.nakamura",
+      "message": "Merge branch 'release/2023.11' into develop",
+      "empty": true,
+      "body": "Release train 2023.11. CAB reference CAB-202311-LDG."
+    },
+    {
+      "date": "2023-11-27",
+      "author": "r.delacroix",
+      "message": "LDG-1029 ADR-0001 signals over NgRx",
+      "paths": [
+        "ledgerline-web/docs/adr/0001-signals-not-ngrx.md"
+      ]
+    },
+    {
+      "date": "2023-11-28",
+      "author": "t.nakamura",
+      "message": "LDG-1030 dashboard filters store spec",
+      "paths": [
+        "ledgerline-web/src/app/features/liquidity/dashboard-filters.store.spec.ts"
+      ]
+    },
+    {
+      "date": "2023-11-29",
+      "author": "meridian-dependency-bot",
+      "message": "chore(deps): bump jest from 29.6.4 to 29.7.0",
+      "empty": true,
+      "body": "Automated dependency bump. Lockfile v3 regenerated with npm 10.2.3.\n\nSigned-off-by: meridian-dependency-bot"
+    },
+    {
+      "date": "2023-12-04",
+      "author": "t.nakamura",
+      "message": "LDG-1031 style: eslint --fix sweep after angular-eslint 16.3",
+      "empty": true
+    },
+    {
+      "date": "2023-12-06",
+      "author": "r.delacroix",
+      "message": "LDG-1032 fix relative-time pipe rounding at the hour boundary",
+      "paths": [
+        "ledgerline-web/src/app/shared/pipes/relative-time.pipe.ts"
+      ]
+    },
+    {
+      "date": "2023-12-12",
+      "author": "meridian-dependency-bot",
+      "message": "chore(deps): bump @angular/material from 16.2.10 to 16.2.12",
+      "empty": true,
+      "body": "Automated dependency bump. Lockfile v3 regenerated with npm 10.2.3.\n\nSigned-off-by: meridian-dependency-bot"
+    },
+    {
+      "date": "2023-12-13",
+      "author": "t.nakamura",
+      "message": "LDG-1033 session expiry banner",
+      "paths": [
+        "ledgerline-web/src/app/features/shell/session-expiry.component.ts"
+      ]
+    },
+    {
+      "date": "2024-01-08",
+      "author": "t.nakamura",
+      "message": "LDG-1040 entitlements API and page",
+      "paths": [
+        "ledgerline-web/src/app/core/api/entitlements.api.ts",
+        "ledgerline-web/src/app/features/entitlements/entitlements-page.component.ts",
+        "ledgerline-web/src/app/features/entitlements/entitlements-page.component.html",
+        "ledgerline-web/src/app/features/entitlements/entitlements-table.component.ts",
+        "ledgerline-web/src/app/features/entitlements/entitlements.routes.ts"
+      ]
+    },
+    {
+      "date": "2024-01-09",
+      "author": "r.delacroix",
+      "message": "LDG-1041 entitlement detail page and permission list",
+      "paths": [
+        "ledgerline-web/src/app/features/entitlements/entitlement-detail-page.component.ts",
+        "ledgerline-web/src/app/features/entitlements/permission-list.component.ts"
+      ]
+    },
+    {
+      "date": "2024-01-10",
+      "author": "r.delacroix",
+      "message": "LDG-1042 entitlement limits form, typed reactive forms",
+      "paths": [
+        "ledgerline-web/src/app/features/entitlements/entitlement-limits-form.component.ts"
+      ]
+    },
+    {
+      "date": "2024-01-11",
+      "author": "t.nakamura",
+      "message": "LDG-1042 dual-approval warning when limits exceed role ceiling",
+      "paths": [
+        "ledgerline-web/src/app/features/entitlements/entitlements-page.component.html"
+      ]
+    },
+    {
+      "date": "2024-01-15",
+      "author": "meridian-dependency-bot",
+      "message": "chore(deps): bump typescript from 5.1.3 to 5.1.6",
+      "empty": true,
+      "body": "Automated dependency bump. Lockfile v3 regenerated with npm 10.2.3.\n\nSigned-off-by: meridian-dependency-bot"
+    },
+    {
+      "date": "2024-01-16",
+      "author": "r.delacroix",
+      "message": "LDG-1043 limits form spec",
+      "paths": [
+        "ledgerline-web/src/app/features/entitlements/entitlement-limits-form.component.spec.ts"
+      ]
+    },
+    {
+      "date": "2024-01-18",
+      "author": "t.nakamura",
+      "message": "LDG-1044 withComponentInputBinding for route params",
+      "paths": [
+        "ledgerline-web/src/app/app.config.ts"
+      ]
+    },
+    {
+      "date": "2024-01-22",
+      "author": "n.rajaram",
+      "message": "LDG-1045 BFF base URL is /api, business bff mounts under /api/v1",
+      "paths": [
+        "ledgerline-web/src/environments/environment.ts",
+        "ledgerline-web/src/environments/environment.mock-external.ts"
+      ]
+    },
+    {
+      "date": "2024-01-24",
+      "author": "t.nakamura",
+      "message": "Merge branch 'release/2024.01' into develop",
+      "empty": true,
+      "body": "Release train 2024.01. CAB reference CAB-202401-LDG."
+    },
+    {
+      "date": "2024-01-29",
+      "author": "r.delacroix",
+      "message": "LDG-1046 approvals filters remember rail selection in the store",
+      "paths": [
+        "ledgerline-web/src/app/features/approvals/approvals-filters.component.ts"
+      ]
+    },
+    {
+      "date": "2024-02-05",
+      "author": "t.nakamura",
+      "message": "LDG-1050 positive pay model and API",
+      "paths": [
+        "ledgerline-web/src/app/core/models/positive-pay.ts",
+        "ledgerline-web/src/app/core/api/positive-pay.api.ts"
+      ]
+    },
+    {
+      "date": "2024-02-06",
+      "author": "t.nakamura",
+      "message": "LDG-1050 positive pay exceptions page and table",
+      "paths": [
+        "ledgerline-web/src/app/features/positive-pay/positive-pay-page.component.ts",
+        "ledgerline-web/src/app/features/positive-pay/positive-pay-page.component.html",
+        "ledgerline-web/src/app/features/positive-pay/exceptions-table.component.ts",
+        "ledgerline-web/src/app/features/positive-pay/positive-pay.routes.ts"
+      ]
+    },
+    {
+      "date": "2024-02-07",
+      "author": "r.delacroix",
+      "message": "LDG-1051 exception detail dialog with cheque image placeholder",
+      "paths": [
+        "ledgerline-web/src/app/features/positive-pay/exception-detail-dialog.component.ts"
+      ]
+    },
+    {
+      "date": "2024-02-08",
+      "author": "r.delacroix",
+      "message": "LDG-1052 bulk decision bar behind positivePayBulkDecision flag",
+      "paths": [
+        "ledgerline-web/src/app/features/positive-pay/exception-decision-bar.component.ts"
+      ]
+    },
+    {
+      "date": "2024-02-12",
+      "author": "t.nakamura",
+      "message": "LDG-1052 decision bar spec",
+      "paths": [
+        "ledgerline-web/src/app/features/positive-pay/exception-decision-bar.component.spec.ts"
+      ]
+    },
+    {
+      "date": "2024-02-13",
+      "author": "meridian-dependency-bot",
+      "message": "chore(deps): bump @angular/core from 16.2.10 to 16.2.12",
+      "empty": true,
+      "body": "Automated dependency bump. Lockfile v3 regenerated with npm 10.2.3.\n\nSigned-off-by: meridian-dependency-bot"
+    },
+    {
+      "date": "2024-02-14",
+      "author": "r.delacroix",
+      "message": "LDG-1053 Revert \"LDG-1052 bulk decision bar behind positivePayBulkDecision flag\"",
+      "empty": true,
+      "body": "Reverts 8e1c04a. Bulk approve submitted the wrong exception ids when the table was sorted by amount. INC-2024-0212."
+    },
+    {
+      "date": "2024-02-15",
+      "author": "r.delacroix",
+      "message": "LDG-1053 bulk decision bar: decide against selected ids, not row index",
+      "paths": [
+        "ledgerline-web/src/app/features/positive-pay/exception-decision-bar.component.ts"
+      ]
+    },
+    {
+      "date": "2024-02-19",
+      "author": "t.nakamura",
+      "message": "LDG-1054 audit model and API with server-side paging",
+      "paths": [
+        "ledgerline-web/src/app/core/models/audit.ts",
+        "ledgerline-web/src/app/core/api/audit.api.ts"
+      ]
+    },
+    {
+      "date": "2024-02-20",
+      "author": "t.nakamura",
+      "message": "LDG-1054 audit page, table and event detail",
+      "paths": [
+        "ledgerline-web/src/app/features/audit/audit-page.component.ts",
+        "ledgerline-web/src/app/features/audit/audit-page.component.html",
+        "ledgerline-web/src/app/features/audit/audit-table.component.ts",
+        "ledgerline-web/src/app/features/audit/audit-event-detail.component.ts",
+        "ledgerline-web/src/app/features/audit/audit.routes.ts"
+      ]
+    },
+    {
+      "date": "2024-02-21",
+      "author": "r.delacroix",
+      "message": "LDG-1055 audit filters with debounced query",
+      "paths": [
+        "ledgerline-web/src/app/features/audit/audit-filters.component.ts",
+        "ledgerline-web/src/app/features/audit/audit-filters.component.html"
+      ]
+    },
+    {
+      "date": "2024-02-22",
+      "author": "r.delacroix",
+      "message": "LDG-1056 audit CSV export behind auditExport flag",
+      "paths": [
+        "ledgerline-web/src/app/features/audit/audit-export-button.component.ts"
+      ]
+    },
+    {
+      "date": "2024-02-28",
+      "author": "t.nakamura",
+      "message": "Merge branch 'release/2024.02' into develop",
+      "empty": true,
+      "body": "Release train 2024.02. CAB reference CAB-202402-LDG."
+    },
+    {
+      "date": "2024-03-04",
+      "author": "t.nakamura",
+      "message": "LDG-1060 cypress 13 with cypress-axe",
+      "paths": [
+        "ledgerline-web/cypress.config.ts",
+        "ledgerline-web/cypress/support/e2e.ts",
+        "ledgerline-web/cypress/support/commands.ts",
+        "ledgerline-web/cypress/tsconfig.json"
+      ]
+    },
+    {
+      "date": "2024-03-05",
+      "author": "t.nakamura",
+      "message": "LDG-1060 e2e environment with frozen fixture clock",
+      "paths": [
+        "ledgerline-web/src/environments/environment.e2e.ts"
+      ]
+    },
+    {
+      "date": "2024-03-06",
+      "author": "r.delacroix",
+      "message": "LDG-1061 axe spec for approvals queue and detail",
+      "paths": [
+        "ledgerline-web/cypress/e2e/a11y/approvals.a11y.cy.ts"
+      ]
+    },
+    {
+      "date": "2024-03-07",
+      "author": "r.delacroix",
+      "message": "LDG-1062 axe spec for the liquidity dashboard",
+      "paths": [
+        "ledgerline-web/cypress/e2e/a11y/dashboard.a11y.cy.ts"
+      ]
+    },
+    {
+      "date": "2024-03-08",
+      "author": "t.nakamura",
+      "message": "LDG-1061 disable color-contrast on approvals spec only, Canopy tokens fail (CNPY-2011)",
+      "paths": [
+        "ledgerline-web/cypress/e2e/a11y/approvals.a11y.cy.ts"
+      ]
+    },
+    {
+      "date": "2024-03-11",
+      "author": "meridian-dependency-bot",
+      "message": "chore(deps): bump cypress from 13.6.4 to 13.6.6",
+      "empty": true,
+      "body": "Automated dependency bump. Lockfile v3 regenerated with npm 10.2.3.\n\nSigned-off-by: meridian-dependency-bot"
+    },
+    {
+      "date": "2024-03-12",
+      "author": "t.nakamura",
+      "message": "LDG-1063 Jenkins e2e stage, wait-on 4203",
+      "paths": [
+        "ledgerline-web/Jenkinsfile",
+        "ledgerline-web/package.json"
+      ]
+    },
+    {
+      "date": "2024-03-14",
+      "author": "r.delacroix",
+      "message": "LDG-1064 style: prettier-compatible formatting sweep across features",
+      "empty": true
+    },
+    {
+      "date": "2024-03-18",
+      "author": "t.nakamura",
+      "message": "LDG-1065 shared components spec",
+      "paths": [
+        "ledgerline-web/src/app/shared/components/shared-components.spec.ts"
+      ]
+    },
+    {
+      "date": "2024-03-20",
+      "author": "r.delacroix",
+      "message": "LDG-1066 treasury dataset spec, fixture routes spec",
+      "paths": [
+        "ledgerline-web/src/app/core/fixture-backend/treasury-dataset.spec.ts",
+        "ledgerline-web/src/app/core/fixture-backend/fixture-backend.interceptor.spec.ts"
+      ]
+    },
+    {
+      "date": "2024-03-27",
+      "author": "t.nakamura",
+      "message": "Merge branch 'release/2024.03' into develop",
+      "empty": true,
+      "body": "Release train 2024.03. CAB reference CAB-202403-LDG."
+    },
+    {
+      "date": "2024-04-02",
+      "author": "t.nakamura",
+      "message": "LDG-1070 README: ownership, ports, environments",
+      "paths": [
+        "ledgerline-web/README.md"
+      ]
+    },
+    {
+      "date": "2024-04-04",
+      "author": "r.delacroix",
+      "message": "LDG-1071 ADR-0002 fixture backend in the browser",
+      "paths": [
+        "ledgerline-web/docs/adr/0002-fixture-backend-in-browser.md"
+      ]
+    },
+    {
+      "date": "2024-04-09",
+      "author": "meridian-dependency-bot",
+      "message": "chore(deps): bump @angular-eslint/eslint-plugin from 16.2.0 to 16.3.1",
+      "empty": true,
+      "body": "Automated dependency bump. Lockfile v3 regenerated with npm 10.2.3.\n\nSigned-off-by: meridian-dependency-bot"
+    },
+    {
+      "date": "2024-04-10",
+      "author": "w.tanaka",
+      "message": "LDG-1072 architecture review notes folded into README",
+      "paths": [
+        "ledgerline-web/README.md"
+      ]
+    },
+    {
+      "date": "2024-04-16",
+      "author": "t.nakamura",
+      "message": "LDG-1073 shell spec and page-testing helper",
+      "paths": [
+        "ledgerline-web/src/app/features/shell/shell.spec.ts",
+        "ledgerline-web/src/app/testing/page-testing.ts"
+      ]
+    },
+    {
+      "date": "2024-04-18",
+      "author": "r.delacroix",
+      "message": "LDG-1074 approvals page specs",
+      "paths": [
+        "ledgerline-web/src/app/features/approvals/approvals-pages.spec.ts"
+      ]
+    },
+    {
+      "date": "2024-04-24",
+      "author": "t.nakamura",
+      "message": "Merge branch 'release/2024.04' into develop",
+      "empty": true,
+      "body": "Release train 2024.04. CAB reference CAB-202404-LDG."
+    },
+    {
+      "date": "2024-05-06",
+      "author": "r.delacroix",
+      "message": "LDG-1080 fx converter spec",
+      "paths": [
+        "ledgerline-web/src/app/features/liquidity/fx-converter.component.spec.ts"
+      ]
+    },
+    {
+      "date": "2024-05-08",
+      "author": "t.nakamura",
+      "message": "LDG-1081 session initializer spec",
+      "paths": [
+        "ledgerline-web/src/app/core/auth/session.initializer.spec.ts"
+      ]
+    },
+    {
+      "date": "2024-05-13",
+      "author": "meridian-dependency-bot",
+      "message": "chore(deps): bump jest-preset-angular from 13.1.1 to 13.1.4",
+      "empty": true,
+      "body": "Automated dependency bump. Lockfile v3 regenerated with npm 10.2.3.\n\nSigned-off-by: meridian-dependency-bot"
+    },
+    {
+      "date": "2024-05-15",
+      "author": "v.orlova",
+      "message": "GIS-4820 correlation id header must not echo the upstream value",
+      "paths": [
+        "ledgerline-web/src/app/core/http/correlation-id.interceptor.ts"
+      ],
+      "body": "Finding GIS-4820 (medium). The interceptor copied x-correlation-id from a query param on retry, which let a client choose the id logged by the BFF. Always mint."
+    },
+    {
+      "date": "2024-05-16",
+      "author": "t.nakamura",
+      "message": "LDG-1082 fix(interceptors): cover GIS-4820 in spec",
+      "paths": [
+        "ledgerline-web/src/app/core/http/interceptors.spec.ts"
+      ]
+    },
+    {
+      "date": "2024-05-22",
+      "author": "t.nakamura",
+      "message": "Merge branch 'release/2024.05' into develop",
+      "empty": true,
+      "body": "Release train 2024.05. CAB reference CAB-202405-LDG."
+    },
+    {
+      "date": "2024-06-03",
+      "author": "t.nakamura",
+      "message": "LDG-1340 spike: esbuild application builder",
+      "empty": true,
+      "body": "Branch spike/LDG-1340-esbuild. Numbers in the ticket."
+    },
+    {
+      "date": "2024-06-05",
+      "author": "t.nakamura",
+      "message": "LDG-1340 README: esbuild evaluated and deferred until Canopy ships ESM-only",
+      "paths": [
+        "ledgerline-web/README.md"
+      ]
+    },
+    {
+      "date": "2024-06-10",
+      "author": "meridian-dependency-bot",
+      "message": "chore(deps): bump zone.js from 0.13.1 to 0.13.3",
+      "empty": true,
+      "body": "Automated dependency bump. Lockfile v3 regenerated with npm 10.2.3.\n\nSigned-off-by: meridian-dependency-bot"
+    },
+    {
+      "date": "2024-06-12",
+      "author": "r.delacroix",
+      "message": "LDG-1090 filter chips: aria-label passthrough",
+      "paths": [
+        "ledgerline-web/src/app/features/liquidity/dashboard-filters.component.html"
+      ]
+    },
+    {
+      "date": "2024-06-18",
+      "author": "r.delacroix",
+      "message": "LDG-1091 style: import ordering sweep",
+      "empty": true
+    },
+    {
+      "date": "2024-06-26",
+      "author": "t.nakamura",
+      "message": "Merge branch 'release/2024.06' into develop",
+      "empty": true,
+      "body": "Release train 2024.06. CAB reference CAB-202406-LDG."
+    },
+    {
+      "date": "2024-07-08",
+      "author": "t.nakamura",
+      "message": "LDG-1187 canopy-ui 3.7.2 peer ranges: legacy-peer-deps in .npmrc",
+      "paths": [
+        "ledgerline-web/.npmrc"
+      ],
+      "body": "Canopy 3.7.2 declares Angular 14 peers. CNPY-2140 tracks the Canopy 4 line. Until then npm needs telling."
+    },
+    {
+      "date": "2024-07-09",
+      "author": "t.nakamura",
+      "message": "LDG-1187 patch-package in postinstall, Canopy peer ranges and compiled list metadata",
+      "paths": [
+        "ledgerline-web/patches/@meridian+canopy-ui+3.7.2.patch",
+        "ledgerline-web/package.json",
+        "ledgerline-web/package-lock.json"
+      ]
+    },
+    {
+      "date": "2024-07-10",
+      "author": "r.delacroix",
+      "message": "LDG-1187 patches/README: ownership, GIS-STD-014 s7.3, removal conditions",
+      "paths": [
+        "ledgerline-web/patches/README.md"
+      ]
+    },
+    {
+      "date": "2024-07-11",
+      "author": "t.nakamura",
+      "message": "LDG-1187 script to regenerate the Canopy 16 edits",
+      "paths": [
+        "ledgerline-web/patches/tools/apply-canopy-16-edits.py"
+      ]
+    },
+    {
+      "date": "2024-07-15",
+      "author": "r.delacroix",
+      "message": "LDG-1187 canopy-compat: ldg-filter-chips on mat-chip-listbox",
+      "paths": [
+        "ledgerline-web/src/app/canopy-compat/filter-chips/filter-chips.component.ts",
+        "ledgerline-web/src/app/canopy-compat/filter-chips/filter-chips.component.html",
+        "ledgerline-web/src/app/canopy-compat/filter-chips/filter-chips.component.scss",
+        "ledgerline-web/src/app/canopy-compat/filter-chips/index.ts",
+        "ledgerline-web/src/app/canopy-compat/index.ts"
+      ]
+    },
+    {
+      "date": "2024-07-16",
+      "author": "r.delacroix",
+      "message": "LDG-1187 dashboard and approvals filters switch to ldg-filter-chips",
+      "paths": [
+        "ledgerline-web/src/app/features/liquidity/dashboard-filters.component.html",
+        "ledgerline-web/src/app/features/approvals/approvals-filters.component.html"
+      ]
+    },
+    {
+      "date": "2024-07-17",
+      "author": "r.delacroix",
+      "message": "LDG-1187 canopy-compat README",
+      "paths": [
+        "ledgerline-web/src/app/canopy-compat/README.md"
+      ]
+    },
+    {
+      "date": "2024-07-18",
+      "author": "t.nakamura",
+      "message": "LDG-1187 ldg-filter-chips spec",
+      "paths": [
+        "ledgerline-web/src/app/canopy-compat/filter-chips/filter-chips.component.spec.ts"
+      ]
+    },
+    {
+      "date": "2024-07-22",
+      "author": "l.fontaine",
+      "message": "CNPY-2140 review: keep cn-filter-chips class names on the compat component",
+      "paths": [
+        "ledgerline-web/src/app/canopy-compat/filter-chips/filter-chips.component.ts"
+      ]
+    },
+    {
+      "date": "2024-07-23",
+      "author": "t.nakamura",
+      "message": "LDG-1187 CODEOWNERS: patches and canopy-compat shared with canopy and GIS",
+      "paths": [
+        "ledgerline-web/CODEOWNERS"
+      ]
+    },
+    {
+      "date": "2024-07-24",
+      "author": "c.mbeki",
+      "message": "GIS-5031 patches/ reviewed under GIS-STD-014 s7.3, no finding",
+      "paths": [
+        "ledgerline-web/patches/README.md"
+      ]
+    },
+    {
+      "date": "2024-07-31",
+      "author": "t.nakamura",
+      "message": "Merge branch 'release/2024.07' into develop",
+      "empty": true,
+      "body": "Release train 2024.07. CAB reference CAB-202407-LDG."
+    },
+    {
+      "date": "2024-08-05",
+      "author": "r.delacroix",
+      "message": "LDG-1092 Revert \"LDG-1090 filter chips: aria-label passthrough\"",
+      "empty": true,
+      "body": "Duplicate aria-label after the compat component landed. Axe flagged it on the dashboard spec."
+    },
+    {
+      "date": "2024-08-06",
+      "author": "r.delacroix",
+      "message": "LDG-1092 dashboard axe spec: chips stay labelled after selection",
+      "paths": [
+        "ledgerline-web/cypress/e2e/a11y/dashboard.a11y.cy.ts"
+      ]
+    },
+    {
+      "date": "2024-08-12",
+      "author": "meridian-dependency-bot",
+      "message": "chore(deps): bump @types/jest from 29.5.5 to 29.5.12",
+      "empty": true,
+      "body": "Automated dependency bump. Lockfile v3 regenerated with npm 10.2.3.\n\nSigned-off-by: meridian-dependency-bot"
+    },
+    {
+      "date": "2024-08-14",
+      "author": "t.nakamura",
+      "message": "LDG-1093 TickerHaus pairs use EURUSD form, not EUR/USD",
+      "paths": [
+        "ledgerline-web/src/app/features/liquidity/fx-rates-panel.component.ts"
+      ]
+    },
+    {
+      "date": "2024-08-20",
+      "author": "t.nakamura",
+      "message": "LDG-1094 status badge accepts label override",
+      "paths": [
+        "ledgerline-web/src/app/shared/components/status-badge.component.ts"
+      ]
+    },
+    {
+      "date": "2024-08-28",
+      "author": "t.nakamura",
+      "message": "Merge branch 'release/2024.08' into develop",
+      "empty": true,
+      "body": "Release train 2024.08. CAB reference CAB-202408-LDG."
+    },
+    {
+      "date": "2024-09-03",
+      "author": "r.delacroix",
+      "message": "LDG-1100 runbook: treasury workstation",
+      "paths": [
+        "ledgerline-web/docs/runbooks/treasury-workstation.md"
+      ]
+    },
+    {
+      "date": "2024-09-09",
+      "author": "meridian-dependency-bot",
+      "message": "chore(deps): bump axe-core from 4.8.2 to 4.8.4",
+      "empty": true,
+      "body": "Automated dependency bump. Lockfile v3 regenerated with npm 10.2.3.\n\nSigned-off-by: meridian-dependency-bot"
+    },
+    {
+      "date": "2024-09-11",
+      "author": "t.nakamura",
+      "message": "LDG-1101 fixture dataset: first treasury-operating account owns the operating bucket",
+      "paths": [
+        "ledgerline-web/src/app/core/fixture-backend/treasury-dataset.ts"
+      ]
+    },
+    {
+      "date": "2024-09-17",
+      "author": "e.castellanos",
+      "message": "TOOL-1395 Dockerfile on the shared nginx base, non-root",
+      "paths": [
+        "ledgerline-web/Dockerfile"
+      ]
+    },
+    {
+      "date": "2024-09-18",
+      "author": "e.castellanos",
+      "message": "TOOL-1395 helm chart with env.json ConfigMap",
+      "paths": [
+        "ledgerline-web/helm/ledgerline-web/Chart.yaml",
+        "ledgerline-web/helm/ledgerline-web/values.yaml",
+        "ledgerline-web/helm/ledgerline-web/values-local.yaml",
+        "ledgerline-web/helm/ledgerline-web/templates/_helpers.tpl",
+        "ledgerline-web/helm/ledgerline-web/templates/configmap.yaml",
+        "ledgerline-web/helm/ledgerline-web/templates/deployment.yaml",
+        "ledgerline-web/helm/ledgerline-web/templates/service.yaml"
+      ]
+    },
+    {
+      "date": "2024-09-25",
+      "author": "t.nakamura",
+      "message": "Merge branch 'release/2024.09' into develop",
+      "empty": true,
+      "body": "Release train 2024.09. CAB reference CAB-202409-LDG."
+    },
+    {
+      "date": "2024-10-01",
+      "author": "t.nakamura",
+      "message": "LDG-1110 runtime env.json overlay at bootstrap",
+      "paths": [
+        "ledgerline-web/src/app/core/config/runtime-config.ts",
+        "ledgerline-web/src/main.ts",
+        "ledgerline-web/src/app/app.config.ts",
+        "ledgerline-web/src/assets/env.json"
+      ]
+    },
+    {
+      "date": "2024-10-02",
+      "author": "t.nakamura",
+      "message": "LDG-1110 runtime config spec",
+      "paths": [
+        "ledgerline-web/src/app/core/config/runtime-config.spec.ts"
+      ]
+    },
+    {
+      "date": "2024-10-07",
+      "author": "meridian-dependency-bot",
+      "message": "chore(deps): bump eslint from 8.52.0 to 8.56.0",
+      "empty": true,
+      "body": "Automated dependency bump. Lockfile v3 regenerated with npm 10.2.3.\n\nSigned-off-by: meridian-dependency-bot"
+    },
+    {
+      "date": "2024-10-09",
+      "author": "r.delacroix",
+      "message": "LDG-1111 style: max-len warnings, not errors",
+      "paths": [
+        "ledgerline-web/.eslintrc.json"
+      ]
+    },
+    {
+      "date": "2024-10-15",
+      "author": "r.delacroix",
+      "message": "LDG-1112 audit filters spec (INC-2024-0887 debounce)",
+      "paths": [
+        "ledgerline-web/src/app/features/audit/audit-filters.component.spec.ts"
+      ]
+    },
+    {
+      "date": "2024-10-30",
+      "author": "t.nakamura",
+      "message": "Merge branch 'release/2024.10' into develop",
+      "empty": true,
+      "body": "Release train 2024.10. CAB reference CAB-202410-LDG."
+    },
+    {
+      "date": "2024-11-05",
+      "author": "t.nakamura",
+      "message": "LDG-1113 fixture clock: today at 14:30Z locally, frozen under test",
+      "paths": [
+        "ledgerline-web/src/app/core/fixture-backend/treasury-dataset.ts",
+        "ledgerline-web/src/environments/environment.e2e.ts"
+      ]
+    },
+    {
+      "date": "2024-11-11",
+      "author": "meridian-dependency-bot",
+      "message": "chore(deps): bump @meridian/domain-fixtures from 1.5.2 to 1.6.0",
+      "empty": true,
+      "body": "Automated dependency bump. Lockfile v3 regenerated with npm 10.2.3.\n\nSigned-off-by: meridian-dependency-bot"
+    },
+    {
+      "date": "2024-11-20",
+      "author": "t.nakamura",
+      "message": "Merge branch 'release/2024.11' into develop",
+      "empty": true,
+      "body": "Release train 2024.11. CAB reference CAB-202411-LDG."
+    },
+    {
+      "date": "2025-01-13",
+      "author": "t.nakamura",
+      "message": "LDG-1204 TODO: audit page spec owed before Q4 gate",
+      "paths": [
+        "ledgerline-web/src/app/features/audit/audit-filters.component.spec.ts"
+      ]
+    },
+    {
+      "date": "2025-01-20",
+      "author": "meridian-dependency-bot",
+      "message": "chore(deps): bump patch-package from 8.0.0 to 8.0.0",
+      "empty": true,
+      "body": "Automated dependency bump. Lockfile v3 regenerated with npm 10.2.3.\n\nSigned-off-by: meridian-dependency-bot"
+    },
+    {
+      "date": "2025-01-29",
+      "author": "t.nakamura",
+      "message": "Merge branch 'release/2025.01' into develop",
+      "empty": true,
+      "body": "Release train 2025.01. CAB reference CAB-202501-LDG."
+    },
+    {
+      "date": "2025-02-11",
+      "author": "r.delacroix",
+      "message": "LDG-1211 fx panel error state when TickerHaus is down",
+      "paths": [
+        "ledgerline-web/src/app/features/liquidity/fx-rates-panel.component.ts"
+      ]
+    },
+    {
+      "date": "2025-02-26",
+      "author": "t.nakamura",
+      "message": "Merge branch 'release/2025.02' into develop",
+      "empty": true,
+      "body": "Release train 2025.02. CAB reference CAB-202502-LDG."
+    },
+    {
+      "date": "2025-03-10",
+      "author": "v.orlova",
+      "message": "GIS-5312 SECURITY.md contact and disclosure window",
+      "paths": [
+        "ledgerline-web/SECURITY.md"
+      ]
+    },
+    {
+      "date": "2025-03-17",
+      "author": "meridian-dependency-bot",
+      "message": "chore(deps): bump cypress-axe from 1.5.0 to 1.5.0",
+      "empty": true,
+      "body": "Automated dependency bump. Lockfile v3 regenerated with npm 10.2.3.\n\nSigned-off-by: meridian-dependency-bot"
+    },
+    {
+      "date": "2025-03-26",
+      "author": "t.nakamura",
+      "message": "Merge branch 'release/2025.03' into develop",
+      "empty": true,
+      "body": "Release train 2025.03. CAB reference CAB-202503-LDG."
+    },
+    {
+      "date": "2025-04-14",
+      "author": "t.nakamura",
+      "message": "LDG-1230 sonar: exclude fixture backend from duplication",
+      "paths": [
+        "ledgerline-web/sonar-project.properties"
+      ]
+    },
+    {
+      "date": "2025-04-30",
+      "author": "t.nakamura",
+      "message": "Merge branch 'release/2025.04' into develop",
+      "empty": true,
+      "body": "Release train 2025.04. CAB reference CAB-202504-LDG."
+    },
+    {
+      "date": "2025-05-12",
+      "author": "r.delacroix",
+      "message": "LDG-1240 style: trailing whitespace sweep (pre-commit hooks mandated by GIS-1180)",
+      "empty": true
+    },
+    {
+      "date": "2025-05-28",
+      "author": "t.nakamura",
+      "message": "Merge branch 'release/2025.05' into develop",
+      "empty": true,
+      "body": "Release train 2025.05. CAB reference CAB-202505-LDG."
+    },
+    {
+      "date": "2025-06-09",
+      "author": "t.nakamura",
+      "message": "LDG-1250 Jenkinsfile: coverage gate to 58",
+      "paths": [
+        "ledgerline-web/Jenkinsfile",
+        "ledgerline-web/jest.config.js"
+      ]
+    },
+    {
+      "date": "2025-06-25",
+      "author": "t.nakamura",
+      "message": "Merge branch 'release/2025.06' into develop",
+      "empty": true,
+      "body": "Release train 2025.06. CAB reference CAB-202506-LDG."
+    },
+    {
+      "date": "2025-07-14",
+      "author": "k.subramani",
+      "message": "LDG-1260 CONTRIBUTING: commit message format",
+      "paths": [
+        "ledgerline-web/CONTRIBUTING.md"
+      ]
+    },
+    {
+      "date": "2025-07-30",
+      "author": "t.nakamura",
+      "message": "Merge branch 'release/2025.07' into develop",
+      "empty": true,
+      "body": "Release train 2025.07. CAB reference CAB-202507-LDG."
+    },
+    {
+      "date": "2025-08-11",
+      "author": "r.delacroix",
+      "message": "LDG-1270 checkmarx preset update",
+      "paths": [
+        "ledgerline-web/checkmarx.yml"
+      ]
+    },
+    {
+      "date": "2025-08-27",
+      "author": "t.nakamura",
+      "message": "Merge branch 'release/2025.08' into develop",
+      "empty": true,
+      "body": "Release train 2025.08. CAB reference CAB-202508-LDG."
+    },
+    {
+      "date": "2025-09-08",
+      "author": "t.nakamura",
+      "message": "LDG-1280 README known issues refresh",
+      "paths": [
+        "ledgerline-web/README.md"
+      ]
+    },
+    {
+      "date": "2025-09-24",
+      "author": "t.nakamura",
+      "message": "Merge branch 'release/2025.09' into develop",
+      "empty": true,
+      "body": "Release train 2025.09. CAB reference CAB-202509-LDG."
+    },
+    {
+      "date": "2025-10-13",
+      "author": "r.delacroix",
+      "message": "LDG-1290 runbook: INC-2025-1104 TickerHaus outage notes",
+      "paths": [
+        "ledgerline-web/docs/runbooks/treasury-workstation.md"
+      ]
+    },
+    {
+      "date": "2025-10-29",
+      "author": "t.nakamura",
+      "message": "Merge branch 'release/2025.10' into develop",
+      "empty": true,
+      "body": "Release train 2025.10. CAB reference CAB-202510-LDG."
+    },
+    {
+      "date": "2025-11-10",
+      "author": "t.nakamura",
+      "message": "LDG-1300 DATA_CLASSIFICATION: audit export column list",
+      "paths": [
+        "ledgerline-web/DATA_CLASSIFICATION.md"
+      ]
+    },
+    {
+      "date": "2025-11-19",
+      "author": "t.nakamura",
+      "message": "Merge branch 'release/2025.11' into develop",
+      "empty": true,
+      "body": "Release train 2025.11. CAB reference CAB-202511-LDG."
+    },
+    {
+      "date": "2026-01-12",
+      "author": "t.nakamura",
+      "message": "LDG-1310 helm values: replica count per environment",
+      "paths": [
+        "ledgerline-web/helm/ledgerline-web/values.yaml"
+      ]
+    },
+    {
+      "date": "2026-01-28",
+      "author": "t.nakamura",
+      "message": "Merge branch 'release/2026.01' into develop",
+      "empty": true,
+      "body": "Release train 2026.01. CAB reference CAB-202601-LDG."
+    },
+    {
+      "date": "2026-02-09",
+      "author": "r.delacroix",
+      "message": "LDG-1320 Dockerfile healthcheck",
+      "paths": [
+        "ledgerline-web/Dockerfile"
+      ]
+    },
+    {
+      "date": "2026-02-25",
+      "author": "t.nakamura",
+      "message": "Merge branch 'release/2026.02' into develop",
+      "empty": true,
+      "body": "Release train 2026.02. CAB reference CAB-202602-LDG."
+    },
+    {
+      "date": "2026-03-16",
+      "author": "t.nakamura",
+      "message": "LDG-1330 patches/README: Canopy 4 still not shipped, keep patch",
+      "paths": [
+        "ledgerline-web/patches/README.md"
+      ]
+    },
+    {
+      "date": "2026-03-25",
+      "author": "t.nakamura",
+      "message": "Merge branch 'release/2026.03' into develop",
+      "empty": true,
+      "body": "Release train 2026.03. CAB reference CAB-202603-LDG."
+    },
+    {
+      "date": "2026-04-13",
+      "author": "r.delacroix",
+      "message": "LDG-1811 README: liquidity, positive pay and audit BFF routes still fixture-only",
+      "paths": [
+        "ledgerline-web/README.md"
+      ]
+    },
+    {
+      "date": "2026-04-29",
+      "author": "t.nakamura",
+      "message": "Merge branch 'release/2026.04' into develop",
+      "empty": true,
+      "body": "Release train 2026.04. CAB reference CAB-202604-LDG."
+    },
+    {
+      "date": "2026-05-11",
+      "author": "c.mbeki",
+      "message": "GIS-5610 checkmarx: fail build on high",
+      "paths": [
+        "ledgerline-web/checkmarx.yml"
+      ]
+    },
+    {
+      "date": "2026-05-27",
+      "author": "t.nakamura",
+      "message": "Merge branch 'release/2026.05' into develop",
+      "empty": true,
+      "body": "Release train 2026.05. CAB reference CAB-202605-LDG."
+    },
+    {
+      "date": "2026-06-15",
+      "author": "t.nakamura",
+      "message": "LDG-1340 README: esbuild deferral re-reviewed, still blocked on Canopy",
+      "paths": [
+        "ledgerline-web/README.md"
+      ]
+    },
+    {
+      "date": "2026-06-24",
+      "author": "t.nakamura",
+      "message": "Merge branch 'release/2026.06' into develop",
+      "empty": true,
+      "body": "Release train 2026.06. CAB reference CAB-202606-LDG."
+    },
+    {
+      "date": "2026-07-13",
+      "author": "r.delacroix",
+      "message": "LDG-1350 canopy-compat README: Canopy 4 beta assessment",
+      "paths": [
+        "ledgerline-web/src/app/canopy-compat/README.md"
+      ]
+    },
+    {
+      "date": "2026-07-29",
+      "author": "t.nakamura",
+      "message": "Merge branch 'release/2026.07' into develop",
+      "empty": true,
+      "body": "Release train 2026.07. CAB reference CAB-202607-LDG."
+    },
+    {
+      "date": "2026-08-17",
+      "author": "t.nakamura",
+      "message": "LDG-1360 history manifest for estate replay",
+      "paths": [
+        "_demo-notes/build/history/ledgerline-web/manifest.json"
+      ]
+    },
+    {
+      "date": "2026-08-24",
+      "author": "t.nakamura",
+      "message": "LDG-1360 fixture outage switch for error-state specs",
+      "paths": [
+        "ledgerline-web/src/app/core/fixture-backend/fixture-backend.state.ts",
+        "ledgerline-web/src/app/core/fixture-backend/fixture-backend.interceptor.ts",
+        "ledgerline-web/src/app/testing/page-testing.ts",
+        "ledgerline-web/src/styles/_snack.scss"
+      ]
+    },
+    {
+      "date": "2026-08-26",
+      "author": "t.nakamura",
+      "message": "Merge branch 'release/2026.08' into develop",
+      "empty": true,
+      "body": "Release train 2026.08. CAB reference CAB-202608-LDG."
+    }
+  ]
+}
