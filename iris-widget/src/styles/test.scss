@@ -1,0 +1,3 @@
+// Karma only. The real bundle has no global stylesheet (single bundle, styles inlined per component).
+@use '@meridian/canopy-ui/tokens/css-vars' as canopy-vars;
+body { @include canopy-vars.emit-light; margin: 0; }
