@@ -1,0 +1,8 @@
+<div class="cn-progress__header" *ngIf="!circular && (label || showValue)">
+  <span class="cn-progress__label" *ngIf="label">{{ label }}</span>
+  <span class="cn-progress__value" *ngIf="showValue && value !== null">{{ clamped | number:'1.0-0' }}%</span>
+</div>
+<mat-progress-bar *ngIf="!circular" class="cn-progress__bar" [mode]="mode" [value]="clamped"
+                  [attr.aria-label]="label || 'Progress'"></mat-progress-bar>
+<mat-progress-spinner *ngIf="circular" class="cn-progress__spinner" [mode]="mode" [value]="clamped" [diameter]="diameter"
+                      [strokeWidth]="4" [attr.aria-label]="label || 'Loading'"></mat-progress-spinner>

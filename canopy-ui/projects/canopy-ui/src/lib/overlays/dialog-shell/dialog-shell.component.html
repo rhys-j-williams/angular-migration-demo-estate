@@ -1,0 +1,16 @@
+<div class="cn-dialog-shell__header">
+  <div class="cn-dialog-shell__titles">
+    <h2 mat-dialog-title class="cn-dialog-shell__title" [class.cn-dialog-shell__title--destructive]="destructive">{{ title }}</h2>
+    <p class="cn-dialog-shell__subtitle" *ngIf="subtitle">{{ subtitle }}</p>
+  </div>
+  <button *ngIf="showClose" mat-icon-button type="button" class="cn-dialog-shell__close" aria-label="Close dialog" [disabled]="busy" (click)="close()">
+    <mat-icon svgIcon="cn:close" aria-hidden="true"></mat-icon>
+  </button>
+</div>
+<mat-progress-bar *ngIf="busy" mode="indeterminate" class="cn-dialog-shell__progress" aria-label="Working"></mat-progress-bar>
+<mat-dialog-content class="cn-dialog-shell__content" [attr.aria-busy]="busy || null">
+  <ng-content></ng-content>
+</mat-dialog-content>
+<mat-dialog-actions class="cn-dialog-shell__actions" align="end">
+  <ng-content select="[cnDialogActions]"></ng-content>
+</mat-dialog-actions>

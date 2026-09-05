@@ -1,0 +1,5 @@
+<span class="cn-currency-input__prefix" *ngIf="showSymbol" aria-hidden="true">{{ symbol }}</span>
+<input #input class="cn-currency-input__field" type="text" inputmode="decimal" autocomplete="off"
+       [value]="display" [placeholder]="placeholder" [disabled]="disabled" [required]="required"
+       [attr.aria-invalid]="errorState" [attr.aria-describedby]="describedBy || null"
+       (input)="onInput(input.value)" (keydown)="onKeydown($event)" />
