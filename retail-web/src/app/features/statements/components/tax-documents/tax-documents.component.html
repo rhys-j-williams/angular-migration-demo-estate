@@ -1,5 +1,28 @@
-<cn-page-header title="Tax documents" i18n-title="@@statements.taxDocuments.title"></cn-page-header>
+<cn-page-header title="Tax documents" i18n-title="@@statements.tax.title" lede="Forms are available here by 31 January and also mailed unless you are paperless." i18n-lede="@@statements.tax.lede" backLink="/statements" backLabel="Statements"></cn-page-header>
 
-<div class="mol-page mol-prose" fxLayout="column" fxLayoutGap="12px">
+<div class="mol-page mol-narrow" fxLayout="column" fxLayoutGap="16px">
+  <cn-tabs [selectedIndex]="years.indexOf(year)" (selectedChange)="select(years[$event])" ariaLabel="Tax year">
+    <ng-template *ngFor="let y of years" cnTab [label]="'Tax year ' + y"></ng-template>
+  </cn-tabs>
 
+  <p *ngIf="formsPending" class="mol-note" i18n="@@statements.tax.pending">Forms for {{ year }} are being prepared and will appear here by 31 January.</p>
+
+  <ng-container *ngIf="docs$ | async as docs; else loading">
+    <ul class="mol-doc-list" *ngIf="docs.length; else empty">
+      <li *ngFor="let d of docs" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="12px">
+        <mat-icon aria-hidden="true">receipt_long</mat-icon>
+        <div fxFlex fxLayout="column">
+          <span>{{ formLabel(d) }}</span>
+          <span class="mol-muted mol-small">{{ d.accountId | accountLabel }} &middot; {{ d.pages }} <ng-container i18n="@@statements.tax.pages">pages</ng-container></span>
+        </div>
+        <cn-button variant="secondary" size="small" icon="download" [loading]="busyId === d.statementId" [disabled]="!d.available" (pressed)="download(d)" i18n="@@action.download">Download</cn-button>
+      </li>
+    </ul>
+  </ng-container>
+  <ng-template #loading><mol-loading-panel [rows]="2"></mol-loading-panel></ng-template>
+  <ng-template #empty>
+    <mol-empty-state icon="receipt_long" title="No tax forms for this year" i18n-title="@@statements.tax.empty" body="We only issue a 1099-INT when interest paid was $10 or more, and a 1098 for mortgage accounts." i18n-body="@@statements.tax.emptyBody"></mol-empty-state>
+  </ng-template>
+
+  <p class="mol-muted mol-small" i18n="@@statements.tax.disclaimer">Meridian Trust Bank does not give tax advice. Talk to a tax professional about how to use these forms.</p>
 </div>

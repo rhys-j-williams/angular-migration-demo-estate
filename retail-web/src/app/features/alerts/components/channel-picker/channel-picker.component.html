@@ -1,1 +1,1 @@
-<cn-filter-chips *ngIf="chips$ | async as chips" [chips]="chips" [multiple]="true" [showClear]="false" [selected]="value" [disabled]="disabled" ariaLabel="Delivery channels" (selectionChange)="onChange($event)"></cn-filter-chips>
+<cn-filter-chips *ngIf="chips$ | async as chips" [chips]="chips" [multiple]="true" [showClear]="false" [ngModel]="value" [disabled]="disabled" ariaLabel="Delivery channels" (ngModelChange)="onChange($event)"></cn-filter-chips>

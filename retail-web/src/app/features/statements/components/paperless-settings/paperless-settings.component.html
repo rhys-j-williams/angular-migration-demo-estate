@@ -1,5 +1,20 @@
-<cn-page-header title="Paperless" i18n-title="@@statements.paperlessSettings.title"></cn-page-header>
+<cn-page-header title="Paperless" i18n-title="@@statements.paperless.title" lede="Choose paperless per account. Statements and notices are still available here for seven years either way." i18n-lede="@@statements.paperless.lede" backLink="/statements" backLabel="Statements"></cn-page-header>
 
-<div class="mol-page mol-prose" fxLayout="column" fxLayoutGap="12px">
+<div class="mol-page mol-narrow" fxLayout="column" fxLayoutGap="16px" *ngIf="accounts$ | async as accounts">
+  <mol-loading-panel *ngIf="!accounts.length" [rows]="4"></mol-loading-panel>
 
+  <ul class="mol-paperless" *ngIf="accounts.length">
+    <li *ngFor="let a of accounts" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="12px">
+      <div fxFlex fxLayout="column">
+        <span>{{ a.nickname }}</span>
+        <span class="mol-muted mol-small">Ending {{ a.accountNumber.slice(-4) }}</span>
+      </div>
+      <cn-toggle [ngModel]="isPaperless(a)" [disabled]="saving.has(a.accountId)" onText="Paperless" offText="Mailed" [ariaLabel]="'Paperless for ' + a.nickname" (ngModelChange)="toggle(a, $event)"></cn-toggle>
+    </li>
+  </ul>
+
+  <div fxLayout="row" fxLayoutAlign="space-between center" fxLayout.lt-md="column" fxLayoutGap="8px" *ngIf="accounts.length">
+    <a routerLink="/disclosures/esign" class="mol-link mol-small" i18n="@@statements.paperless.esign">Read the electronic delivery consent</a>
+    <cn-button variant="secondary" size="small" [disabled]="allPaperless(accounts)" (pressed)="enrolAll(accounts)" i18n="@@statements.paperless.all">Go paperless on every account</cn-button>
+  </div>
 </div>

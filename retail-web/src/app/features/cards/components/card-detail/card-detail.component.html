@@ -1,5 +1,47 @@
-<cn-page-header title="Card" i18n-title="@@cards.cardDetail.title"></cn-page-header>
+<ng-container *ngIf="card$ | async as card; else loading">
+  <cn-page-header [title]="card.network === 'meridian-credit' ? 'Meridian Rewards Credit' : 'Meridian Everyday Debit'" [eyebrow]="'Ending ' + card.cardNumber.slice(-4)" backLink="/cards" backLabel="Cards"></cn-page-header>
 
-<div class="mol-page mol-prose" fxLayout="column" fxLayoutGap="12px">
+  <div class="mol-page" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="24px">
+    <div fxFlex="0 0 360px" fxFlex.lt-md="auto">
+      <div class="mol-card-art" [class.mol-card-art--credit]="card.network === 'meridian-credit'" [class.mol-card-art--locked]="card.status === 'locked'" aria-hidden="true">
+        <span class="mol-card-art__bank">Meridian Trust</span>
+        <span class="mol-card-art__number">{{ revealed ? grouped(revealed.cardNumber) : '•••• •••• •••• ' + card.cardNumber.slice(-4) }}</span>
+        <span class="mol-card-art__exp">{{ card.expiryMonth | number:'2.0-0' }}/{{ card.expiryYear % 100 }}<ng-container *ngIf="revealed"> &nbsp; CVV {{ revealed.cvv }}</ng-container></span>
+        <mat-icon *ngIf="card.status === 'locked'" class="mol-card-art__lock">lock</mat-icon>
+      </div>
 
-</div>
+      <div fxLayout="row" fxLayoutAlign="space-between center" class="mol-card-reveal">
+        <ng-container *ngIf="!revealed">
+          <cn-button variant="secondary" size="small" icon="visibility" [loading]="busy" [disabled]="card.status !== 'active'" (pressed)="reveal()" i18n="@@cards.detail.reveal">Show card number</cn-button>
+          <span class="mol-muted mol-small" i18n="@@cards.detail.revealHint">Needs a fresh verification code</span>
+        </ng-container>
+        <ng-container *ngIf="revealed">
+          <cn-button variant="tertiary" size="small" icon="visibility_off" (pressed)="hide()" i18n="@@cards.detail.hide">Hide</cn-button>
+          <span class="mol-muted mol-small" i18n="@@cards.detail.hidesIn">Hides in {{ revealSecondsLeft }}s</span>
+        </ng-container>
+      </div>
+      <mol-error-banner [error]="revealError" [showRetry]="false"></mol-error-banner>
+    </div>
+
+    <div fxFlex fxLayout="column" fxLayoutGap="12px">
+      <cn-list [interactive]="true" [dividers]="true" ariaLabel="Card actions" [items]="[
+        { id: 'controls', primary: 'Card controls', secondary: controls ? controlsSummary(controls) : 'Spend limits and purchase types', icon: 'tune', link: 'controls' },
+        { id: 'travel', primary: 'Travel notice', secondary: card.travelNoticeUntil ? 'Active until ' + (card.travelNoticeUntil | date:'mediumDate') : 'Tell us before you travel', icon: 'flight', link: 'travel' },
+        { id: 'report', primary: 'Report lost, stolen or damaged', secondary: 'We cancel this card and send a replacement', icon: 'report', link: 'report' },
+        { id: 'activate', primary: 'Activate a replacement', secondary: 'For a new card that arrived in the post', icon: 'new_releases', link: 'activate', disabled: card.status !== 'replaced' }
+      ]"></cn-list>
+
+      <cn-card [padded]="true" title="Digital wallets" i18n-title="@@cards.detail.wallets">
+        <ul class="mol-wallets" fxLayout="row" fxLayoutGap="16px" fxLayout.lt-md="column">
+          <li [class.mol-ok]="card.digitalWallet.applePay">Apple Pay {{ card.digitalWallet.applePay ? '' : '(not added)' }}</li>
+          <li [class.mol-ok]="card.digitalWallet.googlePay">Google Pay {{ card.digitalWallet.googlePay ? '' : '(not added)' }}</li>
+          <li [class.mol-ok]="card.digitalWallet.samsungPay">Samsung Pay {{ card.digitalWallet.samsungPay ? '' : '(not added)' }}</li>
+        </ul>
+        <p class="mol-muted mol-small" i18n="@@cards.detail.walletHint">Add this card from the wallet app on your phone. Locking the card also pauses wallet payments.</p>
+      </cn-card>
+
+      <p class="mol-muted mol-small" i18n="@@cards.detail.linked">Linked to account <a [routerLink]="['/accounts', card.accountId]">view account</a>.</p>
+    </div>
+  </div>
+</ng-container>
+<ng-template #loading><div class="mol-page"><mol-loading-panel [rows]="5"></mol-loading-panel></div></ng-template>

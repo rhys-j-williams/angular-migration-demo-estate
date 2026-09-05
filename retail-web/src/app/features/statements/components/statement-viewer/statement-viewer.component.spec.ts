@@ -3,6 +3,8 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
+import { LanternService } from '../../../../core/telemetry/lantern.service';
+
 import { SharedModule } from '../../../../shared/shared.module';
 import { StatementViewerComponent } from './statement-viewer.component';
 
@@ -13,8 +15,7 @@ describe('StatementViewerComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [StatementViewerComponent],
       imports: [SharedModule, HttpClientTestingModule, RouterTestingModule, NoopAnimationsModule],
-      providers: [
-      ]
+      providers: [{ provide: LanternService, useValue: jasmine.createSpyObj<LanternService>('LanternService', ['track']) }]
     }).compileComponents();
 
     fixture = TestBed.createComponent(StatementViewerComponent);

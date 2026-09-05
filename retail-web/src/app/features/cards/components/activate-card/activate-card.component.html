@@ -1,5 +1,25 @@
-<cn-page-header title="Activate your card" i18n-title="@@cards.activateCard.title"></cn-page-header>
+<cn-page-header title="Activate your card" i18n-title="@@cards.activate.title" lede="Enter the last four digits and the expiry date printed on the new card." i18n-lede="@@cards.activate.lede" backLink="/cards" backLabel="Cards"></cn-page-header>
 
-<div class="mol-page mol-prose" fxLayout="column" fxLayoutGap="12px">
+<div class="mol-page mol-narrow">
+  <form [formGroup]="form" (ngSubmit)="submit()" novalidate fxLayout="column" fxLayoutGap="12px">
+    <mol-error-banner [error]="error" [showRetry]="false"></mol-error-banner>
+    <p *ngIf="lockedOut" class="mol-warn" i18n="@@cards.activate.lockedOut">Too many attempts. Call the number on the sticker on your card to activate it with an agent.</p>
 
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="16px">
+      <mat-form-field appearance="outline" fxFlex>
+        <mat-label i18n="@@cards.activate.last4">Last four digits</mat-label>
+        <input matInput formControlName="last4" inputmode="numeric" maxlength="4" autocomplete="off" />
+        <mat-error i18n="@@cards.activate.last4Error">Enter the four digits on the front of the card</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline" fxFlex>
+        <mat-label i18n="@@cards.activate.expiry">Expiry (MM/YY)</mat-label>
+        <input matInput formControlName="expiry" placeholder="MM/YY" maxlength="5" autocomplete="off" />
+        <mat-error i18n="@@cards.activate.expiryError">Use the MM/YY format shown on the card</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="end">
+      <cn-button type="submit" variant="primary" [loading]="busy" [disabled]="form.invalid || lockedOut" i18n="@@cards.activate.submit">Activate card</cn-button>
+    </div>
+  </form>
 </div>

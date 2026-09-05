@@ -32,8 +32,9 @@ export class CardsApiService extends ApiBase {
     return this.http.post<Card>(this.url(`/cards/${encodeURIComponent(cardId)}/replace`), { reason, lastSeen });
   }
 
+  /** bff-retail only stores `until` and a single destination string today (PLAT-2277 for the from date). */
   travelNotice(cardId: string, from: string, until: string, destinations: string[]): Observable<Card> {
-    return this.http.put<Card>(this.url(`/cards/${encodeURIComponent(cardId)}/travel-notice`), { from, until, destinations });
+    return this.http.post<Card>(this.url(`/cards/${encodeURIComponent(cardId)}/travel-notice`), { from, until, destination: destinations.join(', ') });
   }
 
   activate(cardId: string, last4: string, expiry: string): Observable<Card> {
