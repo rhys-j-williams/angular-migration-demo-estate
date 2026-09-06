@@ -30,7 +30,8 @@ mock-external/estate-down.sh
 ```
 
 Fixed port allocation is in [PORTS.md](PORTS.md). Build and environment decisions are recorded in
-[BUILD_LOG.md](BUILD_LOG.md).
+[BUILD_LOG.md](BUILD_LOG.md). Reference captures of the six front ends are in
+[docs/SCREENSHOTS.md](docs/SCREENSHOTS.md).
 
 ## Owning organisations
 
