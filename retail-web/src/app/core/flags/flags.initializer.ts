@@ -1,15 +1,21 @@
 import { APP_INITIALIZER, Provider } from '@angular/core';
+import { lastValueFrom } from 'rxjs';
+import { take } from 'rxjs/operators';
 
+import { ConfigService } from '../config/config.service';
 import { FeatureFlagService } from './feature-flag.service';
 
-export function bootstrapFlags(flags: FeatureFlagService): () => Promise<void> {
-  return () => flags.bootstrap();
+export function bootstrapFlags(flags: FeatureFlagService, config: ConfigService): () => Promise<void> {
+  return async () => {
+    await lastValueFrom(config.config.pipe(take(1)));
+    await flags.bootstrap();
+  };
 }
 
-/** After CONFIG_INITIALIZER and AUTH_INITIALIZER. */
+/** Waits for CONFIG_INITIALIZER; Angular runs APP_INITIALIZERs concurrently. */
 export const FLAGS_INITIALIZER: Provider = {
   provide: APP_INITIALIZER,
   useFactory: bootstrapFlags,
-  deps: [FeatureFlagService],
+  deps: [FeatureFlagService, ConfigService],
   multi: true
 };

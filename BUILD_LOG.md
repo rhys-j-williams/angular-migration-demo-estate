@@ -186,3 +186,48 @@ Known caveats:
 
 - `groovyc` and `helm` are not installed, so those two platform-tooling checks SKIP.
 - IBM MQ profile is off by default in compose (Artemis fallback), see `mock-external/docker-compose.yml`.
+
+## Screenshot gallery, 6 September 2026
+
+`docs/SCREENSHOTS.md` and `docs/screenshots/*.png` (28 captures, 1440x900) added so the wiki can show
+the rendered surfaces. Captured with Playwright 1.47 against the Docker estate (`estate-up.sh`) plus
+`bff-retail`, `bff-business`, `entitlements-service`, `bedrock-adapter` and `iris-orchestrator`
+started in process, and each front end on `npm start -- --host 127.0.0.1` (Iris from a
+`ng build --configuration development` output over `python3 -m http.server 4205`). Getting all six
+to render surfaced the following; none is a catalogued trap and all are recorded so the numbers in
+`_demo-notes/TRAPS.md` stay at 48.
+
+- `business-web` `/wires` locked the browser main thread. `WireListComponent.visible` was a getter
+  that allocated a fresh filtered array on every change-detection pass; `cn-data-table` resets its
+  data source whenever `rows` changes reference, which re-triggered change detection. Replaced with
+  a stored `visible` recomputed on load and on tab change (MBZ-1188).
+- `retail-web` development configuration had `aot: false`. JIT compilation needs `unsafe-eval`,
+  which the app's CSP forbids, so `ng serve` showed only the loading shell. Set `aot: true` for the
+  development configuration (the CLI rejects `--aot` on the command line in 14). The production
+  build was always AOT.
+- `retail-web` `AUTH_INITIALIZER` and `FLAGS_INITIALIZER` assumed `APP_INITIALIZER` providers run in
+  registration order after `CONFIG_INITIALIZER`. Angular runs them concurrently, so
+  `ConfigService.value` was read before `load()` finished. Both initialisers now await the first
+  `ConfigService.config` emission before starting (MOL-2301).
+- `retail-web/src/assets/config/env.json` issuer was `http://localhost:4400/oauth2/v1`; the Keystone
+  mock's discovery document advertises `http://localhost:4400`, and angular-oauth2-oidc rejects the
+  mismatch. Local config aligned with the mock.
+- `@meridian/mock-kit` CORS preflight allow-list was static and missed `x-channel` (Keystone) and
+  `x-mol-client` (Meridian Online). The kit now echoes `access-control-request-headers`, which is
+  what the comment above it already promised for Angular dev servers.
+- Keystone's CSP meta blocks the inline component `<style>` tags `ng serve` emits, so the Keystone
+  captures were taken with the harness stripping the meta tag in flight. The README's claim that
+  Angular 15 does not inject styles at runtime is not true for the dev server; left as a finding
+  (KEY-1733) rather than relaxing the policy.
+- Iris looks for the Canopy sprite at `/assets/widgets/assets/canopy/canopy-sprite.svg`
+  (`CN_ICON_SPRITE_URL` in `iris-widget.module.ts`), a path the build does not produce. A symlink
+  in the local `dist/` output was enough for the capture; the path is a packaging question for
+  IRIS-402 and is not changed here.
+- `retail-web` Material Icons font is fetched by Jenkins and not committed (MOL-2101); the font was
+  dropped into `src/assets/fonts/` locally for the captures and is not part of the commit.
+
+Open finding, not fixed: `bff-retail` (port 4500) only implements `/api/v1/accounts`, and its
+account payload (`maskedNumber`, `currentBalance.minor`) does not match the `retail-web` `Account`
+model (`accountNumber`, `availableBalanceMinor`). `/me`, `/me/entitlements`, `/transfers`,
+`/bill-pay/bills` and `/alerts/history` return 404. The retail captures therefore show empty states
+where the other apps show data. Tracked as MOL-2302 for the platform-services team.
