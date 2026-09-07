@@ -4,7 +4,7 @@
 #
 #   scripts/verify-estate.sh              everything
 #   scripts/verify-estate.sh --quick      skip installs, builds and test runs
-#   scripts/verify-estate.sh canopy-ui    one component only
+#   scripts/verify-estate.sh retail-web   one component only
 #
 # Components that have not been built yet are reported SKIP, not FAIL, so the script is useful
 # while the estate is still going up.
@@ -113,7 +113,7 @@ fi
 # ---------------------------------------------------------------- Angular components
 # component | min commits | ticket key (history includes ticket-keyed empty commits,
 # so depth counts commits that touch the directory OR carry the component's key)
-ANGULAR="canopy-ui:220:CNPY retail-web:180:MOL business-web:200:MBZ keystone-web:140:KEY
+ANGULAR="retail-web:180:MOL business-web:200:MBZ keystone-web:140:KEY
          ledgerline-web:120:LDG iris-widget:40:IRIS lantern-sdk:30:LNTN"
 
 for entry in ${ANGULAR}; do
@@ -209,7 +209,7 @@ if lf: print(round(100.0 * lh / lf, 1))
 PY
 )"
   case "${component}" in
-    canopy-ui) target=48 ;; retail-web) target=34 ;; business-web) target=22 ;; *) target="" ;;
+    retail-web) target=34 ;; business-web) target=22 ;; *) target="" ;;
   esac
   if [[ -z "${pct}" ]]; then
     skip "${component}" "coverage reported" "no coverage output"

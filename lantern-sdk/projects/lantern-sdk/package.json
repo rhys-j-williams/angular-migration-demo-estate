@@ -6,7 +6,7 @@
   "private": false,
   "repository": {
     "type": "git",
-    "url": "https://github.com/rhys-j-williams/angular-migration-demo-estate.git",
+    "url": "https://github.com/rhys-j-williams/meridian-cswt-estate.git",
     "directory": "lantern-sdk"
   },
   "publishConfig": {

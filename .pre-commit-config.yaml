@@ -17,8 +17,8 @@ repos:
     rev: v4.5.0
     hooks:
       - id: end-of-file-fixer
-        exclude: '\.(cpy|xlf)$|business-web/src/app/ach/nacha-format\.constants\.ts|canopy-ui/projects/canopy-ui/src/lib/tokens/_legacy-tokens\.scss'
+        exclude: '\.(cpy|xlf)$|business-web/src/app/ach/nacha-format\.constants\.ts'
       - id: trailing-whitespace
-        exclude: '\.(cpy|xlf)$|business-web/src/app/ach/nacha-format\.constants\.ts|canopy-ui/projects/canopy-ui/src/lib/tokens/_legacy-tokens\.scss'
+        exclude: '\.(cpy|xlf)$|business-web/src/app/ach/nacha-format\.constants\.ts'
       - id: check-merge-conflict
       - id: detect-private-key

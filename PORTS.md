@@ -51,7 +51,7 @@ file, so no code change is needed to run locally.
 | 4201 | business-web |
 | 4202 | keystone-web |
 | 4203 | ledgerline-web |
-| 4204 | canopy-showcase |
+| 4204 | canopy-showcase (meridian-canopy-ui repository) |
 | 4205 | iris-widget |
 
 ## Infrastructure
