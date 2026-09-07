@@ -1,25 +1,25 @@
 #!/usr/bin/env bash
 #
-# Acceptance checks for the Meridian estate. Prints a pass / fail table.
+# Acceptance checks for the Northgate estate. Prints a pass / fail table.
 #
 #   scripts/verify-estate.sh              everything
 #   scripts/verify-estate.sh --quick      skip installs, builds and test runs
 #   scripts/verify-estate.sh retail-web   one component only
 #
 # The estate is one workspace directory with each repository cloned under its GitHub name
-# (meridian-retail-web, meridian-platform-services, ...). This repository is the workspace root
-# documentation and is expected to sit in the same directory; MERIDIAN_WORKSPACE overrides that.
+# (northgate-retail-web, northgate-platform-services, ...). This repository is the workspace root
+# documentation and is expected to sit in the same directory; NORTHGATE_WORKSPACE overrides that.
 # Repositories that are not checked out are reported SKIP, not FAIL.
 
 set -uo pipefail
 cd "$(dirname "$0")/.."
 ROOT="$(pwd)"
-WORKSPACE="${MERIDIAN_WORKSPACE:-$(cd "${ROOT}/.." && pwd)}"
+WORKSPACE="${NORTHGATE_WORKSPACE:-$(cd "${ROOT}/.." && pwd)}"
 
 COMPONENTS="retail-web business-web keystone-web ledgerline-web iris-widget lantern-sdk
             platform-services mock-external platform-tooling"
 
-D() { printf '%s' "${WORKSPACE}/meridian-$1"; }   # checkout of a component repository
+D() { printf '%s' "${WORKSPACE}/northgate-$1"; }   # checkout of a component repository
 G() { git -C "$(D "$1")" "${@:2}"; }                # git in that checkout
 
 QUICK=0
@@ -292,7 +292,7 @@ if selected platform-services; then
       if run "$(D platform-services)" make test; then
         pass platform-services "make test (mvn verify + jest)"
       else
-        fail platform-services "make test (mvn verify + jest)" "run make test in meridian-platform-services"
+        fail platform-services "make test (mvn verify + jest)" "run make test in northgate-platform-services"
       fi
     fi
 
@@ -330,7 +330,7 @@ if selected platform-tooling; then
   if [[ ! -d "$(D platform-tooling)/.git" ]]; then
     skip platform-tooling "repository checked out" "no checkout at $(D platform-tooling)"
   else
-    for var in meridianNodePipeline meridianJavaPipeline; do
+    for var in northgateNodePipeline northgateJavaPipeline; do
       [[ -f "$(D platform-tooling)/jenkins-shared-library/vars/${var}.groovy" ]] \
         && pass platform-tooling "${var}.groovy" \
         || fail platform-tooling "${var}.groovy" "missing"
@@ -352,7 +352,7 @@ if selected platform-tooling; then
     bad=0
     while IFS= read -r jf; do
       grep -qE "${labels}" "${jf}" || { bad=1; echo "    unknown agent label in ${jf}"; }
-    done < <(find "${WORKSPACE}"/meridian-*/ -name 'Jenkinsfile*' -not -path '*/node_modules/*' -not -path '*/.venvs/*' 2>/dev/null)
+    done < <(find "${WORKSPACE}"/northgate-*/ -name 'Jenkinsfile*' -not -path '*/node_modules/*' -not -path '*/.venvs/*' 2>/dev/null)
     [[ ${bad} -eq 0 ]] && pass platform-tooling "Jenkinsfile agent labels" \
                        || fail platform-tooling "Jenkinsfile agent labels"
 
