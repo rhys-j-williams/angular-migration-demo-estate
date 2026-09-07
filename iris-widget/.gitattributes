@@ -1,5 +1,0 @@
-* text=auto eol=lf
-*.svg text
-*.png binary
-*.woff2 binary
-package-lock.json -diff

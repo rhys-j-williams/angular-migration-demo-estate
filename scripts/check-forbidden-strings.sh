@@ -6,8 +6,11 @@
 # not become the one file in the estate that contains the names it forbids.
 set -uo pipefail
 
-ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-ENCODED="${ROOT}/scripts/forbidden-strings.b64"
+# Usage: check-forbidden-strings.sh [worktree|history|all] [repository-dir]
+# The second argument lets the estate verifier point the same pattern list at a sibling repository.
+HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+ROOT="$(cd "${2:-${HERE}}" && pwd)"
+ENCODED="${HERE}/scripts/forbidden-strings.b64"
 
 if [[ ! -f "${ENCODED}" ]]; then
   echo "check-forbidden-strings: ${ENCODED} is missing" >&2
@@ -56,7 +59,7 @@ case "${mode}" in
   worktree) scan "working tree" grep_worktree ;;
   history)  scan "commit history" grep_history ;;
   all)      scan "working tree" grep_worktree ; scan "commit history" grep_history ;;
-  *) echo "usage: $0 [worktree|history|all]" >&2 ; exit 2 ;;
+  *) echo "usage: $0 [worktree|history|all] [repository-dir]" >&2 ; exit 2 ;;
 esac
 
 exit "${status}"

@@ -1,4 +1,5 @@
-# Meridian engineering standard hooks. Install with `pre-commit install` after cloning.
+# Meridian engineering standard hooks for the workspace root. Install with `pre-commit install`
+# after cloning; the application repositories carry their own copy of this file.
 # Owned by @meridian/platform-engineering, mandated by GIS-1180 and DEPENDENCY_POLICY.md.
 repos:
   - repo: local
@@ -17,8 +18,6 @@ repos:
     rev: v4.5.0
     hooks:
       - id: end-of-file-fixer
-        exclude: '\.(cpy|xlf)$|business-web/src/app/ach/nacha-format\.constants\.ts'
       - id: trailing-whitespace
-        exclude: '\.(cpy|xlf)$|business-web/src/app/ach/nacha-format\.constants\.ts'
       - id: check-merge-conflict
       - id: detect-private-key

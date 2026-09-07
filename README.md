@@ -1,52 +1,68 @@
 # Meridian Trust Bank — CSWT digital estate
 
 Consumer, small business and treasury digital channels for Meridian Trust Bank, with the platform
-services, local integration mocks and delivery tooling that support them.
+services, local integration mocks and delivery tooling that support them. This repository is the
+workspace root: the port allocation, the estate wide verification script, the GIS-1180 forbidden
+string check that every repository's pre-commit hook and Jenkins lint stage call, and the
+reference captures of the front ends. The code lives in the repositories below.
 
-The workspace is organised as one directory per deliverable so the whole estate can be checked out,
-built and brought up on a single workstation or build agent (TOOL-1180, monorepo consolidation,
-release train 2024.03). Each directory keeps its own `.nvmrc`, pipeline and runbooks.
+Each repository is released on its own cadence from its own `develop`/`main`, owns its `.nvmrc`,
+pipeline and runbooks, and pins the shared libraries it consumes to a published version from the
+internal registry (PLAT-2610, repository split, release train 2026.09; the previous single
+workspace layout from TOOL-1180 is retired).
 
-| Directory | What it is | Framework | Node |
+| Repository | What it is | Framework | Node |
 |---|---|---|---|
-| `retail-web/` | Meridian Online, consumer banking | Angular 14.3.0 | 16.20.2 |
-| `business-web/` | Meridian Business, small business banking | Angular 14.2.12 | 14.21.3 |
-| `iris-widget/` | Iris virtual assistant, Angular Elements custom element | Angular 14.3.0 | 16.20.2 |
-| `keystone-web/` | Keystone login, MFA and device trust | Angular 15.2.10 | 16.20.2 |
-| `ledgerline-web/` | Ledgerline corporate treasury | Angular 16.2.12 | 18.19.0 |
-| `lantern-sdk/` | Lantern analytics Angular wrapper, `@meridian/lantern-sdk` | Angular 12.2.17 | 14.21.3 |
-| `platform-services/` | Twelve back end services, Java, Node and Python | mixed | mixed |
-| `mock-external/` | Local mocks of every external system | Node 18 | 18.19.0 |
-| `platform-tooling/` | Jenkins shared library, scanners, Helm, Ansible, Vault, registry | Groovy, YAML | n/a |
+| [meridian-retail-web](https://github.com/rhys-j-williams/meridian-retail-web) | Meridian Online, consumer banking | Angular 14.3.0 | 16.20.2 |
+| [meridian-business-web](https://github.com/rhys-j-williams/meridian-business-web) | Meridian Business, small business banking | Angular 14.2.12 | 14.21.3 |
+| [meridian-iris-widget](https://github.com/rhys-j-williams/meridian-iris-widget) | Iris virtual assistant, Angular Elements custom element | Angular 14.3.0 | 16.20.2 |
+| [meridian-keystone-web](https://github.com/rhys-j-williams/meridian-keystone-web) | Keystone login, MFA and device trust | Angular 15.2.10 | 16.20.2 |
+| [meridian-ledgerline-web](https://github.com/rhys-j-williams/meridian-ledgerline-web) | Ledgerline corporate treasury | Angular 16.2.12 | 18.19.0 |
+| [meridian-canopy-ui](https://github.com/rhys-j-williams/meridian-canopy-ui) | Canopy design system on Angular Material, `@meridian/canopy-ui` | Angular 14.3.0 | 16.20.2 |
+| [meridian-lantern-sdk](https://github.com/rhys-j-williams/meridian-lantern-sdk) | Lantern analytics Angular wrapper, `@meridian/lantern-sdk` | Angular 12.2.17 | 14.21.3 |
+| [meridian-platform-services](https://github.com/rhys-j-williams/meridian-platform-services) | Twelve back end services, Java, Node and Python; `@meridian/domain-fixtures` | mixed | mixed |
+| [meridian-mock-external](https://github.com/rhys-j-williams/meridian-mock-external) | Local mocks of every external system; estate up / smoke / down | Node 18 | 18.19.0 |
+| [meridian-platform-tooling](https://github.com/rhys-j-williams/meridian-platform-tooling) | Jenkins shared library, scanners, Helm, Ansible, Vault, registry, governance | Groovy, YAML | n/a |
 
-The Canopy design system (`@meridian/canopy-ui`) is not in this workspace. It lives in
-[meridian-canopy-ui](https://github.com/rhys-j-williams/meridian-canopy-ui) and is consumed here as
-a published package: retail-web, ledgerline-web and iris-widget pin 3.7.2, keystone-web 3.6.1 and
-business-web 3.5.0 (CNPY-2140). `mock-external/estate-up.sh` expects a checkout of that repository
-next to this one, or at `CANOPY_REPO`, so it can seed the local registry with the pinned versions.
+Shared library pins: retail-web, ledgerline-web and iris-widget consume `@meridian/canopy-ui`
+3.7.2, keystone-web 3.6.1 and business-web 3.5.0 (CNPY-2140); retail-web consumes
+`@meridian/lantern-sdk` 2.4.1. Every consumer takes a published version from the registry; nothing builds a sibling repository
+from source.
 
-## Getting started
+## Workspace layout
+
+Clone the repositories you need into one directory, under their GitHub names, with this
+repository alongside. The estate scripts find each other that way (`MERIDIAN_WORKSPACE`, or the
+per repository `PLATFORM_SERVICES_REPO`, `LANTERN_REPO`, `CANOPY_REPO`, override it).
 
 ```bash
-nvm install                 # per directory, from its .nvmrc
-mock-external/estate-up.sh  # registry, mocks and services
-mock-external/smoke.sh      # end to end check
-mock-external/estate-down.sh
+mkdir meridian && cd meridian
+for r in cswt-estate mock-external platform-services canopy-ui lantern-sdk \
+         retail-web business-web keystone-web ledgerline-web iris-widget platform-tooling; do
+  git clone https://github.com/rhys-j-williams/meridian-$r.git
+done
+nvm install                                  # per repository, from its .nvmrc
+meridian-mock-external/estate-up.sh          # registry, internal packages, mocks, services
+meridian-mock-external/smoke.sh              # end to end check
+meridian-cswt-estate/scripts/verify-estate.sh --quick
+meridian-mock-external/estate-down.sh
 ```
 
 Fixed port allocation is in [PORTS.md](PORTS.md). Reference captures of the six front ends are in
-[docs/SCREENSHOTS.md](docs/SCREENSHOTS.md). Toolchain versions are pinned per directory (`.nvmrc`,
-`.java-version`, `pom.xml`); see `platform-tooling/governance/DEPENDENCY_POLICY.md` before changing
-any of them.
+[docs/SCREENSHOTS.md](docs/SCREENSHOTS.md). Toolchain versions are pinned per repository
+(`.nvmrc`, `.java-version`, `pom.xml`); see `DEPENDENCY_POLICY.md` and the supported software
+standard `FRAMEWORK_SUPPORT_STANDARD.md` (GIS-STD-022) under `meridian-platform-tooling/governance`
+before changing any of them.
 
 ## Owning organisations
 
 Consumer, Small Business and Wealth Technology (CSWT) owns the application repositories. Global
 Information Security (GIS) owns the security standards referenced from each `SECURITY.md`.
-Platform Engineering owns `platform-tooling` and the build agents.
+Platform Engineering owns `meridian-platform-tooling`, `meridian-mock-external` and the build
+agents.
 
 ## Data classification
 
-Every directory carries a `DATA_CLASSIFICATION.md`. Fixture data is generated by
+Every repository carries a `DATA_CLASSIFICATION.md`. Fixture data is generated by
 `@meridian/domain-fixtures` and is classified Non Restricted. No production or customer data of any
-kind may be committed here (GIS-1180).
+kind may be committed to any of these repositories (GIS-1180).

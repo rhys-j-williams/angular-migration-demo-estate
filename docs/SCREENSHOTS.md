@@ -8,14 +8,14 @@ when a surface changes materially; MOL-2210 asks for a gallery refresh per relea
 
 | Surface | Directory | Port | Framework |
 |---|---|---|---|
-| [Meridian Online](#meridian-online-retail-web) | `retail-web/` | 4200 | Angular 14.3.0 |
-| [Meridian Business](#meridian-business-business-web) | `business-web/` | 4201 | Angular 14.2.12 |
-| [Keystone](#keystone-keystone-web) | `keystone-web/` | 4202 | Angular 15.2.10 |
-| [Ledgerline](#ledgerline-ledgerline-web) | `ledgerline-web/` | 4203 | Angular 16.2.12 |
+| [Meridian Online](#meridian-online-retail-web) | [meridian-retail-web](https://github.com/rhys-j-williams/meridian-retail-web) | 4200 | Angular 14.3.0 |
+| [Meridian Business](#meridian-business-business-web) | [meridian-business-web](https://github.com/rhys-j-williams/meridian-business-web) | 4201 | Angular 14.2.12 |
+| [Keystone](#keystone-keystone-web) | [meridian-keystone-web](https://github.com/rhys-j-williams/meridian-keystone-web) | 4202 | Angular 15.2.10 |
+| [Ledgerline](#ledgerline-ledgerline-web) | [meridian-ledgerline-web](https://github.com/rhys-j-williams/meridian-ledgerline-web) | 4203 | Angular 16.2.12 |
 | [Canopy showcase](#canopy-showcase-meridian-canopy-ui) | [meridian-canopy-ui](https://github.com/rhys-j-williams/meridian-canopy-ui) | 4204 | Angular 14.3.0 |
-| [Iris widget](#iris-widget-iris-widget) | `iris-widget/` | 4205 | Angular 14.3.0 |
+| [Iris widget](#iris-widget-iris-widget) | [meridian-iris-widget](https://github.com/rhys-j-williams/meridian-iris-widget) | 4205 | Angular 14.3.0 |
 
-## Meridian Online (`retail-web/`)
+## Meridian Online ([meridian-retail-web](https://github.com/rhys-j-williams/meridian-retail-web))
 
 Consumer banking. The app is behind Keystone: an unauthenticated visit is bounced to the IDP mock
 on port 4400 (first capture), then back to `/dashboard` after password and MFA.
@@ -34,7 +34,7 @@ Accounts still lists the two fixture accounts.
 | Cards | |
 | ![Cards](screenshots/retail-web--cards.png) | |
 
-## Meridian Business (`business-web/`)
+## Meridian Business ([meridian-business-web](https://github.com/rhys-j-williams/meridian-business-web))
 
 Small business banking, RxJS 6, TSLint, Node 14. Signed in as the Redwing Electrical administrator
 fixture. Wires, approvals and payroll come from the business BFF on port 4501.
@@ -50,7 +50,7 @@ fixture. Wires, approvals and payroll come from the business BFF on port 4501.
 | Users | |
 | ![Users](screenshots/business-web--users.png) | |
 
-## Keystone (`keystone-web/`)
+## Keystone ([meridian-keystone-web](https://github.com/rhys-j-williams/meridian-keystone-web))
 
 Login, MFA, device trust and recovery. Keystone ships a `Content-Security-Policy` meta with
 `style-src 'self'` and no `unsafe-inline` (KEY-1733, GIS-1802). Under `ng serve` Angular 15 still
@@ -67,7 +67,7 @@ Production builds are unaffected; the dev-server behaviour is tracked as KEY-179
 | Unrecognised step-up link | |
 | ![Invalid link](screenshots/keystone-web--invalid-link.png) | |
 
-## Ledgerline (`ledgerline-web/`)
+## Ledgerline ([meridian-ledgerline-web](https://github.com/rhys-j-williams/meridian-ledgerline-web))
 
 Corporate treasury, standalone components, Angular 16 with `patch-package`. Signed in as the
 treasury approver fixture; exposure, positive pay and audit data from the treasury services
@@ -94,7 +94,7 @@ teams are pointed at when they raise a CNPY ticket.
 | Themes | Icon sprite |
 | ![Themes](screenshots/canopy-showcase--themes.png) | ![Icons](screenshots/canopy-showcase--icons.png) |
 
-## Iris widget (`iris-widget/`)
+## Iris widget ([meridian-iris-widget](https://github.com/rhys-j-williams/meridian-iris-widget))
 
 Angular Elements custom element, served from a development build over a static server (the dev
 shell in `src/index.html` stands in for a host page). Unauthenticated, so the panel shows the
