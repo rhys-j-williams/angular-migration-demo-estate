@@ -8,6 +8,6 @@ module.exports = {
   output: {
     uniqueName: 'meridianIrisWidget',
   },
-  // zone.js is deliberately NOT bundled. The host page provides it, see README "Zone.js" and T35
-  // in _demo-notes/TRAPS.md. If you find yourself adding it back, stop and read that first.
+  // zone.js is deliberately NOT bundled. The host page provides it, see README "Zone.js" and
+  // IRIS-0402. If you find yourself adding it back, stop and read that first.
 };

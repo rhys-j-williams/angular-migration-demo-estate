@@ -39,7 +39,7 @@ const hashed = bundles[0];
 const src = path.join(dist, hashed);
 const bytes = fs.readFileSync(src);
 if (/Zone already loaded|__zone_symbol__ZONE_ALREADY|zone\.js\/fesm2015/.test(bytes.toString('utf8').slice(0, 200000)) && /function\s+Zone\s*\(/.test(bytes.toString('utf8'))) {
-  // Belt and braces: the whole point of T35 is that we do NOT ship Zone.
+  // Belt and braces: the whole point of IRIS-0402 is that we do NOT ship Zone.
   console.error('[postbuild] the bundle appears to contain Zone.js. See README "Zone.js and the host page".');
   process.exit(1);
 }

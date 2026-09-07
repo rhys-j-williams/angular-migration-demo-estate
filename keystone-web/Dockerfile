@@ -14,7 +14,7 @@ ARG NPM_REGISTRY=https://artifactory.meridian.internal/artifactory/api/npm/npm-v
 ENV CI=true NG_CLI_ANALYTICS=false NODE_OPTIONS=--max-old-space-size=3072
 WORKDIR /workspace
 COPY package.json package-lock.json .npmrc ./
-# The @meridian scope in .npmrc points at the local Verdaccio for the estate build; in CI the
+# The @meridian scope in .npmrc points at the local Verdaccio for local builds; in CI the
 # secret-mounted .npmrc overrides it with Artifactory and the token (GIS-2911, never an ARG).
 RUN --mount=type=secret,id=npmrc,target=/root/.npmrc \
     if [ -n "${NPM_REGISTRY}" ]; then npm config set @meridian:registry "${NPM_REGISTRY}"; fi \

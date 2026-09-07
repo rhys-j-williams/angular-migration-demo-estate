@@ -19,8 +19,8 @@ import { environment } from './environments/environment';
  * Both bundles share that single Zone instance, which means the zone.js version in our
  * package.json must be one the host's Angular accepts and vice versa. When retail-web upgrades
  * Angular they upgrade zone.js, and we have to follow in the same release train or the widget
- * stops receiving change detection (it does not throw, it just goes quiet). This is T35 in the
- * estate trap list; the widget team's position on it is in README and docs/adr/0002.
+ * stops receiving change detection (it does not throw, it just goes quiet). This is IRIS-0402 on
+ * the platform risk register; the widget team's position on it is in README and docs/adr/0002.
  */
 const ELEMENT_TAG = 'meridian-iris-widget';
 
