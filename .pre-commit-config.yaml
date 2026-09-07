@@ -1,6 +1,6 @@
-# Meridian engineering standard hooks for the workspace root. Install with `pre-commit install`
+# Northgate engineering standard hooks for the workspace root. Install with `pre-commit install`
 # after cloning; the application repositories carry their own copy of this file.
-# Owned by @meridian/platform-engineering, mandated by GIS-1180 and DEPENDENCY_POLICY.md.
+# Owned by @northgate/platform-engineering, mandated by GIS-1180 and DEPENDENCY_POLICY.md.
 repos:
   - repo: local
     hooks:

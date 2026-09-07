@@ -2,20 +2,20 @@
 
 Reference captures of the six Angular front ends, taken against a local stack
 (`mock-external/estate-up.sh` plus each directory's `npm start`) at 1440x900. Data is fixture output
-from `@meridian/domain-fixtures`; users are the Keystone IDP mock fixtures (`/debug/users` on
+from `@northgate/domain-fixtures`; users are the Keystone IDP mock fixtures (`/debug/users` on
 port 4400). No capture in this directory comes from a production or UAT environment. Refresh these
 when a surface changes materially; MOL-2210 asks for a gallery refresh per release train.
 
 | Surface | Directory | Port | Framework |
 |---|---|---|---|
-| [Meridian Online](#meridian-online-retail-web) | [meridian-retail-web](https://github.com/rhys-j-williams/meridian-retail-web) | 4200 | Angular 14.3.0 |
-| [Meridian Business](#meridian-business-business-web) | [meridian-business-web](https://github.com/rhys-j-williams/meridian-business-web) | 4201 | Angular 14.2.12 |
-| [Keystone](#keystone-keystone-web) | [meridian-keystone-web](https://github.com/rhys-j-williams/meridian-keystone-web) | 4202 | Angular 15.2.10 |
-| [Ledgerline](#ledgerline-ledgerline-web) | [meridian-ledgerline-web](https://github.com/rhys-j-williams/meridian-ledgerline-web) | 4203 | Angular 16.2.12 |
-| [Canopy showcase](#canopy-showcase-meridian-canopy-ui) | [meridian-canopy-ui](https://github.com/rhys-j-williams/meridian-canopy-ui) | 4204 | Angular 14.3.0 |
-| [Iris widget](#iris-widget-iris-widget) | [meridian-iris-widget](https://github.com/rhys-j-williams/meridian-iris-widget) | 4205 | Angular 14.3.0 |
+| [Northgate Online](#northgate-online-retail-web) | [northgate-retail-web](https://github.com/rhys-j-williams/northgate-retail-web) | 4200 | Angular 14.3.0 |
+| [Northgate Business](#northgate-business-business-web) | [northgate-business-web](https://github.com/rhys-j-williams/northgate-business-web) | 4201 | Angular 14.2.12 |
+| [Keystone](#keystone-keystone-web) | [northgate-keystone-web](https://github.com/rhys-j-williams/northgate-keystone-web) | 4202 | Angular 15.2.10 |
+| [Ledgerline](#ledgerline-ledgerline-web) | [northgate-ledgerline-web](https://github.com/rhys-j-williams/northgate-ledgerline-web) | 4203 | Angular 16.2.12 |
+| [Canopy showcase](#canopy-showcase-northgate-canopy-ui) | [northgate-canopy-ui](https://github.com/rhys-j-williams/northgate-canopy-ui) | 4204 | Angular 14.3.0 |
+| [Iris widget](#iris-widget-iris-widget) | [northgate-iris-widget](https://github.com/rhys-j-williams/northgate-iris-widget) | 4205 | Angular 14.3.0 |
 
-## Meridian Online ([meridian-retail-web](https://github.com/rhys-j-williams/meridian-retail-web))
+## Northgate Online ([northgate-retail-web](https://github.com/rhys-j-williams/northgate-retail-web))
 
 Consumer banking. The app is behind Keystone: an unauthenticated visit is bounced to the IDP mock
 on port 4400 (first capture), then back to `/dashboard` after password and MFA.
@@ -34,9 +34,9 @@ Accounts still lists the two fixture accounts.
 | Cards | |
 | ![Cards](screenshots/retail-web--cards.png) | |
 
-## Meridian Business ([meridian-business-web](https://github.com/rhys-j-williams/meridian-business-web))
+## Northgate Business ([northgate-business-web](https://github.com/rhys-j-williams/northgate-business-web))
 
-Small business banking, RxJS 6, TSLint, Node 14. Signed in as the Redwing Electrical administrator
+Small business banking, RxJS 6, TSLint, Node 14. Signed in as the Pinnacle Ridge Surveying administrator
 fixture. Wires, approvals and payroll come from the business BFF on port 4501.
 
 | | |
@@ -50,12 +50,12 @@ fixture. Wires, approvals and payroll come from the business BFF on port 4501.
 | Users | |
 | ![Users](screenshots/business-web--users.png) | |
 
-## Keystone ([meridian-keystone-web](https://github.com/rhys-j-williams/meridian-keystone-web))
+## Keystone ([northgate-keystone-web](https://github.com/rhys-j-williams/northgate-keystone-web))
 
 Login, MFA, device trust and recovery. Keystone ships a `Content-Security-Policy` meta with
 `style-src 'self'` and no `unsafe-inline` (KEY-1733, GIS-1802). Under `ng serve` Angular 15 still
 injects component styles as inline `<style>` tags, so a plain dev-server visit renders unstyled;
-these captures were taken with the CSP meta removed at the proxy for the capture run only.
+these captures were taken with the CSP meta tag and response header removed at the proxy for the capture run only.
 Production builds are unaffected; the dev-server behaviour is tracked as KEY-1790.
 
 | | |
@@ -67,7 +67,7 @@ Production builds are unaffected; the dev-server behaviour is tracked as KEY-179
 | Unrecognised step-up link | |
 | ![Invalid link](screenshots/keystone-web--invalid-link.png) | |
 
-## Ledgerline ([meridian-ledgerline-web](https://github.com/rhys-j-williams/meridian-ledgerline-web))
+## Ledgerline ([northgate-ledgerline-web](https://github.com/rhys-j-williams/northgate-ledgerline-web))
 
 Corporate treasury, standalone components, Angular 16 with `patch-package`. Signed in as the
 treasury approver fixture; exposure, positive pay and audit data from the treasury services
@@ -82,7 +82,7 @@ treasury approver fixture; exposure, positive pay and audit data from the treasu
 | User entitlements | |
 | ![Entitlements](screenshots/ledgerline-web--entitlements.png) | |
 
-## Canopy showcase (meridian-canopy-ui)
+## Canopy showcase (northgate-canopy-ui)
 
 The design system's showcase application (`ng serve canopy-showcase`), which is what consumer
 teams are pointed at when they raise a CNPY ticket.
@@ -94,7 +94,7 @@ teams are pointed at when they raise a CNPY ticket.
 | Themes | Icon sprite |
 | ![Themes](screenshots/canopy-showcase--themes.png) | ![Icons](screenshots/canopy-showcase--icons.png) |
 
-## Iris widget ([meridian-iris-widget](https://github.com/rhys-j-williams/meridian-iris-widget))
+## Iris widget ([northgate-iris-widget](https://github.com/rhys-j-williams/northgate-iris-widget))
 
 Angular Elements custom element, served from a development build over a static server (the dev
 shell in `src/index.html` stands in for a host page). Unauthenticated, so the panel shows the
