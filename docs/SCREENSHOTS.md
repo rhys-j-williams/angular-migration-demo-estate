@@ -36,7 +36,7 @@ Accounts still lists the two fixture accounts.
 
 ## Northgate Business ([northgate-business-web](https://github.com/rhys-j-williams/northgate-business-web))
 
-Small business banking, RxJS 6, TSLint, Node 14. Signed in as the Redwing Electrical administrator
+Small business banking, RxJS 6, TSLint, Node 14. Signed in as the Pinnacle Ridge Surveying administrator
 fixture. Wires, approvals and payroll come from the business BFF on port 4501.
 
 | | |
@@ -55,7 +55,7 @@ fixture. Wires, approvals and payroll come from the business BFF on port 4501.
 Login, MFA, device trust and recovery. Keystone ships a `Content-Security-Policy` meta with
 `style-src 'self'` and no `unsafe-inline` (KEY-1733, GIS-1802). Under `ng serve` Angular 15 still
 injects component styles as inline `<style>` tags, so a plain dev-server visit renders unstyled;
-these captures were taken with the CSP meta removed at the proxy for the capture run only.
+these captures were taken with the CSP meta tag and response header removed at the proxy for the capture run only.
 Production builds are unaffected; the dev-server behaviour is tracked as KEY-1790.
 
 | | |
