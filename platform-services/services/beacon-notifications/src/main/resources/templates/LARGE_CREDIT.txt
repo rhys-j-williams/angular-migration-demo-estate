@@ -1,3 +1,0 @@
-Deposit of {{amount}} received
-A deposit of {{amount}} ({{description}}) posted to your account ending {{accountTail}} on {{occurredAt}}. Available balance is now {{balance}}.
-Ref {{eventId}}

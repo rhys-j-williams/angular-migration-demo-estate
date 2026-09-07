@@ -1,3 +1,0 @@
-Card declined
-A card transaction of {{amount}} at {{description}} was declined on {{occurredAt}}. No money has left your account.
-Ref {{eventId}}
