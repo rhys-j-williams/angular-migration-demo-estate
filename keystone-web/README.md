@@ -83,7 +83,7 @@ Test users are in `mock-external/keystone-idp-mock/src/users.ts`. The fixed OTP 
 directory. `@meridian/domain-fixtures` supplies everything else; do not add users of your own.
 
 Registry: `.npmrc` points `@meridian` at the local Verdaccio on 4873. Publish Canopy first with
-`canopy-ui/scripts/publish-local-versions.sh` or `npm ci` will fail on `@meridian/canopy-ui@3.6.1`.
+`scripts/publish-local-versions.sh` in the meridian-canopy-ui checkout or `npm ci` will fail on `@meridian/canopy-ui@3.6.1`.
 
 ## Scripts
 

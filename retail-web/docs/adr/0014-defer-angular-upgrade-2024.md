@@ -70,3 +70,8 @@ flex-layout with visual regression, then the framework itself.
 
 2024-11 update: deferred again in the Q4 planning session, target moved to Q3 2025. Ledgerline
 cut-over consumed the capacity as expected. MOL-4471 remains open.
+
+2026-01 update: TR-1188 has reached the thirty-six month ceiling in GIS-STD-022 and will not be
+renewed past the 2026.11 train. Architecture's target is the current major at the time of the
+upgrade (18 at the January review), not 15. MOL-4471 is unparked and scheduled; Canopy (CNPY-2140,
+now in its own repository) and Lantern (LNTN-401) remain the order of operations above.

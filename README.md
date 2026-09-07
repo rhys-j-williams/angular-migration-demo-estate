@@ -9,7 +9,6 @@ release train 2024.03). Each directory keeps its own `.nvmrc`, pipeline and runb
 
 | Directory | What it is | Framework | Node |
 |---|---|---|---|
-| `canopy-ui/` | Canopy design system, published as `@meridian/canopy-ui` | Angular 14.3.0 | 16.20.2 |
 | `retail-web/` | Meridian Online, consumer banking | Angular 14.3.0 | 16.20.2 |
 | `business-web/` | Meridian Business, small business banking | Angular 14.2.12 | 14.21.3 |
 | `iris-widget/` | Iris virtual assistant, Angular Elements custom element | Angular 14.3.0 | 16.20.2 |
@@ -19,6 +18,12 @@ release train 2024.03). Each directory keeps its own `.nvmrc`, pipeline and runb
 | `platform-services/` | Twelve back end services, Java, Node and Python | mixed | mixed |
 | `mock-external/` | Local mocks of every external system | Node 18 | 18.19.0 |
 | `platform-tooling/` | Jenkins shared library, scanners, Helm, Ansible, Vault, registry | Groovy, YAML | n/a |
+
+The Canopy design system (`@meridian/canopy-ui`) is not in this workspace. It lives in
+[meridian-canopy-ui](https://github.com/rhys-j-williams/meridian-canopy-ui) and is consumed here as
+a published package: retail-web, ledgerline-web and iris-widget pin 3.7.2, keystone-web 3.6.1 and
+business-web 3.5.0 (CNPY-2140). `mock-external/estate-up.sh` expects a checkout of that repository
+next to this one, or at `CANOPY_REPO`, so it can seed the local registry with the pinned versions.
 
 ## Getting started
 

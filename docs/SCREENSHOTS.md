@@ -12,7 +12,7 @@ when a surface changes materially; MOL-2210 asks for a gallery refresh per relea
 | [Meridian Business](#meridian-business-business-web) | `business-web/` | 4201 | Angular 14.2.12 |
 | [Keystone](#keystone-keystone-web) | `keystone-web/` | 4202 | Angular 15.2.10 |
 | [Ledgerline](#ledgerline-ledgerline-web) | `ledgerline-web/` | 4203 | Angular 16.2.12 |
-| [Canopy showcase](#canopy-showcase-canopy-ui) | `canopy-ui/` | 4204 | Angular 14.3.0 |
+| [Canopy showcase](#canopy-showcase-meridian-canopy-ui) | [meridian-canopy-ui](https://github.com/rhys-j-williams/meridian-canopy-ui) | 4204 | Angular 14.3.0 |
 | [Iris widget](#iris-widget-iris-widget) | `iris-widget/` | 4205 | Angular 14.3.0 |
 
 ## Meridian Online (`retail-web/`)
@@ -82,7 +82,7 @@ treasury approver fixture; exposure, positive pay and audit data from the treasu
 | User entitlements | |
 | ![Entitlements](screenshots/ledgerline-web--entitlements.png) | |
 
-## Canopy showcase (`canopy-ui/`)
+## Canopy showcase (meridian-canopy-ui)
 
 The design system's showcase application (`ng serve canopy-showcase`), which is what consumer
 teams are pointed at when they raise a CNPY ticket.
