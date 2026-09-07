@@ -45,5 +45,5 @@ Thumbs.db
 *.jks
 !**/testdata/*.pem
 
-# Synthetic history tooling (consolidated under _demo-notes/build/history/)
+# Editor local history
 .history/

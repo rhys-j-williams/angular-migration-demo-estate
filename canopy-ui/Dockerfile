@@ -6,7 +6,7 @@ FROM registry.access.redhat.com/ubi8/nodejs-16:1-128 AS build
 USER 0
 WORKDIR /opt/app-root/src
 COPY package.json package-lock.json .npmrc ./
-# Registry is whatever .npmrc says. In CI that is Artifactory; NPM_REGISTRY overrides for the estate build.
+# Registry is whatever .npmrc says. In CI that is Artifactory; NPM_REGISTRY overrides for local builds.
 ARG NPM_REGISTRY=
 RUN if [ -n "$NPM_REGISTRY" ]; then npm config set @meridian:registry "$NPM_REGISTRY"; fi \
  && npm ci --no-audit --no-fund

@@ -70,7 +70,7 @@ npm run api:report         # regenerate docs/api, commit the result
 ```
 
 `npm ci` needs the registry in `.npmrc`. On a developer laptop that is the internal Artifactory
-virtual; in the estate build it is the local Verdaccio on 4873. Do not put `legacy-peer-deps` on
+virtual; off the VLAN it is the local Verdaccio on 4873. Do not put `legacy-peer-deps` on
 the command line, it is already in `.npmrc` because of `@angular/flex-layout`'s peer range.
 
 `CHROME_BIN` must point at a Chrome. The RHEL agents have it in `/opt/google/chrome/chrome`; on
