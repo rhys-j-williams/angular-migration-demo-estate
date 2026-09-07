@@ -37,14 +37,14 @@ per repository `PLATFORM_SERVICES_REPO`, `LANTERN_REPO`, `CANOPY_REPO`, override
 
 ```bash
 mkdir meridian && cd meridian
-for r in cswt-estate mock-external platform-services canopy-ui lantern-sdk \
+for r in cswt-workspace mock-external platform-services canopy-ui lantern-sdk \
          retail-web business-web keystone-web ledgerline-web iris-widget platform-tooling; do
   git clone https://github.com/rhys-j-williams/meridian-$r.git
 done
 nvm install                                  # per repository, from its .nvmrc
 meridian-mock-external/estate-up.sh          # registry, internal packages, mocks, services
 meridian-mock-external/smoke.sh              # end to end check
-meridian-cswt-estate/scripts/verify-estate.sh --quick
+meridian-cswt-workspace/scripts/verify-estate.sh --quick
 meridian-mock-external/estate-down.sh
 ```
 
