@@ -15,7 +15,7 @@ if [[ "${branch}" =~ ^(feature|bugfix|hotfix|spike|chore)/(MOL|MBZ|CNPY|KEY|LDG|
 fi
 
 # Branches cut by tooling rather than by an engineer are allowed through.
-if [[ "${branch}" =~ ^(devin|dependabot|renovate)/ ]]; then
+if [[ "${branch}" =~ ^(dependabot|renovate)/ ]]; then
   exit 0
 fi
 

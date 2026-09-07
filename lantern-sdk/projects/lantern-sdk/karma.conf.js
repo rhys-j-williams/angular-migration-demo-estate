@@ -1,5 +1,5 @@
 // Karma config for lantern-sdk. Runs headless on the Jenkins agents (lantern-sdk-ci label) and
-// locally. CHROME_BIN defaults to the estate's phase 0 Chrome; override if yours lives elsewhere.
+// locally. CHROME_BIN defaults to the agent image's Chrome; override if yours lives elsewhere.
 process.env.CHROME_BIN = process.env.CHROME_BIN || require('os').homedir() + '/.local/bin/google-chrome';
 
 module.exports = function (config) {

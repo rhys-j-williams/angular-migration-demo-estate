@@ -63,7 +63,7 @@ Without it you get the "Iris isn't available right now" system message and a red
 also a legitimate thing to test.
 
 `@types/node` is pinned to 16.18.11. Newer ones declare `Disposable` and TypeScript 4.7 cannot
-parse them (BUILD_LOG.md, TOOL-1201). Do not float it.
+parse them (TOOL-1201). Do not float it.
 
 ## Build output
 

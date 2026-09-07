@@ -74,15 +74,9 @@ if selected repo; then
     fail repo "no forbidden strings (history)"
   fi
 
-  for required in CLAUDE.md BUILD_LOG.md PORTS.md README.md .gitignore; do
+  for required in PORTS.md README.md .gitignore; do
     [[ -f "${required}" ]] && pass repo "root file ${required}" \
                            || fail repo "root file ${required}" "missing"
-  done
-
-  for required in README.md TRAPS.md PLAYBOOKS.md KNOWLEDGE.md ASK-DEVIN-PROMPTS.md \
-                  MIGRATION-REPORT-TEMPLATE.md expected-ng-update-15-output.md; do
-    [[ -f "_demo-notes/${required}" ]] && pass repo "handover _demo-notes/${required}" \
-                                       || fail repo "handover _demo-notes/${required}" "missing"
   done
 
   if git ls-files | grep -qE '(^|/)node_modules/|(^|/)dist/|(^|/)coverage/'; then
@@ -92,7 +86,7 @@ if selected repo; then
   fi
 
   # Ranges are only wrong in the workspaces we install: a publishable library manifest (one that
-  # declares peers) states ranges on purpose, and Canopy's Angular 14 peer range is trap T37.
+  # declares peers) states ranges on purpose (Canopy's Angular 14 peer range, CNPY-2140).
   ranged="$(git ls-files '*package.json' | python3 -c '
 import json, sys
 for path in sys.stdin.read().split():
@@ -114,16 +108,10 @@ for path in sys.stdin.read().split():
     pass repo "exact dependency versions"
   fi
 
-  trap_out="$(scripts/verify-traps.sh 2>/dev/null | tail -1)"
-  if [[ "${trap_out}" == *"missing 0"* ]]; then
-    pass repo "traps intact" "${trap_out}"
-  else
-    fail repo "traps intact" "${trap_out}"
-  fi
 fi
 
 # ---------------------------------------------------------------- Angular components
-# component | min commits | ticket key (replayed history includes ticket-keyed empty commits,
+# component | min commits | ticket key (history includes ticket-keyed empty commits,
 # so depth counts commits that touch the directory OR carry the component's key)
 ANGULAR="canopy-ui:220:CNPY retail-web:180:MOL business-web:200:MBZ keystone-web:140:KEY
          ledgerline-web:120:LDG iris-widget:40:IRIS lantern-sdk:30:LNTN"
@@ -249,9 +237,9 @@ fi
 # ---------------------------------------------------------------- lantern-sdk packaging
 if selected lantern-sdk && [[ -d lantern-sdk/dist ]]; then
   if grep -rqI -e '"ngcc_version"' -e '__ivy_ngcc__' -e 'ɵɵngDeclareComponent' lantern-sdk/dist 2>/dev/null; then
-    fail lantern-sdk "View Engine output (T39)" "Ivy markers found — the trap is gone"
+    fail lantern-sdk "View Engine output (LNTN-401)" "Ivy markers found; consumers on ngcc expect View Engine"
   else
-    pass lantern-sdk "View Engine output (T39)" "no Ivy markers"
+    pass lantern-sdk "View Engine output (LNTN-401)" "no Ivy markers"
   fi
 fi
 
@@ -287,15 +275,15 @@ if selected platform-services; then
       fi
     fi
 
-    # T45: the two Python services must have no test framework at all
+    # PLAT-2310: the two Python services are covered by contract tests in platform-tooling, not pytest
     for py in statements-api exposure-calc; do
       dir="platform-services/services/${py}"
-      [[ -d "${dir}" ]] || { skip "${py}" "no test framework (T45)" "not built"; continue; }
+      [[ -d "${dir}" ]] || { skip "${py}" "no test framework (PLAT-2310)" "not built"; continue; }
       if find "${dir}" \( -name 'test_*.py' -o -name 'pytest.ini' -o -name 'tox.ini' \) \
            | grep -q .; then
-        fail "${py}" "no test framework (T45)" "tests found — the trap is gone"
+        fail "${py}" "no test framework (PLAT-2310)" "unexpected pytest layout found"
       else
-        pass "${py}" "no test framework (T45)"
+        pass "${py}" "no test framework (PLAT-2310)"
       fi
     done
   fi

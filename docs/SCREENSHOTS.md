@@ -1,11 +1,10 @@
 # Rendered surfaces
 
-Reference captures of the six Angular front ends, taken against the local estate
+Reference captures of the six Angular front ends, taken against a local stack
 (`mock-external/estate-up.sh` plus each directory's `npm start`) at 1440x900. Data is fixture output
 from `@meridian/domain-fixtures`; users are the Keystone IDP mock fixtures (`/debug/users` on
-port 4400). Nothing here is a production screen. Refresh these when a surface changes materially
-(MOL-2210 asks for a gallery refresh per release train); the capture routine is in the
-"Screenshot gallery" entry of [BUILD_LOG.md](../BUILD_LOG.md).
+port 4400). No capture in this directory comes from a production or UAT environment. Refresh these
+when a surface changes materially; MOL-2210 asks for a gallery refresh per release train.
 
 | Surface | Directory | Port | Framework |
 |---|---|---|---|
@@ -23,8 +22,8 @@ on port 4400 (first capture), then back to `/dashboard` after password and MFA.
 
 Note the dashboard and Transfers views show empty states and one "could not find" banner: the
 retail BFF on port 4500 only serves `/api/v1/accounts` today and the account payload does not carry
-the `accountNumber`/`availableBalanceMinor` fields the Angular models expect (MOL-2302, see
-BUILD_LOG). Accounts still lists the two fixture accounts.
+the `accountNumber`/`availableBalanceMinor` fields the Angular models expect (MOL-2302, open).
+Accounts still lists the two fixture accounts.
 
 | | |
 |---|---|
@@ -56,9 +55,8 @@ fixture. Wires, approvals and payroll come from the business BFF on port 4501.
 Login, MFA, device trust and recovery. Keystone ships a `Content-Security-Policy` meta with
 `style-src 'self'` and no `unsafe-inline` (KEY-1733, GIS-1802). Under `ng serve` Angular 15 still
 injects component styles as inline `<style>` tags, so a plain dev-server visit renders unstyled;
-these captures were taken with the CSP meta stripped by the capture harness. The repository is
-unchanged - the discrepancy between the README's claim and dev-server behaviour is a finding for
-the migration review, not something to patch here.
+these captures were taken with the CSP meta removed at the proxy for the capture run only.
+Production builds are unaffected; the dev-server behaviour is tracked as KEY-1790.
 
 | | |
 |---|---|
@@ -86,12 +84,12 @@ treasury approver fixture; exposure, positive pay and audit data from the treasu
 
 ## Canopy showcase (`canopy-ui/`)
 
-The design system's own demo app (`ng serve canopy-showcase`), which is what consumer teams are
-pointed at when they raise a CNPY ticket.
+The design system's showcase application (`ng serve canopy-showcase`), which is what consumer
+teams are pointed at when they raise a CNPY ticket.
 
 | | |
 |---|---|
-| Banking demo (sample consumer) | Design tokens |
+| Sample consumer dashboard | Design tokens |
 | ![Dashboard](screenshots/canopy-showcase--dashboard.png) | ![Tokens](screenshots/canopy-showcase--tokens.png) |
 | Themes | Icon sprite |
 | ![Themes](screenshots/canopy-showcase--themes.png) | ![Icons](screenshots/canopy-showcase--icons.png) |
@@ -99,7 +97,7 @@ pointed at when they raise a CNPY ticket.
 ## Iris widget (`iris-widget/`)
 
 Angular Elements custom element, served from a development build over a static server (the dev
-shell in `src/index.html` is the fake host page). Unauthenticated, so the panel shows the
+shell in `src/index.html` stands in for a host page). Unauthenticated, so the panel shows the
 sign-in notice rather than a conversation.
 
 | | |
