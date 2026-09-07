@@ -1,6 +1,6 @@
-# Meridian Trust Bank — CSWT digital estate
+# Northgate Trust Bank — CSWT digital estate
 
-Consumer, small business and treasury digital channels for Meridian Trust Bank, with the platform
+Consumer, small business and treasury digital channels for Northgate Trust Bank, with the platform
 services, local integration mocks and delivery tooling that support them. This repository is the
 workspace root: the port allocation, the estate wide verification script, the GIS-1180 forbidden
 string check that every repository's pre-commit hook and Jenkins lint stage call, and the
@@ -13,56 +13,56 @@ workspace layout from TOOL-1180 is retired).
 
 | Repository | What it is | Framework | Node |
 |---|---|---|---|
-| [meridian-retail-web](https://github.com/rhys-j-williams/meridian-retail-web) | Meridian Online, consumer banking | Angular 14.3.0 | 16.20.2 |
-| [meridian-business-web](https://github.com/rhys-j-williams/meridian-business-web) | Meridian Business, small business banking | Angular 14.2.12 | 14.21.3 |
-| [meridian-iris-widget](https://github.com/rhys-j-williams/meridian-iris-widget) | Iris virtual assistant, Angular Elements custom element | Angular 14.3.0 | 16.20.2 |
-| [meridian-keystone-web](https://github.com/rhys-j-williams/meridian-keystone-web) | Keystone login, MFA and device trust | Angular 15.2.10 | 16.20.2 |
-| [meridian-ledgerline-web](https://github.com/rhys-j-williams/meridian-ledgerline-web) | Ledgerline corporate treasury | Angular 16.2.12 | 18.19.0 |
-| [meridian-canopy-ui](https://github.com/rhys-j-williams/meridian-canopy-ui) | Canopy design system on Angular Material, `@meridian/canopy-ui` | Angular 14.3.0 | 16.20.2 |
-| [meridian-lantern-sdk](https://github.com/rhys-j-williams/meridian-lantern-sdk) | Lantern analytics Angular wrapper, `@meridian/lantern-sdk` | Angular 12.2.17 | 14.21.3 |
-| [meridian-platform-services](https://github.com/rhys-j-williams/meridian-platform-services) | Twelve back end services, Java, Node and Python; `@meridian/domain-fixtures` | mixed | mixed |
-| [meridian-mock-external](https://github.com/rhys-j-williams/meridian-mock-external) | Local mocks of every external system; estate up / smoke / down | Node 18 | 18.19.0 |
-| [meridian-platform-tooling](https://github.com/rhys-j-williams/meridian-platform-tooling) | Jenkins shared library, scanners, Helm, Ansible, Vault, registry, governance | Groovy, YAML | n/a |
+| [northgate-retail-web](https://github.com/rhys-j-williams/northgate-retail-web) | Northgate Online, consumer banking | Angular 14.3.0 | 16.20.2 |
+| [northgate-business-web](https://github.com/rhys-j-williams/northgate-business-web) | Northgate Business, small business banking | Angular 14.2.12 | 14.21.3 |
+| [northgate-iris-widget](https://github.com/rhys-j-williams/northgate-iris-widget) | Iris virtual assistant, Angular Elements custom element | Angular 14.3.0 | 16.20.2 |
+| [northgate-keystone-web](https://github.com/rhys-j-williams/northgate-keystone-web) | Keystone login, MFA and device trust | Angular 15.2.10 | 16.20.2 |
+| [northgate-ledgerline-web](https://github.com/rhys-j-williams/northgate-ledgerline-web) | Ledgerline corporate treasury | Angular 16.2.12 | 18.19.0 |
+| [northgate-canopy-ui](https://github.com/rhys-j-williams/northgate-canopy-ui) | Canopy design system on Angular Material, `@northgate/canopy-ui` | Angular 14.3.0 | 16.20.2 |
+| [northgate-lantern-sdk](https://github.com/rhys-j-williams/northgate-lantern-sdk) | Lantern analytics Angular wrapper, `@northgate/lantern-sdk` | Angular 12.2.17 | 14.21.3 |
+| [northgate-platform-services](https://github.com/rhys-j-williams/northgate-platform-services) | Twelve back end services, Java, Node and Python; `@northgate/domain-fixtures` | mixed | mixed |
+| [northgate-mock-external](https://github.com/rhys-j-williams/northgate-mock-external) | Local mocks of every external system; estate up / smoke / down | Node 18 | 18.19.0 |
+| [northgate-platform-tooling](https://github.com/rhys-j-williams/northgate-platform-tooling) | Jenkins shared library, scanners, Helm, Ansible, Vault, registry, governance | Groovy, YAML | n/a |
 
-Shared library pins: retail-web, ledgerline-web and iris-widget consume `@meridian/canopy-ui`
+Shared library pins: retail-web, ledgerline-web and iris-widget consume `@northgate/canopy-ui`
 3.7.2, keystone-web 3.6.1 and business-web 3.5.0 (CNPY-2140); retail-web consumes
-`@meridian/lantern-sdk` 2.4.1. Every consumer takes a published version from the registry; nothing builds a sibling repository
+`@northgate/lantern-sdk` 2.4.1. Every consumer takes a published version from the registry; nothing builds a sibling repository
 from source.
 
 ## Workspace layout
 
 Clone the repositories you need into one directory, under their GitHub names, with this
-repository alongside. The estate scripts find each other that way (`MERIDIAN_WORKSPACE`, or the
+repository alongside. The estate scripts find each other that way (`NORTHGATE_WORKSPACE`, or the
 per repository `PLATFORM_SERVICES_REPO`, `LANTERN_REPO`, `CANOPY_REPO`, override it).
 
 ```bash
-mkdir meridian && cd meridian
+mkdir northgate && cd northgate
 for r in cswt-workspace mock-external platform-services canopy-ui lantern-sdk \
          retail-web business-web keystone-web ledgerline-web iris-widget platform-tooling; do
-  git clone https://github.com/rhys-j-williams/meridian-$r.git
+  git clone https://github.com/rhys-j-williams/northgate-$r.git
 done
 nvm install                                  # per repository, from its .nvmrc
-meridian-mock-external/estate-up.sh          # registry, internal packages, mocks, services
-meridian-mock-external/smoke.sh              # end to end check
-meridian-cswt-workspace/scripts/verify-estate.sh --quick
-meridian-mock-external/estate-down.sh
+northgate-mock-external/estate-up.sh          # registry, internal packages, mocks, services
+northgate-mock-external/smoke.sh              # end to end check
+northgate-cswt-workspace/scripts/verify-estate.sh --quick
+northgate-mock-external/estate-down.sh
 ```
 
 Fixed port allocation is in [PORTS.md](PORTS.md). Reference captures of the six front ends are in
 [docs/SCREENSHOTS.md](docs/SCREENSHOTS.md). Toolchain versions are pinned per repository
 (`.nvmrc`, `.java-version`, `pom.xml`); see `DEPENDENCY_POLICY.md` and the supported software
-standard `FRAMEWORK_SUPPORT_STANDARD.md` (GIS-STD-022) under `meridian-platform-tooling/governance`
+standard `FRAMEWORK_SUPPORT_STANDARD.md` (GIS-STD-022) under `northgate-platform-tooling/governance`
 before changing any of them.
 
 ## Owning organisations
 
 Consumer, Small Business and Wealth Technology (CSWT) owns the application repositories. Global
 Information Security (GIS) owns the security standards referenced from each `SECURITY.md`.
-Platform Engineering owns `meridian-platform-tooling`, `meridian-mock-external` and the build
+Platform Engineering owns `northgate-platform-tooling`, `northgate-mock-external` and the build
 agents.
 
 ## Data classification
 
 Every repository carries a `DATA_CLASSIFICATION.md`. Fixture data is generated by
-`@meridian/domain-fixtures` and is classified Non Restricted. No production or customer data of any
+`@northgate/domain-fixtures` and is classified Non Restricted. No production or customer data of any
 kind may be committed to any of these repositories (GIS-1180).
