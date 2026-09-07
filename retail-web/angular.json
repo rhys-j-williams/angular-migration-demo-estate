@@ -137,7 +137,7 @@
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true,
-              "aot": false,
+              "aot": true,
               "serviceWorker": false
             },
             "es": {
