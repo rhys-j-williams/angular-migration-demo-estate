@@ -49,7 +49,9 @@ northgate-mock-external/estate-down.sh
 ```
 
 Fixed port allocation is in [PORTS.md](PORTS.md). Reference captures of the six front ends are in
-[docs/SCREENSHOTS.md](docs/SCREENSHOTS.md). Toolchain versions are pinned per repository
+[docs/SCREENSHOTS.md](docs/SCREENSHOTS.md). A narrative overview of the estate (what each repository
+is, who owns it, how the repositories depend on each other, the back end service inventory) is in
+[docs/ESTATE_OVERVIEW.md](docs/ESTATE_OVERVIEW.md). Toolchain versions are pinned per repository
 (`.nvmrc`, `.java-version`, `pom.xml`); see `DEPENDENCY_POLICY.md` and the supported software
 standard `FRAMEWORK_SUPPORT_STANDARD.md` (GIS-STD-022) under `northgate-platform-tooling/governance`
 before changing any of them.
