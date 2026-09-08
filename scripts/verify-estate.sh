@@ -256,8 +256,21 @@ if selected retail-web && [[ -d "$(D retail-web)/dist" ]]; then
 fi
 
 # ---------------------------------------------------------------- lantern-sdk packaging
+# Lantern <= 2.x (Angular 12) ships View Engine for ngcc consumers; Lantern 3.x (Angular 13+) ships
+# Ivy partial compilation (ɵɵngDeclare*) so the estate can drop ngcc before Angular 16.
 if selected lantern-sdk && [[ -d "$(D lantern-sdk)/dist" ]]; then
-  if grep -rqI -e '"ngcc_version"' -e '__ivy_ngcc__' -e 'ɵɵngDeclareComponent' "$(D lantern-sdk)/dist" 2>/dev/null; then
+  lantern_major="$(sed -n 's/^ *"@angular\/core": *"[^0-9]*\([0-9]*\)\..*/\1/p' "$(D lantern-sdk)/package.json" | head -1)"
+  if [[ "${lantern_major:-0}" -ge 13 ]]; then
+    if grep -rqI -e '"ngcc_version"' -e '__ivy_ngcc__' "$(D lantern-sdk)/dist" 2>/dev/null; then
+      fail lantern-sdk "partial Ivy output (LNTN-401)" "ngcc output found in dist"
+    elif find "$(D lantern-sdk)/dist" -name '*.metadata.json' | grep -q .; then
+      fail lantern-sdk "partial Ivy output (LNTN-401)" "View Engine metadata.json found; expected compilationMode partial"
+    elif grep -rqI -e 'ɵɵngDeclareDirective' -e 'ɵɵngDeclareNgModule' "$(D lantern-sdk)/dist" 2>/dev/null; then
+      pass lantern-sdk "partial Ivy output (LNTN-401)" "ɵɵngDeclare* markers, no metadata.json"
+    else
+      fail lantern-sdk "partial Ivy output (LNTN-401)" "no ɵɵngDeclare* markers in dist"
+    fi
+  elif grep -rqI -e '"ngcc_version"' -e '__ivy_ngcc__' -e 'ɵɵngDeclareComponent' "$(D lantern-sdk)/dist" 2>/dev/null; then
     fail lantern-sdk "View Engine output (LNTN-401)" "Ivy markers found; consumers on ngcc expect View Engine"
   else
     pass lantern-sdk "View Engine output (LNTN-401)" "no Ivy markers"
