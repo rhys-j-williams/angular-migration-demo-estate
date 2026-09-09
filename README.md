@@ -19,14 +19,14 @@ workspace layout from TOOL-1180 is retired).
 | [northgate-keystone-web](https://github.com/rhys-j-williams/northgate-keystone-web) | Keystone login, MFA and device trust | Angular 15.2.10 | 16.20.2 |
 | [northgate-ledgerline-web](https://github.com/rhys-j-williams/northgate-ledgerline-web) | Ledgerline corporate treasury | Angular 16.2.12 | 18.19.0 |
 | [northgate-canopy-ui](https://github.com/rhys-j-williams/northgate-canopy-ui) | Canopy design system on Angular Material, `@northgate/canopy-ui` | Angular 14.3.0 | 16.20.2 |
-| [northgate-lantern-sdk](https://github.com/rhys-j-williams/northgate-lantern-sdk) | Lantern analytics Angular wrapper, `@northgate/lantern-sdk` | Angular 12.2.17 | 14.21.3 |
+| [northgate-lantern-sdk](https://github.com/rhys-j-williams/northgate-lantern-sdk) | Lantern analytics Angular wrapper, `@northgate/lantern-sdk` | Angular 14.3.0 | 14.21.3 |
 | [northgate-platform-services](https://github.com/rhys-j-williams/northgate-platform-services) | Twelve back end services, Java, Node and Python; `@northgate/domain-fixtures` | mixed | mixed |
 | [northgate-mock-external](https://github.com/rhys-j-williams/northgate-mock-external) | Local mocks of every external system; estate up / smoke / down | Node 18 | 18.19.0 |
 | [northgate-platform-tooling](https://github.com/rhys-j-williams/northgate-platform-tooling) | Jenkins shared library, scanners, Helm, Ansible, Vault, registry, governance | Groovy, YAML | n/a |
 
 Shared library pins: retail-web, ledgerline-web and iris-widget consume `@northgate/canopy-ui`
 3.7.2, keystone-web 3.6.1 and business-web 3.5.0 (CNPY-2140); retail-web consumes
-`@northgate/lantern-sdk` 2.4.1. Every consumer takes a published version from the registry; nothing builds a sibling repository
+`@northgate/lantern-sdk` 2.4.1 (4.0.0 is published for Angular 14 consumers, LNTN-401; the retail-web pin bump is its own MOL change). Every consumer takes a published version from the registry; nothing builds a sibling repository
 from source.
 
 ## Workspace layout
